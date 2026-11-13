@@ -1,0 +1,29 @@
+# Generated firmware and build output
+build/
+build-*/
+*.uf2
+*.hex
+*.bin
+*.elf
+*.map
+*.o
+*.a
+
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Local SDK workspaces, if placed inside this project
+zephyrproject/
+zephyr-sdk-*/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Windows metadata
+Thumbs.db
+Desktop.ini
