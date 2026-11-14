@@ -1,5 +1,11 @@
 /* Fresh power-on also sends standalone type5 status; ACK it without HID output. */
+#ifdef WIRELESS_HID
+#define PROBE_ACK_LIMIT 1024u
+#define PROBE_DATA_WINDOW_MS 10000u
+#else
 #define PROBE_ACK_LIMIT 256u
+#define PROBE_DATA_WINDOW_MS 2000u
+#endif
 static bool probe_sent;
 static unsigned int ack_count;
 static int64_t probe_arm_deadline;
@@ -14,8 +20,8 @@ static void poll_probe_arm(void)
     if (uart_poll_in(console, &command) == 0 && command == 'p' &&
         !probe_sent && probe_arm_deadline == 0) {
         probe_arm_deadline = k_uptime_get() + 30000;
-        printk("PROBE armed for 30 seconds; one discovery reply plus %u data ACKs maximum in 2000 ms\n",
-               PROBE_ACK_LIMIT);
+        printk("PROBE armed for 30 seconds; one discovery reply plus %u data ACKs maximum in %u ms\n",
+               PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS);
     }
 }
 
@@ -91,7 +97,7 @@ static int send_probe(void)
     probe_sent = true;
     int err = transmit_probe_packet(probe_reply, 250);
     if (!err) {
-        ack_deadline = k_uptime_get() + 2000;
+        ack_deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;
     }
     return err;
 }

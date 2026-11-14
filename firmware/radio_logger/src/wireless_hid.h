@@ -78,8 +78,15 @@ static int wireless_hid_forward(const uint8_t *p)
     if (!atomic_get(&wireless_hid_online)) {
         return -ENODEV;
     }
-    if (p[0] == 2 || (p[0] == 11 && p[3] == 0x45)) {
-        return 0; /* Idle/status never represent mouse input or consume report deduplication. */
+    if (p[0] == 2) {
+        return 0; /* Idle does not advance the transport sequence. */
+    }
+    if (p[0] == 11 && p[3] == 0x45) {
+        /* Status advancing transport prevents a later wrapped report looking like a retry. */
+        if (wireless_hid_has_sequence && wireless_hid_last_sequence != p[1]) {
+            wireless_hid_has_sequence = false;
+        }
+        return 0;
     }
     if ((p[0] != 11 && p[0] != 20) || p[3] != 0x41 || (p[0] == 20 && p[12] != 0x45)) {
         return -EINVAL;

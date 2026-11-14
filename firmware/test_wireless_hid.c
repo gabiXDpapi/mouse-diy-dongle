@@ -119,10 +119,16 @@ int main(void)
     assert(wireless_hid_last_sequence == 1);
     short_write = false; assert(wireless_hid_finish() == 0 && writes == 9);
     p[1] = 3; assert(wireless_hid_forward(p) == 0 && writes == 10);
+    /* A status-only gap can wrap the transport sequence back to the last report. */
+    for (unsigned int seq = 4; seq <= 259; seq++) {
+        status_packet[1] = (uint8_t)seq;
+        assert(wireless_hid_forward(status_packet) == 0 && writes == 10);
+    }
+    assert(wireless_hid_forward(p) == 0 && writes == 11);
     wireless_hid_status(USB_DC_DISCONNECTED, NULL);
     assert(wireless_hid_finish() == -ENODEV);
     assert(wireless_hid_forward(idle) == -ENODEV);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
-    assert(wireless_hid_forward(p) == -ENODEV && writes == 10); /* Reboot required. */
+    assert(wireless_hid_forward(p) == -ENODEV && writes == 11); /* Reboot required. */
     return 0;
 }

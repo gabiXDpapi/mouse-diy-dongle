@@ -91,3 +91,7 @@ both modes' limits and actual deadline;all existing guards remain. Preserve v2,
 build receiver/probe/radio as affected,check default HID unchanged and separation,
 then push before requesting NICENANO. No RF bytes/timing or USB mapping changes.
 Future capture45seconds covers the maximum30s arming plus10s data window.
+The larger packet budget also requires a status-only full-wrap regression: when
+status advances transport beyond the last delivered report,invalidate that old
+retry marker without generating input. Idle still leaves the marker unchanged.
+This prevents suppressing a genuinely new report after a256-status sequence gap.

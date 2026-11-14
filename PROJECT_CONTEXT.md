@@ -55,10 +55,12 @@ This verifies a working nice!nano-compatible UF2 bootloader. The exact physical 
 - [x] Establish firmware development environment
 - [x] Implement USB HID mouse proof of concept
 - [x] Confirm the HID firmware runs on physical hardware
-- [ ] Investigate the mouse's pairing commands
-- [ ] Discover the proprietary RF protocol
-- [ ] Implement RF reception and pairing
-- [ ] Translate wireless packets into USB HID reports
+- [x] Investigate pairing utility and retrieve the mouse RF address
+- [x] Recover tested discovery, idle/status ACKs and basic movement report format
+- [x] Implement bounded RF discovery and ACK sessions
+- [x] Confirm wireless movement-to-USB HID on physical hardware
+- [ ] Verify wireless clicks, wheel and neutral button release in Windows
+- [ ] Complete sustained link/reconnect behavior and remaining protocol recovery
 - [ ] Test and optimize gaming performance
 
 ## Development Plan
@@ -108,12 +110,16 @@ Target 1000 Hz USB HID reporting when technically achievable.
 - Do not assume an original Glorious receiver firmware image can run on this development board.
 - Prefer an independently written receiver implementation rather than distributing proprietary firmware.
 
-## Immediate Next Task for Codex
+## Earlier Research / Hardware History
+
+Current source, board state and next action are in **LATEST HANDOFF / NEXT** below.
+The following notes preserve the earlier milestones and their historical next steps.
 
 The USB HID prototype source is in `firmware/`; see `README.md` for
 build, UF2 validation, flashing, and Windows verification. Zephyr v4.2.0 and
 SDK 0.17.2 are installed. Blinky execution, power-cycle restart, and double-reset
-bootloader re-entry have been confirmed by the user. Wireless reception is not implemented.
+bootloader re-entry were confirmed by the user. Wireless reception was not yet
+implemented at that earlier HID-only stage.
 
 HID hardware results confirmed on 2026-11-14 (Asia/Manila):
 - Device Manager screenshot shows HID-compliant mouse with `VID_2FE3&PID_0007`.
@@ -121,9 +127,8 @@ HID hardware results confirmed on 2026-11-14 (Asia/Manila):
 - User confirmed the NICENANO bootloader drive returns.
 - No polling-rate or wireless performance measurements have been made.
 
-The wired mouse Hardware Id has now been recorded above.
-Next, inspect the pairing utility and investigate public firmware information,
-and USB/RF protocol evidence before implementing wireless reception.
+After recording the wired mouse Hardware Id, the next step was inspecting the
+pairing utility, public firmware information and USB/RF protocol evidence.
 
 Official software research: Glorious lists Series One Pro (Forge) as supported by
 Legacy CORE v1: https://glorious.ladesk.com/116109-Legacy-CORE-v1-Product-Support-List
@@ -335,8 +340,9 @@ Git / current implementation:
 - Added separate `firmware/build.ps1 -App receiver`, preserving hid/radio/probe.
 - Receiver product DIY Mouse RX HID Probe, local USB ID2FE3:0008, CDC+HID.
   COM port may differ from COM11. HID endpoint interval1ms is not measured1000Hz.
-- Same V8 discovery/ACK bytes/timing, one arm/discovery per boot,256 ACK cap,
-  two-second post-discovery window. No output before explicit serial `p`.
+- Same V8 discovery/ACK bytes/timing,one arm/discovery per boot. V3 receiver source
+  now uses1024 ACK cap/10-second window;non-HID probe stays256/two seconds.
+  Board still runs v2(two-second limit). No output before explicit serial `p`.
 - Six-byte independent USB report: five buttons/padding, signed16 LE X/Y, signed8
   wheel. Unknown consumer/horizontal fields are omitted. No clipping or startup
   prefix dropping. Unique type1 reports only; duplicates are ACKed without replay.
@@ -413,6 +419,13 @@ Board / local artifacts:
   fixed constants must drive actual deadlines and printed limits. Add protocol
   deadline/limit assertions in both modes,build/check before next flash. Capture
   must cover30s arming +10s data window:use45seconds,not old35second duration.
+  V3 source is implemented;all eight tests pass,including both fixed-limit modes
+  and actual deadline/expiry. Longer-window review caught a status-only256-frame
+  wrap gap:advanced status now invalidates the old report retry marker without
+  sending input;idle leaves it unchanged. Actual bridge regression passes.
+  Final v3/probe/radio builds and separation checks pass;no live build/serial
+  session remains. Do NOT flash intermediate a020e8ab... v3 build.
+  Preserved working v2 at ignored build-pairing-analysis/receiver-v2-e80eb30c.uf2.
 - V8 UF2 preserved: ignored build-pairing-analysis/probe-v8-4ad89938.uf2.
   SHA256 4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4.
 - Earlier V4/V5/V6/V7 artifacts are also preserved in ignored evidence.
@@ -421,10 +434,14 @@ Board / local artifacts:
 - Preserved receiver v1 (FLASHED; status filter blocked first armed test):
   ignored build-pairing-analysis/receiver-v1-cfc2eb58.uf2,
   SHA256 cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b.
-- Current receiver v2 artifact (FLASHED; pointer test passed,user confirmed):
-  C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2
+- Preserved receiver v2 artifact (FLASHED; pointer test passed,user confirmed):
+  ignored build-pairing-analysis/receiver-v2-e80eb30c.uf2
   SHA256 e80eb30c51fa375b39a2af5a6d15de65341765673db0682fc9fe60a95591b6c9.
   Build/UF2 pass:flash60,304/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF.
+- Current receiver v3 (NOT FLASHED):
+  C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2
+  SHA256 4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da.
+  Flash60,332/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF.
 - SDK DMA macro rounds six-byte allocation up to eight; code explicitly copies/
   transmits six bytes. First staged build stopped at obsolete allocation assertion;
   corrected build above passed. Eight tests pass, including the native bridge
@@ -433,8 +450,8 @@ Board / local artifacts:
 - All four builds, UF2 checks and config/binary separation checks pass. No live
   build/serial session remains. HID descriptor/forwarding strings exist only in
   receiver; RF arming exists only in receiver/probe. Regression artifacts:
-  current probe v9:flash58,796/RAM15,936,230 blocks,0x26000..0x345FF,
-  SHA256 a1bc4de092a01bdce4c98eb907dfef85ac57675f0d84a33f17a18c1848c22c39.
+  current probe v9:flash58,808/RAM15,936,230 blocks,0x26000..0x345FF,
+  SHA256 8fc95a4738701e29ed84f72e3430ccce89a450c917c7498f2879338402ff4de5.
   radio:flash56,760/RAM15,872,222 blocks,0x26000..0x33DFF,
   SHA256 6f0f263f5095a064aa8c782d42bb06973eef9c569eaf6c9ab745f0e3689eab8e.
   default HID:129 blocks,0x26000..0x2E0FF,unchanged SHA256
@@ -442,8 +459,9 @@ Board / local artifacts:
   These supersede earlier hashes at the same build paths; V8 preserved separately.
 
 Exact next steps:
-1. Save successful v2 pointer milestone;implement/test/build bounded v3 input test
-   and unchanged probe limits,update/push source checkpoint before asking for flash.
+1. V2 pointer milestone7ecfe6d is pushed. Bounded v3 input test is built and passes
+   eight tests/config/binary/UF2 checks;checkpoint on same feature branch before flash.
+   Board remains user-confirmed v2,expired/passive;no v3 hardware validation yet.
 2. Await NICENANO with mouse wired;verified v3 flash/passive baseline,no `p`.
 3. Separate readiness on a harmless scrollable document/page,another pointer,
    mouse OFF/unplugged until arming confirmation. One45-second capture,with10-second

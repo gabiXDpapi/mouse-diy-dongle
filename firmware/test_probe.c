@@ -62,7 +62,13 @@ static int wireless_hid_forward(const uint8_t *p)
 }
 #endif
 #include "radio_logger/src/discovery_probe.h"
+#ifdef WIRELESS_HID
+_Static_assert(PROBE_ACK_LIMIT == 1024u, "Receiver must retain its finite 1024-ACK cap");
+_Static_assert(PROBE_DATA_WINDOW_MS == 10000u, "Receiver window must stay at ten seconds");
+#else
 _Static_assert(PROBE_ACK_LIMIT == 256u, "Probe must retain its finite 256-ACK cap");
+_Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at two seconds");
+#endif
 int main(void)
 {
     uint8_t report[12] = {11, 0xff, 0xff, 0x41};
@@ -129,6 +135,7 @@ int main(void)
     assert(send_probe() == 0);
     assert(turnaround_delay == 250);
     assert(probe_sent && radio.TXADDRESS == 1 && radio.TXPOWER == 0);
+    assert(ack_deadline == now + PROBE_DATA_WINDOW_MS);
     assert(radio.PACKETPTR == (uint32_t)packet && radio.TASKS_TXEN == 0);
     assert(send_probe() == -EALREADY);
     now = ack_deadline;

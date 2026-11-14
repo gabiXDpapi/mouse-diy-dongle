@@ -770,3 +770,25 @@ Next: longer bounded receiver v3 input test with1024 ACK cap/10-second window;
 non-HID probe keeps256/two-second limits. No changes to RF bytes/timing or USB
 mapping. Native deadline/limit checks and build validation precede another flash.
 Capture45seconds to cover30-second discovery arming plus10-second active window.
+
+Receiver v3 source and final build now pass all eight tests. Shared fixed constants
+drive ACK deadline,listen duration and printed limits:receiver1024/10000ms,
+non-HID probe256/2000ms. RF bytes/timing,USB descriptor and movement mapping remain
+unchanged. A new native regression covers a256-status-only transport wrap:when
+status advances beyond the last report,invalidate that old retry marker without
+generating input;idle still leaves it unchanged. This avoids suppressing a new
+report after a full status-only sequence cycle. Not a hardware wrap measurement.
+
+Final receiver v3 UF2 SHA256:
+`4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da`.
+Flash60,332/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF. Do not use the
+intermediate a020e8ab... build that preceded the wrap-gap fix.
+Updated non-HID probe v9:flash58,808/RAM15,936,230 blocks,0x26000..0x345FF,
+SHA256 `8fc95a4738701e29ed84f72e3430ccce89a450c917c7498f2879338402ff4de5`.
+Radio regression remains6f0f263f... and original HID remains058c1ff5... above.
+Config/binary separation and staged receiver source checks pass. Working v2
+preserved locally at ignored `build-pairing-analysis/receiver-v2-e80eb30c.uf2`.
+Board still v2 expired/passive;COM12 closed,no live build/serial session. V3 not
+flashed. Next: verified v3 flash/passive baseline after NICENANO readiness,then
+separate readiness on a harmless scrollable document/page and one45-second
+capture for a ten-second deliberate movement/click/wheel test. No gaming claim.

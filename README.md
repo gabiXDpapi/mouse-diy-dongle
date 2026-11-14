@@ -1,9 +1,11 @@
 # MOUSE DIY DONGLE
 
-USB HID proof of concept for a nice!nano-compatible ProMicro nRF52840.
-This is not yet a Glorious wireless receiver.
+Experimental mouse receiver firmware for a nice!nano-compatible ProMicro nRF52840.
+Bounded wireless Windows pointer control is user-confirmed. Continuous operation
+and gaming performance remain under development; the default build is still the
+original USB HID demo.
 
-## Prototype behavior
+## Default USB HID demo behavior
 
 - Enumerates as `DIY Mouse HID Prototype` (Windows may display `HID-compliant mouse`).
 - Turns the board LED on, waits for USB configuration, then waits five seconds.
@@ -79,8 +81,9 @@ Blinky execution, restart, and bootloader re-entry were confirmed by the user.
 On 2026-11-14, the user confirmed HID right/left movement followed by LED off,
 and NICENANO bootloader re-entry. Device Manager shows `VID_2FE3&PID_0007`.
 The USB HID hardware milestone is complete. Glorious RF protocol investigation
-is in progress. Initial wireless reception is verified; pairing, movement
-decoding, and 1000 Hz performance remain unverified.
+is in progress. Bounded discovery/ACK sessions and wireless pointer control are
+verified. Windows click/wheel validation, sustained link recovery and measured
+1000 Hz performance remain open.
 
 ## Receive-only radio experiment
 
@@ -158,7 +161,7 @@ See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and
 the receive-only `radio` build remain separate.
 
-## Bounded wireless HID prototype (hardware validation pending)
+## Bounded wireless HID receiver
 
 Build with `firmware/build.ps1 -App receiver`. This separate CDC+HID application
 uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
@@ -166,23 +169,20 @@ Its UF2 is staged outside OneDrive in
 `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
 Do not flash until the build and application-only UF2 validation pass.
 Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
-Current receiver v2 SHA256 `e80eb30c51fa375b39a2af5a6d15de65341765673db0682fc9fe60a95591b6c9`.
-All eight tests and the three existing build regressions pass. The new receiver
-is flashed; Windows enumerates COM12 plus a HID-compliant mouse, and passive
-startup passed. Its first armed test hit a standalone type5 status packet that
-the filter rejected; the user observed no wireless pointer movement. Receiver v2
-is built and passes eight tests, including ACKing that status form without
-forwarding it as mouse input. V2 is flashed and passed passive startup/Windows
-HID enumeration. Its armed test forwarded87 unique movement reports, and the
-user confirmed wireless Windows pointer movement followed by the bounded stop.
-A longer receiver v3 input test is being prepared for clicks and scrolling.
+Current receiver v3 SHA256 `4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da`.
+All eight tests, affected builds and separation checks pass. V3 is not yet flashed.
+The board still runs v2, which forwarded87 unique movement reports and produced
+user-confirmed wireless Windows pointer movement followed by the bounded stop.
 
 It stays passive until serial `p`, then uses the proven discovery/ACK protocol
-for at most two seconds and 256 ACK attempts. Validated unique reports forward
+for at most ten seconds and 1,024 ACK attempts in v3. The non-HID probe keeps its
+two-second/256-attempt limits. Validated unique reports forward
 five button bits, signed16 X/Y and signed8 wheel to USB; idle and retransmitted
 reports do not replay movement. USB busy withholds ACK. Test termination/error
 attempts neutral button release with bounded waits. USB reset/disconnect after
 configuration requires a board reboot. No input is generated during passive startup.
+Idle/status packets never generate input. Use a45-second capture to cover the
+30-second discovery arming window plus the ten-second active session.
 
 This first HID bridge keeps USB text logging and radio polling; neither latency
 nor1000Hz operation is established. The original HID demo, passive logger and
