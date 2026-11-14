@@ -868,3 +868,22 @@ observation pending;all-zero buttons cannot validate forced neutral release.
 V3 expired/passive;one arm/discovery used,622 ACK attempts used. Next physical
 normal reboot/fresh readiness via pop-up,then same continuous/drained capture
 prioritizing clicks/wheel immediately instead of movement. No firmware changes.
+
+## Receiver v3 Windows clicks/wheel milestone (2026-11-15)
+
+Prior trial's movement stop at limit without unplugging receiver is now explicitly
+user-confirmed. After fresh receiver reboot/mouse-OFF readiness,continuous
+COM12/DTR capture drained2s before ONE p,new arming confirmed before power-on
+pop-up,then45s captured. Ignored `build-pairing-analysis/receiver-v3-controls-20261115-014826.txt`,
+`.host.jsonl` and `.summary.json`;COM12 closed/disposed.
+1031 complete post-arm RX:393 discovery,229 idle,409 length11.611 ACKs over9980ms:
+225 idle,one status,385 type1 ACKs (383 unique reports,two retries). Three left
+press/release cycles and one right press/release;wheel fifteen -1 and eleven +1
+unique reports. Last unique report buttons0. All612 TXs completed,no ERROR or
+USB busy. ACK RX-END-to-handler/READY/END ranges12..461/143..592/187..637us;
+not end-to-end latency or throughput measurements.
+User confirms all left/right clicks and wheel UP/DOWN worked in Windows and
+stopped with no stuck buttons. This establishes bounded normal controls/release.
+Forced release with button still held at expiry remains untested. Next readiness
+for plain-text selection/left-held-at-expiry trial with other pointer to check
+selection no longer extends after timeout. No firmware changes required.

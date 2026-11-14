@@ -82,8 +82,9 @@ On 2026-11-14, the user confirmed HID right/left movement followed by LED off,
 and NICENANO bootloader re-entry. Device Manager shows `VID_2FE3&PID_0007`.
 The USB HID hardware milestone is complete. Glorious RF protocol investigation
 is in progress. Bounded discovery/ACK sessions and wireless pointer control are
-verified. Windows click/wheel validation, sustained link recovery and measured
-1000 Hz performance remain open.
+verified. Windows left/right clicks,wheel up/down and normal button release are
+user-confirmed. Forced release of a button held at expiry,sustained link recovery
+and measured1000Hz performance remain open.
 
 ## Receive-only radio experiment
 
@@ -173,7 +174,10 @@ Current receiver v3 SHA256 `4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8
 All eight tests, affected builds and separation checks pass. V3 is flashed and
 passed passive COM12/HID startup and a9974ms ACK-span movement trial with586
 unique type1 reports,no errors/USB busy,and user-confirmed pointer movement.
-Clicks,wheel and forced neutral release remain unverified. V2 already
+The next trial confirmed Windows left/right clicks,wheel up/down and stopping
+with no stuck buttons:383 unique type1 reports,611 ACKs over9980ms,no errors or
+USB busy. Forced neutral release with a button held at expiry remains untested.
+V2 already
 forwarded87 unique movement reports and produced user-confirmed wireless Windows
 pointer movement followed by the bounded stop.
 

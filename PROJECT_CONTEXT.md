@@ -59,7 +59,8 @@ This verifies a working nice!nano-compatible UF2 bootloader. The exact physical 
 - [x] Recover tested discovery, idle/status ACKs and basic movement report format
 - [x] Implement bounded RF discovery and ACK sessions
 - [x] Confirm wireless movement-to-USB HID on physical hardware
-- [ ] Verify wireless clicks, wheel and neutral button release in Windows
+- [x] Verify wireless left/right clicks, wheel up/down and normal button release in Windows
+- [ ] Verify forced button release while held at active-window expiry
 - [ ] Complete sustained link/reconnect behavior and remaining protocol recovery
 - [ ] Test and optimize gaming performance
 
@@ -318,6 +319,34 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST MILESTONE (2026-11-15): v3 clicks/wheel/normal-release validation PASSED.
+User confirms ALL left/right clicks and wheel UP/DOWN worked in Windows,then
+stopped with no stuck buttons. Prior v3 movement stopped at limit without unplug
+also explicitly confirmed. Continuous COM12/DTR reader drained2s before ONE p,
+verified new arming before pop-up power-on,then captured45s;port closed/disposed.
+Ignored evidence: build-pairing-analysis/receiver-v3-controls-20261115-014826.txt,
+.host.jsonl,and .summary.json.1031 complete post-arm RX:393 discovery,229 idle,
+409 length11.611 ACKs over9980ms:225 idle,one status,385 type1 ACKs representing
+383 unique reports and2 retries. Button transitions0->1->0 (three clicks) and
+0->2->0;wheel fifteen -1 and eleven +1 reports. Last unique report buttons0.
+All612 TXs complete,no ERROR/USB busy. ACK handler/READY/END ranges12..461/
+143..592/187..637us after RX END;these are instrumentation,not latency benchmarks.
+Board v3 expired/passive,one arm/discovery used,611 ACK attempts used;do NOT p
+again this boot. No live serial/build session. User told stop/reconnect cable.
+Current feature/wireless-hid-prototype remains appropriate;user authorizes
+milestone commits/pushes and new feature-based branches when needed.
+Still NOT tested: forced neutral when a button is held at expiry,other three
+buttons,sustained/reconnect/channel recovery,latency/throughput/gaming1000Hz.
+PAUSED next for physical readiness via pop-up: harmless plain-text document
+with selectable text (no links/actions),other pointer,normal receiver reboot,
+Glorious OFF/USB unplugged. Then same continuous/drained45s single-arm capture.
+After actual arming confirmation,power-on cue: hold LEFT while selecting text,
+keep held about15s (beyond10s window),then move OTHER pointer without buttons
+while Glorious left remains held. Selection should no longer extend if forced
+release reached Windows;finally release Glorious. Inspect final ACKed buttons1,
+no release errors,and user observation before claiming forced neutral passed.
+No firmware changes,build/flash/baseline/extraction. Private evidence ignored.
+
 NEWEST controls-trial result (2026-11-15): fresh receiver reboot/mouse-OFF
 readiness;COM12 DTR continuous reader drained2seconds,sent ONE p,confirmed NEW
 arming text,then power-on pop-up.45seconds after arm completed;COM12 closed.
@@ -328,7 +357,8 @@ Ignored evidence: build-pairing-analysis/receiver-v3-drained-20261115-014330.txt
 or USB busy,no duplicate type1 ACKs. All586 reports buttons0/wheel0;X-56..43,
 Y-32..23. ACK handler/READY/END ranges13..115/144..246/188..291us after RX END.
 User CONFIRMED pointer moved but could not try buttons/wheel. Clicks/wheel remain
-untested; neutral-stop observation pending. No stuck-button release claim from
+untested; user subsequently CONFIRMED movement stopped at the limit without
+unplugging receiver. No stuck-button release claim from
 all-zero button reports. This establishes v3's bounded movement,not gaming use.
 Board v3 expired/passive,one arm/discovery used,622 ACK attempts used;do NOT p
 again on this boot. No live serial/build session. User told to stop/reconnect.
@@ -590,3 +620,8 @@ LIVE DRAINED TRIAL 20261115-014330 : user confirms receiver reboot/mouse OFF/unp
 LIVE DRAINED TRIAL: pre-arm drain complete; exactly one p sent. Await actual arming confirmation; no second p.
 LIVE DRAINED TRIAL: actual new arming text confirmed after drain;45-second capture running. Power-on pop-up next; no automatic retry.
 LIVE DRAINED TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Raw/host-phase evidence saved;inspect before conclusions. No live serial session.
+
+LIVE CONTROLS TRIAL 20261115-014826 : user confirmed previous v3 movement stopped at limit without unplugging. Fresh receiver reboot/mouse OFF/unplugged ready. COM12/DTR open;same reader drains2seconds then ONE p and45second capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-controls-20261115-014826.txt and .host.jsonl. No automatic retry.
+LIVE CONTROLS TRIAL: drain complete;one p sent. Await new arming text;never send second p this boot.
+LIVE CONTROLS TRIAL: NEW actual v3 arming confirmed;capture running. Power-on pop-up directs immediate clicks/wheel. No automatic retry.
+LIVE CONTROLS TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Inspect raw/host logs and user observations. No live serial session.

@@ -95,3 +95,14 @@ The larger packet budget also requires a status-only full-wrap regression: when
 status advances transport beyond the last delivered report,invalidate that old
 retry marker without generating input. Idle still leaves the marker unchanged.
 This prevents suppressing a genuinely new report after a256-status sequence gap.
+
+## Hardware validation checkpoint (2026-11-15)
+
+Receiver v3 now has user-confirmed bounded Windows movement,left/right clicks,
+wheel up/down and stop with no stuck buttons. Controls capture611 ACKs over9980ms,
+383 unique type1 reports,no firmware errors or USB busy. Use one continuous
+COM12/DTR reader with2s pre-arm drain,ONE p,new arming confirmation before user
+power-on,and45s post-arm capture;save host phase timing to distinguish queued
+serial output. Private evidence/details and exact board state are in context.
+Forced neutral while physically holding a button at expiry remains a separate
+hardware check. Continuous operation/recovery and gaming performance remain open.
