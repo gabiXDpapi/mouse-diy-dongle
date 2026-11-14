@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(mouse_radio_logger)
+target_sources(app PRIVATE src/main.c)
+option(DISCOVERY_PROBE "Bounded experimental discovery and data ACK probe" OFF)
+if(DISCOVERY_PROBE)
+  target_compile_definitions(app PRIVATE DISCOVERY_PROBE=1)
+endif()
