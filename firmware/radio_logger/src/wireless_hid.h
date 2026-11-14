@@ -78,8 +78,8 @@ static int wireless_hid_forward(const uint8_t *p)
     if (!atomic_get(&wireless_hid_online)) {
         return -ENODEV;
     }
-    if (p[0] == 2) {
-        return 0; /* Idle must not consume the sequence of a later data report. */
+    if (p[0] == 2 || (p[0] == 11 && p[3] == 0x45)) {
+        return 0; /* Idle/status never represent mouse input or consume report deduplication. */
     }
     if ((p[0] != 11 && p[0] != 20) || p[3] != 0x41 || (p[0] == 20 && p[12] != 0x45)) {
         return -EINVAL;

@@ -176,10 +176,10 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v1: passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; armed movement/clicks/wheel\n",
+    printk("DIY Mouse Wireless HID Probe v2: passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; armed movement/clicks/wheel\n",
            PROBE_ACK_LIMIT);
 #else
-    printk("DIY Mouse Discovery Probe v8: idle + report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; no HID\n",
+    printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; no HID\n",
            PROBE_ACK_LIMIT);
 #endif
 #else

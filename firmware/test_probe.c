@@ -82,6 +82,11 @@ int main(void)
     idle[0] = 1; assert(!is_ack_candidate(idle, 51, false, 1));
     idle[0] = 3; assert(!is_ack_candidate(idle, 51, false, 1));
     idle[0] = 2;
+    uint8_t status_packet[] = {11, 0, 0, 0x45, 6, 1, 0, 0, 0, 0, 0, 0};
+    assert(is_ack_candidate(status_packet, 51, false, 1));
+    assert(!is_ack_candidate(status_packet, 49, false, 1));
+    assert(!is_ack_candidate(status_packet, 51, true, 1));
+    assert(!is_ack_candidate(status_packet, 51, false, 0));
     uint8_t compound[65] = {20, 0x0f, 0, 0x41, 0, 0, 0, 0, 0xff, 0xff, 0, 0,
                             0x45, 6, 1, 0, 0, 0, 0, 0, 0};
     assert(is_ack_candidate(compound, 51, false, 1));
@@ -146,11 +151,13 @@ int main(void)
     assert(send_report_ack(idle) == 0 && ack_count == 2);
     assert(ack_reply[0] == 2 && ack_reply[1] == 0x12 && ack_reply[2] == 0);
     assert(send_report_ack(idle) == 0 && ack_count == 3);
+    assert(send_report_ack(status_packet) == 0 && ack_count == 4);
+    assert(ack_reply[1] == 1 && ack_reply[2] == 0);
     now = original_deadline;
-    assert(send_report_ack(idle) == -EACCES && ack_count == 3);
+    assert(send_report_ack(idle) == -EACCES && ack_count == 4);
     now--;
     report[1] = 0;
-    for (unsigned int i = 3; i < PROBE_ACK_LIMIT; i++) {
+    for (unsigned int i = 4; i < PROBE_ACK_LIMIT; i++) {
         assert(send_report_ack(report) == 0 && ack_count == i + 1);
         assert(ack_reply[1] == (uint8_t)(report[1] + 1));
         assert(ack_deadline == original_deadline);

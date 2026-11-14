@@ -68,6 +68,7 @@ int main(void)
 {
     uint8_t p[21] = {11, 0, 0, 0x41, 0xff, 0xff, 0, 0x80, 0xff, 0x7f, 0x55, 0xaa};
     uint8_t idle[] = {2, 1, 0};
+    uint8_t status_packet[] = {11, 0, 0, 0x45, 6, 1, 0, 0, 0, 0, 0, 0};
     const uint8_t expected[] = {0x1f, 0, 0x80, 0xff, 0x7f, 0xff};
     device_available = false; assert(init_wireless_hid() == -ENODEV);
     device_available = true; device_ready = false; assert(init_wireless_hid() == -ENODEV);
@@ -77,10 +78,15 @@ int main(void)
     wireless_hid_status(USB_DC_RESET, NULL); /* Initial enumeration reset is allowed. */
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
     assert(wireless_hid_forward(idle) == 0 && writes == 0);
+    assert(wireless_hid_forward(status_packet) == 0 && writes == 0);
+    assert(!wireless_hid_has_sequence);
     assert(wireless_hid_forward(p) == 0 && writes == 1);
     assert(memcmp(last_report, expected, sizeof(expected)) == 0);
     assert(wireless_hid_forward(p) == 0 && writes == 1); /* Retransmission. */
     assert(wireless_hid_forward(idle) == 0 && writes == 1);
+    status_packet[1] = 1;
+    assert(wireless_hid_forward(status_packet) == 0 && writes == 1);
+    assert(wireless_hid_last_sequence == 0);
     p[1] = 1;
     assert(wireless_hid_forward(p) == -EAGAIN && writes == 1);
     assert(wireless_hid_last_sequence == 0); /* Busy never consumes the next sequence. */
@@ -106,7 +112,7 @@ int main(void)
     p[0] = 20; p[12] = 0x45; p[1] = 1;
     assert(wireless_hid_forward(p) == 0 && writes == 7);
     p[1] = 2; p[12] = 0x41; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
-    p[0] = 11; p[3] = 0x45; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
+    p[0] = 11; p[3] = 0x46; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
     p[0] = 3; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
     p[0] = 11; p[3] = 0x41; short_write = true;
     assert(wireless_hid_forward(p) == -EIO && writes == 8);

@@ -68,3 +68,14 @@ Python unittest and PowerShell build script. No new dependencies.
 
 Execution continues in this chat under existing authorization to work until
 physical intervention is required. No extra design-confirmation round is needed.
+
+## Receiver v2 follow-up
+
+Fresh power-on exposed a standalone length11/tag45 status packet; v1 rejected
+it and no type1 report reached USB. Add only that form to the ACK matcher and
+ignore it in the USB bridge without consuming movement sequence. Add actual
+status fixtures to matcher and bridge tests,including no USB output while an
+endpoint is busy. Preserve v1 UF2,update receiver/probe banners to v2/v9,run eight
+tests and rebuild those two variants. Confirm radio/default HID remain separate
+and unchanged. Push this fix before requesting NICENANO reentry. Timing,limits,
+descriptor and report mapping remain unchanged.

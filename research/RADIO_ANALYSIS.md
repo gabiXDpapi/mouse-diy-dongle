@@ -707,3 +707,35 @@ No pointer output has been observed/tested yet. User asked for separate readines
 empty desktop,another pointer,mouse OFF/unplugged and left OFF until arming
 confirmation. First test is motion only; inspect real cursor response and serial
 timing/USB errors before deliberate click/wheel trials. No reflash/baseline repeat.
+
+## Receiver v1 armed test: standalone status blocks progress
+
+User prepared empty desktop,mouse OFF/unplugged,and confirmed readiness. COM12
+armed once,then user was told to switch ON and move without clicks/scrolling.
+Ignored `build-pairing-analysis/receiver-v1-armed-20261115-005234.txt` and summary:
+285 valid RX:254 discovery,one length2 idle `00 00`,30 length11 status packets
+`00 00 45 06 01 00 00 00 00 00 00`. One idle ACK(seq0->1); both TXs completed,
+no errors/USB busy. No type1 movement reports arrived. User confirmed no wireless
+pointer movement. Thus the USB forwarding path remains unverified; the immediate
+block is V1's report filter rejecting standalone tag45, previously seen only in
+the accepted compound tag41+45 form. Queue-empty idle did not consume sequence0.
+Discovery timing58/439/487us(handler/READY/END),idle ACK32/163/207us.
+
+Next: receiver v2/non-HID probe v9 accept length11/tag45, ACK but never forward
+to HID or consume movement deduplication. Keep256/two-second guards and response
+bytes/timing unchanged. Add native observed-status fixture and USB no-output test,
+preserve v1 UF2,rebuild/test before asking for next verified flash. Board v1 window
+expired/passive,COM12 closed; user told to stop/reconnect, reconnection unconfirmed.
+
+Receiver v2/source fix now passes all eight tests. The observed standalone status
+fixture is accepted by the real matcher/protocol and produces no USB output or
+movement deduplication update in the real bridge,including while endpoint busy.
+Receiver v1 UF2 preserved as ignored `build-pairing-analysis/receiver-v1-cfc2eb58.uf2`.
+Receiver v2 build/UF2:flash60,304/RAM16,064 bytes,236 blocks,0x26000..0x34BFF,
+SHA256 `e80eb30c51fa375b39a2af5a6d15de65341765673db0682fc9fe60a95591b6c9`.
+Non-HID probe v9:flash58,796/RAM15,936 bytes,230 blocks,0x26000..0x345FF,
+SHA256 `a1bc4de092a01bdce4c98eb907dfef85ac57675f0d84a33f17a18c1848c22c39`.
+Config/binary separation checks pass;radio/default HID artifacts remain unchanged
+from6f0f263f.../058c1ff5... above. No v2 hardware test yet. Board remains receiver
+v1 expired/passive. Next: verified v2 flash/passive baseline after NICENANO readiness,
+then separate off/unplugged/empty-desktop readiness and one motion-only test.
