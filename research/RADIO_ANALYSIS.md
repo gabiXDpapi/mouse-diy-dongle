@@ -887,3 +887,22 @@ stopped with no stuck buttons. This establishes bounded normal controls/release.
 Forced release with button still held at expiry remains untested. Next readiness
 for plain-text selection/left-held-at-expiry trial with other pointer to check
 selection no longer extends after timeout. No firmware changes required.
+
+## Forced left-button timeout release validated (2026-11-15)
+
+Fresh normal receiver reboot/mouse-OFF readiness;continuous COM12/DTR reader
+drained2s before ONE p,new arming confirmed before power-on/held-left pop-up,
+then45s captured. Ignored `build-pairing-analysis/receiver-v3-held-20261115-015320.txt`,
+`.host.jsonl` and `.summary.json`.COM12 closed/disposed.
+820 complete post-arm RX:180 discovery,136 idle,504 length11.617 ACKs over9983ms:
+136 idle,one status,480 type1 ACKs (478 unique,two retries).428 unique ACKed
+reports LEFT held,50 released. Final ACKed type1 seq222/t81531ms has buttons1;
+later unACKed seq223/t81796ms also held. No later type1 release in capture.
+All618 TXs completed,no ERROR/USB busy. ACK RX-END-to-handler/READY/END ranges
+12..308/143..439/187..483us;instrumentation only,not end-to-end latency.
+User held LEFT about15s,then moved OTHER pointer without its buttons while
+Glorious LEFT remained held:selection stayed fixed. This plus final ACKed held
+state/no release error validates forced neutral at normal active-window expiry.
+USB disconnect/reset/error release paths remain untested physically. Board v3
+expired/passive,one arm/discovery used,617 ACK attempts used. Bounded controls
+validation complete;continuous link/recovery and gaming performance remain open.

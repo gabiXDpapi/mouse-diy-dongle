@@ -60,7 +60,7 @@ This verifies a working nice!nano-compatible UF2 bootloader. The exact physical 
 - [x] Implement bounded RF discovery and ACK sessions
 - [x] Confirm wireless movement-to-USB HID on physical hardware
 - [x] Verify wireless left/right clicks, wheel up/down and normal button release in Windows
-- [ ] Verify forced button release while held at active-window expiry
+- [x] Verify forced left-button release while held at active-window expiry
 - [ ] Complete sustained link/reconnect behavior and remaining protocol recovery
 - [ ] Test and optimize gaming performance
 
@@ -319,6 +319,31 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST MILESTONE (2026-11-15): forced LEFT release at10s expiry PASSED.
+Fresh normal-reboot/mouse-OFF readiness;continuous COM12/DTR reader drained2s,
+sent ONE p,verified new arming before power-on/hold-left pop-up,captured45s.
+Ignored evidence: build-pairing-analysis/receiver-v3-held-20261115-015320.txt,
+.host.jsonl,and .summary.json.820 complete post-arm RX:180 discovery,136 idle,
+504 length11.617 ACKs over9983ms:136 idle,one status,480 type1 (478 unique,
+two retries).428 unique ACKed reports LEFT held,50 released. Final ACKed type1
+seq222 at81531ms has buttons1;later unACKed seq223 at81796ms also buttons1.
+No later type1 release in captured log. All618 TXs complete,no ERROR/USB busy.
+ACK handler/READY/END ranges12..308/143..439/187..483us;not latency benchmarks.
+User CONFIRMED: after holding LEFT about15s,beyond window,moving OTHER pointer
+did NOT extend selection while Glorious LEFT remained physically held. Together
+with last ACKed held state and no release error,this validates forced release
+at normal expiry. No claim for USB disconnect/reset/error-path physical tests.
+Bounded HID validation requested for this stage is COMPLETE: movement,left/right
+clicks,wheel UP/DOWN,normal stop/release,and held-LEFT timeout release.
+Board v3 expired/passive,one arm/discovery used,617 ACK attempts used;do NOT p
+again on this boot. COM12 closed/disposed,no live serial/build session. User told
+release LEFT/reconnect mouse cable;reconnection itself not confirmed.
+NEXT unresolved development milestone: sustained operation/link recovery and
+remaining controls/performance,requiring its own scoped plan/feature branch.
+Do not repeat completed controls,extraction,build/flash or baseline to resume.
+Further physical trials require normal receiver reboot and separate readiness
+via pop-up;pause whenever intervention is needed. No firmware edits this session.
+
 NEWEST MILESTONE (2026-11-15): v3 clicks/wheel/normal-release validation PASSED.
 User confirms ALL left/right clicks and wheel UP/DOWN worked in Windows,then
 stopped with no stuck buttons. Prior v3 movement stopped at limit without unplug
@@ -625,3 +650,8 @@ LIVE CONTROLS TRIAL 20261115-014826 : user confirmed previous v3 movement stoppe
 LIVE CONTROLS TRIAL: drain complete;one p sent. Await new arming text;never send second p this boot.
 LIVE CONTROLS TRIAL: NEW actual v3 arming confirmed;capture running. Power-on pop-up directs immediate clicks/wheel. No automatic retry.
 LIVE CONTROLS TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Inspect raw/host logs and user observations. No live serial session.
+
+LIVE HELD-BUTTON TRIAL 20261115-015320 : user confirms normal receiver reboot,mouse OFF/unplugged,plain-text/other pointer ready. COM12/DTR open;continuous reader drains2s then ONE p/45s. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-held-20261115-015320.txt and .host.jsonl. No automatic retry.
+LIVE HELD-BUTTON TRIAL: drain complete;exactly one p sent. Await actual new arming text;no second p this boot.
+LIVE HELD-BUTTON TRIAL: NEW actual v3 arming confirmed;45s capture running. Power-on/hold-left pop-up next. Inspect last ACKed buttons and user selection observation before pass.
+LIVE HELD-BUTTON TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Raw/host evidence saved;await user observation. No live serial session.

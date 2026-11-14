@@ -104,5 +104,8 @@ wheel up/down and stop with no stuck buttons. Controls capture611 ACKs over9980m
 COM12/DTR reader with2s pre-arm drain,ONE p,new arming confirmation before user
 power-on,and45s post-arm capture;save host phase timing to distinguish queued
 serial output. Private evidence/details and exact board state are in context.
-Forced neutral while physically holding a button at expiry remains a separate
-hardware check. Continuous operation/recovery and gaming performance remain open.
+Forced LEFT neutral at normal expiry subsequently passed:617 ACKs over9983ms,
+last ACKed type1 still LEFT held,no release errors;user confirmed selection no
+longer extended with other-pointer movement while LEFT remained physically held.
+Bounded input validation for this plan is complete. USB fault-path release,
+continuous operation/recovery and gaming performance remain open.

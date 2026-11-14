@@ -83,8 +83,8 @@ and NICENANO bootloader re-entry. Device Manager shows `VID_2FE3&PID_0007`.
 The USB HID hardware milestone is complete. Glorious RF protocol investigation
 is in progress. Bounded discovery/ACK sessions and wireless pointer control are
 verified. Windows left/right clicks,wheel up/down and normal button release are
-user-confirmed. Forced release of a button held at expiry,sustained link recovery
-and measured1000Hz performance remain open.
+user-confirmed. Forced left-button release while held at expiry is also validated.
+Sustained link recovery and measured1000Hz performance remain open.
 
 ## Receive-only radio experiment
 
@@ -176,7 +176,10 @@ passed passive COM12/HID startup and a9974ms ACK-span movement trial with586
 unique type1 reports,no errors/USB busy,and user-confirmed pointer movement.
 The next trial confirmed Windows left/right clicks,wheel up/down and stopping
 with no stuck buttons:383 unique type1 reports,611 ACKs over9980ms,no errors or
-USB busy. Forced neutral release with a button held at expiry remains untested.
+USB busy. A further trial validated forced LEFT release at expiry:final ACKed
+report still had LEFT held,and user confirmed other-pointer motion no longer
+extended text selection while LEFT remained physically held.617 ACKs over9983ms,
+no errors/USB busy. USB fault-path release and continuous recovery remain open.
 V2 already
 forwarded87 unique movement reports and produced user-confirmed wireless Windows
 pointer movement followed by the bounded stop.
