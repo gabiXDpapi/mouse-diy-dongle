@@ -833,3 +833,22 @@ User confirmed prompt power-on with USB unplugged and no Windows response.
 Next targeted diagnostic: mouse already ON near unchanged/expired receiver before
 a15-second COM12/DTR capture,WITHOUT p,to separate RF silence from cue timing.
 Pause for physical readiness; no rebuild/flash or automatic armed retry.
+
+## RF-silence diagnostic finds discovery plus stale serial output
+
+User left mouse ON/unplugged/near unchanged expired receiver.15-second COM12/DTR
+capture WITHOUT commands completed/closed. Ignored evidence:
+`build-pairing-analysis/receiver-v3-rf-silence-20261115-013920.txt` and `.summary.json`.
+456 complete packets all match known mouse discovery payload;204 satisfy exact
+discovery channel/base/match guards.22 SCAN lines,no ERROR,no arming/TX.
+However RX timestamps94389..270012 span175623ms in15s host capture,with161223ms
+largest jump: historical serial output is queued.457 RX markers,456 complete lines.
+First SCAN counters0,last good4556/bad44/invalid8 are cumulative,not capture totals.
+Earlier zero-counter host captures therefore cannot establish concurrent RF silence.
+No input validation or firmware fault conclusion. Next inspect serial buffering,
+then fresh reboot/readiness with continuous drained capture before single arm.
+Installed Zephyr legacy `subsys/usb/device/class/cdc_acm.c` poll_out uses a TX
+ring buffer,blocking when full with flow control or discarding bytes otherwise.
+No firmware modification justified by these logs. Next normal reboot/mouse-OFF
+readiness,continuous serial drain before ONE p,new arming confirmation before
+power-on cue,and same reader for45seconds. Save host phase timing too.

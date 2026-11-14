@@ -318,6 +318,28 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST RF diagnostic result (2026-11-15): user prepared mouse ON/unplugged/near
+unchanged receiver.15-second COM12/DTR read,NO serial commands,completed/closed.
+Ignored receiver-v3-rf-silence-20261115-013920.txt and .summary.json under
+build-pairing-analysis.456 complete RX,ALL exact known mouse discovery payload;
+204 meet exact3/49/78/mouse-base/match1 discovery guards.22 SCAN,no ERROR,no TX.
+IMPORTANT: RX device timestamps94389..270012 span175623ms within15s host capture;
+largest gap161223ms. Serial contains queued historical output. First scan0 and
+last cumulative good4556/bad44/invalid8 are NOT capture totals.457 RX markers,
+456 complete parsed lines. Earlier zero-counter captures do NOT establish RF
+silence at the time of host capture; their timing interpretation is inconclusive.
+Mouse discovery reception is established; no firmware change justified yet.
+Board v3 remains expired/passive; no new p,reset,flash/build. COM12 closed.
+Installed Zephyr legacy CDC poll_out uses TX ring buffer; when full it blocks
+with flow control or drops bytes without it. Driver/source inspection supports
+buffering limits,not precise attribution of each old line. No firmware edits.
+PAUSED next: normal receiver USB unplug/replug (no double-reset),mouse OFF/USB
+unplugged,harmless scrollable document/other pointer,then ready through pop-up.
+Open COM12/DTR and continuously drain/save pre-arm output before ONE p; verify
+new arming text,then power-on cue via pop-up. Maintain same reader throughout
+45seconds after arm. Do not open/close between drain/arm/capture. Record host
+timing alongside phases to distinguish stale output. No rebuild/flash/baseline.
+
 NEWEST checkpoint: retry capture20261115-013553 completed after user confirmed
 fresh readiness. Exactly one p,actual arming text confirmed,then power-on/controls
 cue sent through requested question pop-up.45seconds,COM12 closed/disposed.
@@ -539,3 +561,6 @@ Live step: 45-second capture finished; arming confirmed=True. Port closing; insp
 LIVE RETRY 20261115-013553 : user confirmed normal-reboot readiness. COM12 opened/DTR; sending exactly one p. Raw capture C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-armed-20261115-013553.txt. Do not rearm if interrupted; inspect log first.
 LIVE RETRY: actual v3 arming confirmed. Capture running45seconds; one p sent. User requests pop-up for intervention cues.
 LIVE RETRY:45-second capture completed; armingConfirmed=True. COM12 closing; inspect log and await user observations. No automatic rearm.
+
+LIVE RF DIAGNOSTIC 20261115-013920 : user confirms mouse ON/unplugged/near unchanged receiver. COM12 DTR open;15-second capture WITHOUT any serial writes. Raw log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-rf-silence-20261115-013920.txt. No p/rearm/reset.
+LIVE RF DIAGNOSTIC: serial disposed/closed; inspect raw log before next action. No commands sent.
