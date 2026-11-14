@@ -137,7 +137,8 @@ capture showed sequence0->1 after the single ACK, supporting ACK acceptance.
 Sustained connectivity and movement decoding remain unverified.
 Probe V5 is built for the next experiment: one discovery response plus at most16
 data ACK attempts in two seconds, with the same explicit arming and packet filters.
-It is not yet flashed; see PROJECT_CONTEXT.md for the current artifact and handoff.
+V5 is flashed and its passive startup passed; the armed multi-ACK capture is
+pending. See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and
 the receive-only `radio` build remain separate.

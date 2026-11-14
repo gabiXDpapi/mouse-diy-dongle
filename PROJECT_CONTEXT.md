@@ -361,18 +361,23 @@ Preserved V4 UF2: ignored `build-pairing-analysis/probe-v4-2bef7486.uf2` (hash a
 V5 Zephyr build and UF2 validation passed: flash58,716/RAM15,936 bytes,
 230blocks, payload0x26000..0x345FF. Current probe UF2 path unchanged; SHA256:
 `a1b78c57b5010fb7d7de5e7eb997e1f96e012de0040ee4455b4e1abae49031fe`.
-V5 NOT flashed/armed. Receive-only regression build passed: flash56,704/RAM15,872,
+V5 subsequently flashed; passive baseline passed (details below). Receive-only regression build passed: flash56,704/RAM15,872,
 222blocks,0x26000..0x33DFF; its new UF2 SHA256 supersedes earlier radio hashes:
 `8a19a4c22319ddb93fd8f2e49eabb6dd6548f973a8eed519cda28a0b188f3339`.
 CMake flags ON(probe)/OFF(radio) and binary banner/arming/ACK strings confirm
 compile separation. USB-reader self-tests passed without hardware; exact-address
-scan found no device address in22 candidate source/doc files. Board still V4
-consumed/passive. No build/serial session remains. Source milestone is pushed on
-feature/bounded-ack-probe. User has been asked to reconnect mouse cable and
-double-reset the board; readiness confirmation is pending. Next: await NICENANO reentry
-with mouse wired; verify bootloader and V5
-hash, flash, verify passive V5 banner and1MHz timing initialization with no errors.
-Do not send `p` during baseline. Then await battery readiness for one35-second
+scan found no device address in22 candidate source/doc files. Source milestone is
+pushed on feature/bounded-ack-probe; context checkpoint15f52bd followed e7441e3.
+User confirmed NICENANO ready and mouse wired. Reverified bootloader0.6.0,
+board-ID nRF52840-nicenano, S1406.1.1 and V5 hash a1b78c57...; copied V5 UF2.
+Five-second DTR-enabled COM11 passive baseline passed: V5 banner,1MHz timing
+initialization,19channels,six zero-counter SCAN lines,no errors. Evidence:
+ignored `build-pairing-analysis/probe-v5-passive-20261114-233754.txt`.
+Board now V5 passive/unarmed, discovery and16 ACK budgets unused. No `p` sent.
+Mouse last confirmed wired. COM11 closed; no live build or serial session.
+Next: await user battery-mode readiness (unplug cable, switch mouse on near board),
+then open COM11 with DTR, send `p` once and capture35seconds. Do not reflash or
+repeat baseline. Ask user to move/click during the
 armed capture; inspect sequences, ACK count<=16, timing and errors. Do not repeat
 firmware reads or old captures. Do not claim pairing completion or verified
 movement decoding from one accepted ACK.

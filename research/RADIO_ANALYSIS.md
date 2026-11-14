@@ -339,7 +339,7 @@ timing/response bytes and native guard tests. Check stock channel/scheduling
 behavior before assuming a fixed channel. No HID output yet.
 Do not repeat earlier reads/captures on resume.
 
-## V5: bounded multi-ACK diagnostic (not yet flashed)
+## V5: bounded multi-ACK diagnostic
 
 V5 retains V4 radio initialization, hardware timing capture, discovery bytes,
 250us discovery delay and immediate data ACK bytes. It allows at most16 data ACK
@@ -368,5 +368,11 @@ Receive-only regression build passes: flash56,704/RAM15,872 bytes,222blocks,
 payload0x26000..0x33DFF; new radio UF2 SHA256:
 `8a19a4c22319ddb93fd8f2e49eabb6dd6548f973a8eed519cda28a0b188f3339`.
 CMake flags and binary banner/arming/ACK string checks confirm compile separation.
-Board remains V4 consumed/passive. V5 hardware flash and capture await user
-bootloader reentry, followed by a passive baseline and separate battery readiness.
+V5 flashed after user confirmed NICENANO ready/mouse wired, verifying bootloader
+0.6.0,board-ID nRF52840-nicenano,S1406.1.1 and a1b78c57... UF2 hash.
+Five-second DTR-enabled COM11 passive baseline passed: expected V5 banner,
+1MHz timing initialization,19channels,six zero-counter SCAN lines,no errors.
+Evidence: ignored `build-pairing-analysis/probe-v5-passive-20261114-233754.txt`.
+No `p` sent; discovery and16 ACK budgets unused. COM11 closed, mouse last wired.
+Next: await battery readiness, then one35-second armed capture. Multi-ACK behavior
+is not yet hardware tested. Do not repeat flash/baseline on resume.
