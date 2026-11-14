@@ -829,3 +829,7 @@ One p/confirmed arming,then requested pop-up power-on cue;45seconds completed,
 COM12 closed. Again zero RX/discovery replies/ACKs. User timing/observations
 pending; no controls validation or firmware failure conclusion. Pause for user;
 do not automatically retry. Use pop-ups for required physical intervention.
+User confirmed prompt power-on with USB unplugged and no Windows response.
+Next targeted diagnostic: mouse already ON near unchanged/expired receiver before
+a15-second COM12/DTR capture,WITHOUT p,to separate RF silence from cue timing.
+Pause for physical readiness; no rebuild/flash or automatic armed retry.

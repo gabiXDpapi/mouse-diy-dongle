@@ -323,11 +323,16 @@ fresh readiness. Exactly one p,actual arming text confirmed,then power-on/contro
 cue sent through requested question pop-up.45seconds,COM12 closed/disposed.
 Ignored evidence: build-pairing-analysis/receiver-v3-armed-20261115-013553.txt
 and .summary.json. Again zero RX/discovery replies/ACKs; no controls validated.
-User selected 'Test performed; I will report results'. Specific control outcomes
-and actual power-on timing pending in a follow-up pop-up; no firmware fault inferred.
+User CONFIRMED powered on promptly with USB unplugged; NOTHING responded.
+Zero RF is now an observed blocker despite prompt power-on; cause unknown.
 V3 arming expired/passive; do not send p again this boot. No live build/serial.
-User told to stop/reconnect mouse cable. PAUSED for user observations through
-question pop-up. No automatic retry; use pop-ups for required physical actions.
+User told to stop/reconnect mouse cable. PAUSED for physical RF-silence diagnostic:
+ask user to leave receiver connected/unchanged (no reset), unplug mouse USB,
+switch mouse OFF then ON near receiver,leave it ON,and reply ready via pop-up.
+Then capture15seconds on COM12/DTR WITHOUT p to inspect discovery reception.
+This is a targeted no-RF diagnostic,not an armed retry or startup baseline.
+No HID output expected with expired arming. Do not rebuild/flash or send p.
+Use pop-ups for required physical actions; document and push result afterward.
 This newest checkpoint supersedes the earlier readiness/reboot request below.
 
 Live continuation checkpoint (2026-11-15, Asia/Manila; supersedes older board/
