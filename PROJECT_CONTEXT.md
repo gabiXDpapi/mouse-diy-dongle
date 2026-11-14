@@ -330,7 +330,8 @@ Git / current implementation:
   the older lowercase username). Main remains at initial commit782f701.
 - V8 milestone3a40a90 was pushed to feature/bounded-ack-probe.
 - Active new branch: feature/wireless-hid-prototype, based on3a40a90.
-  Receiver checkpoint is ready for commit/push; use git status/log on resume.
+  Receiver checkpoint1879f7e was pushed with upstream tracking; use git status/log
+  on resume. No receiver hardware validation has occurred.
 - Added separate `firmware/build.ps1 -App receiver`, preserving hid/radio/probe.
 - Receiver product DIY Mouse RX HID Probe, local USB ID2FE3:0008, CDC+HID.
   COM port may differ from COM11. HID endpoint interval1ms is not measured1000Hz.
@@ -393,9 +394,9 @@ Board / local artifacts:
   These supersede earlier hashes at the same build paths; V8 preserved separately.
 
 Exact next steps:
-1. Save/push tested checkpoint on feature/wireless-hid-prototype. No receiver
-   hardware test has occurred; the board still runs the non-HID V8 probe.
-2. Await user keeping mouse wired and double-resetting nice!nano into NICENANO. Verify
+1. Tested source checkpoint is pushed. User has been asked for NICENANO reentry
+   with mouse wired; readiness confirmation is pending. Board still non-HID V8.
+2. After readiness, verify
    bootloader identity and receiver hash/bounds, flash only receiver UF2.
 3. Discover new2FE3:0008 COM port, open DTR and collect passive baseline without `p`.
    Check receiver banner,1MHz timing startup,no errors and no spontaneous pointer input.
