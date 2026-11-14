@@ -149,7 +149,9 @@ The right-button/downward test also supports button bit1 and positive Y downward
 Wheel-up produced a positive byte1 value with buttons released, followed by
 two-byte idle packets that V7 did not ACK. V8 idle handling is built, passes seven
 tests and receive-only regression checks, and passed its flashed passive startup.
-The armed V8 wheel/idle test is pending.
+V8's capture ACKed99 idle packets and resumed fresh wheel reports (wheel+1,
+buttons0,X/Y0), supporting idle handling and wheel-up mapping. A separate bounded
+wireless HID prototype is the next implementation step.
 Other buttons, negative directions and repeated wheel behavior remain unverified.
 See PROJECT_CONTEXT.md for the current artifact and handoff.
 See

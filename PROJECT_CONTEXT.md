@@ -545,15 +545,27 @@ Five-second DTR-enabled COM11 passive baseline passed: V8 idle+report ACK banner
 256-ACK/two-second cap,1 MHz timing initialization,19channels,six zero-counter
 SCAN lines,no errors/no arming. Evidence: ignored
 `build-pairing-analysis/probe-v8-passive-20261115-002350.txt`.
-Board now V8 passive/unarmed,all TX budgets unused. COM11 closed;no live
-build/serial session. Mouse last wired. Battery readiness requested for stationary,
-no-buttons,slow wheel-up/away about one notch/second; confirmation pending.
-Next: after readiness,open COM11/DTR,send `p` once,capture35seconds under distinct
-`probe-v8-wheel-up-...`. Parse new ACK format and idle packets separately from
-movement. Check idle ACKs and new wheel reports after idle,ACK count<=256/window
-two seconds,packet shapes/sequences/timing/errors. Tell user to stop/reconnect.
-Do not reflash/repeat baseline. Repeat the
-wheel test only after the idle-path change, not the earlier generic captures.
+V8 wheel/idle capture completed after readiness. Evidence: ignored
+`build-pairing-analysis/probe-v8-wheel-up-20261115-002506.txt` and summary JSON.
+1069 complete CRC-valid RX:928 discovery,18 length11,one length20,122 length2.
+118 ACKs:19 reports and99 idle;ACKed RX span1973ms,no errors,all119 TXs complete.
+Idle ACK sequence counts17:27,18:69,19:3. Fresh report sequence17 at101965ms and18
+at103155ms each contain button0,wheel+1,X0,Y0,consumer fields0. Each report uses
+a sequence previously seen in idle, empirically confirming idle must not consume
+report deduplication state. Sequence16 had wheel+19,X1665,Y-528 retained as
+accumulation/startup observation. Earlier16 reports are prior wheel data.
+Supports idle ACK acceptance, resume from idle into report traffic, positive
+wheel-up byte1 and released buttons. No HID output or throughput claim yet.
+Board V8 discovery consumed,118/256 attempts used,ACK window expired/passive.
+COM11 closed;no live build/serial session. User told to stop/reconnect cable;
+actual reconnection unconfirmed. Do not repeat firmware reads/generic captures.
+Next development: separate bounded wireless HID prototype on feature/wireless-hid-prototype.
+Reuse V8 RF/arming/256-ACK/two-second behavior; add composite CDC+HID output only
+for validated type1 data, deduplicate real reports (idle never consumes sequence),
+withhold ACK on USB busy/failure and release buttons at window end/error. Keep
+hid/radio/probe builds available, no horizontal/unknown consumer output. Build,
+native tests and regressions before asking user for a flash/input test. Do not
+enable unbounded ACKs or claim1000Hz. Detailed plan to be saved before edits.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,

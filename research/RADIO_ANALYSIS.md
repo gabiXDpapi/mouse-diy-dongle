@@ -636,3 +636,22 @@ Evidence: ignored `build-pairing-analysis/probe-v8-passive-20261115-002350.txt`.
 No `p` sent;board V8 passive/unarmed,all budgets unused. COM11 closed;mouse last
 wired. Next: controlled wheel/idle capture after battery readiness; do not repeat
 flash/baseline or earlier generic tests.
+
+## V8 capture: idle ACK acceptance and fresh wheel reports
+
+After readiness, one35-second controlled stationary/no-buttons/slow wheel-up
+capture: ignored `build-pairing-analysis/probe-v8-wheel-up-20261115-002506.txt`
+and summary JSON.1069 complete valid RX:928 discovery,18 length11,one length20,
+122 length2.118 ACKs(19 reports,99 idle) over1973ms;no errors,all119 TXs complete.
+Idle ACK sequence counts17:27,18:69,19:3. Data sequence17 at101965ms and18 at
+103155ms each had button0,wheel+1,X0,Y0,consumer fields0. Each followed idle with
+the same sequence, confirming report deduplication must ignore idle sequences.
+Sequence16 had wheel+19,X1665,Y-528; retained as startup/accumulation observation.
+The initial16 reports contained prior wheel-up data.
+
+This supports idle ACK acceptance, resuming report traffic after idle, wheel-up
+positive byte1, and released-button state. It does not establish a throughput,
+latency, full-recovery or1000Hz result. Board V8 window expired/passive;COM11
+closed. User told to stop/reconnect cable; reconnection unconfirmed.
+Next: separate bounded composite CDC+HID prototype using the same V8 RF behavior,
+real-report deduplication, USB backpressure and button release on stop/error.
