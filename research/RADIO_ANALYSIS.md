@@ -415,7 +415,13 @@ V6 probe build and UF2 validation pass: flash 58,740 / RAM 15,936 bytes;
 230 blocks, payload 0x26000..0x345FF. Current probe UF2 SHA256:
 `dbf0b69cd0e4d61656d3bb6ef61b4782783d97c80b3293222d881a2de8c66020`.
 V5 preserved locally at ignored `build-pairing-analysis/probe-v5-a1b78c57.uf2`.
-V6 not flashed/armed; receive-only regression build and compile flag/binary string
-separation checks pass. Radio UF2 hash remains 8a19a4c2... above. Board still V5,
-discovery consumed, ACK window expired. Next hardware step after checks: verified
-V6 flash/passive baseline, then separate battery readiness for a bounded capture.
+Receive-only regression build and compile flag/binary string
+separation checks pass. Radio UF2 hash remains 8a19a4c2... above.
+V6 flashed after user confirmed NICENANO ready/mouse wired, rechecking bootloader
+0.6.0, nRF52840-nicenano, S140 6.1.1 and dbf0b69c... UF2 hash/bounds.
+Five-second DTR-enabled COM11 baseline passed: V6 banner, 1 MHz timing capture
+initialization, 19 channels and six zero-counter SCAN lines; no errors, no arming.
+Evidence: ignored `build-pairing-analysis/probe-v6-passive-20261114-234710.txt`.
+Board V6 passive/unarmed, all TX budgets unused. COM11 closed; mouse last wired.
+Next: battery readiness, one armed 35-second capture; check compound ACK and
+sequence advance past 15. Do not repeat flash/baseline.

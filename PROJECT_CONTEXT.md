@@ -397,11 +397,21 @@ payload 0x26000..0x345FF. Current probe artifact (supersedes V5 at same path):
 `C:\Users\Gabriel\zephyrproject\build-mouse-probe\zephyr\zephyr.uf2`
 SHA256 `dbf0b69cd0e4d61656d3bb6ef61b4782783d97c80b3293222d881a2de8c66020`.
 V5 artifact preserved as ignored `build-pairing-analysis/probe-v5-a1b78c57.uf2`.
-V6 NOT flashed/armed. Receive-only regression build and binary separation checks
+V6 subsequently flashed; passive baseline passed below. Receive-only regression build and binary separation checks
 passed; radio UF2 hash remains 8a19a4c2... above. No live build/serial sessions.
-Source/results checkpoint is prepared for the same feature branch. Next: await
-NICENANO reentry with mouse wired, verify identity/hash,
-flash V6 and check passive startup before separate battery-mode readiness/capture.
+Source/results checkpoint d032877 was pushed to feature/bounded-ack-probe.
+User confirmed NICENANO ready and mouse wired. Reverified UF2 bounds/hash dbf0b69c...,
+bootloader 0.6.0, board-ID nRF52840-nicenano and S140 6.1.1; copied V6 UF2.
+Five-second DTR-enabled COM11 passive startup passed: expected V6 banner,
+1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
+Evidence: ignored `build-pairing-analysis/probe-v6-passive-20261114-234710.txt`.
+Board now V6 passive/unarmed, discovery and 16 ACK budgets unused; no `p` sent.
+COM11 closed; no live build/serial session. Mouse last confirmed wired.
+User asked for battery readiness; confirmation pending. Next: after user confirms
+mouse unplugged/switched on near board, open COM11 with DTR, send `p` once and
+capture 35 seconds. Ask user to move/click; inspect length-20 acceptance and
+sequence advancement past 15, ACK count <=16, timing and errors. Do not repeat
+flash or baseline. Reconnect mouse cable afterward.
 Do not repeat firmware reads or old captures. Do not claim pairing completion or
 verified movement decoding from these bounded exchanges.
 Power-cycle mouse if a transient connection state needs clearing.
