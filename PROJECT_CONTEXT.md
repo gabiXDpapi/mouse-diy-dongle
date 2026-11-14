@@ -499,12 +499,18 @@ initial events or invent an outlier filter in receiver firmware from this alone.
 User told to stop,release and reconnect cable; actual reconnection unconfirmed.
 Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive.
 COM11 closed; no live build/serial session. No firmware change needed.
-Next requires intervention: mouse wired and normal board unplug/replug, fresh
-passive startup without `p`, then separate battery readiness for wheel-up only:
-keep mouse stationary, press no buttons, slowly scroll wheel away from user
-(about one notch/second) until capture finishes. Capture35seconds under distinct
-`probe-v7-wheel-up-...`; compare byte1 wheel sign and button mask0 after startup
-backlog, retaining all packets. Then stop/reconnect. No flash/firmware read needed.
+User confirmed normal V7 reboot and mouse wired for wheel test. Fresh five-second
+COM11/DTR passive baseline passed with expected V7 banner, 256-ACK/two-second
+limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
+no errors/no arming. Evidence: ignored
+`build-pairing-analysis/probe-v7-wheel-up-passive-20261115-001422.txt`.
+Board now V7 passive/unarmed with fresh unused budgets. COM11 closed; no live
+build/serial session. Battery readiness requested: keep mouse stationary, press
+no buttons, slowly scroll up/away from user about one notch per second until
+capture finishes. Readiness pending. Next: after confirmation, arm once and
+capture35seconds under distinct `probe-v7-wheel-up-...`; compare byte1 wheel
+sign and button mask0 after startup backlog, retaining all packets/outliers.
+Then tell user to stop/reconnect. No flash or firmware read needed.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
