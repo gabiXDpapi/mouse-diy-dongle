@@ -145,7 +145,8 @@ V7 diagnostic is built with a 256-ACK cap and the same two-second deadline; it i
 flashed and its capture advanced sequence0..124 with124 ACKs across approximately
 two seconds, without errors. A controlled left-button/rightward capture supports
 button bit0 and positive X, with startup/cross-axis caveats documented in research.
-Other buttons, Y direction and wheel still need controlled validation.
+The right-button/downward test also supports button bit1 and positive Y downward.
+Wheel, other buttons and negative directions still need controlled validation.
 See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and

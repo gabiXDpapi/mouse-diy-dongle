@@ -483,13 +483,28 @@ Five-second fresh COM11/DTR baseline passed: expected V7 banner, 256-ACK/two-sec
 limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
 no errors/no arming. Evidence: ignored
 `build-pairing-analysis/probe-v7-right-down-passive-20261115-000859.txt`.
-Board V7 now passive/unarmed with fresh unused budgets; COM11 closed, no live
-build/serial session. User asked for battery readiness while holding right button
-and moving straight down toward them/lifting to return, no left button/wheel.
-Readiness pending. Next: after confirmation, arm once/capture 35 seconds under
-distinct `probe-v7-right-down-...` filename. Tell user to stop/release/reconnect
-after capture. Compare bit1 and signed Y direction using unique ACKed reports;
-retain initial packets/outliers and report cross-axis motion without assumptions.
+Right-button/downward capture completed after explicit readiness. Evidence:
+ignored `build-pairing-analysis/probe-v7-right-down-20261115-001018.txt` and
+summary JSON. 1071 complete RX packets:925 discovery,146 data (145 length11,
+one length20); one final discovery RX line truncated when35-second capture ended.
+All124 ACKed RX reports and125 TX timings are complete; no firmware errors.
+Unique ACKed sequences0..123 span1969ms. Button masks:seq0..15 mask1 (prior left
+state),seq16..123 mask2 (108 reports). Wheel/consumer fields0 throughout.
+Seq16 X6927,Y-18490 is retained as a large transition observation. Later107
+reports(seq17..123):X -9..21,abs total1042;Y -7..86,abs total4813,positive96/
+negative11. This supports right-button bit1 and downward-positive Y with some
+cross-axis motion. Earlier left state in first16 reports strengthens queued-data
+hypothesis, but queue behavior/overflow is not fully established. Do not discard
+initial events or invent an outlier filter in receiver firmware from this alone.
+User told to stop,release and reconnect cable; actual reconnection unconfirmed.
+Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive.
+COM11 closed; no live build/serial session. No firmware change needed.
+Next requires intervention: mouse wired and normal board unplug/replug, fresh
+passive startup without `p`, then separate battery readiness for wheel-up only:
+keep mouse stationary, press no buttons, slowly scroll wheel away from user
+(about one notch/second) until capture finishes. Capture35seconds under distinct
+`probe-v7-wheel-up-...`; compare byte1 wheel sign and button mask0 after startup
+backlog, retaining all packets. Then stop/reconnect. No flash/firmware read needed.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
@@ -497,8 +512,9 @@ referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describ
 the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0
 buttons1..5 (upper3 padding), byte1 signed wheel, bytes2..3 signed16 LE X,
 bytes4..5 signed16 LE Y, byte6 signed consumer usage0x238, byte7 consumer usage0.
-Controlled left/rightward test supports bit0 and positive X, with limitations
-above; the other layout fields remain static evidence. Type5 remains unknown;
+Controlled tests support left bit0,right bit1,positive X rightward and positive Y
+downward, with startup/cross-axis limitations above; remaining layout fields are
+static evidence. Type5 remains unknown;
 no pointer output is implemented. See RADIO_ANALYSIS.md for details.
 Offline descriptor-based interpretation of124 uniquely ACKed V7 reports found
 button masks0/1,wheel0,X -43..412,Y -142..196,consumer fields0. These came from

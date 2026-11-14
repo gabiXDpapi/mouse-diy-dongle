@@ -557,3 +557,29 @@ pointer output or firmware change. Board V7 window expired/passive,COM11 closed.
 User told to stop/release/reconnect cable; reconnection unconfirmed. Next: normal
 board reboot,passive startup,then separate battery readiness for right-button
 hold and downward-only motion/lift to return. Preserve initial packets/outliers.
+
+## Controlled right-button/downward test (2026-11-15)
+
+After confirmed normal reboot, passive baseline saved as ignored
+`build-pairing-analysis/probe-v7-right-down-passive-20261115-000859.txt` passed
+with no arming/errors. User then confirmed right-button hold and downward-only
+movement toward them/lifting to return, no wheel/other buttons.
+Armed35-second capture: ignored
+`build-pairing-analysis/probe-v7-right-down-20261115-001018.txt` and summary JSON.
+1071 complete RX packets:925 discovery,146 data (145 length11,one length20).
+One final discovery line was cut off at capture end; all124 ACKed reports and
+125 TX timing lines were complete. No firmware errors; ACKed span1969ms.
+
+Button byte0 was1 for sequences0..15,then2 for all108 reports at16..123.
+The earlier left-button state strengthens the previously queued-report hypothesis.
+Wheel/consumer fields0 throughout. Sequence16 X6927,Y-18490 is retained as a
+large transition observation; accumulated motion/wrap is possible, not established.
+The remaining107 reports(seq17..123) had X -9..21(abs total1042),Y -7..86
+(abs total4813),with96 positive and11 negative Y samples. This supports right
+button bit1 and downward-positive Y; nonzero X and small negative Y remain recorded.
+No automatic prefix/outlier dropping was added to receiver code.
+
+Board V7 window expired/passive; COM11 closed. User told to stop/release/reconnect
+cable; reconnection unconfirmed. Next: normal reboot/passive baseline, then
+stationary wheel-up-only battery test with no buttons, about one notch/second,
+to compare wheel field/sign and released-button state. No new firmware.
