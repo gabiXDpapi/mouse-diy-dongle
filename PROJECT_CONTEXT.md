@@ -429,16 +429,24 @@ after partial budget use. V6 UF2 preserved at ignored
 flash 58,732 / RAM 15,936 bytes, 230 blocks, payload 0x26000..0x345FF.
 Current probe UF2 path unchanged; SHA256 (supersedes V6 there):
 `e9e79cce535839d72fc4ca338ee1fc85a62f8b9ee68194af6139deaad69c8cee`.
-V7 NOT flashed/armed. Receive-only regression and binary separation checks pass:
+V7 subsequently flashed; passive baseline passed below. Receive-only regression and binary separation checks pass:
 flash 56,704 / RAM 15,872 bytes, 222 blocks, payload 0x26000..0x33DFF; new radio
 UF2 SHA256 (supersedes previous radio hashes):
 `3b459262846fbae3f30ded047c5a768bc9e44ad7bf2490fdbddfee85c6f584d1`.
-No build/serial session remains. Next: push this tested source/results checkpoint
-on feature/bounded-ack-probe, then await NICENANO reentry with mouse wired; verify
-identity and V7 hash, flash V7, check passive banner/1 MHz initialization with no
-errors and no `p`. Then await battery readiness for one 35-second armed capture,
-checking ACK count <=256, actual data duration <= two-second window, sequences,
-packet shapes, timing and errors. Do not repeat earlier captures/firmware reads.
+Tested source/results checkpoint 05bbdb7 was pushed on feature/bounded-ack-probe.
+User confirmed NICENANO ready and mouse wired. Reverified UF2 bounds/hash e9e79cce...,
+bootloader 0.6.0, nRF52840-nicenano and S140 6.1.1; copied V7 UF2 successfully.
+Five-second DTR-enabled COM11 baseline passed: V7 banner, 256-ACK/two-second limit,
+1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
+Evidence: ignored `build-pairing-analysis/probe-v7-passive-20261114-235645.txt`.
+Board V7 passive/unarmed, discovery and 256 ACK budgets unused. No `p` sent.
+COM11 closed; no live build/serial session. Mouse last confirmed wired. Battery
+readiness requested, confirmation pending. Next: after user confirms battery mode,
+open COM11 with DTR, send `p` once and capture 35 seconds while user moves/clicks.
+Check ACK count <=256, ACK window <=two seconds, sequences, packet shapes,
+timing and errors; raw post-window data can continue, so data duration itself is
+not an ACK-window measurement. Do not repeat flash/baseline or firmware reads.
+Tell user to reconnect mouse cable after capture.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
 referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describes
 the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0

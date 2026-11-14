@@ -142,7 +142,8 @@ observed20-byte compound report under its11-byte filter. A narrow V6 filter upda
 passed its hardware capture: the compound sequence-15 packet was acknowledged
 and sequence advanced to 16, exhausting the configured ACK budget. A longer bounded
 V7 diagnostic is built with a 256-ACK cap and the same two-second deadline; it is
-not yet flashed. See PROJECT_CONTEXT.md for the current artifact and handoff.
+flashed and passed its passive startup check. The armed V7 capture is pending.
+See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and
 the receive-only `radio` build remain separate.

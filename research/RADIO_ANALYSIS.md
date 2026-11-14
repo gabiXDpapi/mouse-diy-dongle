@@ -457,9 +457,15 @@ V6 artifact preserved locally at ignored `build-pairing-analysis/probe-v6-dbf0b6
 V7 not flashed/armed; receive-only regression and binary separation checks pass.
 Radio: flash 56,704 / RAM 15,872 bytes, 222 blocks, payload 0x26000..0x33DFF;
 new UF2 SHA256 `3b459262846fbae3f30ded047c5a768bc9e44ad7bf2490fdbddfee85c6f584d1`.
-Board still V6, all TX budgets consumed/passive. No live build/serial session.
-Next: identity/hash-verified V7 flash and passive baseline after bootloader
-readiness, then separate battery readiness for one bounded armed capture.
+V7 flashed after user confirmed NICENANO ready/mouse wired, checking bootloader
+0.6.0, nRF52840-nicenano, S140 6.1.1 and e9e79cce... UF2 hash/bounds.
+Five-second DTR-enabled COM11 passive baseline passed: V7 banner with256-ACK/
+two-second limit, 1 MHz timing initialization,19 channels,six zero-counter SCAN
+lines,no errors. Evidence: ignored
+`build-pairing-analysis/probe-v7-passive-20261114-235645.txt`.
+No `p` sent. Board V7 passive/unarmed, all budgets unused. COM11 closed; mouse
+last wired. Next: battery readiness, then one35-second armed capture. Check the
+ACK window separately from post-window RX traffic. Do not repeat flash/baseline.
 
 The hash-checked snapshot contains a 91-byte HID mouse report descriptor at
 0x1A750..0x1A7AA. At 0x1A7AC the length/type/pointer words are
