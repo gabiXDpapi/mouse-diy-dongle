@@ -13,6 +13,12 @@
 #include <zephyr/usb/usb_device.h>
 #include <nrfx.h>
 #include "radio_parameters.h"
+#ifdef WIRELESS_HID
+#include <zephyr/drivers/usb/udc_buf.h>
+#include <zephyr/sys/atomic.h>
+#include <zephyr/usb/class/usb_hid.h>
+#include "wireless_hid.h"
+#endif
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
 static uint8_t packet[65] __aligned(4);
@@ -102,6 +108,13 @@ static int listen(uint8_t channel, bool pairing_address)
                 if (ack_count < PROBE_ACK_LIMIT && k_uptime_get() < ack_deadline &&
                     is_ack_candidate(packet, channel, pairing_address, NRF_RADIO->RXMATCH)) {
                     err = send_report_ack(packet);
+#ifdef WIRELESS_HID
+                    if (err == -EAGAIN) {
+                        printk("HID busy; withholding ACK\n");
+                        start_rx();
+                        continue;
+                    }
+#endif
                     if (err) {
                         printk("ERROR data ACK transmit %d; no retry\n", err);
                         return err;
@@ -140,7 +153,15 @@ int main(void)
     if (err) {
         return err;
     }
+#ifdef WIRELESS_HID
+    err = init_wireless_hid();
+    if (err) {
+        return err;
+    }
+    err = usb_enable(wireless_hid_status);
+#else
     err = usb_enable(NULL);
+#endif
     if (err) {
         return err;
     }
@@ -154,8 +175,13 @@ int main(void)
     } while (!dtr);
 #ifdef DISCOVERY_PROBE
     probe_self_test();
+#ifdef WIRELESS_HID
+    printk("DIY Mouse Wireless HID Probe v1: passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; armed movement/clicks/wheel\n",
+           PROBE_ACK_LIMIT);
+#else
     printk("DIY Mouse Discovery Probe v8: idle + report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; no HID\n",
            PROBE_ACK_LIMIT);
+#endif
 #else
     printk("DIY Mouse RX Logger v2: receive-only, no movement reports\n");
 #endif
@@ -220,8 +246,17 @@ int main(void)
     while (true) {
         for (size_t i = 0; i < ARRAY_SIZE(channels); i++) {
             err = listen(channels[i], pairing_address);
+#ifdef WIRELESS_HID
+            int release_err = wireless_hid_finish();
+            if (release_err) {
+                printk("ERROR HID release %d\n", release_err);
+                if (!err) {
+                    err = release_err;
+                }
+            }
+#endif
             if (err) {
-                printk("ERROR radio disable %d\n", err);
+                printk("ERROR receive loop %d\n", err);
                 return err;
             }
         }

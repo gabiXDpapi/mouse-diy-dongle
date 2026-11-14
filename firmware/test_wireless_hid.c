@@ -1,0 +1,122 @@
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#ifndef ETIMEDOUT
+#define ETIMEDOUT 110
+#endif
+#define assert(c) do { if (!(c)) { \
+    fprintf(stderr, "Assertion failed: %s at line %d\n", #c, __LINE__); exit(1); \
+} } while (0)
+#define BUILD_ASSERT(c) _Static_assert(c, #c)
+#define ARG_UNUSED(x) ((void)(x))
+#define K_MSEC(ms) (ms)
+#define K_SEM_DEFINE(name, initial, limit) struct k_sem name = {initial}
+#define UDC_STATIC_BUF_DEFINE(name, size) static uint8_t name[((size + 3) / 4) * 4]
+typedef int atomic_t;
+static int atomic_get(const atomic_t *v) { return *v; }
+static void atomic_set(atomic_t *v, int n) { *v = n; }
+static void atomic_clear(atomic_t *v) { *v = 0; }
+struct k_sem { int count; };
+struct device { int unused; };
+struct hid_ops { void (*int_in_ready)(const struct device *); };
+enum usb_dc_status_code { USB_DC_CONFIGURED, USB_DC_RESET, USB_DC_DISCONNECTED, USB_DC_ERROR };
+static struct device fake_device;
+static const struct hid_ops *registered_ops;
+static bool device_available = true, device_ready = true, auto_complete;
+static int init_result, write_result;
+static bool short_write;
+static unsigned int writes;
+static uint8_t last_report[6];
+static int k_sem_take(struct k_sem *s, int timeout)
+{
+    if (!s->count && timeout > 0 && auto_complete) s->count = 1;
+    if (!s->count) return -EAGAIN;
+    s->count--;
+    return 0;
+}
+static void k_sem_give(struct k_sem *s) { s->count = 1; }
+static const struct device *device_get_binding(const char *name)
+{
+    assert(strcmp(name, "HID_0") == 0);
+    return device_available ? &fake_device : NULL;
+}
+static bool device_is_ready(const struct device *dev) { return dev && device_ready; }
+static void usb_hid_register_device(const struct device *dev, const uint8_t *desc,
+                                    size_t size, const struct hid_ops *ops)
+{
+    assert(dev && desc && size > 0);
+    registered_ops = ops;
+}
+static int usb_hid_init(const struct device *dev) { assert(dev); return init_result; }
+static int hid_int_ep_write(const struct device *dev, const uint8_t *data,
+                            uint32_t size, uint32_t *written)
+{
+    assert(dev && size == sizeof(last_report));
+    if (write_result) return write_result;
+    memcpy(last_report, data, size);
+    *written = short_write ? size - 1 : size;
+    writes++;
+    if (auto_complete) registered_ops->int_in_ready(dev);
+    return 0;
+}
+#include "radio_logger/src/wireless_hid.h"
+
+int main(void)
+{
+    uint8_t p[21] = {11, 0, 0, 0x41, 0xff, 0xff, 0, 0x80, 0xff, 0x7f, 0x55, 0xaa};
+    uint8_t idle[] = {2, 1, 0};
+    const uint8_t expected[] = {0x1f, 0, 0x80, 0xff, 0x7f, 0xff};
+    device_available = false; assert(init_wireless_hid() == -ENODEV);
+    device_available = true; device_ready = false; assert(init_wireless_hid() == -ENODEV);
+    device_ready = true; init_result = -EIO; assert(init_wireless_hid() == -EIO);
+    init_result = 0; assert(init_wireless_hid() == 0);
+    assert(wireless_hid_forward(p) == -ENODEV && writes == 0);
+    wireless_hid_status(USB_DC_RESET, NULL); /* Initial enumeration reset is allowed. */
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    assert(wireless_hid_forward(idle) == 0 && writes == 0);
+    assert(wireless_hid_forward(p) == 0 && writes == 1);
+    assert(memcmp(last_report, expected, sizeof(expected)) == 0);
+    assert(wireless_hid_forward(p) == 0 && writes == 1); /* Retransmission. */
+    assert(wireless_hid_forward(idle) == 0 && writes == 1);
+    p[1] = 1;
+    assert(wireless_hid_forward(p) == -EAGAIN && writes == 1);
+    assert(wireless_hid_last_sequence == 0); /* Busy never consumes the next sequence. */
+    registered_ops->int_in_ready(&fake_device);
+    assert(wireless_hid_forward(p) == 0 && writes == 2); /* Idle seq1 did not consume data seq1. */
+    registered_ops->int_in_ready(&fake_device);
+    write_result = -EAGAIN; p[1] = 2;
+    assert(wireless_hid_forward(p) == -EAGAIN && writes == 2);
+    assert(wireless_hid_last_sequence == 1);
+    write_result = -EIO;
+    assert(wireless_hid_forward(p) == -EIO && writes == 2);
+    write_result = 0;
+    assert(wireless_hid_forward(p) == 0 && writes == 3);
+    assert(wireless_hid_finish() == -ETIMEDOUT); /* Does not overwrite an in-flight report. */
+    assert(memcmp(last_report, expected, sizeof(expected)) == 0);
+    auto_complete = true;
+    assert(wireless_hid_finish() == 0 && writes == 4);
+    const uint8_t released[6] = {0};
+    assert(memcmp(last_report, released, sizeof(released)) == 0);
+    assert(wireless_hid_finish() == 0 && writes == 4);
+    p[1] = 0xff; assert(wireless_hid_forward(p) == 0 && writes == 5);
+    p[1] = 0; assert(wireless_hid_forward(p) == 0 && writes == 6); /* Sequence wrap. */
+    p[0] = 20; p[12] = 0x45; p[1] = 1;
+    assert(wireless_hid_forward(p) == 0 && writes == 7);
+    p[1] = 2; p[12] = 0x41; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
+    p[0] = 11; p[3] = 0x45; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
+    p[0] = 3; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
+    p[0] = 11; p[3] = 0x41; short_write = true;
+    assert(wireless_hid_forward(p) == -EIO && writes == 8);
+    assert(wireless_hid_last_sequence == 1);
+    short_write = false; assert(wireless_hid_finish() == 0 && writes == 9);
+    p[1] = 3; assert(wireless_hid_forward(p) == 0 && writes == 10);
+    wireless_hid_status(USB_DC_DISCONNECTED, NULL);
+    assert(wireless_hid_finish() == -ENODEV);
+    assert(wireless_hid_forward(idle) == -ENODEV);
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    assert(wireless_hid_forward(p) == -ENODEV && writes == 10); /* Reboot required. */
+    return 0;
+}

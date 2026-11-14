@@ -112,6 +112,12 @@ static int send_report_ack(const uint8_t *p)
     if (!probe_sent || ack_deadline == 0 || k_uptime_get() >= ack_deadline) {
         return -EACCES;
     }
+#ifdef WIRELESS_HID
+    int hid_err = wireless_hid_forward(p);
+    if (hid_err) {
+        return hid_err;
+    }
+#endif
     ack_count++;
     /* Stock 0x16088..0x160b8 frees a queued report on sequence+1; length 2 carries no command. */
     ack_reply[0] = 2;

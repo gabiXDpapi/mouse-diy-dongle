@@ -51,6 +51,16 @@ static void k_busy_wait(int us)
 static int disable_radio(void) { radio.TASKS_TXEN = 0; return 0; }
 static void probe_timing_before_tx(void) { }
 static void probe_timing_after_tx(bool ended) { (void)ended; }
+#ifdef WIRELESS_HID
+static int hid_result;
+static unsigned int hid_calls;
+static int wireless_hid_forward(const uint8_t *p)
+{
+    (void)p;
+    hid_calls++;
+    return hid_result;
+}
+#endif
 #include "radio_logger/src/discovery_probe.h"
 _Static_assert(PROBE_ACK_LIMIT == 256u, "Probe must retain its finite 256-ACK cap");
 int main(void)
@@ -90,6 +100,9 @@ int main(void)
     compound[12] = 0xc5; assert(!is_ack_candidate(compound, 51, false, 1));
     compound[12] = 0x45;
     assert(send_report_ack(report) == -EACCES && ack_count == 0);
+#ifdef WIRELESS_HID
+    assert(hid_calls == 0);
+#endif
     assert(send_probe() == -EACCES && !probe_sent);
     now = 1000;
     command = 'x'; poll_probe_arm(); assert(probe_arm_deadline == 0);
@@ -117,6 +130,15 @@ int main(void)
     assert(send_report_ack(report) == -EACCES && ack_count == 0);
     now--;
     int64_t original_deadline = ack_deadline;
+#ifdef WIRELESS_HID
+    unsigned int calls_before = hid_calls;
+    hid_result = -EAGAIN;
+    assert(send_report_ack(report) == -EAGAIN && ack_count == 0 && radio.TASKS_TXEN == 0);
+    hid_result = -EIO;
+    assert(send_report_ack(report) == -EIO && ack_count == 0 && radio.TASKS_TXEN == 0);
+    assert(hid_calls == calls_before + 2);
+    hid_result = 0;
+#endif
     assert(send_report_ack(report) == 0 && ack_count == 1);
     assert(turnaround_delay == 0);
     assert(ack_reply[0] == 2 && ack_reply[1] == 0 && ack_reply[2] == 0x3f);

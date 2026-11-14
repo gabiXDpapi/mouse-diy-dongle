@@ -313,278 +313,100 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
-User requests ongoing updates to this file after meaningful results, including
-current hardware state, evidence paths, and the exact next step, so a new chat can
-resume safely. Preserve this practice throughout the project.
-User also requests committing and pushing tested milestones to origin
-`https://github.com/gabixdpapi/mouse-diy-dongle.git`. Exclude proprietary firmware,
-device-specific address observations, raw captures and generated build artifacts.
-User permits separate branches when useful and requests feature-based names,
-without the codex prefix. Experimental source milestone uses
-`feature/bounded-ack-probe`, with push target `origin/feature/bounded-ack-probe`; main remains at initial
-commit782f701. Milestone `e7441e3` (source, tests, research and V5 prep) was
-successfully pushed to that feature branch. Firmware/captures/address evidence
-remain ignored; local `.vscode/` and `INFO_UF2.TXT` were deliberately not staged.
-Use `git status -sb` and `git log -1` to check the current checkpoint
-and upstream state on resume. No automatic version tag or binary release requested.
-Resume check on 2026-11-14: V4 artifact hash above matches; UF2 validator passes
-230 blocks, 0x26000..0x34600 (end exclusive). User confirmed NICENANO ready
-and mouse wired. Verified D: INFO_UF2.TXT: bootloader0.6.0, board-ID
-nRF52840-nicenano, S1406.1.1. Rechecked V4 hash and copied UF2 successfully.
-Five-second DTR-enabled COM11 baseline passed: V4 banner, `TIMING hardware
-capture initialized at 1 MHz`, 19 channels, six zero-counter SCAN lines, no errors.
-Evidence: ignored `build-pairing-analysis/probe-v4-passive-20261114-232306.txt`.
-User then confirmed battery-mode readiness. Armed V4 once and captured35seconds.
-Evidence: ignored `build-pairing-analysis/probe-v4-armed-20261114-232436.txt`
-and `.summary.json`. Exactly one arm, discovery send, and ACK send; no errors.
-991 CRC-valid RX lines:960 discovery,31 eleven-byte reports on channel51.
-FIRST POSITIVE ACK RESULT: first report sequence0 at t119735, then30 reports
-sequence1 at t119749..119974, with changed payload. Payloads:
-`00 00 41 00 00 01 00 00 00 00 00` then
-`01 00 41 00 00 00 00 FF FF 00 00`. Supports acceptance of one-shot seq0->1 ACK;
-does not prove sustained link, movement decoding, or deterministic ACK timing.
-Hardware timing (RX END to handler/TX READY/TX END, us): discovery19/401/449;
-data ACK63/194/239. Both completed=1, MODECNF0=0x200. Timing instrumentation
-works on hardware. V4 differs from V3, so cannot isolate why V3 showed no advance.
-Board runs V4 with both TX budgets consumed, passive until reboot. User told
-to reconnect mouse cable; actual reconnection not confirmed. No live serial/build
-session; COM11 closed cleanly. No additional arming or flash is needed now.
-Resume by reading this file, README.md and
-research/RADIO_ANALYSIS.md; do not repeat the firmware extraction or old probes.
-User authorized continuing until physical intervention is needed. V5 source now
-permits one discovery plus at most16 data ACK attempts in the unchanged two-second
-window; timeout exhausts remaining ACK budget, no rearm or deadline extension.
-V4 response bytes, timing helpers, exact filters and channel51 retained. No HID.
-All seven tests pass, including extended native count/expiry/timeout/wrap checks.
-Plan: `docs/plans/2026-11-14-bounded-ack-probe.md`.
-Preserved V4 UF2: ignored `build-pairing-analysis/probe-v4-2bef7486.uf2` (hash above).
-V5 Zephyr build and UF2 validation passed: flash58,716/RAM15,936 bytes,
-230blocks, payload0x26000..0x345FF. Current probe UF2 path unchanged; SHA256:
-`a1b78c57b5010fb7d7de5e7eb997e1f96e012de0040ee4455b4e1abae49031fe`.
-V5 subsequently flashed; passive baseline passed (details below). Receive-only regression build passed: flash56,704/RAM15,872,
-222blocks,0x26000..0x33DFF; its new UF2 SHA256 supersedes earlier radio hashes:
-`8a19a4c22319ddb93fd8f2e49eabb6dd6548f973a8eed519cda28a0b188f3339`.
-CMake flags ON(probe)/OFF(radio) and binary banner/arming/ACK strings confirm
-compile separation. USB-reader self-tests passed without hardware; exact-address
-scan found no device address in22 candidate source/doc files. Source milestone is
-pushed on feature/bounded-ack-probe; context checkpoint15f52bd followed e7441e3.
-User confirmed NICENANO ready and mouse wired. Reverified bootloader0.6.0,
-board-ID nRF52840-nicenano, S1406.1.1 and V5 hash a1b78c57...; copied V5 UF2.
-Five-second DTR-enabled COM11 passive baseline passed: V5 banner,1MHz timing
-initialization,19channels,six zero-counter SCAN lines,no errors. Evidence:
-ignored `build-pairing-analysis/probe-v5-passive-20261114-233754.txt`.
-After battery readiness, armed V5 once and captured35seconds. Evidence: ignored
-`build-pairing-analysis/probe-v5-armed-20261114-233953.txt` and summary JSON.
-1003 valid packets:958 discovery,15 eleven-byte reports(seq0..14,each once),
-30 twenty-byte reports(seq15 repeated),all45 data packets on51. Fifteen ACKs
-sent(count1..15),no errors; data report timestamps139159..139623ms. Eleven-byte
-reports were16ms apart, an observation of this polling/logging experiment only.
-Type1 payload varied; no controlled movement/button decoding yet. Twenty-byte
-payload:`0f004100000000ffff0000450601000000000000` contains sequence bytes,
-tag41/eight-byte type1 report,then tag45/eight-byte type5 block. V5 exact-length
-filter refused it, explaining no ACK16; do not label this as radio timing failure.
-Discovery timing42/424/472us(handler/READY/END); data ACK ranges24..70/
-155..201/199..245us. All16 transmissions completed=1,MODECNF0=0x200.
-Board V5 discovery consumed,15/16 ACK attempts used,ACK window expired; passive
-until reboot with no rearm. COM11 closed,no live build/serial session. User told
-to reconnect cable; physical reconnection unconfirmed.
-V6 source accepts only the observed 11-byte tag 0x41 or 20-byte tag 0x41+0x45
-shapes, with the same address/channel/CRC filters, 16-ACK cap, two-second window,
-timing and response bytes. All seven tests pass, including the captured compound
-fixture, all unsupported lengths 0..64, wrong tags and address/channel cases.
-V6 build and UF2 validation passed: flash 58,740 / RAM 15,936 bytes; 230 blocks,
-payload 0x26000..0x345FF. Current probe artifact (supersedes V5 at same path):
-`C:\Users\Gabriel\zephyrproject\build-mouse-probe\zephyr\zephyr.uf2`
-SHA256 `dbf0b69cd0e4d61656d3bb6ef61b4782783d97c80b3293222d881a2de8c66020`.
-V5 artifact preserved as ignored `build-pairing-analysis/probe-v5-a1b78c57.uf2`.
-V6 subsequently flashed; passive baseline passed below. Receive-only regression build and binary separation checks
-passed; radio UF2 hash remains 8a19a4c2... above. No live build/serial sessions.
-Source/results checkpoint d032877 was pushed to feature/bounded-ack-probe.
-User confirmed NICENANO ready and mouse wired. Reverified UF2 bounds/hash dbf0b69c...,
-bootloader 0.6.0, board-ID nRF52840-nicenano and S140 6.1.1; copied V6 UF2.
-Five-second DTR-enabled COM11 passive startup passed: expected V6 banner,
-1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
-Evidence: ignored `build-pairing-analysis/probe-v6-passive-20261114-234710.txt`.
-V6 capture completed after battery readiness: ignored
-`build-pairing-analysis/probe-v6-armed-20261114-234923.txt` and summary JSON.
-1004 valid RX packets: 958 discovery and 46 data on channel 51. Sequences 0..15
-each appeared once, then sequence 16 repeated 30 times. One length-20 packet at
-sequence 15 was ACKed successfully; other 45 data packets were length 11.
-All 16 ACKs sent, 17 total transmissions completed, no errors. Data timestamps
-153381..153860 ms. Compound payload:
-`0f00410000ffffffff0000450601000000000000`.
-Final repeated payload `1000410100bdfb4e130000` includes changed type-1 bytes;
-movement/buttons still need controlled interpretation. Discovery timing
-18/399/447 us (handler/READY/END); ACK ranges 13..72/144..203/189..248 us.
-This supports compound ACK acceptance and sequence advancement to 16. Repetition
-after budget exhaustion is expected, not evidence of failed ACK16.
-Board V6 all TX budgets consumed/passive until reboot. COM11 closed; no live
-build/serial session. User told to reconnect mouse cable; reconnection unconfirmed.
-Next development step: V7 raises ACK cap to 256 while retaining the two-second
-deadline, observed packet shapes, timing/bytes, explicit arming and no HID. It
-tests a longer bounded exchange; do not claim sustained receiver performance.
-V7 source implemented; all seven tests pass, including fixed 256 cap and expiry
-after partial budget use. V6 UF2 preserved at ignored
-`build-pairing-analysis/probe-v6-dbf0b69c.uf2`. V7 build and UF2 validation pass:
-flash 58,732 / RAM 15,936 bytes, 230 blocks, payload 0x26000..0x345FF.
-Current probe UF2 path unchanged; SHA256 (supersedes V6 there):
-`e9e79cce535839d72fc4ca338ee1fc85a62f8b9ee68194af6139deaad69c8cee`.
-V7 subsequently flashed; passive baseline passed below. Receive-only regression and binary separation checks pass:
-flash 56,704 / RAM 15,872 bytes, 222 blocks, payload 0x26000..0x33DFF; new radio
-UF2 SHA256 (supersedes previous radio hashes):
-`3b459262846fbae3f30ded047c5a768bc9e44ad7bf2490fdbddfee85c6f584d1`.
-Tested source/results checkpoint 05bbdb7 was pushed on feature/bounded-ack-probe.
-User confirmed NICENANO ready and mouse wired. Reverified UF2 bounds/hash e9e79cce...,
-bootloader 0.6.0, nRF52840-nicenano and S140 6.1.1; copied V7 UF2 successfully.
-Five-second DTR-enabled COM11 baseline passed: V7 banner, 256-ACK/two-second limit,
-1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
-Evidence: ignored `build-pairing-analysis/probe-v7-passive-20261114-235645.txt`.
-V7 armed capture completed after battery readiness. Evidence: ignored
-`build-pairing-analysis/probe-v7-armed-20261114-235814.txt` and summary JSON.
-1059 CRC-valid packets: 913 discovery, 146 data (145 length11, one length20).
-124 ACKs sent for sequences0..123, followed by received sequence124, no errors.
-Acknowledged RX timestamps112128..114097 ms (1969 ms span); timing is consistent
-with the fixed two-second window ending before the256-ACK cap. Exact deadline
-start is not directly timestamped in the text; guard tests independently pass.
-Channel51:130 data packets (seq0..123 once,seq124 six times);16 additional
-seq124 repeats logged after ACKs stopped on27/76/4 and49/78. The former match
-group0 retry channels;49/78 may be adjacent-channel reception, not exact TX
-frequencies. Do not claim full hopping/recovery implementation from this.
-One compound report was ACKed. All125 TXs completed,MODECNF0=0x200;
-discovery timing40/421/469us (handler/READY/END),data ACK ranges12..73/
-143..204/187..248us. Acknowledged RX gaps15..17ms are logger observations,
-not measured mouse/receiver throughput. No HID output or1000Hz claim.
-Board V7 discovery consumed,124/256 ACK attempts used,ACK window expired;
-passive until reboot and cannot rearm. COM11 closed,no live build/serial session.
-User told to reconnect mouse cable; physical reconnection unconfirmed.
-User confirmed normal V7 reboot and mouse wired. Fresh five-second DTR-enabled
-COM11 startup on 2026-11-15 passed: V7 banner, 256-ACK/two-second limit, 1 MHz
-timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
-Evidence: ignored `build-pairing-analysis/probe-v7-input-passive-20261115-000319.txt`.
-Controlled battery capture completed after user explicitly confirmed holding
-left button and moving only right/lifting to return (no wheel/other buttons).
-Evidence: ignored `build-pairing-analysis/probe-v7-left-right-20261115-000519.txt`
-and summary JSON. 1070 valid RX:924 discovery,146 data (145 length11,one length20).
-124 ACKs,seq0..123 uniquely ACKed,1968 ms span,no errors. Decode unique ACKed
-reports only; repetitions must not be counted as fresh movement.
-Button byte0:seq0..15 mask0,seq16..123 mask1 (108 reports); wheel and consumer
-fields0 throughout. First16 reports may be previously queued data (hypothesis).
-Seq16 has X22768,Y7359; do not silently discard this large transition report.
-Remaining107 reports(seq17..123) all have X positive25..58,Y positive9..37.
-This supports left-button bit0 and rightward positive X, but substantial Y means
-axis isolation was imperfect. Initial backlog/accumulation is plausible, unproven.
-No claim of full movement decoding or measured latency; button release/right
-button/Y direction/wheel still need controlled checks. User told to stop, release
-button and reconnect cable; physical reconnection unconfirmed.
-Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive
-until reboot. COM11 closed; no live serial/build session. No source change needed.
-User then confirmed normal V7 reboot and mouse wired for the right/down test.
-Five-second fresh COM11/DTR baseline passed: expected V7 banner, 256-ACK/two-second
-limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
-no errors/no arming. Evidence: ignored
-`build-pairing-analysis/probe-v7-right-down-passive-20261115-000859.txt`.
-Right-button/downward capture completed after explicit readiness. Evidence:
-ignored `build-pairing-analysis/probe-v7-right-down-20261115-001018.txt` and
-summary JSON. 1071 complete RX packets:925 discovery,146 data (145 length11,
-one length20); one final discovery RX line truncated when35-second capture ended.
-All124 ACKed RX reports and125 TX timings are complete; no firmware errors.
-Unique ACKed sequences0..123 span1969ms. Button masks:seq0..15 mask1 (prior left
-state),seq16..123 mask2 (108 reports). Wheel/consumer fields0 throughout.
-Seq16 X6927,Y-18490 is retained as a large transition observation. Later107
-reports(seq17..123):X -9..21,abs total1042;Y -7..86,abs total4813,positive96/
-negative11. This supports right-button bit1 and downward-positive Y with some
-cross-axis motion. Earlier left state in first16 reports strengthens queued-data
-hypothesis, but queue behavior/overflow is not fully established. Do not discard
-initial events or invent an outlier filter in receiver firmware from this alone.
-User told to stop,release and reconnect cable; actual reconnection unconfirmed.
-Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive.
-COM11 closed; no live build/serial session. No firmware change needed.
-User confirmed normal V7 reboot and mouse wired for wheel test. Fresh five-second
-COM11/DTR passive baseline passed with expected V7 banner, 256-ACK/two-second
-limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
-no errors/no arming. Evidence: ignored
-`build-pairing-analysis/probe-v7-wheel-up-passive-20261115-001422.txt`.
-Wheel-up capture completed after explicit readiness (stationary,no buttons,
-scroll up/away about one notch/second). Evidence: ignored
-`build-pairing-analysis/probe-v7-wheel-up-20261115-001538.txt` and summary JSON.
-1001 complete valid RX:954 discovery,16 length11,one length20,30 length2.
-17 ACKs(seq0..16),256ms ACKed RX span,no errors. Seq0..15 retained prior button2/
-downward motion. Seq16:button0,wheel+19,X855,Y121,consumer fields0. Supports
-button release and positive wheel-up field at byte1, but only one new wheel
-report; accumulated prior motion remains visible, not ideal stationary isolation.
-Then30 identical length2 payloads `11 00` (sequence17,peer0) were not ACKed by
-V7's report-only filter. This is an identified idle-path limitation, not evidence
-that wheel report ACK failed. Source0x18938..0x18950 builds length2/sequence-only
-when queue empty and skips appending report at0x18976. Stock0x16094..0x1609A
-does not advance outgoing sequence when queue is empty; repeated idle sequence
-must not be counted as duplicate movement or failed ACK by itself.
-Board V7 discovery consumed,17/256 ACK attempts used,window expired/passive;
-COM11 closed,no live build/serial session. User told to stop scrolling/reconnect
-cable; actual reconnection unconfirmed.
-Next development step: V8 accepts observed idle length2 plus existing length11/
-tag41 and length20/tag41+45, retaining exact address/channel/CRC guards,256 cap,
-two-second deadline,timing/ACK bytes,no HID. Rename matcher to is_ack_candidate,
-add min-size idle/repeat/expiry tests; log incoming length on ACK lines so idle
-ACKs are distinguishable. V8 source implemented and all seven tests pass. Native
-asserts now exit with diagnostics instead of Windows' interactive assertion dialog;
-the expected failing idle test exited cleanly before the implementation fix.
-V7 preserved as ignored `build-pairing-analysis/probe-v7-e9e79cce.uf2`.
-V8 probe build and UF2 checks pass: flash58,752 / RAM15,936 bytes,230 blocks,
-payload0x26000..0x345FF. Current probe UF2 path unchanged; SHA256:
-`4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4`.
-V8 subsequently flashed; passive baseline passed below. Receive-only regression and binary separation checks pass.
-Radio UF2 hash remains3b459262... above,flash56,704/RAM15,872,222 blocks.
-No live build/serial session. Note new
-ACK log format: `PROBE ACK sent: count=N/256 len=L seq=S next=T`; update capture
-parsing accordingly. Idle packets must not be decoded as movement or mark a report
-sequence as delivered: queue-empty idle and a later real report can share sequence.
-Source/results checkpoint5be544e pushed to feature/bounded-ack-probe.
-User confirmed NICENANO ready/mouse wired. Reverified UF2 bounds/hash4ad89938...,
-bootloader0.6.0,nRF52840-nicenano,S1406.1.1 and copied V8 UF2 successfully.
-Five-second DTR-enabled COM11 passive baseline passed: V8 idle+report ACK banner,
-256-ACK/two-second cap,1 MHz timing initialization,19channels,six zero-counter
-SCAN lines,no errors/no arming. Evidence: ignored
-`build-pairing-analysis/probe-v8-passive-20261115-002350.txt`.
-V8 wheel/idle capture completed after readiness. Evidence: ignored
-`build-pairing-analysis/probe-v8-wheel-up-20261115-002506.txt` and summary JSON.
-1069 complete CRC-valid RX:928 discovery,18 length11,one length20,122 length2.
-118 ACKs:19 reports and99 idle;ACKed RX span1973ms,no errors,all119 TXs complete.
-Idle ACK sequence counts17:27,18:69,19:3. Fresh report sequence17 at101965ms and18
-at103155ms each contain button0,wheel+1,X0,Y0,consumer fields0. Each report uses
-a sequence previously seen in idle, empirically confirming idle must not consume
-report deduplication state. Sequence16 had wheel+19,X1665,Y-528 retained as
-accumulation/startup observation. Earlier16 reports are prior wheel data.
-Supports idle ACK acceptance, resume from idle into report traffic, positive
-wheel-up byte1 and released buttons. No HID output or throughput claim yet.
-Board V8 discovery consumed,118/256 attempts used,ACK window expired/passive.
-COM11 closed;no live build/serial session. User told to stop/reconnect cable;
-actual reconnection unconfirmed. Do not repeat firmware reads/generic captures.
-Next development: separate bounded wireless HID prototype on feature/wireless-hid-prototype.
-Reuse V8 RF/arming/256-ACK/two-second behavior; add composite CDC+HID output only
-for validated type1 data, deduplicate real reports (idle never consumes sequence),
-withhold ACK on USB busy/failure and release buttons at window end/error. Keep
-hid/radio/probe builds available, no horizontal/unknown consumer output. Build,
-native tests and regressions before asking user for a flash/input test. Do not
-enable unbounded ACKs or claim1000Hz. Detailed plan to be saved before edits.
-Keep this distinct from the completed generic V7 capture; do not repeat generic
-captures or firmware reads. Further separate Y/wheel checks follow if supported.
-Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
-referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describes
-the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0
-buttons1..5 (upper3 padding), byte1 signed wheel, bytes2..3 signed16 LE X,
-bytes4..5 signed16 LE Y, byte6 signed consumer usage0x238, byte7 consumer usage0.
-Controlled tests support left bit0,right bit1,positive X rightward and positive Y
-downward, with startup/cross-axis limitations above; remaining layout fields are
-static evidence. Type5 remains unknown;
-no pointer output is implemented. See RADIO_ANALYSIS.md for details.
-Offline descriptor-based interpretation of124 uniquely ACKed V7 reports found
-button masks0/1,wheel0,X -43..412,Y -142..196,consumer fields0. These came from
-uncontrolled movement/clicks and do not validate specific physical directions.
-Do not repeat firmware reads or old captures. Do not claim pairing completion or
-verified movement decoding from these bounded exchanges.
-Power-cycle mouse if a transient connection state needs clearing.
-Sustained pairing, movement decoding, reliable acknowledgment scheduling, and
-1000 Hz performance remain unimplemented/unverified. Snapshot is not full-chip backup.
-See `research/PAIRING_FINDINGS.md` and `research/RADIO_ANALYSIS.md` for evidence.
+Updated 2026-11-15 (Asia/Manila). Read this section, README.md,
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-15-wireless-hid-prototype.md.
+Detailed experiment history is preserved in RADIO_ANALYSIS.md; do not repeat
+firmware extraction or completed generic captures merely to resume.
 
-Do not begin writing speculative Glorious RF decoding code until the actual RF protocol has been established.
+User preferences / authorization:
+- Continue autonomously until physical intervention is needed.
+- Keep this context updated after meaningful results, with board state/evidence/next step.
+- Commit and push tested milestones. Use feature-based branch names, no codex prefix.
+- Keep proprietary firmware, addresses, raw captures and UF2/build artifacts ignored.
+- Leave local .vscode/ and INFO_UF2.TXT untracked unless specifically needed.
+
+Git / current implementation:
+- Remote: https://github.com/gabiXDpapi/mouse-diy-dongle.git (origin redirects from
+  the older lowercase username). Main remains at initial commit782f701.
+- V8 milestone3a40a90 was pushed to feature/bounded-ack-probe.
+- Active new branch: feature/wireless-hid-prototype, based on3a40a90.
+  Receiver checkpoint is ready for commit/push; use git status/log on resume.
+- Added separate `firmware/build.ps1 -App receiver`, preserving hid/radio/probe.
+- Receiver product DIY Mouse RX HID Probe, local USB ID2FE3:0008, CDC+HID.
+  COM port may differ from COM11. HID endpoint interval1ms is not measured1000Hz.
+- Same V8 discovery/ACK bytes/timing, one arm/discovery per boot,256 ACK cap,
+  two-second post-discovery window. No output before explicit serial `p`.
+- Six-byte independent USB report: five buttons/padding, signed16 LE X/Y, signed8
+  wheel. Unknown consumer/horizontal fields are omitted. No clipping or startup
+  prefix dropping. Unique type1 reports only; duplicates are ACKed without replay.
+  Idle packets do not consume report deduplication state (idle and data can share seq).
+- USB enqueue occurs before ACK. Busy/error does not consume RF budget or advance
+  deduplication; busy lets mouse retry, fatal error stops. Stop/error attempts neutral
+  button release with bounded waits. USB failure cannot guarantee host delivery.
+- USB reset/disconnect after configuration requires board reboot for this prototype.
+  Continuous operation, recovery/hopping, latency and1000Hz remain unimplemented/unverified.
+
+Verified radio / input evidence:
+- V8 controlled wheel/idle capture:
+  ignored build-pairing-analysis/probe-v8-wheel-up-20261115-002506.txt + summary JSON.
+  1069 complete valid RX:928 discovery,18 length11,one length20,122 length2.
+  118 ACKs (19 reports,99 idle),1973ms ACKed RX span,no errors,119 TXs complete.
+  Fresh data seq17 and18 followed idle with the same sequence and each had buttons0,
+  wheel+1,X/Y0. This supports idle acceptance/resumption and positive wheel-up byte1.
+- Earlier controlled tests support left bit0,right bit1,rightward positive X and
+  downward positive Y, with startup/cross-axis caveats. First16 reports repeatedly
+  retained previous input; a large following report suggests queued/accumulated
+  data, not proven queue/overflow behavior. Preserve evidence; no arbitrary filter.
+- Static 91-byte mouse HID descriptor at0x1A750..0x1A7AA, pointer tuple at0x1A7AC:
+  byte0 buttons1..5,byte1 signed wheel,bytes2..3 X16LE,bytes4..5 Y16LE,
+  byte6 consumer usage0x238,byte7 usage0. Radio type1 queues the same eight bytes.
+  Consumer/type5 meaning, other button tests and negative directions remain incomplete.
+
+Board / local artifacts:
+- Physical board STILL runs non-HID V8. Discovery consumed,118/256 ACK attempts
+  used,window expired/passive until reboot. COM11 closed; no live serial session.
+- User told to stop scrolling/reconnect mouse cable after V8 capture; actual cable
+  reconnection unconfirmed. Do not assume battery/wired state.
+- V8 UF2 preserved: ignored build-pairing-analysis/probe-v8-4ad89938.uf2.
+  SHA256 4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4.
+- Earlier V4/V5/V6/V7 artifacts are also preserved in ignored evidence.
+- Known bootloader:0.6.0,nRF52840-nicenano,S1406.1.1. Last bootloader drive D:;
+  verify identity anew before flashing, do not erase/update bootloader.
+- Receiver artifact (NOT FLASHED):
+  C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2
+  SHA256 cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b.
+  Build/UF2 pass:flash60,288/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF.
+- SDK DMA macro rounds six-byte allocation up to eight; code explicitly copies/
+  transmits six bytes. First staged build stopped at obsolete allocation assertion;
+  corrected build above passed. Eight tests pass, including the native bridge
+  with padded-buffer/asynchronous USB stubs and protocol in probe/receiver modes.
+  These do not prove real Windows enumeration or new USB-before-ACK timing.
+- All four builds, UF2 checks and config/binary separation checks pass. No live
+  build/serial session remains. HID descriptor/forwarding strings exist only in
+  receiver; RF arming exists only in receiver/probe. Regression artifacts:
+  probe:flash58,776/RAM15,936,230 blocks,0x26000..0x345FF,
+  SHA256 fac516813e95b0b1e049079093b2d3acbed278d59cf701d6d4ef597f6e3816ef.
+  radio:flash56,760/RAM15,872,222 blocks,0x26000..0x33DFF,
+  SHA256 6f0f263f5095a064aa8c782d42bb06973eef9c569eaf6c9ab745f0e3689eab8e.
+  default HID:129 blocks,0x26000..0x2E0FF,unchanged SHA256
+  058c1ff58130ab07c14f258cde93df331e5345f99b4b673db0ede46d2f4a5953.
+  These supersede earlier hashes at the same build paths; V8 preserved separately.
+
+Exact next steps:
+1. Save/push tested checkpoint on feature/wireless-hid-prototype. No receiver
+   hardware test has occurred; the board still runs the non-HID V8 probe.
+2. Await user keeping mouse wired and double-resetting nice!nano into NICENANO. Verify
+   bootloader identity and receiver hash/bounds, flash only receiver UF2.
+3. Discover new2FE3:0008 COM port, open DTR and collect passive baseline without `p`.
+   Check receiver banner,1MHz timing startup,no errors and no spontaneous pointer input.
+4. Separate explicit input readiness is required. First test on an empty workspace,
+   with another pointer available. Switch mouse OFF, unplug its cable and leave OFF
+   until arming is confirmed, to reduce stale queued actions. Then power ON and move
+   without clicking/scrolling for the first two-second HID test. Verify cursor motion,
+   ACK progression,timing,USB errors and neutral stop before testing deliberate clicks.
+5. Save raw log/summary locally; update context/research and push tested milestone.
+   Do not claim reliable gaming receiver completion from a bounded HID demonstration.
+
+The firmware snapshot is an application-region read, NOT a full-chip backup.
+Do not flash proprietary receiver firmware onto this board or write mouse config.
+Do not invent speculative RF decoding beyond established evidence.

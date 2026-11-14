@@ -157,3 +157,26 @@ See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and
 the receive-only `radio` build remain separate.
+
+## Bounded wireless HID prototype (hardware validation pending)
+
+Build with `firmware/build.ps1 -App receiver`. This separate CDC+HID application
+uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
+Its UF2 is staged outside OneDrive in
+`C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
+Do not flash until the build and application-only UF2 validation pass.
+Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
+SHA256 `cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b`.
+All eight tests and the three existing build regressions pass. The new receiver
+has not been flashed or tested with Windows input yet.
+
+It stays passive until serial `p`, then uses the proven discovery/ACK protocol
+for at most two seconds and 256 ACK attempts. Validated unique reports forward
+five button bits, signed16 X/Y and signed8 wheel to USB; idle and retransmitted
+reports do not replay movement. USB busy withholds ACK. Test termination/error
+attempts neutral button release with bounded waits. USB reset/disconnect after
+configuration requires a board reboot. No input is generated during passive startup.
+
+This first HID bridge keeps USB text logging and radio polling; neither latency
+nor1000Hz operation is established. The original HID demo, passive logger and
+non-HID probe remain available. See PROJECT_CONTEXT.md for exact build/hardware state.

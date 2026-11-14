@@ -655,3 +655,40 @@ latency, full-recovery or1000Hz result. Board V8 window expired/passive;COM11
 closed. User told to stop/reconnect cable; reconnection unconfirmed.
 Next: separate bounded composite CDC+HID prototype using the same V8 RF behavior,
 real-report deduplication, USB backpressure and button release on stop/error.
+
+## Bounded wireless HID bridge prepared (2026-11-15)
+
+Separate `-App receiver` uses the V8 protocol/timing/256-ACK/two-second window,
+with composite CDC+HID (local2FE3:0008,product DIY Mouse RX HID Probe). Only
+validated type1 packets forward five buttons,signed16 LE X/Y,and signed8 wheel.
+The independent six-byte descriptor omits unresolved consumer fields. No clipping
+or arbitrary startup-report dropping. Real-report deduplication ignores idle;
+255->0 remains a new sequence. USB enqueue precedes ACK; endpoint busy withholds
+ACK without consuming RF budget or report sequence. Fatal errors stop the loop.
+End/error attempts neutral button release with bounded waits. USB reset/disconnect
+after configuration requires reboot for this prototype; recovery remains future work.
+
+Eight tests pass: UF2/evidence tests plus native actual protocol in both build
+modes and actual USB bridge with asynchronous mocks. Cases include duplicate/
+idle->data handling,busy/retry/errors/short write,wrap and neutral release/timeout.
+SDK's DMA allocation rounds six bytes to eight, so wire size is explicitly six;
+native tests now model this padding. The first staged build caught an obsolete
+allocation-size assertion; the corrected receiver build passed.
+
+Receiver UF2: `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
+SHA256 `cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b`.
+Flash60,288/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF.
+Probe/radio/original HID regressions and config/binary separation all pass.
+New probe hash `fac516813e95b0b1e049079093b2d3acbed278d59cf701d6d4ef597f6e3816ef`;
+new radio hash `6f0f263f5095a064aa8c782d42bb06973eef9c569eaf6c9ab745f0e3689eab8e`.
+Original HID hash unchanged `058c1ff58130ab07c14f258cde93df331e5345f99b4b673db0ede46d2f4a5953`.
+Preserved hardware-tested V8: ignored `build-pairing-analysis/probe-v8-4ad89938.uf2`.
+HID forwarding/descriptor present only in receiver binary; RF arming only in
+receiver/probe. No live build/serial session. Board still non-HID V8 expired/passive.
+
+Receiver NOT flashed/tested on hardware. USB enqueue can alter ACK turnaround;
+measure it in the first real input test. First test should use an empty workspace,
+another pointer,mouse initially OFF/unplugged to reduce stale queued actions,then
+power-on only after arming confirmation and movement without clicks/scrolling.
+Verify passive enumeration/no input before arm and neutral stop after the window.
+No measured latency,throughput,channel recovery or1000Hz claim.

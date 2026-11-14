@@ -1,4 +1,4 @@
-param([ValidateSet('hid', 'radio', 'probe')][string]$App = 'hid')
+param([ValidateSet('hid', 'radio', 'probe', 'receiver')][string]$App = 'hid')
 
 $ErrorActionPreference = 'Stop'
 $workspace = Join-Path $env:USERPROFILE 'zephyrproject'
@@ -22,6 +22,8 @@ Copy-Item -LiteralPath "$source\src\main.c" -Destination "$stage\src"
 if ($App -ne 'hid') {
     Copy-Item -LiteralPath "$source\src\discovery_probe.h" -Destination "$stage\src"
     Copy-Item -LiteralPath "$source\src\probe_timing.h" -Destination "$stage\src"
+    Copy-Item -LiteralPath "$source\src\wireless_hid.h" -Destination "$stage\src"
+    Copy-Item -LiteralPath "$source\receiver.conf" -Destination $stage
     python "$PSScriptRoot\generate_radio_header.py" "$PSScriptRoot\..\build-pairing-analysis" "$stage\src\radio_parameters.h"
     if ($LASTEXITCODE -ne 0) { throw 'Radio evidence validation failed.' }
 }
@@ -31,8 +33,10 @@ try {
     if ($App -eq 'hid') {
         west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage
     } else {
-        $probe = if ($App -eq 'probe') { 'ON' } else { 'OFF' }
-        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe"
+        $probe = if ($App -in @('probe', 'receiver')) { 'ON' } else { 'OFF' }
+        $wirelessHid = if ($App -eq 'receiver') { 'ON' } else { 'OFF' }
+        $extraConf = if ($App -eq 'receiver') { 'receiver.conf' } else { '' }
+        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DEXTRA_CONF_FILE=$extraConf"
     }
     if ($LASTEXITCODE -ne 0) { throw 'Firmware build failed; do not flash an old UF2.' }
     python "$PSScriptRoot\check_uf2.py" "$build\zephyr\zephyr.uf2"
