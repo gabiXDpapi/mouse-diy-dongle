@@ -36,3 +36,15 @@ stage project source/research/docs, excluding local IDE settings, board-drive co
 private evidence and binaries. Do not rewrite history.
 Execution continues in this chat under the user's instruction to proceed until
 physical intervention is needed. No delegation or extra workflow dependency needed.
+
+## V6 follow-up from the V5 capture
+
+V5 advanced sequence0..15 but rejected the observed20-byte tag41+tag45 report.
+Keep the16-attempt/two-second limits. Add the captured packet as a native matcher
+fixture, reject all unsupported lengths and wrong tags/addresses/channels, and
+confirm the new valid fixture fails against V5. Then extend only the matcher to
+accept length11/tag41 or length20/tag41+tag45; update banner to V6. Preserve the
+V5 UF2 before rebuilding. Run seven tests, probe build/UF2 validation and receive-only
+build/separation check. Update context/research/README, commit/push this tested
+milestone on the same feature branch, then request bootloader reentry. No type5
+decoding or extra transmissions.

@@ -376,3 +376,46 @@ Evidence: ignored `build-pairing-analysis/probe-v5-passive-20261114-233754.txt`.
 No `p` sent; discovery and16 ACK budgets unused. COM11 closed, mouse last wired.
 Next: await battery readiness, then one35-second armed capture. Multi-ACK behavior
 is not yet hardware tested. Do not repeat flash/baseline on resume.
+
+## V5 armed capture: multi-ACK acceptance and compound packet
+
+After user battery readiness, one arm/35-second capture saved in ignored
+`build-pairing-analysis/probe-v5-armed-20261114-233953.txt` and summary JSON.
+1003 CRC-valid packets:958 discovery and45 data packets on51. First15 data packets
+were length11,sequence0..14 once each at139159..139383ms,16ms apart. Fifteen ACKs
+sent(seq0->1 through14->15),no errors. This supports repeated ACK acceptance.
+Do not infer report throughput from this polling/USB-text experiment.
+
+Next30 packets were length20,sequence15,unchanged payload:
+`0f 00 41 00 00 00 00 ff ff 00 00 45 06 01 00 00 00 00 00 00`,
+at139397..139623ms. Two sequence bytes plus tag41/eight-byte type1 and
+tag45/eight-byte type5 match the tag construction at0x15BA0 and message appending
+at0x15E5C..0x15E92. Type5 meaning remains unknown. V5 rejected length20 by design,
+so its unused16th ACK and return to discovery are explained by the packet filter.
+This is not evidence that the15th ACK failed: sequence15 was observed.
+
+Timing(handler/READY/END relative to RX END,us): discovery42/424/472; data ACK
+ranges24..70/155..201/199..245. All16 transmissions completed,MODECNF0=0x200.
+Board V5 discovery consumed,15 ACKs attempted,ACK window expired/passive. COM11
+closed. User told to reconnect cable; reconnection unconfirmed.
+
+Next: V6 narrowly accepts the observed length20/tag41+45 shape in addition to
+length11/tag41, retaining16-attempt/two-second bounds and V4 timing/response bytes.
+No general packet parser, type5 command handling, HID output or extra TX budget.
+
+## V6 preparation
+
+The matcher now accepts length 11/tag 0x41 or length 20/tag 0x41+0x45 at the
+observed offsets. Address, channel, CRC and all arming/budget/deadline guards are
+unchanged. The tag 0x45 block is not interpreted. Native tests use the captured
+compound shape and reject every unsupported length 0..64, wrong tags and wrong
+channel/base/logical address. All seven tests pass.
+
+V6 probe build and UF2 validation pass: flash 58,740 / RAM 15,936 bytes;
+230 blocks, payload 0x26000..0x345FF. Current probe UF2 SHA256:
+`dbf0b69cd0e4d61656d3bb6ef61b4782783d97c80b3293222d881a2de8c66020`.
+V5 preserved locally at ignored `build-pairing-analysis/probe-v5-a1b78c57.uf2`.
+V6 not flashed/armed; receive-only regression build and compile flag/binary string
+separation checks pass. Radio UF2 hash remains 8a19a4c2... above. Board still V5,
+discovery consumed, ACK window expired. Next hardware step after checks: verified
+V6 flash/passive baseline, then separate battery readiness for a bounded capture.

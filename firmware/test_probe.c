@@ -57,6 +57,22 @@ int main(void)
     report[0] = 10; assert(!is_initial_report(report, 51, false, 1));
     report[0] = 11; report[3] = 0x42; assert(!is_initial_report(report, 51, false, 1));
     report[3] = 0x41;
+    uint8_t compound[65] = {20, 0x0f, 0, 0x41, 0, 0, 0, 0, 0xff, 0xff, 0, 0,
+                            0x45, 6, 1, 0, 0, 0, 0, 0, 0};
+    assert(is_initial_report(compound, 51, false, 1));
+    assert(!is_initial_report(compound, 49, false, 1));
+    assert(!is_initial_report(compound, 51, true, 1));
+    assert(!is_initial_report(compound, 51, false, 0));
+    for (unsigned int length = 0; length <= 64; length++) {
+        compound[0] = length;
+        assert(is_initial_report(compound, 51, false, 1) == (length == 11 || length == 20));
+    }
+    compound[0] = 20;
+    compound[3] = 0x45; assert(!is_initial_report(compound, 51, false, 1));
+    compound[3] = 0x41;
+    compound[12] = 0x41; assert(!is_initial_report(compound, 51, false, 1));
+    compound[12] = 0xc5; assert(!is_initial_report(compound, 51, false, 1));
+    compound[12] = 0x45;
     assert(send_report_ack(report) == -EACCES && ack_count == 0);
     assert(send_probe() == -EACCES && !probe_sent);
     now = 1000;

@@ -373,14 +373,37 @@ board-ID nRF52840-nicenano, S1406.1.1 and V5 hash a1b78c57...; copied V5 UF2.
 Five-second DTR-enabled COM11 passive baseline passed: V5 banner,1MHz timing
 initialization,19channels,six zero-counter SCAN lines,no errors. Evidence:
 ignored `build-pairing-analysis/probe-v5-passive-20261114-233754.txt`.
-Board now V5 passive/unarmed, discovery and16 ACK budgets unused. No `p` sent.
-Mouse last confirmed wired. COM11 closed; no live build or serial session.
-Next: await user battery-mode readiness (unplug cable, switch mouse on near board),
-then open COM11 with DTR, send `p` once and capture35seconds. Do not reflash or
-repeat baseline. Ask user to move/click during the
-armed capture; inspect sequences, ACK count<=16, timing and errors. Do not repeat
-firmware reads or old captures. Do not claim pairing completion or verified
-movement decoding from one accepted ACK.
+After battery readiness, armed V5 once and captured35seconds. Evidence: ignored
+`build-pairing-analysis/probe-v5-armed-20261114-233953.txt` and summary JSON.
+1003 valid packets:958 discovery,15 eleven-byte reports(seq0..14,each once),
+30 twenty-byte reports(seq15 repeated),all45 data packets on51. Fifteen ACKs
+sent(count1..15),no errors; data report timestamps139159..139623ms. Eleven-byte
+reports were16ms apart, an observation of this polling/logging experiment only.
+Type1 payload varied; no controlled movement/button decoding yet. Twenty-byte
+payload:`0f004100000000ffff0000450601000000000000` contains sequence bytes,
+tag41/eight-byte type1 report,then tag45/eight-byte type5 block. V5 exact-length
+filter refused it, explaining no ACK16; do not label this as radio timing failure.
+Discovery timing42/424/472us(handler/READY/END); data ACK ranges24..70/
+155..201/199..245us. All16 transmissions completed=1,MODECNF0=0x200.
+Board V5 discovery consumed,15/16 ACK attempts used,ACK window expired; passive
+until reboot with no rearm. COM11 closed,no live build/serial session. User told
+to reconnect cable; physical reconnection unconfirmed.
+V6 source accepts only the observed 11-byte tag 0x41 or 20-byte tag 0x41+0x45
+shapes, with the same address/channel/CRC filters, 16-ACK cap, two-second window,
+timing and response bytes. All seven tests pass, including the captured compound
+fixture, all unsupported lengths 0..64, wrong tags and address/channel cases.
+V6 build and UF2 validation passed: flash 58,740 / RAM 15,936 bytes; 230 blocks,
+payload 0x26000..0x345FF. Current probe artifact (supersedes V5 at same path):
+`C:\Users\Gabriel\zephyrproject\build-mouse-probe\zephyr\zephyr.uf2`
+SHA256 `dbf0b69cd0e4d61656d3bb6ef61b4782783d97c80b3293222d881a2de8c66020`.
+V5 artifact preserved as ignored `build-pairing-analysis/probe-v5-a1b78c57.uf2`.
+V6 NOT flashed/armed. Receive-only regression build and binary separation checks
+passed; radio UF2 hash remains 8a19a4c2... above. No live build/serial sessions.
+Source/results checkpoint is prepared for the same feature branch. Next: await
+NICENANO reentry with mouse wired, verify identity/hash,
+flash V6 and check passive startup before separate battery-mode readiness/capture.
+Do not repeat firmware reads or old captures. Do not claim pairing completion or
+verified movement decoding from these bounded exchanges.
 Power-cycle mouse if a transient connection state needs clearing.
 Sustained pairing, movement decoding, reliable acknowledgment scheduling, and
 1000 Hz performance remain unimplemented/unverified. Snapshot is not full-chip backup.

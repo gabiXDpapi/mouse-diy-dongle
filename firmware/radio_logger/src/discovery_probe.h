@@ -1,4 +1,4 @@
-/* V4 advanced sequence once; V5 tests a bounded run of the same ACK. */
+/* V5 advanced sequence0..15; V6 also accepts the observed type1+type5 packet. */
 #define PROBE_ACK_LIMIT 16u
 static bool probe_sent;
 static unsigned int ack_count;
@@ -100,7 +100,7 @@ static bool is_initial_report(const uint8_t *p, uint8_t channel, bool pairing_ad
                               uint32_t match)
 {
     return !pairing_address && match == 1 && channel == channels[3] &&
-           p[0] == 11 && p[3] == 0x41;
+           p[3] == 0x41 && (p[0] == 11 || (p[0] == 20 && p[12] == 0x45));
 }
 
 static int send_report_ack(const uint8_t *p)

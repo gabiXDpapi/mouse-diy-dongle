@@ -154,7 +154,7 @@ int main(void)
     } while (!dtr);
 #ifdef DISCOVERY_PROBE
     probe_self_test();
-    printk("DIY Mouse Discovery Probe v5: hardware timing; passive until 'p'; ONE discovery + 16 ACKs maximum in 2000 ms; no HID\n");
+    printk("DIY Mouse Discovery Probe v6: compound report filter; passive until 'p'; ONE discovery + 16 ACKs maximum in 2000 ms; no HID\n");
 #else
     printk("DIY Mouse RX Logger v2: receive-only, no movement reports\n");
 #endif
