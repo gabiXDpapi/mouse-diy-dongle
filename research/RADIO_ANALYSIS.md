@@ -792,3 +792,16 @@ Board still v2 expired/passive;COM12 closed,no live build/serial session. V3 not
 flashed. Next: verified v3 flash/passive baseline after NICENANO readiness,then
 separate readiness on a harmless scrollable document/page and one45-second
 capture for a ten-second deliberate movement/click/wheel test. No gaming claim.
+
+## Receiver v3 flash/passive check and handoff (2026-11-15)
+
+User confirmed NICENANO ready/mouse wired. Rechecked final4bc43f35... UF2 bounds/
+hash,bootloader0.6.0,nRF52840-nicenano,S1406.1.1 and copied application UF2.
+Five-second DTR-enabled COM12 startup passed:v3 banner,1024 ACKs/10000ms,
+1MHz timing initialization,19channels,six zero-counter SCAN lines,no errors/arming.
+Windows composite/CDC/HID statuses all OK. Evidence: ignored
+`build-pairing-analysis/receiver-v3-passive-20261115-012451.txt`.
+Board v3 passive/unarmed,all budgets unused;COM12 closed,no live build/serial
+session. Mouse last wired. User requested next-chat handoff before arming.
+Next: separate harmless-document/off-unplugged readiness,then one45-second
+capture for the10-second controls trial. Do not rebuild/reflash/repeat baseline.

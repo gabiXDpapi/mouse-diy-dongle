@@ -170,9 +170,10 @@ Its UF2 is staged outside OneDrive in
 Do not flash until the build and application-only UF2 validation pass.
 Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
 Current receiver v3 SHA256 `4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da`.
-All eight tests, affected builds and separation checks pass. V3 is not yet flashed.
-The board still runs v2, which forwarded87 unique movement reports and produced
-user-confirmed wireless Windows pointer movement followed by the bounded stop.
+All eight tests, affected builds and separation checks pass. V3 is flashed and
+passed passive COM12/HID startup;its extended controls test is pending. V2 already
+forwarded87 unique movement reports and produced user-confirmed wireless Windows
+pointer movement followed by the bounded stop.
 
 It stays passive until serial `p`, then uses the proven discovery/ACK protocol
 for at most ten seconds and 1,024 ACK attempts in v3. The non-HID probe keeps its
