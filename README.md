@@ -148,7 +148,8 @@ button bit0 and positive X, with startup/cross-axis caveats documented in resear
 The right-button/downward test also supports button bit1 and positive Y downward.
 Wheel-up produced a positive byte1 value with buttons released, followed by
 two-byte idle packets that V7 did not ACK. V8 idle handling is built, passes seven
-tests and receive-only regression checks, and awaits flashing/hardware validation.
+tests and receive-only regression checks, and passed its flashed passive startup.
+The armed V8 wheel/idle test is pending.
 Other buttons, negative directions and repeated wheel behavior remain unverified.
 See PROJECT_CONTEXT.md for the current artifact and handoff.
 See

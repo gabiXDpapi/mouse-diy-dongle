@@ -532,17 +532,27 @@ V7 preserved as ignored `build-pairing-analysis/probe-v7-e9e79cce.uf2`.
 V8 probe build and UF2 checks pass: flash58,752 / RAM15,936 bytes,230 blocks,
 payload0x26000..0x345FF. Current probe UF2 path unchanged; SHA256:
 `4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4`.
-V8 NOT flashed/armed; receive-only regression and binary separation checks pass.
+V8 subsequently flashed; passive baseline passed below. Receive-only regression and binary separation checks pass.
 Radio UF2 hash remains3b459262... above,flash56,704/RAM15,872,222 blocks.
 No live build/serial session. Note new
 ACK log format: `PROBE ACK sent: count=N/256 len=L seq=S next=T`; update capture
 parsing accordingly. Idle packets must not be decoded as movement or mark a report
 sequence as delivered: queue-empty idle and a later real report can share sequence.
-Checkpoint uses feature/bounded-ack-probe. Next: await NICENANO reentry with mouse
-wired, verify bootloader and V8 hash, flash and verify passive V8 banner/1 MHz
-timing initialization with no errors and no `p`. Then request battery readiness
-for one stationary/no-buttons/slow wheel-up capture, parsing the new ACK format
-and idle packets separately from movement reports. Repeat the
+Source/results checkpoint5be544e pushed to feature/bounded-ack-probe.
+User confirmed NICENANO ready/mouse wired. Reverified UF2 bounds/hash4ad89938...,
+bootloader0.6.0,nRF52840-nicenano,S1406.1.1 and copied V8 UF2 successfully.
+Five-second DTR-enabled COM11 passive baseline passed: V8 idle+report ACK banner,
+256-ACK/two-second cap,1 MHz timing initialization,19channels,six zero-counter
+SCAN lines,no errors/no arming. Evidence: ignored
+`build-pairing-analysis/probe-v8-passive-20261115-002350.txt`.
+Board now V8 passive/unarmed,all TX budgets unused. COM11 closed;no live
+build/serial session. Mouse last wired. Battery readiness requested for stationary,
+no-buttons,slow wheel-up/away about one notch/second; confirmation pending.
+Next: after readiness,open COM11/DTR,send `p` once,capture35seconds under distinct
+`probe-v8-wheel-up-...`. Parse new ACK format and idle packets separately from
+movement. Check idle ACKs and new wheel reports after idle,ACK count<=256/window
+two seconds,packet shapes/sequences/timing/errors. Tell user to stop/reconnect.
+Do not reflash/repeat baseline. Repeat the
 wheel test only after the idle-path change, not the earlier generic captures.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.

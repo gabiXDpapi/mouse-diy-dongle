@@ -626,8 +626,13 @@ V8 build/UF2 checks pass:flash58,752/RAM15,936 bytes,230 blocks,
 payload0x26000..0x345FF. Current probe UF2 SHA256:
 `4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4`.
 V7 preserved locally at ignored `build-pairing-analysis/probe-v7-e9e79cce.uf2`.
-V8 not flashed/armed; receive-only regression and binary separation pass.
-Radio UF2 hash remains3b459262... above;flash56,704/RAM15,872,222 blocks. Board still V7
-with expired ACK window. Next: verified V8 flash/passive baseline,then new
-controlled wheel/idle capture after battery readiness. Earlier generic tests need
-not be repeated.
+Receive-only regression and binary separation pass. Radio UF2 hash remains
+3b459262... above;flash56,704/RAM15,872,222 blocks.
+V8 flashed after user confirmed NICENANO ready/mouse wired,checking bootloader
+0.6.0,nRF52840-nicenano,S1406.1.1 and4ad89938... UF2 hash/bounds. Five-second
+DTR-enabled COM11 passive baseline passed: V8 banner,256 cap/two-second window,
+1 MHz timing initialization,19channels,six zero-counter SCAN lines,no errors.
+Evidence: ignored `build-pairing-analysis/probe-v8-passive-20261115-002350.txt`.
+No `p` sent;board V8 passive/unarmed,all budgets unused. COM11 closed;mouse last
+wired. Next: controlled wheel/idle capture after battery readiness; do not repeat
+flash/baseline or earlier generic tests.
