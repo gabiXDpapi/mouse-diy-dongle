@@ -457,11 +457,20 @@ not measured mouse/receiver throughput. No HID output or1000Hz claim.
 Board V7 discovery consumed,124/256 ACK attempts used,ACK window expired;
 passive until reboot and cannot rearm. COM11 closed,no live build/serial session.
 User told to reconnect mouse cable; physical reconnection unconfirmed.
-Next requires intervention: reconnect mouse cable and briefly unplug/replug the
-nice!nano for a normal V7 reboot (no double-reset/reflash needed). After user
-confirms, verify fresh passive startup on COM11 without `p`. Then ask for battery
-readiness for a controlled input test: hold left button and move only right,
-lifting the mouse to return; capture once to check candidate button/X mapping.
+User confirmed normal V7 reboot and mouse wired. Fresh five-second DTR-enabled
+COM11 startup on 2026-11-15 passed: V7 banner, 256-ACK/two-second limit, 1 MHz
+timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
+Evidence: ignored `build-pairing-analysis/probe-v7-input-passive-20261115-000319.txt`.
+No `p` sent; board now V7 passive/unarmed with unused budgets. COM11 closed;
+no build/serial session. User asked for controlled-test battery readiness:
+unplug mouse, switch on near board, hold left button and repeatedly move only
+right, lifting to return, with no wheel/other buttons. Readiness is pending.
+Next: after explicit readiness, open COM11 with DTR, arm once and capture35seconds
+under a distinct `probe-v7-left-right-...` filename. Tell user to stop/reconnect
+cable after capture. Analyze unique ACKed sequences only to avoid counting retries
+as new motion; compare byte0 mask=1, byte1 wheel=0, signed16 LE X mostly positive,
+and Y much smaller than X (allow hand jitter/lift artifacts). Report exceptions,
+do not assume axes/sign before examining data.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,

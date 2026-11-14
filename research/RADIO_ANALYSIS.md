@@ -519,3 +519,13 @@ reboot. COM11 closed; user told to reconnect cable, reconnection unconfirmed.
 Next: normal board reboot (no new firmware), passive startup, then a distinct
 controlled battery capture holding left button and moving only right/lifting
 to return. Verify candidate button/X mapping before USB pointer integration.
+
+Controlled-test preparation on 2026-11-15: user confirmed normal V7 reboot/mouse
+wired. Five-second DTR-enabled COM11 startup passed with expected V7 banner,
+256-ACK/two-second limit,1 MHz timing initialization,19 channels,six zero-counter
+SCAN lines,no errors and no arming. Evidence: ignored
+`build-pairing-analysis/probe-v7-input-passive-20261115-000319.txt`.
+Board V7 unarmed with fresh budgets; COM11 closed. Await battery readiness while
+holding left button and moving only right/lifting to return, with no scrolling
+or other buttons. This will be a distinct controlled capture, not another generic
+link test. No source or firmware change.
