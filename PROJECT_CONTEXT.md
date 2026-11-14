@@ -322,7 +322,10 @@ device-specific address observations, raw captures and generated build artifacts
 User permits separate branches when useful and requests feature-based names,
 without the codex prefix. Experimental source milestone uses
 `feature/bounded-ack-probe`, with push target `origin/feature/bounded-ack-probe`; main remains at initial
-commit782f701. Use `git status -sb` and `git log -1` to check the current checkpoint
+commit782f701. Milestone `e7441e3` (source, tests, research and V5 prep) was
+successfully pushed to that feature branch. Firmware/captures/address evidence
+remain ignored; local `.vscode/` and `INFO_UF2.TXT` were deliberately not staged.
+Use `git status -sb` and `git log -1` to check the current checkpoint
 and upstream state on resume. No automatic version tag or binary release requested.
 Resume check on 2026-11-14: V4 artifact hash above matches; UF2 validator passes
 230 blocks, 0x26000..0x34600 (end exclusive). User confirmed NICENANO ready
@@ -364,8 +367,9 @@ V5 NOT flashed/armed. Receive-only regression build passed: flash56,704/RAM15,87
 CMake flags ON(probe)/OFF(radio) and binary banner/arming/ACK strings confirm
 compile separation. USB-reader self-tests passed without hardware; exact-address
 scan found no device address in22 candidate source/doc files. Board still V4
-consumed/passive. No build/serial session remains. Source milestone is prepared
-for commit/push on feature/bounded-ack-probe. Next hardware step: await NICENANO reentry
+consumed/passive. No build/serial session remains. Source milestone is pushed on
+feature/bounded-ack-probe. User has been asked to reconnect mouse cable and
+double-reset the board; readiness confirmation is pending. Next: await NICENANO reentry
 with mouse wired; verify bootloader and V5
 hash, flash, verify passive V5 banner and1MHz timing initialization with no errors.
 Do not send `p` during baseline. Then await battery readiness for one35-second
