@@ -487,3 +487,35 @@ This table concerns the eight bytes after tag0x41, not the sequence/tag prefix.
 There is no Report ID item in this descriptor. This is static evidence; verify
 each axis/button/wheel with controlled actions before enabling Windows input.
 No type5 meaning is inferred and no decoding/HID code was added.
+
+## V7 capture: bounded two-second link
+
+After user battery readiness, one arm/35-second capture saved as ignored
+`build-pairing-analysis/probe-v7-armed-20261114-235814.txt` and summary JSON.
+1059 CRC-valid packets:913 discovery,146 data (145 length11,one length20).
+124 ACKs were sent(seq0..123),then sequence124 was received. No errors and all
+125 transmissions completed. One compound report was successfully ACKed.
+ACKed RX timestamps112128..114097 span1969ms, consistent with the two-second
+deadline ending below the256 cap. The exact discovery/ACK-window start is not
+timestamped; these RX times alone are not an exact deadline measurement.
+
+Channel51 had130 data packets:seq0..123 once each,then seq124 six times.
+Another16 copies of seq124 appeared at114135..114326 on logged frequencies
+27(4),76(6),4(2),49(2),78(2). The first three match group0's retry channels;
+49/78 may be adjacent-channel reception. This supports retry/channel changes
+after ACKs stop, not a complete receiver hopping/recovery implementation.
+Stock0x1889A..0x188DC increments retry/channel indices after unsuccessful
+cycles and writes the table-selected frequency. No hopping code was added.
+
+Hardware timing(handler/READY/END relative to RX END,us): discovery40/421/469;
+data ACK ranges12..73/143..204/187..248. MODECNF0=0x200 throughout. ACKed RX gaps
+were15..17ms; USB text/polling miss traffic, so this is not a throughput or1000Hz test.
+
+Applying the descriptor layout offline to124 unique ACKed reports gives masks0/1,
+wheel0,X range-43..412,Y-142..196,and both consumer fields0. Movement/click actions
+were uncontrolled; these ranges support further testing but do not validate axes.
+Board V7 discovery consumed,124 ACK attempts used,window expired/passive until
+reboot. COM11 closed; user told to reconnect cable, reconnection unconfirmed.
+Next: normal board reboot (no new firmware), passive startup, then a distinct
+controlled battery capture holding left button and moving only right/lifting
+to return. Verify candidate button/X mapping before USB pointer integration.

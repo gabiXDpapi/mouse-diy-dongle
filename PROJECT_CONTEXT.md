@@ -439,14 +439,31 @@ bootloader 0.6.0, nRF52840-nicenano and S140 6.1.1; copied V7 UF2 successfully.
 Five-second DTR-enabled COM11 baseline passed: V7 banner, 256-ACK/two-second limit,
 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
 Evidence: ignored `build-pairing-analysis/probe-v7-passive-20261114-235645.txt`.
-Board V7 passive/unarmed, discovery and 256 ACK budgets unused. No `p` sent.
-COM11 closed; no live build/serial session. Mouse last confirmed wired. Battery
-readiness requested, confirmation pending. Next: after user confirms battery mode,
-open COM11 with DTR, send `p` once and capture 35 seconds while user moves/clicks.
-Check ACK count <=256, ACK window <=two seconds, sequences, packet shapes,
-timing and errors; raw post-window data can continue, so data duration itself is
-not an ACK-window measurement. Do not repeat flash/baseline or firmware reads.
-Tell user to reconnect mouse cable after capture.
+V7 armed capture completed after battery readiness. Evidence: ignored
+`build-pairing-analysis/probe-v7-armed-20261114-235814.txt` and summary JSON.
+1059 CRC-valid packets: 913 discovery, 146 data (145 length11, one length20).
+124 ACKs sent for sequences0..123, followed by received sequence124, no errors.
+Acknowledged RX timestamps112128..114097 ms (1969 ms span); timing is consistent
+with the fixed two-second window ending before the256-ACK cap. Exact deadline
+start is not directly timestamped in the text; guard tests independently pass.
+Channel51:130 data packets (seq0..123 once,seq124 six times);16 additional
+seq124 repeats logged after ACKs stopped on27/76/4 and49/78. The former match
+group0 retry channels;49/78 may be adjacent-channel reception, not exact TX
+frequencies. Do not claim full hopping/recovery implementation from this.
+One compound report was ACKed. All125 TXs completed,MODECNF0=0x200;
+discovery timing40/421/469us (handler/READY/END),data ACK ranges12..73/
+143..204/187..248us. Acknowledged RX gaps15..17ms are logger observations,
+not measured mouse/receiver throughput. No HID output or1000Hz claim.
+Board V7 discovery consumed,124/256 ACK attempts used,ACK window expired;
+passive until reboot and cannot rearm. COM11 closed,no live build/serial session.
+User told to reconnect mouse cable; physical reconnection unconfirmed.
+Next requires intervention: reconnect mouse cable and briefly unplug/replug the
+nice!nano for a normal V7 reboot (no double-reset/reflash needed). After user
+confirms, verify fresh passive startup on COM11 without `p`. Then ask for battery
+readiness for a controlled input test: hold left button and move only right,
+lifting the mouse to return; capture once to check candidate button/X mapping.
+Keep this distinct from the completed generic V7 capture; do not repeat generic
+captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
 referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describes
 the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0
@@ -454,6 +471,9 @@ buttons1..5 (upper3 padding), byte1 signed wheel, bytes2..3 signed16 LE X,
 bytes4..5 signed16 LE Y, byte6 signed consumer usage0x238, byte7 consumer usage0.
 This is static layout evidence, not controlled empirical decoding. Type5 remains
 unknown; no pointer output is implemented. See RADIO_ANALYSIS.md for details.
+Offline descriptor-based interpretation of124 uniquely ACKed V7 reports found
+button masks0/1,wheel0,X -43..412,Y -142..196,consumer fields0. These came from
+uncontrolled movement/clicks and do not validate specific physical directions.
 Do not repeat firmware reads or old captures. Do not claim pairing completion or
 verified movement decoding from these bounded exchanges.
 Power-cycle mouse if a transient connection state needs clearing.
