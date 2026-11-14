@@ -805,3 +805,20 @@ Board v3 passive/unarmed,all budgets unused;COM12 closed,no live build/serial
 session. Mouse last wired. User requested next-chat handoff before arming.
 Next: separate harmless-document/off-unplugged readiness,then one45-second
 capture for the10-second controls trial. Do not rebuild/reflash/repeat baseline.
+
+## Receiver v3 armed controls attempt: no RF received (2026-11-15)
+
+User confirmed readiness with harmless scrollable content,another pointer,and
+mouse OFF/unplugged. Sandbox COM12 open failed before sending any command;
+authorized elevated device access succeeded. DTR enabled,one `p` sent,and exact
+1024/10000ms arming text confirmed before the user power-on/controls cue.
+45-second capture completed and COM12 closed. Evidence: ignored
+`build-pairing-analysis/receiver-v3-armed-20261115-013158.txt` and `.summary.json`.
+One arming,81 SCAN lines,zero valid RX/CRC failures/invalid lengths,zero discovery
+responses/ACKs,zero errors/USB busy. There was no RF-to-HID traffic to validate
+movement,clicks,wheel or neutral release. User observations/power-on timing pending;
+no cause for absent traffic established. Arming window expired; budgets unused,
+but one-arm opportunity consumed. No automatic rearm/reboot. A repeat requires
+physical normal receiver reboot and fresh readiness,not rebuild/flash/baseline.
+User subsequently confirmed powering on late or missing the cue. Controls were
+not tested during this attempt; pause for normal receiver reboot/fresh readiness.

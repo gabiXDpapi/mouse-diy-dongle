@@ -318,6 +318,32 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+Live continuation checkpoint (2026-11-15, Asia/Manila; supersedes older board/
+next-step descriptions below): user confirmed harmless-document/other-pointer/
+mouse-OFF-and-unplugged readiness and requests context updates after each step.
+Initial sandbox COM12 open failed before sending anything. Authorized elevated
+device access then succeeded: DTR enabled, exactly ONE `p` sent, actual v3
+arming text verified before user power-on/input cue.45-second capture completed:
+ignored build-pairing-analysis/receiver-v3-armed-20261115-013158.txt and .summary.json.
+One arming,81 SCAN lines,zero RX/CRC failures/invalid lengths,zero discovery
+responses,zero ACKs,zero errors/USB busy. No input reached the HID bridge.
+Do NOT interpret this as a click/wheel or neutral-release test result.
+Board v3 arming window EXPIRED/passive; discovery/ACK budgets remain unused,
+but the one-arm opportunity was used. Do NOT send `p` again on this boot.
+COM12 closed and disposed; no live serial/build session. User told to stop and
+reconnect mouse cable; physical action and Windows control observations pending.
+Next: ask whether mouse was powered ON/unplugged within30seconds of arming and
+whether any controls worked. A fresh attempt requires a normal receiver reboot
+(physical intervention) and fresh readiness; do not rebuild/reflash/repeat baseline.
+No firmware extraction/build/flash/baseline repeated. No cause for zero RX proven.
+Milestone is an inconclusive no-RF capture, not a receiver regression conclusion.
+User subsequently confirmed: powered mouse on late or missed the cue. This run
+therefore did not test controls; no firmware failure inferred. User requests an
+explicit pause whenever physical intervention is needed so it is noticeable.
+PAUSED: ask user to turn mouse OFF/unplug USB, normally unplug/replug RECEIVER
+(no double-reset), prepare harmless document/other pointer, then reply ready.
+Keep mouse OFF until new actual arming confirmation; no automatic retry.
+
 Updated 2026-11-15 (Asia/Manila). Read this section, README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-15-wireless-hid-prototype.md.
 Detailed experiment history is preserved in RADIO_ANALYSIS.md; do not repeat
@@ -488,3 +514,7 @@ Exact next steps:
 The firmware snapshot is an application-region read, NOT a full-chip backup.
 Do not flash proprietary receiver firmware onto this board or write mouse config.
 Do not invent speculative RF decoding beyond established evidence.
+
+Live step: COM12 opened with DTR; sending one p now. Capture: C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-armed-20261115-013158.txt. If interrupted, do NOT rearm; inspect this log first.
+Live step: actual v3 arming text confirmed; 45-second capture running. One p sent; do NOT send another. Await power-on/input observations.
+Live step: 45-second capture finished; arming confirmed=True. Port closing; inspect raw log and ask user controls/neutral-stop outcome before conclusions.
