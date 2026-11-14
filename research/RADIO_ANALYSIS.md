@@ -425,3 +425,59 @@ Evidence: ignored `build-pairing-analysis/probe-v6-passive-20261114-234710.txt`.
 Board V6 passive/unarmed, all TX budgets unused. COM11 closed; mouse last wired.
 Next: battery readiness, one armed 35-second capture; check compound ACK and
 sequence advance past 15. Do not repeat flash/baseline.
+
+## V6 capture: compound ACK acceptance
+
+After battery readiness, captured once for 35 seconds in ignored
+`build-pairing-analysis/probe-v6-armed-20261114-234923.txt` and summary JSON.
+1004 valid RX: 958 discovery, 46 data on channel 51. Sequences 0..15 appeared
+once each, then sequence 16 repeated 30 times. Exactly 16 ACKs and one discovery
+TX completed with no errors. The sole length-20 packet was sequence 15:
+`0f00410000ffffffff0000450601000000000000`; all other data were length 11.
+Sequence 16 confirms acceptance of the compound packet ACK. The subsequent
+repetition is expected after exhausting the ACK budget. Data span 153381..153860 ms.
+Final repeated payload `1000410100bdfb4e130000` has changed type-1 bytes, but no
+controlled button/axis decoding is claimed.
+
+Timing (handler/READY/END after RX END, us): discovery 18/399/447; data ACK ranges
+13..72/144..203/189..248. All 17 completed, MODECNF0=0x200. Board V6 consumed/passive;
+COM11 closed, user told to reconnect cable, reconnection unconfirmed.
+Next diagnostic: V7 raises ACK cap to 256, retaining the two-second deadline and
+observed packet filters. No continuous/unlimited TX, HID, or timing changes.
+
+## V7 preparation and candidate movement layout
+
+V7 raises only the ACK cap to 256 within the unchanged two-second deadline;
+banner prints that constant. Native tests check the finite cap, expiry after
+partial use, wrap, timeout exhaustion and existing exact packet filters. All
+seven tests and probe build/UF2 validation pass: flash 58,732 / RAM 15,936 bytes,
+230 blocks, payload 0x26000..0x345FF. Current probe UF2 SHA256:
+`e9e79cce535839d72fc4ca338ee1fc85a62f8b9ee68194af6139deaad69c8cee`.
+V6 artifact preserved locally at ignored `build-pairing-analysis/probe-v6-dbf0b69c.uf2`.
+V7 not flashed/armed; receive-only regression and binary separation checks pass.
+Radio: flash 56,704 / RAM 15,872 bytes, 222 blocks, payload 0x26000..0x33DFF;
+new UF2 SHA256 `3b459262846fbae3f30ded047c5a768bc9e44ad7bf2490fdbddfee85c6f584d1`.
+Board still V6, all TX budgets consumed/passive. No live build/serial session.
+Next: identity/hash-verified V7 flash and passive baseline after bootloader
+readiness, then separate battery readiness for one bounded armed capture.
+
+The hash-checked snapshot contains a 91-byte HID mouse report descriptor at
+0x1A750..0x1A7AA. At 0x1A7AC the length/type/pointer words are
+`91, 0x22, 0x1A750`. This supports identifying it as descriptor data, rather than
+interpreting another incidental byte-pattern match as a descriptor. The report
+builder at 0x14D20..0x14D66 packs the same eight bytes for the wired USB send at
+0x14D7A..0x14D82 and type1 RF queue at 0x14DBE..0x14DC8.
+
+| Type1 report byte(s) | Descriptor field | Static encoding |
+| --- | --- | --- |
+| 0 | Buttons1..5, then padding | Five low bits, three padding bits |
+| 1 | Generic Desktop Wheel | Signed8, relative, -127..127 |
+| 2..3 | Generic Desktop X | Signed16 little-endian, relative |
+| 4..5 | Generic Desktop Y | Signed16 little-endian, relative |
+| 6 | Consumer usage0x238 | Signed8, relative, -127..127 |
+| 7 | Consumer usage0 | Eight bits, logical0..1, relative; semantic role unresolved |
+
+This table concerns the eight bytes after tag0x41, not the sequence/tag prefix.
+There is no Report ID item in this descriptor. This is static evidence; verify
+each axis/button/wheel with controlled actions before enabling Windows input.
+No type5 meaning is inferred and no decoding/HID code was added.

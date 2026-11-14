@@ -139,8 +139,10 @@ Probe V5 is built for the next experiment: one discovery response plus at most16
 data ACK attempts in two seconds, with the same explicit arming and packet filters.
 V5's hardware capture showed sequence0..15 with15 ACKs sent. It then rejected an
 observed20-byte compound report under its11-byte filter. A narrow V6 filter update
-passes seven tests and its flashed passive startup check. The armed V6 capture
-is pending. See PROJECT_CONTEXT.md for the current artifact and handoff.
+passed its hardware capture: the compound sequence-15 packet was acknowledged
+and sequence advanced to 16, exhausting the configured ACK budget. A longer bounded
+V7 diagnostic is built with a 256-ACK cap and the same two-second deadline; it is
+not yet flashed. See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and
 the receive-only `radio` build remain separate.

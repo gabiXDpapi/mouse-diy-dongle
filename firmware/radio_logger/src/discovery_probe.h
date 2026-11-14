@@ -1,5 +1,5 @@
-/* V5 advanced sequence0..15; V6 also accepts the observed type1+type5 packet. */
-#define PROBE_ACK_LIMIT 16u
+/* V6 advanced sequence0..16; V7 tests more exchanges within the same two seconds. */
+#define PROBE_ACK_LIMIT 256u
 static bool probe_sent;
 static unsigned int ack_count;
 static int64_t probe_arm_deadline;

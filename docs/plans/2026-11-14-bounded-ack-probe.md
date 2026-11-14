@@ -48,3 +48,12 @@ V5 UF2 before rebuilding. Run seven tests, probe build/UF2 validation and receiv
 build/separation check. Update context/research/README, commit/push this tested
 milestone on the same feature branch, then request bootloader reentry. No type5
 decoding or extra transmissions.
+
+## V7 follow-up from the V6 capture
+
+V6 acknowledged the compound report and advanced to sequence 16. Raise only the
+ACK cap to 256 and derive the V7 banner's limit from the constant. Keep the
+two-second deadline and all filters/bytes/timing unchanged. Add expiry-after-partial
+budget and explicit fixed-limit assertions to the native tests; preserve V6 UF2.
+Run tests, both builds/UF2 checks and binary separation checks, then update/push
+the milestone before requesting bootloader reentry. No HID or general parsing.

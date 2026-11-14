@@ -405,13 +405,47 @@ bootloader 0.6.0, board-ID nRF52840-nicenano and S140 6.1.1; copied V6 UF2.
 Five-second DTR-enabled COM11 passive startup passed: expected V6 banner,
 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
 Evidence: ignored `build-pairing-analysis/probe-v6-passive-20261114-234710.txt`.
-Board now V6 passive/unarmed, discovery and 16 ACK budgets unused; no `p` sent.
-COM11 closed; no live build/serial session. Mouse last confirmed wired.
-User asked for battery readiness; confirmation pending. Next: after user confirms
-mouse unplugged/switched on near board, open COM11 with DTR, send `p` once and
-capture 35 seconds. Ask user to move/click; inspect length-20 acceptance and
-sequence advancement past 15, ACK count <=16, timing and errors. Do not repeat
-flash or baseline. Reconnect mouse cable afterward.
+V6 capture completed after battery readiness: ignored
+`build-pairing-analysis/probe-v6-armed-20261114-234923.txt` and summary JSON.
+1004 valid RX packets: 958 discovery and 46 data on channel 51. Sequences 0..15
+each appeared once, then sequence 16 repeated 30 times. One length-20 packet at
+sequence 15 was ACKed successfully; other 45 data packets were length 11.
+All 16 ACKs sent, 17 total transmissions completed, no errors. Data timestamps
+153381..153860 ms. Compound payload:
+`0f00410000ffffffff0000450601000000000000`.
+Final repeated payload `1000410100bdfb4e130000` includes changed type-1 bytes;
+movement/buttons still need controlled interpretation. Discovery timing
+18/399/447 us (handler/READY/END); ACK ranges 13..72/144..203/189..248 us.
+This supports compound ACK acceptance and sequence advancement to 16. Repetition
+after budget exhaustion is expected, not evidence of failed ACK16.
+Board V6 all TX budgets consumed/passive until reboot. COM11 closed; no live
+build/serial session. User told to reconnect mouse cable; reconnection unconfirmed.
+Next development step: V7 raises ACK cap to 256 while retaining the two-second
+deadline, observed packet shapes, timing/bytes, explicit arming and no HID. It
+tests a longer bounded exchange; do not claim sustained receiver performance.
+V7 source implemented; all seven tests pass, including fixed 256 cap and expiry
+after partial budget use. V6 UF2 preserved at ignored
+`build-pairing-analysis/probe-v6-dbf0b69c.uf2`. V7 build and UF2 validation pass:
+flash 58,732 / RAM 15,936 bytes, 230 blocks, payload 0x26000..0x345FF.
+Current probe UF2 path unchanged; SHA256 (supersedes V6 there):
+`e9e79cce535839d72fc4ca338ee1fc85a62f8b9ee68194af6139deaad69c8cee`.
+V7 NOT flashed/armed. Receive-only regression and binary separation checks pass:
+flash 56,704 / RAM 15,872 bytes, 222 blocks, payload 0x26000..0x33DFF; new radio
+UF2 SHA256 (supersedes previous radio hashes):
+`3b459262846fbae3f30ded047c5a768bc9e44ad7bf2490fdbddfee85c6f584d1`.
+No build/serial session remains. Next: push this tested source/results checkpoint
+on feature/bounded-ack-probe, then await NICENANO reentry with mouse wired; verify
+identity and V7 hash, flash V7, check passive banner/1 MHz initialization with no
+errors and no `p`. Then await battery readiness for one 35-second armed capture,
+checking ACK count <=256, actual data duration <= two-second window, sequences,
+packet shapes, timing and errors. Do not repeat earlier captures/firmware reads.
+Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
+referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describes
+the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0
+buttons1..5 (upper3 padding), byte1 signed wheel, bytes2..3 signed16 LE X,
+bytes4..5 signed16 LE Y, byte6 signed consumer usage0x238, byte7 consumer usage0.
+This is static layout evidence, not controlled empirical decoding. Type5 remains
+unknown; no pointer output is implemented. See RADIO_ANALYSIS.md for details.
 Do not repeat firmware reads or old captures. Do not claim pairing completion or
 verified movement decoding from these bounded exchanges.
 Power-cycle mouse if a transient connection state needs clearing.

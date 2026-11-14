@@ -46,6 +46,7 @@ static int disable_radio(void) { radio.TASKS_TXEN = 0; return 0; }
 static void probe_timing_before_tx(void) { }
 static void probe_timing_after_tx(bool ended) { (void)ended; }
 #include "radio_logger/src/discovery_probe.h"
+_Static_assert(PROBE_ACK_LIMIT == 256u, "V7 must retain its finite 256-ACK cap");
 int main(void)
 {
     uint8_t report[12] = {11, 0xff, 0xff, 0x41};
@@ -106,6 +107,9 @@ int main(void)
     assert(ack_reply[0] == 2 && ack_reply[1] == 0 && ack_reply[2] == 0x3f);
     /* ACK repeated packets too: a prior ACK may have been lost over air. */
     assert(send_report_ack(report) == 0 && ack_count == 2);
+    now = original_deadline;
+    assert(send_report_ack(report) == -EACCES && ack_count == 2);
+    now--;
     report[1] = 0;
     for (unsigned int i = 2; i < PROBE_ACK_LIMIT; i++) {
         assert(send_report_ack(report) == 0 && ack_count == i + 1);
