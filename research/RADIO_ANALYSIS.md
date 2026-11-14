@@ -739,3 +739,12 @@ Config/binary separation checks pass;radio/default HID artifacts remain unchange
 from6f0f263f.../058c1ff5... above. No v2 hardware test yet. Board remains receiver
 v1 expired/passive. Next: verified v2 flash/passive baseline after NICENANO readiness,
 then separate off/unplugged/empty-desktop readiness and one motion-only test.
+
+Receiver v2 subsequently flashed after user confirmed NICENANO ready/mouse wired.
+Reverified bootloader0.6.0,nRF52840-nicenano,S1406.1.1 and e80eb30c... UF2 bounds/hash.
+Five-second DTR-enabled COM12 baseline passed: v2 banner,256/two-second limits,
+1MHz timing initialization,19channels,six zero-counter SCAN lines,no errors/arming.
+Windows composite/CDC/HID statuses all OK. Evidence: ignored
+`build-pairing-analysis/receiver-v2-passive-20261115-010250.txt`.
+Board v2 fresh/unarmed,all budgets unused;COM12 closed. User asked for separate
+off/unplugged/empty-desktop readiness; v2 armed pointer test pending.
