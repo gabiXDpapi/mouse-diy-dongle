@@ -478,11 +478,18 @@ button/Y direction/wheel still need controlled checks. User told to stop, releas
 button and reconnect cable; physical reconnection unconfirmed.
 Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive
 until reboot. COM11 closed; no live serial/build session. No source change needed.
-Next requires intervention: mouse wired and normal board unplug/replug (not
-double-reset/reflash), then verify fresh passive startup without `p`. Ask separate
-battery readiness for right-button hold and only downward movement/lift to return,
-no scrolling/other buttons, to compare bit1 and Y direction. Retain initial
-packets/outliers and report any cross-axis motion; do not assume observations.
+User then confirmed normal V7 reboot and mouse wired for the right/down test.
+Five-second fresh COM11/DTR baseline passed: expected V7 banner, 256-ACK/two-second
+limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
+no errors/no arming. Evidence: ignored
+`build-pairing-analysis/probe-v7-right-down-passive-20261115-000859.txt`.
+Board V7 now passive/unarmed with fresh unused budgets; COM11 closed, no live
+build/serial session. User asked for battery readiness while holding right button
+and moving straight down toward them/lifting to return, no left button/wheel.
+Readiness pending. Next: after confirmation, arm once/capture 35 seconds under
+distinct `probe-v7-right-down-...` filename. Tell user to stop/release/reconnect
+after capture. Compare bit1 and signed Y direction using unique ACKed reports;
+retain initial packets/outliers and report cross-axis motion without assumptions.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
