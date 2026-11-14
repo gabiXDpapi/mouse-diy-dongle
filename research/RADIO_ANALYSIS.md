@@ -692,3 +692,18 @@ another pointer,mouse initially OFF/unplugged to reduce stale queued actions,the
 power-on only after arming confirmation and movement without clicks/scrolling.
 Verify passive enumeration/no input before arm and neutral stop after the window.
 No measured latency,throughput,channel recovery or1000Hz claim.
+
+## Receiver v1 flash and passive enumeration (2026-11-15)
+
+User confirmed NICENANO ready/mouse wired. Verified bootloader0.6.0,
+nRF52840-nicenano,S1406.1.1,receiver hash cfc2eb58... and application bounds;
+copied receiver UF2. Windows PnP reports OK for composite USB,CDC COM12/MI_00,
+HID-compliant mouse/MI_02 and HIDClass input on local2FE3:0008.
+Five-second DTR-enabled COM12 baseline passed: receiver v1 banner,256-ACK/two-second
+limit,1MHz timing initialization,19channels,six zero-counter SCAN lines,no errors.
+Evidence: ignored `build-pairing-analysis/receiver-v1-passive-20261115-005017.txt`.
+No `p` sent; board receiver v1 passive/unarmed,all budgets unused. COM12 closed.
+No pointer output has been observed/tested yet. User asked for separate readiness:
+empty desktop,another pointer,mouse OFF/unplugged and left OFF until arming
+confirmation. First test is motion only; inspect real cursor response and serial
+timing/USB errors before deliberate click/wheel trials. No reflash/baseline repeat.

@@ -168,7 +168,8 @@ Do not flash until the build and application-only UF2 validation pass.
 Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
 SHA256 `cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b`.
 All eight tests and the three existing build regressions pass. The new receiver
-has not been flashed or tested with Windows input yet.
+is flashed; Windows enumerates COM12 plus a HID-compliant mouse, and passive
+startup passed. The first armed wireless pointer test is pending.
 
 It stays passive until serial `p`, then uses the proven discovery/ACK protocol
 for at most two seconds and 256 ACK attempts. Validated unique reports forward
