@@ -822,3 +822,10 @@ but one-arm opportunity consumed. No automatic rearm/reboot. A repeat requires
 physical normal receiver reboot and fresh readiness,not rebuild/flash/baseline.
 User subsequently confirmed powering on late or missing the cue. Controls were
 not tested during this attempt; pause for normal receiver reboot/fresh readiness.
+
+Second v3 attempt after fresh readiness: ignored
+`build-pairing-analysis/receiver-v3-armed-20261115-013553.txt` and `.summary.json`.
+One p/confirmed arming,then requested pop-up power-on cue;45seconds completed,
+COM12 closed. Again zero RX/discovery replies/ACKs. User timing/observations
+pending; no controls validation or firmware failure conclusion. Pause for user;
+do not automatically retry. Use pop-ups for required physical intervention.

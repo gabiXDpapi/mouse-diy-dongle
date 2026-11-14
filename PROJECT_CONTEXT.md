@@ -318,6 +318,18 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST checkpoint: retry capture20261115-013553 completed after user confirmed
+fresh readiness. Exactly one p,actual arming text confirmed,then power-on/controls
+cue sent through requested question pop-up.45seconds,COM12 closed/disposed.
+Ignored evidence: build-pairing-analysis/receiver-v3-armed-20261115-013553.txt
+and .summary.json. Again zero RX/discovery replies/ACKs; no controls validated.
+User selected 'Test performed; I will report results'. Specific control outcomes
+and actual power-on timing pending in a follow-up pop-up; no firmware fault inferred.
+V3 arming expired/passive; do not send p again this boot. No live build/serial.
+User told to stop/reconnect mouse cable. PAUSED for user observations through
+question pop-up. No automatic retry; use pop-ups for required physical actions.
+This newest checkpoint supersedes the earlier readiness/reboot request below.
+
 Live continuation checkpoint (2026-11-15, Asia/Manila; supersedes older board/
 next-step descriptions below): user confirmed harmless-document/other-pointer/
 mouse-OFF-and-unplugged readiness and requests context updates after each step.
@@ -518,3 +530,7 @@ Do not invent speculative RF decoding beyond established evidence.
 Live step: COM12 opened with DTR; sending one p now. Capture: C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-armed-20261115-013158.txt. If interrupted, do NOT rearm; inspect this log first.
 Live step: actual v3 arming text confirmed; 45-second capture running. One p sent; do NOT send another. Await power-on/input observations.
 Live step: 45-second capture finished; arming confirmed=True. Port closing; inspect raw log and ask user controls/neutral-stop outcome before conclusions.
+
+LIVE RETRY 20261115-013553 : user confirmed normal-reboot readiness. COM12 opened/DTR; sending exactly one p. Raw capture C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-armed-20261115-013553.txt. Do not rearm if interrupted; inspect log first.
+LIVE RETRY: actual v3 arming confirmed. Capture running45seconds; one p sent. User requests pop-up for intervention cues.
+LIVE RETRY:45-second capture completed; armingConfirmed=True. COM12 closing; inspect log and await user observations. No automatic rearm.
