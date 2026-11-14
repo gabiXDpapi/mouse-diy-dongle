@@ -366,7 +366,7 @@ Verified radio / input evidence:
 Board / local artifacts:
 - Physical board now runs bounded Wireless HID Probe v2, flashed after user
   confirmed NICENANO ready/mouse wired. Verified bootloader and e80eb30c... UF2.
-  Fresh passive/unarmed,all256 ACK/discovery budgets unused,no `p` sent.
+  Armed v2 test succeeded below;now122/256 ACK attempts used,window expired/passive.
   COM12 closed,no live serial/build session.
 - Receiver USB enumeration:2FE3:0008,CDC COM12/MI_00,HID-compliant mouse/MI_02,
   all Windows PnP statuses OK. V1 five-second DTR startup passed: receiver v1 banner,
@@ -397,9 +397,22 @@ Board / local artifacts:
   returned;five-second DTR log shows v2 banner,256/two-second limits,1MHz timing,
   19channels,six zero-counter SCAN lines,no errors/no arming. Windows HID/CDC OK.
   Evidence: ignored build-pairing-analysis/receiver-v2-passive-20261115-010250.txt.
-  User now asked for empty desktop/center pointer/another pointer,mouse OFF and
-  unplugged,left OFF until arming confirmation. Readiness pending. No v2 armed
-  pointer test yet. Do not repeat flash/baseline.
+  User then confirmed off/unplugged/empty-desktop readiness. Armed v2 capture:
+  ignored build-pairing-analysis/receiver-v2-armed-20261115-010552.txt + summary.
+  415 complete valid RX:271 discovery,34 idle,110 length11.122 ACKs over1971ms:
+  34 idle,one status tag45,87 unique type1 reports,all buttons/wheel0. No errors/
+  USB busy;all123 TXs complete. X range-117..149,Y-64..96. ACK hardware timing
+  ranges13..112/144..243/189..288us(handler/READY/END),including USB enqueue cost.
+  USER CONFIRMED Windows pointer moved wirelessly with unplugged Glorious mouse,
+  then stopped at the brief limit;no other pointer used. First end-to-end wireless
+  USB pointer milestone achieved. No click/wheel HID or gaming-performance claim.
+  User told to stop/reconnect cable;physical reconnection unconfirmed.
+- Next source work: receiver v3 longer bounded input test (fixed1024 ACK attempts/
+  10 seconds),while non-HID probe remains256/two seconds. Same radio bytes/timing,
+  packet filters,USB mapping,deduplication,backpressure and neutral release. Shared
+  fixed constants must drive actual deadlines and printed limits. Add protocol
+  deadline/limit assertions in both modes,build/check before next flash. Capture
+  must cover30s arming +10s data window:use45seconds,not old35second duration.
 - V8 UF2 preserved: ignored build-pairing-analysis/probe-v8-4ad89938.uf2.
   SHA256 4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4.
 - Earlier V4/V5/V6/V7 artifacts are also preserved in ignored evidence.
@@ -408,7 +421,7 @@ Board / local artifacts:
 - Preserved receiver v1 (FLASHED; status filter blocked first armed test):
   ignored build-pairing-analysis/receiver-v1-cfc2eb58.uf2,
   SHA256 cfc2eb5820c34969f7299ee43b47a28b20bd1421dd5ac70acce816f566441b4b.
-- Current receiver v2 artifact (FLASHED; passive passed,armed test pending):
+- Current receiver v2 artifact (FLASHED; pointer test passed,user confirmed):
   C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2
   SHA256 e80eb30c51fa375b39a2af5a6d15de65341765673db0682fc9fe60a95591b6c9.
   Build/UF2 pass:flash60,304/RAM16,064 bytes,236 blocks,payload0x26000..0x34BFF.
@@ -429,15 +442,14 @@ Board / local artifacts:
   These supersede earlier hashes at the same build paths; V8 preserved separately.
 
 Exact next steps:
-1. Await off/unplugged/empty-desktop readiness. Board v2 remains unarmed/fresh.
-2. Open COM12/DTR,send `p` once,emit immediate arming confirmation and save a
-   35-second receiver-v2-armed-... log. After exec yields,tell user to switch ON
-   and move without clicking/scrolling. Discovery arm expires30s after `p`,so
-   power-on must follow confirmation promptly. HID/ACK window is2s after discovery.
-3. Tell user to stop/reconnect after capture. Ask whether pointer moved wirelessly
-   and stopped. Check standalone status ACK,then actual type1 delivery,ACK progress,
-   timing/USB busy/errors. Serial ACK alone is not evidence of pointer movement.
-4. Save log/summary,update context/research,push tested milestone. No repeat firmware reads.
+1. Save successful v2 pointer milestone;implement/test/build bounded v3 input test
+   and unchanged probe limits,update/push source checkpoint before asking for flash.
+2. Await NICENANO with mouse wired;verified v3 flash/passive baseline,no `p`.
+3. Separate readiness on a harmless scrollable document/page,another pointer,
+   mouse OFF/unplugged until arming confirmation. One45-second capture,with10-second
+   active HID window after discovery,for movement,deliberate clicks and wheel.
+4. Check user-observed controls/neutral stop,packet progress/timing/errors;save
+   evidence/update/push. No repeat firmware reads or generic v2 pointer trial.
    Do not claim reliable gaming receiver completion from a bounded HID demonstration.
 
 The firmware snapshot is an application-region read, NOT a full-chip backup.

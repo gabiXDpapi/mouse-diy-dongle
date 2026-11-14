@@ -79,3 +79,15 @@ endpoint is busy. Preserve v1 UF2,update receiver/probe banners to v2/v9,run eig
 tests and rebuild those two variants. Confirm radio/default HID remain separate
 and unchanged. Push this fix before requesting NICENANO reentry. Timing,limits,
 descriptor and report mapping remain unchanged.
+
+## Receiver v3 follow-up
+
+V2 established user-confirmed wireless pointer control. Give the next interactive
+test enough time for clicks/wheel:receiver-only fixed1024 ACK cap/10000ms active
+window. Keep non-HID probe256/2000ms and discovery arm30000ms. Define shared
+fixed constants in discovery_probe.h,drive actual ACK/listen deadlines and log
+limits from them,and update receiver banner v3. Native protocol assertions cover
+both modes' limits and actual deadline;all existing guards remain. Preserve v2,
+build receiver/probe/radio as affected,check default HID unchanged and separation,
+then push before requesting NICENANO. No RF bytes/timing or USB mapping changes.
+Future capture45seconds covers the maximum30s arming plus10s data window.

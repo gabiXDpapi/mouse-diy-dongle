@@ -173,7 +173,9 @@ startup passed. Its first armed test hit a standalone type5 status packet that
 the filter rejected; the user observed no wireless pointer movement. Receiver v2
 is built and passes eight tests, including ACKing that status form without
 forwarding it as mouse input. V2 is flashed and passed passive startup/Windows
-HID enumeration; its armed pointer test is pending.
+HID enumeration. Its armed test forwarded87 unique movement reports, and the
+user confirmed wireless Windows pointer movement followed by the bounded stop.
+A longer receiver v3 input test is being prepared for clicks and scrolling.
 
 It stays passive until serial `p`, then uses the proven discovery/ACK protocol
 for at most two seconds and 256 ACK attempts. Validated unique reports forward

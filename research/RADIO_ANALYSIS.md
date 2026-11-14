@@ -748,3 +748,25 @@ Windows composite/CDC/HID statuses all OK. Evidence: ignored
 `build-pairing-analysis/receiver-v2-passive-20261115-010250.txt`.
 Board v2 fresh/unarmed,all budgets unused;COM12 closed. User asked for separate
 off/unplugged/empty-desktop readiness; v2 armed pointer test pending.
+
+## Receiver v2: first end-to-end wireless pointer confirmation
+
+After off/unplugged/empty-desktop readiness,armed once on COM12,confirmed arming,
+then asked user to power ON/move without clicks/scrolling. Ignored capture:
+`build-pairing-analysis/receiver-v2-armed-20261115-010552.txt` and summary JSON.
+415 complete valid RX:271 discovery,34 idle,110 length11.122 ACKs over1971ms:
+34 idle,one standalone status tag45,87 unique type1 reports. All123 TXs completed,
+no errors/USB busy. Movement reports had buttons0,wheel0,X -117..149,Y -64..96.
+ACK timing ranges(handler/READY/END after RX END,us):13..112/144..243/189..288,
+now including USB enqueue cost before ACK.
+
+User explicitly confirmed Windows pointer moved in response to the unplugged
+Glorious mouse and stopped after the brief window,with no other pointer used.
+This establishes bounded end-to-end RF-to-USB pointer control. Click/wheel USB
+behavior,continuous recovery,latency/throughput and gaming performance remain
+unverified. Board v2 window expired/passive,122 attempts used,COM12 closed.
+User told to stop/reconnect cable;reconnection unconfirmed.
+Next: longer bounded receiver v3 input test with1024 ACK cap/10-second window;
+non-HID probe keeps256/two-second limits. No changes to RF bytes/timing or USB
+mapping. Native deadline/limit checks and build validation precede another flash.
+Capture45seconds to cover30-second discovery arming plus10-second active window.
