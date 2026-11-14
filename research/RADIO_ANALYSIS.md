@@ -529,3 +529,31 @@ Board V7 unarmed with fresh budgets; COM11 closed. Await battery readiness while
 holding left button and moving only right/lifting to return, with no scrolling
 or other buttons. This will be a distinct controlled capture, not another generic
 link test. No source or firmware change.
+
+## Controlled left-button/rightward test (2026-11-15)
+
+User confirmed holding left button and moving only right, lifting to return,
+with no wheel/other buttons. One arm/35-second capture saved as ignored
+`build-pairing-analysis/probe-v7-left-right-20261115-000519.txt` and summary JSON.
+1070 valid RX:924 discovery,146 data (145 length11,one length20).124 ACKs with
+unique sequences0..123 over1968ms,no errors. Only unique ACKed reports are used
+for candidate movement interpretation, avoiding duplicate motion from retries.
+
+Button byte0 was0 for sequences0..15,then1 for all108 reports at16..123.
+Wheel and consumer fields were0 throughout. All X values from16 onward were
+positive, supporting left-click bit0 and the positive X direction. However:
+
+- First16 reports were small negative/zero motion with button0; previously
+  queued data is a plausible explanation, not established fact.
+- Sequence16 contained X22768,Y7359. It is retained as an outlier/transition
+  observation, not silently removed from the evidence.
+- Sequences17..123 had X25..58,Y9..37; Y was substantial despite the requested
+  right-only motion. Hand orientation/lift effects are possible, so this does
+  not fully isolate axes or validate the Y sign.
+
+These observations partly validate the descriptor interpretation; they do not
+establish button release, other buttons, Y direction, wheel or latency. No USB
+pointer output or firmware change. Board V7 window expired/passive,COM11 closed.
+User told to stop/release/reconnect cable; reconnection unconfirmed. Next: normal
+board reboot,passive startup,then separate battery readiness for right-button
+hold and downward-only motion/lift to return. Preserve initial packets/outliers.

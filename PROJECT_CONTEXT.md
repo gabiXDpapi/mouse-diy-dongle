@@ -461,16 +461,28 @@ User confirmed normal V7 reboot and mouse wired. Fresh five-second DTR-enabled
 COM11 startup on 2026-11-15 passed: V7 banner, 256-ACK/two-second limit, 1 MHz
 timing initialization, 19 channels, six zero-counter SCAN lines, no errors.
 Evidence: ignored `build-pairing-analysis/probe-v7-input-passive-20261115-000319.txt`.
-No `p` sent; board now V7 passive/unarmed with unused budgets. COM11 closed;
-no build/serial session. User asked for controlled-test battery readiness:
-unplug mouse, switch on near board, hold left button and repeatedly move only
-right, lifting to return, with no wheel/other buttons. Readiness is pending.
-Next: after explicit readiness, open COM11 with DTR, arm once and capture35seconds
-under a distinct `probe-v7-left-right-...` filename. Tell user to stop/reconnect
-cable after capture. Analyze unique ACKed sequences only to avoid counting retries
-as new motion; compare byte0 mask=1, byte1 wheel=0, signed16 LE X mostly positive,
-and Y much smaller than X (allow hand jitter/lift artifacts). Report exceptions,
-do not assume axes/sign before examining data.
+Controlled battery capture completed after user explicitly confirmed holding
+left button and moving only right/lifting to return (no wheel/other buttons).
+Evidence: ignored `build-pairing-analysis/probe-v7-left-right-20261115-000519.txt`
+and summary JSON. 1070 valid RX:924 discovery,146 data (145 length11,one length20).
+124 ACKs,seq0..123 uniquely ACKed,1968 ms span,no errors. Decode unique ACKed
+reports only; repetitions must not be counted as fresh movement.
+Button byte0:seq0..15 mask0,seq16..123 mask1 (108 reports); wheel and consumer
+fields0 throughout. First16 reports may be previously queued data (hypothesis).
+Seq16 has X22768,Y7359; do not silently discard this large transition report.
+Remaining107 reports(seq17..123) all have X positive25..58,Y positive9..37.
+This supports left-button bit0 and rightward positive X, but substantial Y means
+axis isolation was imperfect. Initial backlog/accumulation is plausible, unproven.
+No claim of full movement decoding or measured latency; button release/right
+button/Y direction/wheel still need controlled checks. User told to stop, release
+button and reconnect cable; physical reconnection unconfirmed.
+Board V7 discovery consumed,124/256 ACK attempts used,window expired/passive
+until reboot. COM11 closed; no live serial/build session. No source change needed.
+Next requires intervention: mouse wired and normal board unplug/replug (not
+double-reset/reflash), then verify fresh passive startup without `p`. Ask separate
+battery readiness for right-button hold and only downward movement/lift to return,
+no scrolling/other buttons, to compare bit1 and Y direction. Retain initial
+packets/outliers and report any cross-axis motion; do not assume observations.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,
@@ -478,8 +490,9 @@ referenced by length/type/pointer tuple at 0x1A7AC (91,0x22,0x1A750). It describ
 the eight-byte wired report also queued as RF type1 by 0x14D20..0x14DC8: byte0
 buttons1..5 (upper3 padding), byte1 signed wheel, bytes2..3 signed16 LE X,
 bytes4..5 signed16 LE Y, byte6 signed consumer usage0x238, byte7 consumer usage0.
-This is static layout evidence, not controlled empirical decoding. Type5 remains
-unknown; no pointer output is implemented. See RADIO_ANALYSIS.md for details.
+Controlled left/rightward test supports bit0 and positive X, with limitations
+above; the other layout fields remain static evidence. Type5 remains unknown;
+no pointer output is implemented. See RADIO_ANALYSIS.md for details.
 Offline descriptor-based interpretation of124 uniquely ACKed V7 reports found
 button masks0/1,wheel0,X -43..412,Y -142..196,consumer fields0. These came from
 uncontrolled movement/clicks and do not validate specific physical directions.
