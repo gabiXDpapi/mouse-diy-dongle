@@ -852,3 +852,19 @@ ring buffer,blocking when full with flow control or discarding bytes otherwise.
 No firmware modification justified by these logs. Next normal reboot/mouse-OFF
 readiness,continuous serial drain before ONE p,new arming confirmation before
 power-on cue,and same reader for45seconds. Save host phase timing too.
+
+## Drained continuous v3 capture: ten-second wireless movement
+
+Fresh reboot/mouse-OFF readiness;one COM12/DTR reader drained2seconds before
+ONE p,new arming text confirmed,then power-on pop-up.45seconds after arm saved:
+ignored `build-pairing-analysis/receiver-v3-drained-20261115-014330.txt`,
+`.host.jsonl` with host UTC/elapsed/phase chunks,and `.summary.json`. Port closed.
+1049 complete post-arm RX:403 discovery,35 idle,611 length11.622 ACKs over9974ms:
+35 idle,one standalone status,586 unique type1. All623 TXs completed,no ERROR/
+USB busy,no duplicate type1 ACKs. Buttons0/wheel0 throughout;X-56..43,Y-32..23.
+ACK RX-END-to-handler/READY/END ranges13..115/144..246/188..291us.
+User confirms pointer moved but did not try buttons/wheel. Neutral-stop user
+observation pending;all-zero buttons cannot validate forced neutral release.
+V3 expired/passive;one arm/discovery used,622 ACK attempts used. Next physical
+normal reboot/fresh readiness via pop-up,then same continuous/drained capture
+prioritizing clicks/wheel immediately instead of movement. No firmware changes.

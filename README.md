@@ -171,7 +171,9 @@ Do not flash until the build and application-only UF2 validation pass.
 Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
 Current receiver v3 SHA256 `4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da`.
 All eight tests, affected builds and separation checks pass. V3 is flashed and
-passed passive COM12/HID startup;its extended controls test is pending. V2 already
+passed passive COM12/HID startup and a9974ms ACK-span movement trial with586
+unique type1 reports,no errors/USB busy,and user-confirmed pointer movement.
+Clicks,wheel and forced neutral release remain unverified. V2 already
 forwarded87 unique movement reports and produced user-confirmed wireless Windows
 pointer movement followed by the bounded stop.
 

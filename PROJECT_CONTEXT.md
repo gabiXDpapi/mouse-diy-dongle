@@ -318,6 +318,27 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST controls-trial result (2026-11-15): fresh receiver reboot/mouse-OFF
+readiness;COM12 DTR continuous reader drained2seconds,sent ONE p,confirmed NEW
+arming text,then power-on pop-up.45seconds after arm completed;COM12 closed.
+Ignored evidence: build-pairing-analysis/receiver-v3-drained-20261115-014330.txt,
+.host.jsonl (host UTC/elapsed/phase per chunk),and .summary.json.
+1049 complete post-arm RX:403 discovery,35 idle,611 length11.622 ACKs across
+9974ms:35 idle,one status,586 unique type1 reports. All623 TXs completed,no ERROR
+or USB busy,no duplicate type1 ACKs. All586 reports buttons0/wheel0;X-56..43,
+Y-32..23. ACK handler/READY/END ranges13..115/144..246/188..291us after RX END.
+User CONFIRMED pointer moved but could not try buttons/wheel. Clicks/wheel remain
+untested; neutral-stop observation pending. No stuck-button release claim from
+all-zero button reports. This establishes v3's bounded movement,not gaming use.
+Board v3 expired/passive,one arm/discovery used,622 ACK attempts used;do NOT p
+again on this boot. No live serial/build session. User told to stop/reconnect.
+PAUSED next via pop-up: ask whether motion stopped at limit;request normal
+receiver reboot,mouse OFF/unplugged,harmless scrollable page and other pointer.
+Then same drained continuous-reader45s capture;after confirmed arm tell user
+to prioritize left-click,right-click/dismiss,and wheel up/down immediately,
+then release buttons and observe stop. No need to spend window on movement.
+No rebuild/flash/baseline/extraction. Private raw/host logs remain ignored.
+
 NEWEST RF diagnostic result (2026-11-15): user prepared mouse ON/unplugged/near
 unchanged receiver.15-second COM12/DTR read,NO serial commands,completed/closed.
 Ignored receiver-v3-rf-silence-20261115-013920.txt and .summary.json under
@@ -564,3 +585,8 @@ LIVE RETRY:45-second capture completed; armingConfirmed=True. COM12 closing; ins
 
 LIVE RF DIAGNOSTIC 20261115-013920 : user confirms mouse ON/unplugged/near unchanged receiver. COM12 DTR open;15-second capture WITHOUT any serial writes. Raw log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-rf-silence-20261115-013920.txt. No p/rearm/reset.
 LIVE RF DIAGNOSTIC: serial disposed/closed; inspect raw log before next action. No commands sent.
+
+LIVE DRAINED TRIAL 20261115-014330 : user confirms receiver reboot/mouse OFF/unplugged. COM12/DTR open; same reader drains2seconds before one p,then45seconds. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v3-drained-20261115-014330.txt and .host.jsonl. Inspect logs before any retry.
+LIVE DRAINED TRIAL: pre-arm drain complete; exactly one p sent. Await actual arming confirmation; no second p.
+LIVE DRAINED TRIAL: actual new arming text confirmed after drain;45-second capture running. Power-on pop-up next; no automatic retry.
+LIVE DRAINED TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Raw/host-phase evidence saved;inspect before conclusions. No live serial session.
