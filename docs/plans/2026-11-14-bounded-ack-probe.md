@@ -57,3 +57,15 @@ two-second deadline and all filters/bytes/timing unchanged. Add expiry-after-par
 budget and explicit fixed-limit assertions to the native tests; preserve V6 UF2.
 Run tests, both builds/UF2 checks and binary separation checks, then update/push
 the milestone before requesting bootloader reentry. No HID or general parsing.
+
+## V8 follow-up from the stationary wheel test
+
+V7 ACKed17 reports then rejected captured idle payload1100. Stock0x18938..0x18976
+confirms the queue-empty two-byte form. Add only length2 to the existing matcher,
+checking length before reading tags; rename it is_ack_candidate in its runtime
+caller and native tests. Keep bytes/timing,256-attempt/two-second guards. Include
+length in ACK logs (new prefix `PROBE ACK sent:`), update V8 banner. Test a real
+three-byte radio buffer (length byte + two payload bytes), wrong addresses/channel,
+truncated/extended idle and repeated idle ACKs without extending deadline. Preserve
+V7 UF2, build both variants/validate bounds/separation, update/push notes and
+request bootloader reentry. No HID or general packet parsing.

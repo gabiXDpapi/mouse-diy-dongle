@@ -146,7 +146,10 @@ flashed and its capture advanced sequence0..124 with124 ACKs across approximatel
 two seconds, without errors. A controlled left-button/rightward capture supports
 button bit0 and positive X, with startup/cross-axis caveats documented in research.
 The right-button/downward test also supports button bit1 and positive Y downward.
-Wheel, other buttons and negative directions still need controlled validation.
+Wheel-up produced a positive byte1 value with buttons released, followed by
+two-byte idle packets that V7 did not ACK. V8 idle handling is built, passes seven
+tests and receive-only regression checks, and awaits flashing/hardware validation.
+Other buttons, negative directions and repeated wheel behavior remain unverified.
 See PROJECT_CONTEXT.md for the current artifact and handoff.
 See
 [research/RADIO_ANALYSIS.md](research/RADIO_ANALYSIS.md). The default HID build and

@@ -1,4 +1,4 @@
-/* V6 advanced sequence0..16; V7 tests more exchanges within the same two seconds. */
+/* V7 wheel capture exposed idle length2; V8 ACKs it within the same bounded window. */
 #define PROBE_ACK_LIMIT 256u
 static bool probe_sent;
 static unsigned int ack_count;
@@ -96,11 +96,12 @@ static int send_probe(void)
     return err;
 }
 
-static bool is_initial_report(const uint8_t *p, uint8_t channel, bool pairing_address,
+static bool is_ack_candidate(const uint8_t *p, uint8_t channel, bool pairing_address,
                               uint32_t match)
 {
     return !pairing_address && match == 1 && channel == channels[3] &&
-           p[3] == 0x41 && (p[0] == 11 || (p[0] == 20 && p[12] == 0x45));
+           (p[0] == 2 || (p[0] == 11 && p[3] == 0x41) ||
+            (p[0] == 20 && p[3] == 0x41 && p[12] == 0x45));
 }
 
 static int send_report_ack(const uint8_t *p)

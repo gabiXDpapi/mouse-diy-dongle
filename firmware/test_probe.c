@@ -1,7 +1,13 @@
-#include <assert.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+/* Avoid Windows' interactive assertion dialog in automated failing tests. */
+#define assert(condition) do { if (!(condition)) { \
+    fprintf(stderr, "Assertion failed: %s at line %d\n", #condition, __LINE__); \
+    exit(1); \
+} } while (0)
 #ifndef EALREADY
 #define EALREADY 114
 #endif
@@ -46,33 +52,42 @@ static int disable_radio(void) { radio.TASKS_TXEN = 0; return 0; }
 static void probe_timing_before_tx(void) { }
 static void probe_timing_after_tx(bool ended) { (void)ended; }
 #include "radio_logger/src/discovery_probe.h"
-_Static_assert(PROBE_ACK_LIMIT == 256u, "V7 must retain its finite 256-ACK cap");
+_Static_assert(PROBE_ACK_LIMIT == 256u, "Probe must retain its finite 256-ACK cap");
 int main(void)
 {
     uint8_t report[12] = {11, 0xff, 0xff, 0x41};
     probe_self_test();
-    assert(is_initial_report(report, 51, false, 1));
-    assert(!is_initial_report(report, 49, false, 1));
-    assert(!is_initial_report(report, 51, true, 1));
-    assert(!is_initial_report(report, 51, false, 0));
-    report[0] = 10; assert(!is_initial_report(report, 51, false, 1));
-    report[0] = 11; report[3] = 0x42; assert(!is_initial_report(report, 51, false, 1));
+    assert(is_ack_candidate(report, 51, false, 1));
+    assert(!is_ack_candidate(report, 49, false, 1));
+    assert(!is_ack_candidate(report, 51, true, 1));
+    assert(!is_ack_candidate(report, 51, false, 0));
+    report[0] = 10; assert(!is_ack_candidate(report, 51, false, 1));
+    report[0] = 11; report[3] = 0x42; assert(!is_ack_candidate(report, 51, false, 1));
     report[3] = 0x41;
+    uint8_t idle[] = {2, 0x11, 0};
+    assert(is_ack_candidate(idle, 51, false, 1));
+    assert(!is_ack_candidate(idle, 49, false, 1));
+    assert(!is_ack_candidate(idle, 51, true, 1));
+    assert(!is_ack_candidate(idle, 51, false, 0));
+    idle[0] = 1; assert(!is_ack_candidate(idle, 51, false, 1));
+    idle[0] = 3; assert(!is_ack_candidate(idle, 51, false, 1));
+    idle[0] = 2;
     uint8_t compound[65] = {20, 0x0f, 0, 0x41, 0, 0, 0, 0, 0xff, 0xff, 0, 0,
                             0x45, 6, 1, 0, 0, 0, 0, 0, 0};
-    assert(is_initial_report(compound, 51, false, 1));
-    assert(!is_initial_report(compound, 49, false, 1));
-    assert(!is_initial_report(compound, 51, true, 1));
-    assert(!is_initial_report(compound, 51, false, 0));
+    assert(is_ack_candidate(compound, 51, false, 1));
+    assert(!is_ack_candidate(compound, 49, false, 1));
+    assert(!is_ack_candidate(compound, 51, true, 1));
+    assert(!is_ack_candidate(compound, 51, false, 0));
     for (unsigned int length = 0; length <= 64; length++) {
         compound[0] = length;
-        assert(is_initial_report(compound, 51, false, 1) == (length == 11 || length == 20));
+        assert(is_ack_candidate(compound, 51, false, 1) ==
+               (length == 2 || length == 11 || length == 20));
     }
     compound[0] = 20;
-    compound[3] = 0x45; assert(!is_initial_report(compound, 51, false, 1));
+    compound[3] = 0x45; assert(!is_ack_candidate(compound, 51, false, 1));
     compound[3] = 0x41;
-    compound[12] = 0x41; assert(!is_initial_report(compound, 51, false, 1));
-    compound[12] = 0xc5; assert(!is_initial_report(compound, 51, false, 1));
+    compound[12] = 0x41; assert(!is_ack_candidate(compound, 51, false, 1));
+    compound[12] = 0xc5; assert(!is_ack_candidate(compound, 51, false, 1));
     compound[12] = 0x45;
     assert(send_report_ack(report) == -EACCES && ack_count == 0);
     assert(send_probe() == -EACCES && !probe_sent);
@@ -105,13 +120,15 @@ int main(void)
     assert(send_report_ack(report) == 0 && ack_count == 1);
     assert(turnaround_delay == 0);
     assert(ack_reply[0] == 2 && ack_reply[1] == 0 && ack_reply[2] == 0x3f);
-    /* ACK repeated packets too: a prior ACK may have been lost over air. */
-    assert(send_report_ack(report) == 0 && ack_count == 2);
+    /* Idle sequence can stay unchanged while the outgoing queue is empty. */
+    assert(send_report_ack(idle) == 0 && ack_count == 2);
+    assert(ack_reply[0] == 2 && ack_reply[1] == 0x12 && ack_reply[2] == 0);
+    assert(send_report_ack(idle) == 0 && ack_count == 3);
     now = original_deadline;
-    assert(send_report_ack(report) == -EACCES && ack_count == 2);
+    assert(send_report_ack(idle) == -EACCES && ack_count == 3);
     now--;
     report[1] = 0;
-    for (unsigned int i = 2; i < PROBE_ACK_LIMIT; i++) {
+    for (unsigned int i = 3; i < PROBE_ACK_LIMIT; i++) {
         assert(send_report_ack(report) == 0 && ack_count == i + 1);
         assert(ack_reply[1] == (uint8_t)(report[1] + 1));
         assert(ack_deadline == original_deadline);

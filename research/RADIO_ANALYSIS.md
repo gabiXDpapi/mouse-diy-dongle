@@ -583,3 +583,51 @@ Board V7 window expired/passive; COM11 closed. User told to stop/release/reconne
 cable; reconnection unconfirmed. Next: normal reboot/passive baseline, then
 stationary wheel-up-only battery test with no buttons, about one notch/second,
 to compare wheel field/sign and released-button state. No new firmware.
+
+## Controlled wheel-up test and idle packets (2026-11-15)
+
+Fresh passive baseline: ignored
+`build-pairing-analysis/probe-v7-wheel-up-passive-20261115-001422.txt` passed.
+After user confirmed stationary/no buttons/slow wheel-up, one35-second capture:
+ignored `build-pairing-analysis/probe-v7-wheel-up-20261115-001538.txt` and summary.
+1001 complete valid RX:954 discovery,16 length11,one length20,30 length2.
+17 ACKs(seq0..16),256ms ACKed RX span,no errors. First16 reports retained prior
+button2/downward motion. Seq16 contained button0,wheel+19,X855,Y121,consumer
+fields0. This supports released buttons and positive wheel-up byte1; only one
+fresh wheel report was seen and accumulated motion remains, so retain the caveats.
+
+Then30 identical length2 packets `11 00` (sequence17,peer0) arrived. V7 deliberately
+rejected them. Stock0x18938..0x18950 constructs length2 with sequence bytes; the
+queue-empty branch skips report append to0x18976. Stock0x16094..0x1609A branches
+past outgoing-sequence increment when queue is empty. Thus repeated idle sequence
+can be legitimate and must not be interpreted as fresh motion or ACK failure alone.
+No idle ACK has been tested yet. V8 will accept only this additional observed
+length2 form, using the existing sequence+1/cleared-flags ACK,256 cap/two-second
+deadline and exact CRC/address/channel guards. No idle HID report is generated.
+Rename matcher to is_ack_candidate; add native small-buffer/repeat/expiry tests
+and incoming-length ACK logging. Board V7 window expired/passive;COM11 closed.
+User told to stop/reconnect cable; reconnection unconfirmed.
+
+## V8 preparation: bounded idle ACKs
+
+Matcher renamed is_ack_candidate and now accepts length2 (no tag reads), or the
+existing length11/tag41 and length20/tag41+45 shapes. Length checks precede tag
+access. CRC/address/channel filters,ACK bytes/timing,256 cap/two-second deadline,
+one arm and one discovery per boot are unchanged. No HID.
+ACK log format is now `PROBE ACK sent: count=N/256 len=L seq=S next=T`.
+Idle length2 never carries a type1 report; a subsequent real report can use the
+same sequence, so future report deduplication must not consume sequences on idle.
+
+Seven tests pass, including a true three-byte radio buffer(length+two payload),
+wrong identity/channel,truncated/extended idle,repeated idle ACKs,expiry and
+budget/timeout guards. Native assertions now exit noninteractively on Windows;
+the new idle fixture failed cleanly before implementing the matcher change.
+V8 build/UF2 checks pass:flash58,752/RAM15,936 bytes,230 blocks,
+payload0x26000..0x345FF. Current probe UF2 SHA256:
+`4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4`.
+V7 preserved locally at ignored `build-pairing-analysis/probe-v7-e9e79cce.uf2`.
+V8 not flashed/armed; receive-only regression and binary separation pass.
+Radio UF2 hash remains3b459262... above;flash56,704/RAM15,872,222 blocks. Board still V7
+with expired ACK window. Next: verified V8 flash/passive baseline,then new
+controlled wheel/idle capture after battery readiness. Earlier generic tests need
+not be repeated.

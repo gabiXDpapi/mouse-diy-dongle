@@ -504,13 +504,46 @@ COM11/DTR passive baseline passed with expected V7 banner, 256-ACK/two-second
 limit, 1 MHz timing initialization, 19 channels, six zero-counter SCAN lines,
 no errors/no arming. Evidence: ignored
 `build-pairing-analysis/probe-v7-wheel-up-passive-20261115-001422.txt`.
-Board now V7 passive/unarmed with fresh unused budgets. COM11 closed; no live
-build/serial session. Battery readiness requested: keep mouse stationary, press
-no buttons, slowly scroll up/away from user about one notch per second until
-capture finishes. Readiness pending. Next: after confirmation, arm once and
-capture35seconds under distinct `probe-v7-wheel-up-...`; compare byte1 wheel
-sign and button mask0 after startup backlog, retaining all packets/outliers.
-Then tell user to stop/reconnect. No flash or firmware read needed.
+Wheel-up capture completed after explicit readiness (stationary,no buttons,
+scroll up/away about one notch/second). Evidence: ignored
+`build-pairing-analysis/probe-v7-wheel-up-20261115-001538.txt` and summary JSON.
+1001 complete valid RX:954 discovery,16 length11,one length20,30 length2.
+17 ACKs(seq0..16),256ms ACKed RX span,no errors. Seq0..15 retained prior button2/
+downward motion. Seq16:button0,wheel+19,X855,Y121,consumer fields0. Supports
+button release and positive wheel-up field at byte1, but only one new wheel
+report; accumulated prior motion remains visible, not ideal stationary isolation.
+Then30 identical length2 payloads `11 00` (sequence17,peer0) were not ACKed by
+V7's report-only filter. This is an identified idle-path limitation, not evidence
+that wheel report ACK failed. Source0x18938..0x18950 builds length2/sequence-only
+when queue empty and skips appending report at0x18976. Stock0x16094..0x1609A
+does not advance outgoing sequence when queue is empty; repeated idle sequence
+must not be counted as duplicate movement or failed ACK by itself.
+Board V7 discovery consumed,17/256 ACK attempts used,window expired/passive;
+COM11 closed,no live build/serial session. User told to stop scrolling/reconnect
+cable; actual reconnection unconfirmed.
+Next development step: V8 accepts observed idle length2 plus existing length11/
+tag41 and length20/tag41+45, retaining exact address/channel/CRC guards,256 cap,
+two-second deadline,timing/ACK bytes,no HID. Rename matcher to is_ack_candidate,
+add min-size idle/repeat/expiry tests; log incoming length on ACK lines so idle
+ACKs are distinguishable. V8 source implemented and all seven tests pass. Native
+asserts now exit with diagnostics instead of Windows' interactive assertion dialog;
+the expected failing idle test exited cleanly before the implementation fix.
+V7 preserved as ignored `build-pairing-analysis/probe-v7-e9e79cce.uf2`.
+V8 probe build and UF2 checks pass: flash58,752 / RAM15,936 bytes,230 blocks,
+payload0x26000..0x345FF. Current probe UF2 path unchanged; SHA256:
+`4ad89938b68c166ebb3b73fea46878b763cd97974c3f9424acc227f0e45824f4`.
+V8 NOT flashed/armed; receive-only regression and binary separation checks pass.
+Radio UF2 hash remains3b459262... above,flash56,704/RAM15,872,222 blocks.
+No live build/serial session. Note new
+ACK log format: `PROBE ACK sent: count=N/256 len=L seq=S next=T`; update capture
+parsing accordingly. Idle packets must not be decoded as movement or mark a report
+sequence as delivered: queue-empty idle and a later real report can share sequence.
+Checkpoint uses feature/bounded-ack-probe. Next: await NICENANO reentry with mouse
+wired, verify bootloader and V8 hash, flash and verify passive V8 banner/1 MHz
+timing initialization with no errors and no `p`. Then request battery readiness
+for one stationary/no-buttons/slow wheel-up capture, parsing the new ACK format
+and idle packets separately from movement reports. Repeat the
+wheel test only after the idle-path change, not the earlier generic captures.
 Keep this distinct from the completed generic V7 capture; do not repeat generic
 captures or firmware reads. Further separate Y/wheel checks follow if supported.
 Additional static finding: 91-byte HID mouse descriptor at 0x1A750..0x1A7AA,

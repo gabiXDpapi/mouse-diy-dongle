@@ -100,14 +100,14 @@ static int listen(uint8_t channel, bool pairing_address)
                     continue;
                 }
                 if (ack_count < PROBE_ACK_LIMIT && k_uptime_get() < ack_deadline &&
-                    is_initial_report(packet, channel, pairing_address, NRF_RADIO->RXMATCH)) {
+                    is_ack_candidate(packet, channel, pairing_address, NRF_RADIO->RXMATCH)) {
                     err = send_report_ack(packet);
                     if (err) {
                         printk("ERROR data ACK transmit %d; no retry\n", err);
                         return err;
                     }
-                    printk("PROBE data ACK sent: count=%u/%u seq=%u next=%u\n",
-                           ack_count, PROBE_ACK_LIMIT, packet[1], ack_reply[1]);
+                    printk("PROBE ACK sent: count=%u/%u len=%u seq=%u next=%u\n",
+                           ack_count, PROBE_ACK_LIMIT, packet[0], packet[1], ack_reply[1]);
                 }
 #endif
                 printk("RX t=%lld ch=%u base=%s match=%u len=%u data=",
@@ -154,7 +154,7 @@ int main(void)
     } while (!dtr);
 #ifdef DISCOVERY_PROBE
     probe_self_test();
-    printk("DIY Mouse Discovery Probe v7: bounded link test; passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; no HID\n",
+    printk("DIY Mouse Discovery Probe v8: idle + report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in 2000 ms; no HID\n",
            PROBE_ACK_LIMIT);
 #else
     printk("DIY Mouse RX Logger v2: receive-only, no movement reports\n");
