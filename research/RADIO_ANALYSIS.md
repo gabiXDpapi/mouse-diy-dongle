@@ -1,5 +1,18 @@
 # First radio capture experiment
 
+## Saved-1600-DPI attempt missed cue; no active link
+
+Unchanged v7/Windows settings,CORE wired Profile1 saved1600. User confirmed
+normal receiver reboot/mouse OFF-unplugged readiness.95s drained single-arm
+capture ignored at `build-pairing-analysis/receiver-v7-dpi1600-20261115-233835.txt`,
+`.host.jsonl`,`.summary.json`. Actual arming confirmed before power-on pop-up;
+no discovery reply/link start,zero ACKs/HID submissions,no errors. User chose
+could-not-perform/missed cue. Later passive RX does not establish active input;
+last counters good1247/bad6/invalid3 are cumulative. Comparison inconclusive,
+not a firmware/DPI failure. Arming expired;COM12 closed. Need normal receiver
+reboot/fresh readiness with user ready at power switch;no automatic rearm or
+repeat build/flash/baseline/DPI save. Wireless DPI equivalence still unverified.
+
 ## DPI profile inspection/save after wired connection
 
 Official Glorious CORE recognized wired Series One PRO. Performance UI shows

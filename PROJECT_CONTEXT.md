@@ -319,6 +319,23 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+SAVED-DPI ATTEMPT20261115-233835 COMPLETE;MISSED CUE/INCONCLUSIVE.95s continuous
+drained/single-arm COM12 capture closed/disposed. Ignored
+build-pairing-analysis/receiver-v7-dpi1600-20261115-233835.txt,.host.jsonl,.summary.json.
+One actual arming confirmed before power-on pop-up,but NO discovery reply/link
+start,zero ACKs/idle/status/type1/HID submissions,no ERROR. User explicitly chose
+'Could not perform or missed cue'. Some later passive RX counters progressed;
+do not infer active input or DPI comparison. Last good1247/bad6/invalid3 are
+cumulative since boot,not loss counts for an active link. No performance result.
+Board v7 arming opportunity EXPIRED/passive;discovery/ACK budgets unused but
+do NOT send p again on this boot. COM12 closed,no live build/serial. Saved CORE
+wired Profile1=1600 unchanged;wireless retention/equivalence still unverified.
+NEXT PHYSICAL PAUSE: normal receiver unplug/replug(no double-reset),same harmless
+document/surface/other pointer,Glorious OFF/USB unplugged,no DPI-button change.
+Have hand near power switch and watch next arming pop-up;select Ready only when
+able to switch ON promptly within30s. No rebuild/flash/baseline/DPI-save repeat.
+Then same95s single-arm comparison;no automatic retry. User can pause until later.
+
 DPI PROFILE CHECKPOINT: user connected Glorious USB;Glorious CORE recognizes
 SERIES ONE PRO WIRELESS in wired mode. Official UI shows PROFILE1 with selected
 1600 DPI(red outlined slider stage),presets400/800/1600/3200. No separate wired/
@@ -1070,3 +1087,8 @@ LIVE V7 MOTION 20261115-231733 : user clarified detection concern was expected u
 LIVE V7 MOTION: drain complete;ONE p sent. Await NEW arming text;no second p.
 LIVE V7 MOTION: NEW actual arming confirmed;95s capture running. Power-on/30s steady-circle comparison pop-up next. Idle ACK holds sequence only;no automatic retry.
 LIVE V7 MOTION: COM12 closed/disposed;armSent=True confirmed=True. Inspect stats/type1/HID/retry/busy and user speed-consistency outcome. No live serial session.
+
+LIVE V7 DPI1600 20261115-233835 : user confirms normal receiver reboot/Glorious OFF-unplugged/document-surface-other pointer ready. CORE Profile1 saved1600 via wired;wireless retention unverified. No DPI-button or Windows/firmware changes. COM12/DTR2s drain thenONE p/95s capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v7-dpi1600-20261115-233835.txt/.host.jsonl. Do not reset/rearm if interrupted.
+LIVE V7 DPI1600: drain complete;ONE p sent. Await NEW arming text;no second p.
+LIVE V7 DPI1600: NEW actual arming confirmed;95s capture running. Power-on/comparison pop-up next;do not press DPI button.
+LIVE V7 DPI1600: COM12 closed/disposed;armSent=True confirmed=True. Inspect counters and user wired-vs-wireless control/stop observations. No live serial session.
