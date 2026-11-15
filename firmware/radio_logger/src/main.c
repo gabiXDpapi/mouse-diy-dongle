@@ -75,6 +75,16 @@ static int listen(uint8_t channel, bool pairing_address)
     start_rx();
     int64_t deadline = k_uptime_get() + 40;
     while (k_uptime_get() < deadline) {
+#ifdef WIRELESS_HID
+        if (!atomic_get(&wireless_hid_online)) {
+            disable_radio();
+            return -ENODEV;
+        }
+        if (receiver_link_should_stop()) {
+            err = disable_radio();
+            return err ? err : receiver_end_link();
+        }
+#endif
         if (NRF_RADIO->EVENTS_END) {
             err = disable_radio();
             if (err) {
@@ -87,7 +97,7 @@ static int listen(uint8_t channel, bool pairing_address)
             } else if (NRF_RADIO->CRCSTATUS) {
                 good++;
 #ifdef DISCOVERY_PROBE
-                if (!probe_sent && k_uptime_get() < probe_arm_deadline &&
+                if (probe_discovery_allowed() &&
                     is_discovery(packet, channel, pairing_address,
                                  NRF_RADIO->RXMATCH)) {
                     err = send_probe();
@@ -98,9 +108,16 @@ static int listen(uint8_t channel, bool pairing_address)
                     /* shortcut: stay on observed channel51; trace hopping before a sustained receiver. */
                     channel = channels[3];
                     NRF_RADIO->FREQUENCY = channel;
+#ifdef WIRELESS_HID
+                    deadline = ack_deadline;
+                    printk("RECEIVER link started: discovery=%u/%u ACKs=%u/%u session_remaining_ms=%lld\n",
+                           receiver_discoveries, RECEIVER_DISCOVERY_LIMIT, ack_count,
+                           PROBE_ACK_LIMIT, receiver_session_deadline - k_uptime_get());
+#else
                     deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;
                     printk("PROBE sent once: group=0 interval=500; listening ch=%u for %u ms\n",
                            channel, PROBE_DATA_WINDOW_MS);
+#endif
                     /* Receive only after logging so an ACK never targets a packet queued during USB output. */
                     start_rx();
                     continue;
@@ -113,6 +130,10 @@ static int listen(uint8_t channel, bool pairing_address)
                         printk("HID busy; withholding ACK\n");
                         start_rx();
                         continue;
+                    }
+                    if (err == -EACCES && receiver_link_should_stop()) {
+                        err = disable_radio();
+                        return err ? err : receiver_end_link();
                     }
 #endif
                     if (err) {
@@ -139,7 +160,13 @@ static int listen(uint8_t channel, bool pairing_address)
         k_busy_wait(50);
         k_yield();
     }
-    return disable_radio();
+    err = disable_radio();
+#ifdef WIRELESS_HID
+    if (!err && receiver_link_should_stop()) {
+        return receiver_end_link();
+    }
+#endif
+    return err;
 }
 
 int main(void)
@@ -176,8 +203,8 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v3: passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; armed movement/clicks/wheel\n",
-           PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS);
+    printk("DIY Mouse Wireless HID Probe v4: passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+           RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",
            PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS);

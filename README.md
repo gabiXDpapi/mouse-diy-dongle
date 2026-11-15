@@ -169,9 +169,13 @@ uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
 Its UF2 is staged outside OneDrive in
 `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
 Do not flash until the build and application-only UF2 validation pass.
-Build and UF2 validation now pass: 236 blocks, payload `0x26000..0x34BFF`;
-Current receiver v3 SHA256 `4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da`.
-All eight tests, affected builds and separation checks pass. V3 is flashed and
+Current receiver v4 build and UF2 validation pass:239 blocks,payload
+`0x26000..0x34EFF`,SHA256 `2162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3`.
+All eight native tests,receiver/probe/radio builds and mode-separation checks
+pass;v4 is not yet flashed/hardware-tested.
+Hardware-tested v3 is preserved locally at ignored
+`build-pairing-analysis/receiver-v3-4bc43f35.uf2`.
+V3 is still flashed and
 passed passive COM12/HID startup and a9974ms ACK-span movement trial with586
 unique type1 reports,no errors/USB busy,and user-confirmed pointer movement.
 The next trial confirmed Windows left/right clicks,wheel up/down and stopping
@@ -184,15 +188,23 @@ V2 already
 forwarded87 unique movement reports and produced user-confirmed wireless Windows
 pointer movement followed by the bounded stop.
 
-It stays passive until serial `p`, then uses the proven discovery/ACK protocol
-for at most ten seconds and 1,024 ACK attempts in v3. The non-HID probe keeps its
-two-second/256-attempt limits. Validated unique reports forward
+V4 stays passive until serial `p`,with30seconds for initial discovery. After the
+first successful discovery,it permits60seconds total,8192 total ACK attempts
+and eight total discovery attempts across all links. A1000ms gap since the last
+successful ACK disables radio and attempts neutral release before resuming
+discovery scanning. Rediscovery never refills budgets or extends the deadline.
+The silence threshold is experimental;RF recovery still needs a hardware test.
+The non-HID probe keeps its one-discovery/two-second/256-attempt limits.
+Validated unique reports forward
 five button bits, signed16 X/Y and signed8 wheel to USB; idle and retransmitted
 reports do not replay movement. USB busy withholds ACK. Test termination/error
 attempts neutral button release with bounded waits. USB reset/disconnect after
 configuration requires a board reboot. No input is generated during passive startup.
-Idle/status packets never generate input. Use a45-second capture to cover the
-30-second discovery arming window plus the ten-second active session.
+Idle/status packets never generate input. For v4,use a95-second capture after
+arming to cover30seconds initial discovery plus60seconds total session and
+cleanup margin. Keep one continuous serial reader and save/drain startup output
+before sending one `p`;confirm NEW `RECEIVER armed:` text before mouse power-on.
+V3's earlier ten-second/1024-ACK sessions used45-second captures.
 
 This first HID bridge keeps USB text logging and radio polling; neither latency
 nor1000Hz operation is established. The original HID demo, passive logger and

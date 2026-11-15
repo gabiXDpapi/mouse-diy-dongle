@@ -125,10 +125,14 @@ int main(void)
         assert(wireless_hid_forward(status_packet) == 0 && writes == 10);
     }
     assert(wireless_hid_forward(p) == 0 && writes == 11);
+    assert(wireless_hid_finish() == 0 && writes == 12);
+    wireless_hid_new_link();
+    assert(wireless_hid_forward(p) == 0 && writes == 13); /* Restarted link may reuse sequence. */
+    assert(wireless_hid_forward(p) == 0 && writes == 13); /* Retry still suppressed. */
     wireless_hid_status(USB_DC_DISCONNECTED, NULL);
     assert(wireless_hid_finish() == -ENODEV);
     assert(wireless_hid_forward(idle) == -ENODEV);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
-    assert(wireless_hid_forward(p) == -ENODEV && writes == 11); /* Reboot required. */
+    assert(wireless_hid_forward(p) == -ENODEV && writes == 13); /* Reboot required. */
     return 0;
 }

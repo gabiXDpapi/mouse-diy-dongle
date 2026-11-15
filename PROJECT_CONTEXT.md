@@ -319,6 +319,47 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
+Save exact handoff and close live sessions;do not start physical work near cutoff.
+NEWEST SOFTWARE MILESTONE: receiver v4 ready for physical flash;NOT flashed.
+Branch feature/bounded-link-recovery;plan docs/plans/2026-11-15-bounded-link-recovery.md.
+Receiver-only60s session starts at first successful discovery;8192 total ACK
+attempts,eight total discovery attempts.1000ms since successful ACK triggers
+radio disable and neutral release before discovery scanning. Deadlines/budgets
+never refill;initial arm30s/once per boot. New successful discovery resets report
+retry marker. Idle/status refresh link only after successful ACK;USB busy does
+not. USB reset/disconnect/error remains fatal/reboot-required. One-second gap
+is an experimental threshold,not measured stock behavior. No guessed hopping.
+New tests failed before implementation;all8 tests now PASS,including both modes,
+gap boundary,failed neutral preventing recovery,shared budgets/deadline,discovery
+TX failure/exhaustion,ACK exhaustion and new-link same-sequence USB delivery.
+GCC tests require elevated execution due sandbox DLL relocation restriction.
+Receiver/probe/radio builds and UF2 bounds PASS. Binary/config/staged-source
+separation PASS. Default HID artifact unchanged. Validation metadata ignored at
+build-pairing-analysis/receiver-v4-software-validation.json.
+Current receiver UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2:
+SHA2562162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3;
+flash60968/RAM16064 bytes,239 blocks,payload0x26000..0x34EFF.
+Probe v9 (same256/2s policy):SHA256
+16cb6a37d503d09846616a176ad0af6817ca5e38a735842650ffe4f9068072c4;
+flash58840/RAM15936,230 blocks,payload0x26000..0x345FF.
+Radio receive-only:SHA256466aa22444354b85d1749e312ec0b40e59a4dc17fcfe45a63f8fad4902695a47;
+flash56760/RAM15872,222 blocks,payload0x26000..0x33DFF.
+Default HID unchanged058c1ff5...;hardware-tested v3 preserved/verified at ignored
+build-pairing-analysis/receiver-v3-4bc43f35.uf2,hash4bc43f3543638f337eb7d50d42621cc20be321e79ebdefed2ba8d94d9b73d4da.
+Board remains v3 expired/passive;COM12 closed,no live build/serial session.
+NEXT PHYSICAL PAUSE via pop-up: user puts receiver into NICENANO via double-reset,
+mouse wired or OFF. After readiness,reverify bootloader identity0.6.0/nRF52840-
+nicenano/S1406.1.1 and v4 UF2 bounds/hash,copy only application UF2,identify CDC
+port and verify5s passive v4/HID startup (no p). Then separate harmless-document/
+other-pointer/mouse-OFF-unplugged readiness. Same continuous2s-drained reader,
+ONE p,confirm NEW 'RECEIVER armed:' before power-on pop-up,and capture95seconds
+(30s discovery+60s session+5s cleanup). Try controls,then mouse OFF3s/ON during
+session to check recovery;do not reboot receiver/rearm. Inspect link started/
+stopped logs,shared budgets/deadline,neutral errors and user controls/stop result.
+Reset analyzer dedup marker on each new link;sequence restart is expected.
+No v4 hardware/recovery/performance claim.2:30PM pause reminder is active.
+
 NEWEST MILESTONE (2026-11-15): forced LEFT release at10s expiry PASSED.
 Fresh normal-reboot/mouse-OFF readiness;continuous COM12/DTR reader drained2s,
 sent ONE p,verified new arming before power-on/hold-left pop-up,captured45s.

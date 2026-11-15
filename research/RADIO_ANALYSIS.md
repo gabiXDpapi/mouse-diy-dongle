@@ -1,5 +1,32 @@
 # First radio capture experiment
 
+## Receiver v4 software work (2026-11-15; hardware still v3)
+
+Plan: `docs/plans/2026-11-15-bounded-link-recovery.md`;branch
+`feature/bounded-link-recovery`. Receiver-only60s session from first successful
+discovery,8192 total ACK attempts,eight total discovery attempts. After1000ms
+without successful ACK,disable radio and finish neutral USB release before
+scanning for the same mouse's observed discovery. Rediscovery never resets
+deadline/budgets. Successful new discovery resets report retry marker;idle/status
+still never produce input. RF bytes,identity/CRC/packet filters and delays unchanged.
+USB reset/disconnect stays fatal/reboot-required. Initial30s arm remains once/boot.
+Native actual-header tests pass,including gap boundary,idle refresh,busy not
+refreshing,failed neutral preventing rediscovery,shared budgets/deadline across
+links,discovery exhaustion/TX failure and new-link same-sequence delivery.
+All8 tests,receiver/probe/radio builds,UF2 bounds and binary/config/source
+separation checks pass. Default HID hash unchanged;tested v3 preserved4bc43f35...
+Receiver v4 SHA2562162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3,
+flash60968/RAM16064 bytes,239 blocks,application payload0x26000..0x34EFF.
+Probe v9 regression SHA25616cb6a37d503d09846616a176ad0af6817ca5e38a735842650ffe4f9068072c4;
+radio SHA256466aa22444354b85d1749e312ec0b40e59a4dc17fcfe45a63f8fad4902695a47.
+No hardware flash or v4 recovery claim. Next physical flash/passive baseline,
+then separate readiness/single-arm95s capture for sustained controls/power-cycle
+recovery. New 'RECEIVER armed:'/'link started:'/'link stopped:' logs identify
+session phases;reset analysis dedup at each link. Exact next steps in context.
+The1000ms threshold is experimental,not measured stock protocol timing.
+
+---
+
 Date: 2026-11-14 (Asia/Manila).
 
 ## Input and method

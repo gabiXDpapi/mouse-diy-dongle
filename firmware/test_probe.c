@@ -54,6 +54,10 @@ static void probe_timing_after_tx(bool ended) { (void)ended; }
 #ifdef WIRELESS_HID
 static int hid_result;
 static unsigned int hid_calls;
+static int finish_result;
+static unsigned int new_link_calls;
+static int wireless_hid_finish(void) { return finish_result; }
+static void wireless_hid_new_link(void) { new_link_calls++; }
 static int wireless_hid_forward(const uint8_t *p)
 {
     (void)p;
@@ -63,8 +67,10 @@ static int wireless_hid_forward(const uint8_t *p)
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
-_Static_assert(PROBE_ACK_LIMIT == 1024u, "Receiver must retain its finite 1024-ACK cap");
-_Static_assert(PROBE_DATA_WINDOW_MS == 10000u, "Receiver window must stay at ten seconds");
+_Static_assert(PROBE_ACK_LIMIT == 8192u, "Receiver ACK budget spans all links");
+_Static_assert(PROBE_DATA_WINDOW_MS == 60000u, "Receiver session is sixty seconds total");
+_Static_assert(RECEIVER_DISCOVERY_LIMIT == 8u, "Discovery retries are bounded");
+_Static_assert(RECEIVER_LINK_GAP_MS == 1000u, "Release after one second without successful ACK");
 #else
 _Static_assert(PROBE_ACK_LIMIT == 256u, "Probe must retain its finite 256-ACK cap");
 _Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at two seconds");
@@ -126,11 +132,17 @@ int main(void)
     probe_arm_deadline = 0;
     command = 'p'; poll_probe_arm();
     assert(send_probe() == -ETIMEDOUT);
+#ifdef WIRELESS_HID
+    assert(receiver_discoveries == 1 && receiver_session_deadline == 0 && new_link_calls == 0);
+#endif
     assert(ack_deadline == 0 && send_report_ack(report) == -EACCES);
     assert(probe_sent && radio.PACKETPTR == (uint32_t)packet);
     assert(send_probe() == -EALREADY);
     /* A fresh boot has a new discovery and bounded ACK budget. */
     probe_sent = false;
+#ifdef WIRELESS_HID
+    receiver_discoveries = 0;
+#endif
     complete_tx = true;
     assert(send_probe() == 0);
     assert(turnaround_delay == 250);
@@ -143,6 +155,7 @@ int main(void)
     now--;
     int64_t original_deadline = ack_deadline;
 #ifdef WIRELESS_HID
+    receiver_last_ack_ms = now;
     unsigned int calls_before = hid_calls;
     hid_result = -EAGAIN;
     assert(send_report_ack(report) == -EAGAIN && ack_count == 0 && radio.TASKS_TXEN == 0);
@@ -171,11 +184,63 @@ int main(void)
         report[1]++;
     }
     assert(send_report_ack(report) == -EALREADY && ack_count == PROBE_ACK_LIMIT);
+#ifdef WIRELESS_HID
+    assert(receiver_link_should_stop());
+#endif
     command = 'p'; poll_probe_arm();
     assert(send_probe() == -EALREADY && ack_count == PROBE_ACK_LIMIT);
     /* Failure consumes all remaining attempts, so there is no automatic retry. */
     ack_count = 1; complete_tx = false;
     assert(send_report_ack(report) == -ETIMEDOUT && ack_count == PROBE_ACK_LIMIT);
     assert(send_report_ack(report) == -EALREADY);
+#ifdef WIRELESS_HID
+    /* New arm, total budgets and deadline survive rediscovery. */
+    now = 100000; probe_sent = false; probe_arm_deadline = 0; ack_count = 0;
+    ack_deadline = 0; receiver_session_deadline = 0; receiver_discoveries = 0;
+    complete_tx = true; command = 'p'; poll_probe_arm();
+    assert(probe_discovery_allowed());
+    unsigned int links_before = new_link_calls;
+    assert(send_probe() == 0 && new_link_calls == links_before + 1);
+    int64_t session_deadline = receiver_session_deadline;
+    assert(session_deadline == 160000 && receiver_discoveries == 1);
+    now += 999; assert(!receiver_link_should_stop());
+    assert(send_report_ack(idle) == 0 && ack_count == 1);
+    now += 999; assert(!receiver_link_should_stop());
+    now++; assert(receiver_link_should_stop());
+    assert(send_report_ack(idle) == -EACCES && ack_count == 1);
+    finish_result = -EIO;
+    assert(receiver_end_link() == -EIO && probe_sent && !probe_discovery_allowed());
+    finish_result = 0;
+    assert(receiver_end_link() == 0 && !probe_sent && ack_deadline == 0);
+    assert(ack_count == 1 && receiver_discoveries == 1);
+    now = 132000; /* Initial 30s arming expired; the original 60s session remains. */
+    assert(probe_discovery_allowed() && send_probe() == 0);
+    assert(ack_deadline == session_deadline && receiver_discoveries == 2);
+    hid_result = -EAGAIN;
+    int64_t last_ack = receiver_last_ack_ms;
+    now += 500;
+    assert(send_report_ack(idle) == -EAGAIN && receiver_last_ack_ms == last_ack);
+    hid_result = 0;
+    while (receiver_discoveries < RECEIVER_DISCOVERY_LIMIT) {
+        now += RECEIVER_LINK_GAP_MS;
+        assert(receiver_link_should_stop() && receiver_end_link() == 0);
+        assert(send_probe() == 0 && ack_deadline == session_deadline && ack_count == 1);
+    }
+    assert(send_report_ack(idle) == 0); /* Last allowed link may still carry data. */
+    assert(new_link_calls == links_before + RECEIVER_DISCOVERY_LIMIT);
+    now += RECEIVER_LINK_GAP_MS;
+    assert(receiver_end_link() == 0 && !probe_discovery_allowed());
+    assert(send_probe() == -EACCES && receiver_discoveries == RECEIVER_DISCOVERY_LIMIT);
+    receiver_discoveries = 1; ack_count = PROBE_ACK_LIMIT;
+    assert(!probe_discovery_allowed() && send_probe() == -EACCES);
+    ack_count = 2; now = session_deadline - 1;
+    probe_sent = true; ack_deadline = session_deadline; receiver_last_ack_ms = now;
+    assert(!receiver_link_should_stop());
+    now++;
+    assert(receiver_link_should_stop() && receiver_end_link() == 0);
+    assert(!probe_discovery_allowed() && send_probe() == -EACCES);
+    command = 'p'; poll_probe_arm();
+    assert(receiver_session_deadline == session_deadline && ack_count == 2);
+#endif
     return 0;
 }

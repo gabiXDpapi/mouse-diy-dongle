@@ -73,6 +73,11 @@ static int wireless_hid_write(const uint8_t report[WIRELESS_HID_REPORT_SIZE], in
     return written == WIRELESS_HID_REPORT_SIZE ? 0 : -EIO;
 }
 
+static void wireless_hid_new_link(void)
+{
+    wireless_hid_has_sequence = false;
+}
+
 static int wireless_hid_forward(const uint8_t *p)
 {
     if (!atomic_get(&wireless_hid_online)) {

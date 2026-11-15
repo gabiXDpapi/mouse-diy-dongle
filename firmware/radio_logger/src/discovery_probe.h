@@ -1,7 +1,11 @@
 /* Fresh power-on also sends standalone type5 status; ACK it without HID output. */
 #ifdef WIRELESS_HID
-#define PROBE_ACK_LIMIT 1024u
-#define PROBE_DATA_WINDOW_MS 10000u
+#define PROBE_ACK_LIMIT 8192u
+#define PROBE_DATA_WINDOW_MS 60000u
+#define RECEIVER_DISCOVERY_LIMIT 8u
+#define RECEIVER_LINK_GAP_MS 1000u
+static unsigned int receiver_discoveries;
+static int64_t receiver_session_deadline, receiver_last_ack_ms;
 #else
 #define PROBE_ACK_LIMIT 256u
 #define PROBE_DATA_WINDOW_MS 2000u
@@ -13,6 +17,44 @@ static int64_t ack_deadline;
 static uint8_t probe_reply[] __aligned(4) = {3, 0, 0xf4, 1};
 static uint8_t ack_reply[3] __aligned(4);
 
+static bool probe_discovery_allowed(void)
+{
+    if (probe_sent || probe_arm_deadline == 0) {
+        return false;
+    }
+#ifdef WIRELESS_HID
+    if (receiver_discoveries >= RECEIVER_DISCOVERY_LIMIT || ack_count >= PROBE_ACK_LIMIT) {
+        return false;
+    }
+    if (receiver_session_deadline) {
+        return k_uptime_get() < receiver_session_deadline;
+    }
+#endif
+    return k_uptime_get() < probe_arm_deadline;
+}
+
+#ifdef WIRELESS_HID
+static bool receiver_link_should_stop(void)
+{
+    return probe_sent && (ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
+           k_uptime_get() - receiver_last_ack_ms >= RECEIVER_LINK_GAP_MS);
+}
+
+/* Caller disables radio before neutralization; failure must prevent rediscovery. */
+static int receiver_end_link(void)
+{
+    int err = wireless_hid_finish();
+    if (err) {
+        return err;
+    }
+    printk("RECEIVER link stopped: ACKs=%u/%u discoveries=%u/%u; neutral complete\n",
+           ack_count, PROBE_ACK_LIMIT, receiver_discoveries, RECEIVER_DISCOVERY_LIMIT);
+    probe_sent = false;
+    ack_deadline = 0;
+    return 0;
+}
+#endif
+
 static void poll_probe_arm(void)
 {
     unsigned char command;
@@ -20,8 +62,13 @@ static void poll_probe_arm(void)
     if (uart_poll_in(console, &command) == 0 && command == 'p' &&
         !probe_sent && probe_arm_deadline == 0) {
         probe_arm_deadline = k_uptime_get() + 30000;
+#ifdef WIRELESS_HID
+        printk("RECEIVER armed: first discovery within 30000 ms; up to %u discoveries and %u ACKs total in %u ms; gap=%u ms\n",
+               RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
+#else
         printk("PROBE armed for 30 seconds; one discovery reply plus %u data ACKs maximum in %u ms\n",
                PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS);
+#endif
     }
 }
 
@@ -90,14 +137,26 @@ static int send_probe(void)
     if (probe_sent) {
         return -EALREADY;
     }
-    if (probe_arm_deadline == 0 || k_uptime_get() >= probe_arm_deadline) {
+    if (!probe_discovery_allowed()) {
         return -EACCES;
     }
     /* Consume each budget even if transmission times out. */
     probe_sent = true;
+#ifdef WIRELESS_HID
+    receiver_discoveries++;
+#endif
     int err = transmit_probe_packet(probe_reply, 250);
     if (!err) {
+#ifdef WIRELESS_HID
+        if (!receiver_session_deadline) {
+            receiver_session_deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;
+        }
+        ack_deadline = receiver_session_deadline;
+        receiver_last_ack_ms = k_uptime_get();
+        wireless_hid_new_link();
+#else
         ack_deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;
+#endif
     }
     return err;
 }
@@ -119,6 +178,9 @@ static int send_report_ack(const uint8_t *p)
         return -EACCES;
     }
 #ifdef WIRELESS_HID
+    if (receiver_link_should_stop()) {
+        return -EACCES;
+    }
     int hid_err = wireless_hid_forward(p);
     if (hid_err) {
         return hid_err;
@@ -133,5 +195,10 @@ static int send_report_ack(const uint8_t *p)
     if (err) {
         ack_count = PROBE_ACK_LIMIT;
     }
+#ifdef WIRELESS_HID
+    else {
+        receiver_last_ack_ms = k_uptime_get();
+    }
+#endif
     return err;
 }
