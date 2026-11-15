@@ -1,3 +1,13 @@
+V11 POST-USB-RECOVERY ARM TRIAL IN PROGRESS 2026-11-16: user confirmed
+harmless doc/other pointer/Glorious OFF-unplugged,receiver unchanged after host
+restart. Clock02:21,before02:26 cutoff. One p/DTR actual arm confirmed before
+mouse-ON cue. Private base receiver-v11-rearm-20261116-022118 in
+build-pairing-analysis;100s hidden raw+95s serial. x ONCE25s after link observed.
+User cued motion/clicks/wheel then held-left selection through x stop. No USB
+restart during active session;this is explicit-arm functionality AFTER passive
+restart. Do not confuse with active USB-loss test. Pending capture/user results.
+No second reader/rearm/reset. Save/push and pause by02:30 after final result.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
