@@ -1,5 +1,17 @@
 # First radio capture experiment
 
+## DPI clarification before further firmware tuning
+
+User clarified high DPI may explain difficulty drawing fine circles,then asked
+to match wireless DPI to wired if possible. Quiet-active software candidate was
+tested natively but NOT built/flashed;deferred privately and own changes restored
+to exact tested v7 source. Current receiver UF2 remainsb6a63b99...,hardware v7
+expired/passive. Do not claim remaining variation from circle precision alone.
+Installed Glorious CORE opened through computer-use skill;UI currently asks to
+connect Glorious products. No wired DPI value read,no DPI/Windows setting changed.
+Next physical wired USB connection,then official UI inspection/matching if
+supported. Do not invent receiver gain or issue guessed vendor configuration writes.
+
 ## V7 motion comparison: subjective consistency improvement,not complete
 
 Ignored `build-pairing-analysis/receiver-v7-motion-20261115-231733.txt`,

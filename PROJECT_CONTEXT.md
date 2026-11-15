@@ -319,6 +319,24 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+DPI MATCH TASK / PHYSICAL PAUSE: user clarified high DPI may have made circles
+hard to control,then explicitly asked to set wireless DPI same as wired if possible.
+Do not treat this as proven residual RF variation. Deferred the unflashed quiet-
+active candidate:own firmware/test edits restored EXACTLY to tested v7;current
+UF2 hashb6a63b99... reverified,no V8 build/flash. Candidate patch/plan saved ignored
+at build-pairing-analysis/deferred-quiet-active-window.patch and
+deferred-quiet-active-window-plan.md. Empty unpublished candidate branch removed;
+active branch again feature/idle-ack-queue-guard. No user files changed.
+Using computer-use skill/sky to inspect installed Glorious CORE. Launched existing
+C:/Program Files (x86)/Glorious CORE/Glorious Core.exe. Current UI says PLEASE
+CONNECT YOUR GLORIOUS PRODUCTS;no DPI value available and NO setting changed.
+NEXT physical pause via pop-up: user connects Glorious USB cable directly to PC,
+leaves DIY receiver unchanged. Then refresh CORE UI,read wired active DPI/profile
+and inspect whether separate wireless DPI exists. Match through supported official
+UI if exposed;no guessed HID/config writes or receiver scaling. Windows speed/
+acceleration unchanged. Hardware still v7 expired/passive,COM12 closed,no serial.
+Mouse wired connection needs confirmation;continue UI task after that readiness.
+
 NEWEST V7 COMPARISON20261115-231733 COMPLETE:95s drained/single-arm capture
 closed. Ignored build-pairing-analysis/receiver-v7-motion-20261115-231733.txt,
 .host.jsonl,.summary.json. One link,59121/65536 ACKs:11305 idle,one status,
