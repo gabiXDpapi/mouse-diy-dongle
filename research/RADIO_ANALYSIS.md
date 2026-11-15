@@ -18,6 +18,14 @@ Hardware still tested v4 expired/passive,COM12 closed. Pause for physical
 flash/readiness;no new armed trial after14:26 for user's14:30 departure.
 This only tests a possible logging contribution to reported delay;no latency
 improvement claim yet. V5 timing lines are SAMPLES,not a total TX-completion count.
+V5 subsequently flashed around14:25 Manila after user NICENANO readiness;
+reverified bootloader0.6.0/nicenano/S1406.1.1 and ab8e3001... UF2 hash/bounds.
+Five-second DTR COM12 passive log passed:v5 limits,1MHz timing,19channels,six
+zero scans,no errors/arming. Windows composite/CDC/HID/Input statuses OK.
+Ignored `build-pairing-analysis/receiver-v5-passive-20261115-142507.txt` and
+`.summary.json`. COM12 closed;v5 fresh/unarmed,budgets unused. PAUSED for user's
+14:30 departure;no input test started. After return,separate readiness/one95s
+capture for perceived delay comparison and recovery. Do not repeat flash/baseline.
 
 
 ## V4 power-cycle recovery and reported pointer delay (2026-11-15)

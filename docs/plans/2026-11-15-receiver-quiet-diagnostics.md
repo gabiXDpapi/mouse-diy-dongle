@@ -20,4 +20,7 @@ User cutoff: pause by14:30 Asia/Manila on2026-11-15. Hardware remains v4 expired
 Receiver/probe/radio builds,UF2 bounds and compiled-format/config/source checks
 pass. Receiver v5 SHA256ab8e3001...,full metadata in context. No per-packet RX/ACK
 format strings in receiver;other variants keep their logging. Tested v4 preserved;
-default HID unchanged. PAUSED before physical flash;no new95s armed test after14:26.
+default HID unchanged. V5 subsequently flashed and passed5s passive COM12/HID
+startup;fresh/unarmed,budgets unused. PAUSED for user's departure before any
+armed comparison. Resume only after return/separate input readiness;do not
+repeat completed flash/passive check. No latency improvement established yet.

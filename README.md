@@ -172,8 +172,9 @@ Do not flash until the build and application-only UF2 validation pass.
 Current receiver v5 build and UF2 validation pass:238 blocks,payload
 `0x26000..0x34DFF`,SHA256 `ab8e3001d0a075a2e2480379894f868e9987000a3752965e41bc93984c6dbf2d`.
 V5 reduces per-packet USB text to1s counters,retaining discovery/first-ACK timing
-samples per link,link transitions and error/busy logs. It is NOT flashed yet;
-no improvement in the user-reported pointer delay has been established.
+samples per link,link transitions and error/busy logs. V5 is flashed and passed
+passive COM12/HID startup;it remains unarmed with unused budgets. Its input-delay
+comparison is pending;no improvement in the user-reported delay is established.
 The tested v4 image is preserved at ignored
 `build-pairing-analysis/receiver-v4-2162a852.uf2`.
 All eight native tests,receiver/probe/radio builds and mode-separation checks

@@ -321,7 +321,28 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
-CURRENT RECEIVER CHECKPOINT (v4; newest hardware state first):
+CURRENT RECEIVER CHECKPOINT (v5; newest hardware state first):
+PAUSED UNTIL USER RETURNS for requested14:30 departure. At about14:25 Manila,
+user confirmed NICENANO visible/mouse wired or OFF. Reverified bootloader0.6.0,
+nRF52840-nicenano,S1406.1.1 and finalv5 ab8e3001... UF2 hash/238 blocks/application
+bounds0x26000..0x34DFF;copied application only. V5 IS NOW FLASHED.
+Five-second COM12 DTR passive startup PASSED:v5 quiet banner,8 discoveries/8192
+ACKs/60000ms/1000ms gap,1MHz timing,19channels,six zero SCAN lines,no errors or
+arming. Windows composite/CDC/HID/Input statuses all OK. Ignored evidence:
+build-pairing-analysis/receiver-v5-passive-20261115-142507.txt and .summary.json.
+Board v5 fresh/passive/UNARMED;all budgets unused. NO p sent on v5. COM12
+closed/disposed;no live build or serial session. No armed test before departure.
+Resume ONLY after user returns/asks to resume: separate harmless scrollable
+document/other-pointer/Glorious OFF-unplugged readiness via question pop-up.
+Do not repeat flash,passive baseline,build or v4 extraction/recovery trials.
+Then continuous reader saves/drains2s,ONE p,confirm NEW RECEIVER armed text
+before power-on pop-up,95s capture. Compare perceived response to delayed v4;
+try movement/clicks/wheel and mouse OFF3s/ON recovery within60s session,then stop.
+Analyze cumulative stats/link-stop shared ACK totals;no raw packets/per-ACK
+logs in v5. TIMING lines only sample discovery/first ACK per link,NOT total TXs.
+V5 latency improvement NOT tested/claimed. Tested v4 remains preserved2162a852...
+Software milestone645822d pushed on feature/receiver-quiet-diagnostics.
+
 QUIET-DIAGNOSTICS SOFTWARE READY;PAUSED FOR PHYSICAL WORK. V4 recovery milestone
 pushed78315c9. Branch
 feature/receiver-quiet-diagnostics;plan docs/plans/2026-11-15-receiver-quiet-diagnostics.md.
@@ -774,3 +795,7 @@ LIVE V4 RECOVERY 20261115-140838 : user confirmed document/other pointer/mouse O
 LIVE V4 RECOVERY: drain complete;one p sent. Await NEW RECEIVER armed text;never send second p this boot.
 LIVE V4 RECOVERY: NEW actual arming confirmed;95s capture running. Power-on/15s controls/OFF3s/ON pop-up next. Shared budgets/deadline;no receiver reset.
 LIVE V4 RECOVERY: COM12 closed/disposed;armSent=True confirmed=True. Inspect raw/host/link-phase evidence and user recovery/stop observations. No live serial session.
+
+LIVE V5 FLASH: user NICENANO/mouse wired-OFF ready;verified bootloader0.6.0/nicenano/S1406.1.1 and ab8e3001... hash/bounds. Copying application only;NO arming. Time14:24 Manila;passive check then pause.
+LIVE V5 FLASH: application UF2 copied;await enumeration/passive check. NO p sent.
+LIVE V5 PASSIVE: COM12 closed/disposed;log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v5-passive-20261115-142507.txt. No commands sent;inspect before conclusions.
