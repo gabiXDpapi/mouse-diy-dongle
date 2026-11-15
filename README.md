@@ -32,7 +32,9 @@ reliability are still pending.
 V11 is a flashed USB-recovery experiment with passive startup verified: configured USB reset or
 disconnect requests a software restart to passive startup; a new explicit arm is
 required. Generic USB errors remain fatal. A targeted Windows restart while configured/passive returned a fresh unarmed
-v11 startup without errors. Active USB-loss recovery remains untested.
+v11 startup without errors. A fresh explicit arm afterward restored smooth
+controls and x-stop held-button release by user report. Active USB-loss recovery
+and held-button behavior across that loss remain untested.
 
 ## Host Raw Input diagnostic
 

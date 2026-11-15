@@ -1,5 +1,38 @@
 # First radio capture experiment
 
+## V11 post-recovery arm passed;paused
+
+PAUSED BEFORE02:30 / V11 POST-RECOVERY ARM PASS 2026-11-16:
+User's02:30 Manila work window is ending;pause after completed test. No further
+hardware actions until user resumes. Branch feature/receiver-usb-reset-restart.
+User confirms all controls smooth and held-left release after NEW explicit arm
+following receiver-only Windows USB restart. Configured-passive restart PASS;
+active USB-loss/held-button behavior across reset is NOT yet tested.
+Private base build-pairing-analysis/receiver-v11-rearm-20261116-022118:
+100s hidden raw1975 receiver-only background records,0 read errors;left down/up
+15/15,wheel45. Right click user-confirmed but no independent right transition
+in this short capture. Link21.144s,x46.166s,raw up46.176s,neutral/disarmed chunk
+46.199s;host timing is not physical latency. One arm/discovery,24544 ACKs,
+8065 HID submissions,48 retries,busy75,no ERROR;one disarmed/reboot response.
+Board v11 NOW DISARMED/LATCHED,one arm/discovery,24544 ACKs used. COM12 closed,
+no live serial/raw/build/admin helper/UAC session. User told release/reconnect USB.
+Installed v11 SHA256b1d27489bd8fa65b2972fa5fefe83c19b843428bb27492991cf66aa3e727561b;
+C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2 and private
+receiver-v11-b1d27489.uf2. V10/v9/v8 rollback images preserved. Bounds remain
+327680 ACK/5min,8 discoveries,1s gap,30s initial discovery,one p/boot,x stop.
+NEXT WHEN USER RESUMES: prepare ACTIVE USB-reset test,including old-session
+abort,no automatic resume,fresh explicit arm and held-button behavior. Review
+UAC sequencing first:approval must occur before held-input observation,otherwise
+consent clicks confound the test. Bounded deferred receiver-only admin helper
+may be needed;NOT implemented. Existing helper restarts immediately. Exact
+receiver root privately identified;never replace drivers/target other devices.
+Configured-passive PnP restart returned one fresh unarmed boot/no loop;MCU reset
+cause not separately instrumented. Active-reset release/startup neutral remains
+unverified. Do not claim complete USB recovery or daily-use/gaming reliability.
+Current used boot needs explicit normal-reboot readiness before another arm.
+No repeated v11 build/flash/passive baseline without a new reason.
+
+
 ## V11 configured-passive host restart passed
 
 V11 CONFIGURED-PASSIVE WINDOWS USB RESTART PASS 2026-11-16:

@@ -22,3 +22,12 @@ output after quick configuration. V11 hashb1d27489...,61812 flash/16128 RAM,
 242 UF2 blocks. Source/config/banner match. Hardware still v10;flash/passive
 readiness next. Windows restart needs UAC;exact receiver root identified and
 fixed-purpose admin helper prepared but not executed. Stop by02:30.
+
+## Hardware checkpoint and pause
+
+Flash/passive startup PASS. Exact receiver-only Windows PnP restart via UAC
+returned exit0 and one fresh unarmed v11 startup,no loop/errors. Fresh explicit
+arm afterward:user confirms smooth controls and held-left release on x. Raw
+release/neutral/disarmed observed,no read errors. Active USB loss is NOT tested.
+Next prepare UAC sequencing before held-input observation (a bounded deferred
+helper may be needed,not implemented). Paused ahead of02:30,all sessions closed.
