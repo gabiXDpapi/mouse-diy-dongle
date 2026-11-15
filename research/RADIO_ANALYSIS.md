@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## V11 configured-passive host restart passed
+
+V11 CONFIGURED-PASSIVE WINDOWS USB RESTART PASS 2026-11-16:
+User approved UAC for fixed receiver-only helper. Run private base
+build-pairing-analysis/receiver-v11-usbrestart-20261116-021713. Exact receiver USB
+root revalidated;pnputil restart exit0/helper exit0. No other device/driver change.
+After restart,COM12 reenumerated;8s passive DTR capture has ONE fresh Zephyr boot
+and v11 banner,zero traffic,no ERROR/arming/link or restart loop. COM12 closed.
+Scope:configured-passive host-restart scenario only;MCU reset cause not separately
+instrumented,active USB-loss/held-button behavior NOT tested. No automatic arm.
+Board v11 fresh boot UNARMED,unused327680 ACK/300000ms/8 discovery budgets.
+Flash metadata references restart validation;raw/result files ignored. No sessions.
+NEXT physical readiness:post-recovery explicit-arm controls/x-stop check. Harmless
+scrollable/selectable doc,other pointer,Glorious OFF/USB unplugged,receiver stays
+connected without reset. Prepared capture-v11-rearm.ps1 syntax to check;100s raw/
+95s serial,one p,actual arm cue,x ONCE25s after link. Try motion/clicks/wheel then
+hold LEFT through x stop,other pointer checks selection fixed. No second p.
+No short arm after02:26;pause/save by02:30. Active USB-reset scenario deferred.
+
+
 ## V11 flash/passive startup verified
 
 V11 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user confirmed NICENANO
