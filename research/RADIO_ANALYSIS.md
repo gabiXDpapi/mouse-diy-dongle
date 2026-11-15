@@ -25,6 +25,14 @@ recovery. New 'RECEIVER armed:'/'link started:'/'link stopped:' logs identify
 session phases;reset analysis dedup at each link. Exact next steps in context.
 The1000ms threshold is experimental,not measured stock protocol timing.
 
+V4 subsequently flashed after user confirmed NICENANO/mouse wired or OFF.
+Bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and final2162a852... UF2 hash/bounds
+reverified before application copy. COM12/HID/composite statuses OK. Five-second
+DTR passive log passed:v4 limits,1MHz timing,19channels,six zero-counter scans,
+no errors/arming. Ignored `build-pairing-analysis/receiver-v4-passive-20261115-140431.txt`
+and `.summary.json`. COM12 closed;v4 fresh/unarmed,budgets unused. Next separate
+input readiness/single-arm95s recovery capture;do not repeat flash/passive check.
+
 ---
 
 Date: 2026-11-14 (Asia/Manila).

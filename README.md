@@ -172,10 +172,11 @@ Do not flash until the build and application-only UF2 validation pass.
 Current receiver v4 build and UF2 validation pass:239 blocks,payload
 `0x26000..0x34EFF`,SHA256 `2162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3`.
 All eight native tests,receiver/probe/radio builds and mode-separation checks
-pass;v4 is not yet flashed/hardware-tested.
+pass. V4 is flashed and passed passive COM12/HID startup with unused budgets;
+its sustained-input/RF-recovery test is pending.
 Hardware-tested v3 is preserved locally at ignored
 `build-pairing-analysis/receiver-v3-4bc43f35.uf2`.
-V3 is still flashed and
+V3 previously
 passed passive COM12/HID startup and a9974ms ACK-span movement trial with586
 unique type1 reports,no errors/USB busy,and user-confirmed pointer movement.
 The next trial confirmed Windows left/right clicks,wheel up/down and stopping

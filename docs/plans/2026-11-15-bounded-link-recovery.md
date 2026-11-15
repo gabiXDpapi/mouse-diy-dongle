@@ -46,6 +46,8 @@ the receiver-only changes. Final guard cases also cover discovery TX failure,
 ACK exhaustion and exact session deadline. Receiver/probe/radio builds,UF2
 bounds and mode/config/binary/staged-source review PASS. Default HID artifact
 unchanged. Receiver v4 hash2162a852...;full metadata and exact next steps in
-PROJECT_CONTEXT.md. Physical flash/passive startup and RF recovery remain pending.
+PROJECT_CONTEXT.md. Physical flash and5s passive COM12/HID startup subsequently
+passed;v4 fresh/unarmed,budgets unused. RF recovery remains pending,separate
+input readiness required. Do not repeat the completed flash/passive check.
 User requests project pause by14:30 Asia/Manila on2026-11-15. No physical session
 will begin near that cutoff;save exact state and close live sessions before pause.

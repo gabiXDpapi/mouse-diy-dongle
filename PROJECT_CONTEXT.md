@@ -321,7 +321,28 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
-NEWEST SOFTWARE MILESTONE: receiver v4 ready for physical flash;NOT flashed.
+CURRENT RECEIVER CHECKPOINT (v4; newest hardware state first):
+NEWEST HARDWARE CHECKPOINT (supersedes flash-pending notes below):v4 FLASHED
+on2026-11-15 about14:04 Asia/Manila. Verified D:/NICENANO bootloader0.6.0,
+nRF52840-nicenano,S1406.1.1 and final2162a852... UF2 hash/application bounds,
+then copied application only. COM12 returned;Windows composite/CDC/HID/Input
+statuses all OK. Five-second DTR passive startup PASSED:v4 banner,8 discoveries/
+8192 ACKs/60000ms/1000ms gap,1MHz timing,19channels,six zero-counter SCAN lines,
+no ERROR,no arming. Evidence ignored build-pairing-analysis/receiver-v4-passive-20261115-140431.txt
+and .summary.json. Board v4 fresh/passive/UNARMED,all budgets unused;COM12
+closed/disposed,no live build/serial. Mouse last wired or OFF by user readiness.
+NEXT: separate harmless scrollable-document/other-pointer/mouse OFF-and-unplugged
+readiness via pop-up. Do NOT reboot/flash/repeat baseline. Same continuous reader
+drains/saves2s,send ONE p,confirm new 'RECEIVER armed:' before power-on pop-up,
+capture95s. User tries controls15s,mouse OFF3s then ON without receiver reset,
+continues controls and checks stop. Inspect per-link/shared-budget/neutral timing.
+Pause by14:30 Manila as requested;reminder active. No v4 RF recovery tested yet.
+
+LIVE FLASH STEP: user confirmed NICENANO visible/mouse wired or OFF. On2026-11-15
+14:03 Asia/Manila,D:/ bootloader verified0.6.0/nRF52840-nicenano/S1406.1.1;
+v4 UF2 revalidated239 blocks/0x26000..0x34EFF and hash2162a852... .
+Next authorized action: application UF2 copy,then identify CDC and5s passive
+startup check WITHOUT p. No v4 arm sent;update outcome before next action.
 Software milestone cddf342 committed/pushed with upstream tracking on
 feature/bounded-link-recovery. PAUSED for physical bootloader readiness via
 question pop-up;no live build/serial session and board still v3.
@@ -699,3 +720,5 @@ LIVE HELD-BUTTON TRIAL 20261115-015320 : user confirms normal receiver reboot,mo
 LIVE HELD-BUTTON TRIAL: drain complete;exactly one p sent. Await actual new arming text;no second p this boot.
 LIVE HELD-BUTTON TRIAL: NEW actual v3 arming confirmed;45s capture running. Power-on/hold-left pop-up next. Inspect last ACKed buttons and user selection observation before pass.
 LIVE HELD-BUTTON TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Raw/host evidence saved;await user observation. No live serial session.
+
+LIVE FLASH: v4 application UF2 copied to verified D:/NICENANO. Await USB enumeration/passive startup;no p sent.
