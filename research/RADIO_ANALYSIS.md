@@ -1,5 +1,26 @@
 # First radio capture experiment
 
+## Foreground wireless overshoot reproduced
+
+FOREGROUND WIRELESS COMPARISON COMPLETE 2026-11-16: user kept window active;
+random overshoot persists;clean stop confirmed. Private base
+build-pairing-analysis/receiver-v7-foreground-20261116-003012 (csv/txt/host.jsonl/
+raw.stdout.txt/summary.json).100s raw exit0,39180 receiver-only relative records,
+39076 foreground(39075 motion,1 button),104 background,0 read errors. Foreground
+median gap1025us,p90 2054us,p99 4044us;whole-run max273019us includes pauses.
+One arm/discovery,59129 ACKs(19317 idle,1 status,39811 type1),39709 HID
+submissions,102 retries,171 HID-busy messages,no ERROR;neutral complete.
+Wired foreground was user-confirmed smooth. Wireless max axis31/14 vs wired3/2;
+median motion magnitude1 in both,p99 wireless2.236 vs wired2. Occasional larger
+wireless steps occur near busy serial chunks;host chunks buffered,hand motion
+not identical,so correlation is not proof of logging cause or fixed DPI error.
+No live raw/serial/build. Board v7 expired/passive,59129 ACKs used. User told
+reconnect wired. NEXT SOFTWARE: resume preserved quiet-active-window A/B candidate
+(v8),keeping all protocol/timing/mapping/limits. Test actual suppression and busy
+counters,build/validate,preserve v7,then pause for physical flash readiness.
+Do not repeat foreground/background v7 baselines or guess motion scaling.
+
+
 ## Foreground wired capture complete
 
 FOREGROUND WIRED CAPTURE COMPLETE 2026-11-16: private base

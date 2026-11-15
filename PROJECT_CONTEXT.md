@@ -319,12 +319,30 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+FOREGROUND WIRELESS COMPARISON COMPLETE 2026-11-16: user kept window active;
+random overshoot persists;clean stop confirmed. Private base
+build-pairing-analysis/receiver-v7-foreground-20261116-003012 (csv/txt/host.jsonl/
+raw.stdout.txt/summary.json).100s raw exit0,39180 receiver-only relative records,
+39076 foreground(39075 motion,1 button),104 background,0 read errors. Foreground
+median gap1025us,p90 2054us,p99 4044us;whole-run max273019us includes pauses.
+One arm/discovery,59129 ACKs(19317 idle,1 status,39811 type1),39709 HID
+submissions,102 retries,171 HID-busy messages,no ERROR;neutral complete.
+Wired foreground was user-confirmed smooth. Wireless max axis31/14 vs wired3/2;
+median motion magnitude1 in both,p99 wireless2.236 vs wired2. Occasional larger
+wireless steps occur near busy serial chunks;host chunks buffered,hand motion
+not identical,so correlation is not proof of logging cause or fixed DPI error.
+No live raw/serial/build. Board v7 expired/passive,59129 ACKs used. User told
+reconnect wired. NEXT SOFTWARE: resume preserved quiet-active-window A/B candidate
+(v8),keeping all protocol/timing/mapping/limits. Test actual suppression and busy
+counters,build/validate,preserve v7,then pause for physical flash readiness.
+Do not repeat foreground/background v7 baselines or guess motion scaling.
+
 FOREGROUND WIRED CAPTURE COMPLETE 2026-11-16: private base
 build-pairing-analysis/raw-wired-foreground-20261116-002746.45s exit0,20389
 wired-only relative records/errors0.20109 foreground(input_code0;20106 motion,
 3 button records),280 background. Foreground median arrival1079us,p90 2947us,
 p99 4950us;whole-run max includes movement pauses. Background median8007us.
-User confirmed capture window stayed active;subjective smoothness answer pending.
+User confirmed capture window stayed active;user confirmed wired smooth/consistent.
 No physical polling/latency/DPI claim. This verifies background cadence confound.
 No live logger/serial/build. Firmware remains v7. NEXT pop-up already pending:
 user wired observation plus normal receiver reboot/Glorious OFF-unplugged
