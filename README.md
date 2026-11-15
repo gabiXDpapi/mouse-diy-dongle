@@ -22,7 +22,9 @@ original USB HID demo.
 V8 is the validated hardware baseline. V9 adds a receiver-only lowercase `x`
 stop and has passed software checks; it is flashed and passive startup has passed. After a
 successful stop response, a receiver reboot is required before arming again.
-Session limits remain unchanged. V9 held-left explicit stop and smooth motion are user-confirmed; longer sessions remain untested.
+V9 held-left explicit stop and smooth motion are user-confirmed. V10 extends the
+finite cap to 327,680 ACKs/five minutes, keeping the other guards. It is built
+and validated but not flashed; longer-session hardware behavior is untested.
 
 ## Host Raw Input diagnostic
 

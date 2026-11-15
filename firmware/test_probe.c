@@ -72,8 +72,8 @@ static int wireless_hid_forward(const uint8_t *p)
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
-_Static_assert(PROBE_ACK_LIMIT == 65536u, "Finite receiver budget accommodates observed quiet ACK cadence");
-_Static_assert(PROBE_DATA_WINDOW_MS == 60000u, "Receiver session is sixty seconds total");
+_Static_assert(PROBE_ACK_LIMIT == 327680u, "Finite five-minute receiver ACK budget");
+_Static_assert(PROBE_DATA_WINDOW_MS == 300000u, "Receiver session is five minutes total");
 _Static_assert(RECEIVER_DISCOVERY_LIMIT == 8u, "Discovery retries are bounded");
 _Static_assert(RECEIVER_LINK_GAP_MS == 1000u, "Release after one second without successful ACK");
 #else
@@ -82,6 +82,9 @@ _Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at
 #endif
 int main(void)
 {
+#ifdef WIRELESS_HID
+    assert(PROBE_DATA_WINDOW_MS == 300000u && PROBE_ACK_LIMIT == 327680u);
+#endif
     uint8_t report[12] = {11, 0xff, 0xff, 0x41};
     probe_self_test();
     assert(is_ack_candidate(report, 51, false, 1));
@@ -225,7 +228,7 @@ int main(void)
     assert(!receiver_diagnostics_due()); /* No periodic USB text in an active link. */
     assert(receiver_trace_next_ack);
     unsigned int timing_before_ack = timing_calls;
-    assert(session_deadline == 160000 && receiver_discoveries == 1);
+    assert(session_deadline == 100000 + PROBE_DATA_WINDOW_MS && receiver_discoveries == 1);
     now += 999; assert(!receiver_link_should_stop());
     assert(send_report_ack(idle) == 0 && ack_count == 1);
     assert(!receiver_trace_next_ack && timing_calls == timing_before_ack + 1);
@@ -329,7 +332,7 @@ int main(void)
     assert(receiver_handle_disarm() == 0 && receiver_disarm_handled);
     /* Cancel in the rediscovery gap; keep cumulative budgets unchanged. */
     receiver_disarm_requested = receiver_disarm_handled = false;
-    probe_arm_deadline = now + 30000; receiver_session_deadline = now + 60000;
+    probe_arm_deadline = now + 30000; receiver_session_deadline = now + PROBE_DATA_WINDOW_MS;
     receiver_discoveries = 1; ack_count = 12;
     assert(probe_discovery_allowed());
     command = 'x'; poll_probe_arm();

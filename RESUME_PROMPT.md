@@ -1,112 +1,47 @@
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
+Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-five-minute-session.md.
+Inspect git status/log first. Branch:feature/receiver-five-minute-session.
 
-Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-explicit-stop.md.
-Inspect git status/log first. Branch:feature/receiver-explicit-stop.
-User requested a break after v9 software preparation;this continuation resumes.
+V10 FIVE-MINUTE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
+branch feature/receiver-five-minute-session. V10 BUILT/VALIDATED,NOT FLASHED.
+Only receiver cap/session constants327680 ACKs/300000ms and banner changed;
+8 discoveries,1s gap,30s initial arm,one arm/boot,x latch/neutral,quiet active,
+mapping/ACK timing retained from hardware-passed v9. Bounds regression failed
+on v9;all8 native checks PASS including original shared deadline/stop errors.
+Receiver build/UF2/source/config/banner checks PASS:61560 flash/16128 RAM,
+241 blocks0x26000..0x350FF. Existing probe/radio/default HID hashes verified
+unchanged vs v9,not rebuilt because non-HID paths not modified.
+V10 UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
+SHA25632713b13dff337956808746b952bad1fa27d108079fa73ba52584c703ea4c2a9.
+Private receiver-v10-32713b13.uf2,receiver-v9-ecc725eb.uf2 and v8 preserved;
+metadata receiver-v10-build-validation.json. Hardware benefit not tested.
+Board STILL v9 DISARMED/latch,25000 ACKs used;COM12 closed,no live sessions.
+NEXT physical flash readiness: mouse wired/OFF,receiver double-reset NICENANO;
+verify identity/hash/copy then passive startup,no arming. Separate5-minute
+trial readiness if time fits. Full335s serial,onlyfirst180s optional hidden raw
+(control events,not cadence). Exercise controls and mouse OFF3s/ON around1 and
+3minutes,observe original5-minute stop. x early stop available through same reader.
+HARD PAUSE02:00 Manila;do not arm5-minute trial after01:52. Recheck clock before
+arming;defer if too late. Update handoff/push all tested milestones before pause.
 
-V9 EXPLICIT X STOP HARDWARE PASS 2026-11-16: user confirms selection fixed
-while LEFT physically held after x stop;circles smooth like v8/wired.
-Private base build-pairing-analysis/receiver-v9-xstop-20261116-013634.
-100s hidden raw2393 receiver records,0 read errors. Link observed22.335s;
-host x sent47.365s,raw left-up47.372s,serial neutral/disarmed chunk47.397s.
-Host/USB/serial chunk times are not physical stop latency. One arm/discovery,
-25000 ACKs(11151 idle,0 status,13849 type1),13840 HID submissions,9 retries,
-busy4011,no ERROR;one disarmed/reboot-required response. No second p sent.
-Board v9 DISARMED/LATCHED,one arm/discovery,25000 ACKs used. COM12 closed,
-no live raw/serial/build. User instructed reconnect mouse USB. V9 preserved.
-NEXT SOFTWARE: v10 bounded5-minute experiment,327680 ACK cap/300000ms,keep
-8 discoveries/1s gap/30s initial arm/one arm per boot/x stop/neutral/quiet logic.
-Only constants/banner and dependent tests change. All normal checks/builds.
-No automatic flash/arm. Physical readiness later explains5-minute bounds.
-Hard stop02:00 Manila;no new5-minute arm after01:52 (full335s capture+wrap).
-Host raw logger stays1..180s;first180s optional raw is partial,full335s serial
-covers5-minute session. Do not claim full-session raw coverage or gaming latency.
+V9 x-stop hardware trial PASS:user kept LEFT held,other pointer selection fixed;
+circles smooth like v8/wired. One x sent25s after link,raw release and neutral/
+disarmed response observed. No second p. V8 previously passed motion,controls,
+mouse-only OFF/ON recovery and held-left automatic60s release. V9 still60s;
+V10 changes only finite duration/cap,not unbounded/daily-use firmware.
 
-V9 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user confirmed NICENANO
-visible/Glorious wired-OFF. Bootloader0.6.0,nRF52840-nicenano,S1406.1.1 verified;
-exact v9 hash ecc725eb44c39194d1288873b049f26fedc66bbf0d300768d991f349cfe4718e,
-UF2 partition validation241 blocks0x26000..0x350FF PASS;copy completed.
-COM12 expected USB identity verified.6.5s passive capture privately saved as
-receiver-v9-passive-20261116-013345.txt:correct v9 explicit-x/quiet banner,
-zero traffic,no errors/arm/link/disarm. COM12 closed,no live serial/raw/build.
-Board NOW v9 UNARMED with unused65536 ACK/60s/eight-discovery budgets.
-V8 rollback preserved. Metadata receiver-v9-flash-validation.json:armed=false.
-NEXT PHYSICAL PAUSE: Glorious OFF/USB unplugged,selectable harmless text and
-other pointer,same DPI/settings;leave receiver connected without reset.
-Prepared ignored capture-v9-xstop.ps1 syntax PASS,not executed. Single p/DTR,
-2s drain,95s serial+100s hidden raw;enforces01:56AM arm cutoff. Actual arm
-confirmation BEFORE mouse ON. User circles5-10s,then hold LEFT dragging text.
-Script sends x ONCE25s after observed link start,logs command host UTC/elapsed,
-expects disarmed/neutral/reboot-required response. While LEFT physically held,
-other pointer without clicks should leave selection fixed,then release.
-No second p or automatic retry. Background raw for release events only,no
-cadence claim. Verify motion stays v8-like by user report. End/save by02:00.
+Use question pop-ups for every physical flash/input readiness;confirm actual
+arming before mouse power-on. One serial reader/DTR,prearm drain2s,one p/boot.
+Do not reuse a used/latch boot. Save raw serial+host UTC/elapsed/phase JSONL.
+Raw logger max180s unchanged;input_code0 foreground/1 background;background
+may be Windows-throttled/coalesced,not polling/loss proof. Raw timestamps not
+physical latency/DPI. Saved CORE wired Profile1=1600;wireless equivalence
+unverified. Windows accel1/speed9 unchanged,receiver X/Y1:1. No guessed scaling.
 
-RESUMED UNTIL02:00 AM MANILA 2026-11-16: user authorizes work until02:00.
-Current time on resume01:29. Prior break pause revoked for this interval.
-Stop/save/close by02:00;no new armed60s trial after01:56,and start any longer
-trial only if its full capture+wrap-up fits before02:00. Always recheck UTC time
-before arming. V9 exact image hash reverified ecc725eb...;NOT flashed. NICENANO
-not currently visible;physical readiness popup is next. Board last known v8
-expired/passive59958 ACKs,COM12 closed,no live sessions. No build repeated.
-
-EXPLICIT USER PAUSE 2026-11-16: user selected "Pause here — resume flashing
-later" after v9 software milestone2f86867. Stop project work until user resumes.
-V9 built/tested/pushed,NOT FLASHED;board remains v8 expired/passive59958 ACKs.
-COM12 closed,no live serial/raw/build. Next after resume is physical NICENANO
-flash readiness,not automatic copy/arming. See full v9 checkpoint below.
-
-V9 EXPLICIT-STOP SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
-branch feature/receiver-explicit-stop. User resumed and requested break after
-next step;software preparation complete,now at physical flash/break boundary.
-V9 BUILT/VALIDATED,NOT FLASHED. Adds receiver-only lowercase x cancellation:
-10ms paced CDC checks during scan/active loops,latches off ACKs/discovery/p
-arming,disables RF before neutral,prints disarmed success only after release.
-Reboot required to rearm. Poll interval is not a physical stop-latency guarantee.
-Limits remain65536 ACKs/60s/8 discoveries/1s gap;no sustained limit increase yet.
-Native active-stop regression failed on v8;all8 tests now PASS (prearm/active/
-rediscovery cancellation,disable/neutral errors,no ACK after latch,no p rearm,
-repeated handling and paced polling). Receiver/probe/radio builds/UF2 checks PASS.
-Staged sources/config/HID separation/v9 banner+disarmed response verified.
-Probe/radio controls not byte-identical after shared-source edits;native probe
-behavior checked,new stop code receiver-only;default HID existing image unchanged.
-V9 UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
-SHA256ecc725eb44c39194d1288873b049f26fedc66bbf0d300768d991f349cfe4718e.
-61536 flash/16128 RAM;241 blocks,0x26000..0x350FF. Private rollback/candidate
-receiver-v8-5df75330.uf2 and receiver-v9-ecc725eb.uf2;metadata
-build-pairing-analysis/receiver-v9-build-validation.json. No v9 hardware claim.
-Board STILL validated v8 EXPIRED/PASSIVE,one arm/discovery,59958 ACKs used.
-COM12 closed,no live serial/raw/build. No new flash/arming on this resumed turn.
-NEXT PHYSICAL PAUSE when user continues: Glorious wired/OFF,double-reset only
-RECEIVER into NICENANO;verify bootloader identity/exact v9 image before copy,
-then passive startup without arming. Separate explicit motion/held-left x-stop
-readiness and one arm;capture x command timestamp,neutral/reboot-required response
-and Windows release while physically held. Also check motion remains v8-like.
-Do not extend limits until explicit-stop hardware pass;preserve v8 as baseline.
-Do not repeat completed extraction/v8 tests/builds without a new reason.
-
-Validated v8 results:foreground motion feels wired-like,no random overshoot;
-movement,left/right clicks,wheel up/down before/after mouse-only OFF/ON;clean
-original60s stop;held-left timeout releases Windows while physically held beyond
-70s. Current board still v8;no p can be reused before normal reboot. V8 image
-SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd.
-V9 is a stop prerequisite,not yet a longer-session version. Do not enable
-unbounded operation or promise daily-use/gaming reliability/physical1000Hz.
-Current first discovery arm30s,once per boot. One serial reader,DTR,drain2s,
-single p,actual new arming confirmation BEFORE mouse power-on. Separate physical
-readiness via question popups for flash and each live trial. Never assume reset,
-USB unplugging,mouse power state or readiness. Capture enough time for limits.
-
-research/capture_raw_mouse.c is host-only mouse logger. CLI accepts seconds
-(1..180),new.csv,[--foreground]. Input_code0 foreground/1 background. User must
-activate window for motion cadence;background delivery may be throttled/coalesced
-by Windows. Raw arrival is not physical latency/DPI/RF loss. Wired CORE Profile1
-selected1600 saved unchanged;wireless equivalence unverified. Windows accel1/
-speed9 unchanged;receiver X/Y1:1. No guessed scaling/ACK retuning.
-
-Continue until physical intervention;use question pop-ups to pause. Update
-PROJECT_CONTEXT.md AND RESUME_PROMPT.md after meaningful steps. Push tested
-milestones on feature-based branches. Private captures/addresses/binaries ignored
-under build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.
+Keep PROJECT_CONTEXT.md AND RESUME_PROMPT.md current after meaningful steps.
+Push tested milestones on feature-based branches. Private captures/RF addresses/
+binaries ignored in build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.
+Continue only within user time boundary;no auto reset/arm/flash or repeated
+completed extraction/builds/baselines. Later resume revokes earlier break pause.
