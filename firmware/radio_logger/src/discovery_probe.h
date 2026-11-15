@@ -214,7 +214,12 @@ static int send_report_ack(const uint8_t *p)
     ack_count++;
     /* Stock 0x16088..0x160b8 frees a queued report on sequence+1; length 2 carries no command. */
     ack_reply[0] = 2;
+#ifdef WIRELESS_HID
+    /* Avoid releasing a report enqueued while an idle packet was in flight. */
+    ack_reply[1] = p[0] == 2 ? p[1] : (uint8_t)(p[1] + 1);
+#else
     ack_reply[1] = (uint8_t)(p[1] + 1);
+#endif
     ack_reply[2] = p[2] & 0x3f;
     int err = transmit_probe_packet(ack_reply, 0);
     if (err) {

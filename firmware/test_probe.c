@@ -174,7 +174,12 @@ int main(void)
     assert(ack_reply[0] == 2 && ack_reply[1] == 0 && ack_reply[2] == 0x3f);
     /* Idle sequence can stay unchanged while the outgoing queue is empty. */
     assert(send_report_ack(idle) == 0 && ack_count == 2);
-    assert(ack_reply[0] == 2 && ack_reply[1] == 0x12 && ack_reply[2] == 0);
+    assert(ack_reply[0] == 2 && ack_reply[2] == 0);
+#ifdef WIRELESS_HID
+    assert(ack_reply[1] == 0x11); /* Idle must not release a newly queued report. */
+#else
+    assert(ack_reply[1] == 0x12); /* Preserve the non-HID control. */
+#endif
     assert(send_report_ack(idle) == 0 && ack_count == 3);
     assert(send_report_ack(status_packet) == 0 && ack_count == 4);
 #ifdef WIRELESS_HID
@@ -265,5 +270,28 @@ int main(void)
     now++; assert(receiver_diagnostics_due());
     assert(receiver_session_deadline == session_deadline && ack_count == 2);
 #endif
+    /* Idle and a subsequent data report may share a sequence,including wrap. */
+    now = 500000; probe_sent = true; ack_count = 0; complete_tx = true;
+    ack_deadline = now + PROBE_DATA_WINDOW_MS;
+#ifdef WIRELESS_HID
+    receiver_session_deadline = ack_deadline; receiver_last_ack_ms = now;
+#endif
+    const uint8_t idle_sequences[] = {0xff, 0};
+    for (unsigned int i = 0; i < sizeof(idle_sequences); i++) {
+        idle[1] = idle_sequences[i]; report[1] = idle[1];
+        assert(send_report_ack(idle) == 0);
+#ifdef WIRELESS_HID
+        assert(ack_reply[1] == idle[1]);
+        assert(ack_reply[1] != (uint8_t)(idle[1] + 1));
+#else
+        assert(ack_reply[1] == (uint8_t)(idle[1] + 1));
+#endif
+        assert(send_report_ack(report) == 0);
+        assert(ack_reply[1] == (uint8_t)(report[1] + 1));
+    }
+    status_packet[1] = 0xff;
+    assert(send_report_ack(status_packet) == 0 && ack_reply[1] == 0);
+    compound[1] = 0xff;
+    assert(send_report_ack(compound) == 0 && ack_reply[1] == 0);
     return 0;
 }

@@ -16,6 +16,19 @@ Non-HID probe retains previously tested behavior. Native checks/builds precede
 separate verified flash and controlled steady-motion comparison. No Windows
 setting change or speculative scaling/filtering. Exact state/progress in context.
 
+V7 receiver-only experiment implemented on feature/idle-ack-queue-guard;actual
+native receiver assertion failed before code,then all8 tests passed. Repeated
+idle ACK holds sequence,255/0 cases preserve subsequent same-sequence data ACK+1;
+non-HID mode still uses idle+1. Only receiver idle ACK first byte and banner
+changed. All8 native tests/builds/UF2 bounds/mode-source separation pass. Final
+cases cover status/compound ACK wrap too. Probe/radio/default HID artifacts are
+byte-identical to v6 checkpoint. V7 UF2 SHA256
+b6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a,
+flash61220/RAM16128,240 blocks,0x26000..0x34FFF. V6 preserved c0e18e29... .
+Hardware still v6 expired/passive,COM12 closed. Pause for verified v7 flash/
+passive startup then separate input readiness. No confirmed race/fix or v7
+hardware claim. Exact next steps/full metadata in context.
+
 ## Focused v6 motion: no hard freeze noticed; pointer-speed variation persists
 
 Unchanged v6,normal reboot/fresh readiness,95s drained/single-arm capture:

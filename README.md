@@ -169,8 +169,14 @@ uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
 Its UF2 is staged outside OneDrive in
 `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
 Do not flash until the build and application-only UF2 validation pass.
-Current receiver v6 build and UF2 validation pass:240 blocks,payload
-`0x26000..0x34FFF`,SHA256 `c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef`.
+Current receiver v7 build and UF2 validation pass:240 blocks,payload
+`0x26000..0x34FFF`,SHA256 `b6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a`.
+V7 is NOT flashed. This bounded experiment holds sequence for idle ACKs to
+avoid a possible unsent-queue release;data/status ACK+1 and all other behavior
+stay unchanged. The risk is inferred from the saved mouse firmware;no v7
+motion-quality improvement or original-receiver ACK behavior is established.
+Non-HID probe keeps its earlier idle+1 behavior. Tested v6 is preserved locally
+at ignored `build-pairing-analysis/receiver-v6-c0e18e29.uf2`.
 V6 is flashed and hardware-tested:controls worked before/after mouse power-cycle,
 clean stop,and user-reported much better responsiveness. Intermittent pointer
 stops during continued motion remain unresolved. A focused motion trial had no

@@ -319,6 +319,35 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V7 SOFTWARE EXPERIMENT READY;PAUSED FOR PHYSICAL FLASH. Branch
+feature/idle-ack-queue-guard;plan
+docs/plans/2026-11-15-idle-ack-queue-guard.md. Wired/static finding pushed50fff9a.
+Tested v6 preserved and hash-verified at ignored build-pairing-analysis/receiver-v6-c0e18e29.uf2.
+Receiver-only length2 idle ACK now echoes its sequence;data/status ACK stays+1.
+Second ACK byte,timing,identity/CRC/packet filters,65536/60s/eight-discovery
+bounds,USB mapping/recovery unchanged. Non-HID probe keeps idle+1 as control.
+Actual native receiver assertion failed before code;all8 tests now PASS,
+including repeated idle,255/0 idle followed by same-sequence data,and probe-mode
+control. Inferred queue-release risk is NOT a proven cause/fix yet.
+Receiver/probe/radio builds/UF2 bounds and mode/binary/staged-source checks PASS.
+Probe/radio/default HID hashes EXACTLY unchanged from v6 software checkpoint.
+V7 receiver UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2:
+SHA256b6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a,
+flash61220/RAM16128,240 blocks,payload0x26000..0x34FFF. V7 NOT FLASHED.
+Ignored metadata build-pairing-analysis/receiver-v7-software-validation.json.
+Final native tests also prove status/compound ACK wrap still+1. No source/API/
+config/USB descriptor changes beyond receiver idle ACK and banner.
+Hardware still v6 expired/passive,one arm/discovery/58171 ACK attempts used;
+COM12 closed,no live build/serial. No v7 input/fix claim. No Windows settings changed.
+NEXT PHYSICAL PAUSE via pop-up: mouse wired or OFF,user double-resets receiver
+into NICENANO. Verify bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and finalv7
+hash/bounds,application copy,5s passive startup WITHOUT p. Then separate
+harmless-document/other-pointer/Glorious OFF-unplugged readiness. Same continuous
+2s-drained95s single-arm capture;verify NEW arming before power-on pop-up.
+Compare30s steady circles/speed consistency to smooth wired and variable v6;
+keep Windows settings/DPI/surface unchanged. Inspect input/idle/HID/retry/busy
+counters plus user observation. If behavior worsens,preserved v6 permits recovery.
+
 LATEST WIRED COMPARISON: user confirms same circles/surface/settings are smooth
 and consistent WIRED;wireless feels different. Windows acceleration alone is
 therefore not a sufficient explanation. No Windows settings changed.
