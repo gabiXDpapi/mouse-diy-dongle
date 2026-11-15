@@ -1,5 +1,26 @@
 # First radio capture experiment
 
+## V8 forced-release capture before break
+
+V8 HELD-LEFT CAPTURE COMPLETE / BREAK PAUSE 2026-11-16: final trial before
+requested01:10 AM Manila break. No further trial planned;resume only when user
+returns. Private base build-pairing-analysis/receiver-v8-held-20261116-005751.
+100s hidden raw exit0,2016 receiver-only records,0 read errors. Button events:
+left-down21.635s/up21.690s,then held-down22.116s and up80.928s. Host serial
+chunks show link start20.954s and neutral-complete stop80.947s (about60s).
+One arm/discovery,59958 ACKs(54322 idle,0 status,5636 type1),5613 HID submissions,
+23 retries,busy2,no ERROR. Forced release observed at stop;user confirms trial
+performed,but physical-held/selection-fixed observation is PENDING in popup.
+Do not mark physical held-left PASS until that response. User asked release
+LEFT/reconnect USB. Board v8 EXPIRED/PASSIVE,one arm/discovery,59958 ACKs used;
+COM12 closed,no live serial/raw/build. No new firmware changes.
+NEXT on resume: collect pending held-left observation,then record final bounded
+v8 validation. If PASS,next scope is sustained-session design/testing,not an
+unbounded/daily-use claim. No automatic reset/rearm/flash or limit increase.
+Keep successful v8 motion(wired-like,no overshoot),controls and mouse-only
+OFF/ON recovery milestones;all already user-confirmed. Saved v8 image unchanged.
+
+
 ## V8 controls and mouse-only recovery passed
 
 V8 CONTROLS/RECOVERY HARDWARE PASS 2026-11-16: user confirms movement,

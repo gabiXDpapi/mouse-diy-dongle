@@ -319,6 +319,30 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V8 HELD-LEFT CAPTURE COMPLETE / BREAK PAUSE 2026-11-16: final trial before
+requested01:10 AM Manila break. No further trial planned;resume only when user
+returns. Private base build-pairing-analysis/receiver-v8-held-20261116-005751.
+100s hidden raw exit0,2016 receiver-only records,0 read errors. Button events:
+left-down21.635s/up21.690s,then held-down22.116s and up80.928s. Host serial
+chunks show link start20.954s and neutral-complete stop80.947s (about60s).
+One arm/discovery,59958 ACKs(54322 idle,0 status,5636 type1),5613 HID submissions,
+23 retries,busy2,no ERROR. Forced release observed at stop;user confirms trial
+performed,but physical-held/selection-fixed observation is PENDING in popup.
+Do not mark physical held-left PASS until that response. User asked release
+LEFT/reconnect USB. Board v8 EXPIRED/PASSIVE,one arm/discovery,59958 ACKs used;
+COM12 closed,no live serial/raw/build. No new firmware changes.
+NEXT on resume: collect pending held-left observation,then record final bounded
+v8 validation. If PASS,next scope is sustained-session design/testing,not an
+unbounded/daily-use claim. No automatic reset/rearm/flash or limit increase.
+Keep successful v8 motion(wired-like,no overshoot),controls and mouse-only
+OFF/ON recovery milestones;all already user-confirmed. Saved v8 image unchanged.
+
+SESSION PAUSE REQUEST 2026-11-16: user asks break around01:10 AM Manila
+and resume later. Pause by01:10;do not start new armed trial after01:07.
+Current clock at request00:55. Save/close all sessions/update handoff before
+pause. Remaining unchanged-v8 held-left check may fit if user promptly ready;
+otherwise leave pending. Do not automatically resume after the break.
+
 V8 CONTROLS/RECOVERY HARDWARE PASS 2026-11-16: user confirms movement,
 left/right clicks and wheel UP/DOWN worked before/after ONLY mouse OFF/ON,
 receiver untouched;clean stop,no stuck buttons. Private base
