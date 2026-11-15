@@ -1,62 +1,60 @@
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
-Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-five-minute-session.md.
-Inspect git status/log first. Branch:feature/receiver-five-minute-session.
 
-V10 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: exact v10 hash/UF2 and
-NICENANO0.6.0/nRF52840-nicenano/S1406.1.1 verified;copy complete. COM12 expected
-USB identity confirmed. Passive6.5s capture receiver-v10-passive-20261116-014706.txt
-shows correct bounded-five-minute/x-stop banner,zero traffic,no errors/arm/link.
-Board NOW v10 UNARMED,unused327680 ACK/300000ms/eight-discovery budgets.
-COM12 closed,no live sessions. Metadata receiver-v10-flash-validation.json.
-Prepared capture-v10-sustained.ps1:335s serial+first180s hidden raw;single p/DTR,
-2s drain,actual arm confirmation. Per-capture .stop-request file sends x ONCE
-through same reader if user reports issue. Arm cutoff01:52AM Manila2026-11-16;
-pause/save by02:00. No full-session raw/foreground cadence claim.
-NEXT physical trial readiness: harmless scrollable document/other pointer,
-Glorious OFF/USB unplugged,same settings,receiver connected unchanged. Trial
-movement/clicks/wheel,mouse-only OFF3s/ON around1min and3min,then observe original
-5-minute stop. Stop early with x on trouble;never reopen serial/automatically rearm.
+Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
+research/RADIO_ANALYSIS.md,docs/plans/2026-11-16-receiver-five-minute-session.md
+and docs/plans/2026-11-16-receiver-explicit-stop.md. Inspect git status/log first.
+Branch:feature/receiver-five-minute-session. Project paused after a successful
+trial on November16,2026;this continuation resumes it. No automatic hardware work.
 
-V10 FIVE-MINUTE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
-branch feature/receiver-five-minute-session. V10 BUILT/VALIDATED,NOT FLASHED.
-Only receiver cap/session constants327680 ACKs/300000ms and banner changed;
-8 discoveries,1s gap,30s initial arm,one arm/boot,x latch/neutral,quiet active,
-mapping/ACK timing retained from hardware-passed v9. Bounds regression failed
-on v9;all8 native checks PASS including original shared deadline/stop errors.
-Receiver build/UF2/source/config/banner checks PASS:61560 flash/16128 RAM,
-241 blocks0x26000..0x350FF. Existing probe/radio/default HID hashes verified
-unchanged vs v9,not rebuilt because non-HID paths not modified.
-V10 UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
-SHA25632713b13dff337956808746b952bad1fa27d108079fa73ba52584c703ea4c2a9.
-Private receiver-v10-32713b13.uf2,receiver-v9-ecc725eb.uf2 and v8 preserved;
-metadata receiver-v10-build-validation.json. Hardware benefit not tested.
-Board STILL v9 DISARMED/latch,25000 ACKs used;COM12 closed,no live sessions.
-NEXT physical flash readiness: mouse wired/OFF,receiver double-reset NICENANO;
-verify identity/hash/copy then passive startup,no arming. Separate5-minute
-trial readiness if time fits. Full335s serial,onlyfirst180s optional hidden raw
-(control events,not cadence). Exercise controls and mouse OFF3s/ON around1 and
-3minutes,observe original5-minute stop. x early stop available through same reader.
-HARD PAUSE02:00 Manila;do not arm5-minute trial after01:52. Recheck clock before
-arming;defer if too late. Update handoff/push all tested milestones before pause.
+PAUSED AFTER V10 FIVE-MINUTE HARDWARE PASS 2026-11-16:
+User explicitly extended work until this trial finished,then pause;trial COMPLETE
+and user confirms "All worked smoothly after both cycles;stopped cleanly".
+Pause now;no further trial/build/flash until user resumes. Branch
+feature/receiver-five-minute-session. Private base
+build-pairing-analysis/receiver-v10-sustained-20261116-015246:full335s serial,
+onlyfirst180s hidden/background raw (11004 receiver records,0 read errors).
+Raw left down/up84/84,right8/8,wheel410 in initial portion;not full-session raw
+or foreground cadence evidence. Serial one arm,three links/two recoveries:
+link host-relative22.126s,108.760s(213365ms left),168.307s(153811ms left),
+final neutral-complete stop322.095s (~300s after first link). All3 link stops
+neutral complete,no ERROR;final282670/327680 ACKs(155757 idle,3 status,
+126910 type1),126712 HID submissions,198 retries,busy7101. No x needed/sent.
+Board v10 NOW EXPIRED/PASSIVE:one arm,three discoveries,282670 ACKs used.
+COM12 closed,no live serial/raw/build. User told release buttons/reconnect USB.
+V10 UF2 SHA25632713b13dff337956808746b952bad1fa27d108079fa73ba52584c703ea4c2a9,
+C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2;
+private receiver-v10-32713b13.uf2,priorv9/v8 rollback images preserved.
+Limits remain finite5min/327680 ACKs,8 discoveries,1s gap,30s initial arm,
+one arm/boot,x stop latches until reboot. V9 x-stop/held release hardware PASS;
+V8 held-left expiry/control/motion hardware PASS;no logic changes except v10 bounds.
+NEXT AFTER RESUME: review USB reset/reconnect recovery (currently latches HID
+output off and requires receiver reboot),design smallest safe change/tests using
+v10 as stable baseline. No automatic rearm or unbounded operation/limit increase.
+Current boot cannot be reused for p;new trial needs explicit physical readiness
+and normal reboot. No repeated v10 baseline/extraction/build/flash without reason.
+Five-minute success is not hours-long/daily-use/interference/physical-latency or
+confirmed1000Hz gaming certification. Keep DPI/Windows/mapping unchanged.
 
-V9 x-stop hardware trial PASS:user kept LEFT held,other pointer selection fixed;
-circles smooth like v8/wired. One x sent25s after link,raw release and neutral/
-disarmed response observed. No second p. V8 previously passed motion,controls,
-mouse-only OFF/ON recovery and held-left automatic60s release. V9 still60s;
-V10 changes only finite duration/cap,not unbounded/daily-use firmware.
+V10 software:only receiver duration/cap and banner changed from v9. Native
+bounds regression failed before change;all8 checks passed after. Receiver build/
+UF2/staged-source/config/banner checks pass. Existing non-HID control hashes
+unchanged vs v9,not rebuilt. V9 stop code polls at10ms checks (not a guaranteed
+physical stop latency),blocks ACK/discovery/p after x,disables RF before neutral,
+requires reboot. V8 quiet-active logging removed random overshoot by user report.
 
-Use question pop-ups for every physical flash/input readiness;confirm actual
-arming before mouse power-on. One serial reader/DTR,prearm drain2s,one p/boot.
-Do not reuse a used/latch boot. Save raw serial+host UTC/elapsed/phase JSONL.
-Raw logger max180s unchanged;input_code0 foreground/1 background;background
-may be Windows-throttled/coalesced,not polling/loss proof. Raw timestamps not
-physical latency/DPI. Saved CORE wired Profile1=1600;wireless equivalence
-unverified. Windows accel1/speed9 unchanged,receiver X/Y1:1. No guessed scaling.
+For later live work:question-popup physical flash/input readiness;confirm actual
+new arming response before mouse power-on. One serial reader,DTR,drain2s,one p.
+Full current session capture335s covers30s discovery+300s active+cleanup. Host raw
+logger capture_raw_mouse.exe max180s unchanged:document partial coverage. Optional
+--foreground requires user-activated window;input_code0 foreground/1 background.
+Windows may throttle/coalesce background raw delivery;no polling/loss inference.
+No guessed DPI scaling. CORE wired Profile1 selected1600 saved;wireless DPI
+retention unverified. Windows accel1/speed9 unchanged;receiver X/Y1:1.
 
-Keep PROJECT_CONTEXT.md AND RESUME_PROMPT.md current after meaningful steps.
-Push tested milestones on feature-based branches. Private captures/RF addresses/
+Use question pop-ups whenever physical intervention is needed. Keep
+PROJECT_CONTEXT.md AND RESUME_PROMPT.md current after meaningful steps. Push
+tested milestones on feature-based branches. Private captures/RF addresses/
 binaries ignored in build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.
-Continue only within user time boundary;no auto reset/arm/flash or repeated
-completed extraction/builds/baselines. Later resume revokes earlier break pause.
+Do not resume after break or run another trial until user asks. Any new time
+boundary must be checked before arming;prior extension applied only to finished trial.

@@ -24,7 +24,10 @@ stop and has passed software checks; it is flashed and passive startup has passe
 successful stop response, a receiver reboot is required before arming again.
 V9 held-left explicit stop and smooth motion are user-confirmed. V10 extends the
 finite cap to 327,680 ACKs/five minutes, keeping the other guards. It is built
-and flashed; passive startup passed. The five-minute live trial is pending.
+and flashed. Its first five-minute trial passed: the user confirmed smooth
+movement/clicks/wheel after two mouse-only OFF/ON cycles and a clean original
+session stop. Sessions remain bounded; USB reconnect recovery and longer-term
+reliability are still pending.
 
 ## Host Raw Input diagnostic
 

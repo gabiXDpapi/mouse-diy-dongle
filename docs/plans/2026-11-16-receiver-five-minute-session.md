@@ -16,3 +16,13 @@ Software checkpoint: bounds regression failed on v9;all8 checks pass on v10.
 Receiver build/UF2/source/config/banner validation pass;61560 flash/16128 RAM,
 241 blocks,hash32713b13... . Non-HID paths unchanged;existing control hashes
 verified without rebuilding. V9 and v8 preserved. Physical flash readiness next.
+
+## Hardware checkpoint and pause
+
+Verified flash/passive startup completed. First full five-minute trial PASS by
+user report:all controls smooth after both mouse-only OFF/ON cycles,receiver
+untouched,clean stop. Serial one arm/three links,shared300s deadline retained,
+all neutral complete,no ERROR.282670 ACKs/126712 HID submissions. Raw logger
+covered first180s only,no read errors;not whole-session cadence evidence. User
+requested pause after this trial;all sessions closed. Next resumed work reviews
+USB reset/reconnect recovery,using v10 as stable baseline.
