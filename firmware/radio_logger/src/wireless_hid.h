@@ -12,7 +12,7 @@ static const uint8_t wireless_hid_descriptor[] = {
 };
 static const struct device *wireless_hid_device;
 static K_SEM_DEFINE(wireless_hid_slot, 1, 1);
-static atomic_t wireless_hid_online, wireless_hid_failed;
+static atomic_t wireless_hid_online, wireless_hid_failed, wireless_hid_restart;
 static bool wireless_hid_has_sequence;
 static uint8_t wireless_hid_last_sequence, wireless_hid_last_buttons;
 static unsigned int wireless_hid_reports, wireless_hid_retries, wireless_hid_busy;
@@ -33,11 +33,21 @@ static void wireless_hid_status(enum usb_dc_status_code status, const uint8_t *p
             atomic_set(&wireless_hid_online, 1);
         }
     } else if (status == USB_DC_RESET || status == USB_DC_DISCONNECTED || status == USB_DC_ERROR) {
-        /* shortcut: reset after configuration requires reboot; add recovery for a sustained receiver. */
         if (atomic_get(&wireless_hid_online)) {
             atomic_set(&wireless_hid_failed, 1);
+            if (status != USB_DC_ERROR) {
+                atomic_set(&wireless_hid_restart, 1);
+            }
         }
         atomic_clear(&wireless_hid_online);
+    }
+}
+
+static void wireless_hid_restart_if_needed(void)
+{
+    /* Restart outside the USB callback; fresh startup stays unarmed. */
+    if (atomic_get(&wireless_hid_restart)) {
+        sys_reboot(SYS_REBOOT_COLD);
     }
 }
 

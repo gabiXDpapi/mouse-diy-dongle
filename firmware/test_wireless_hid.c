@@ -29,6 +29,9 @@ static bool device_available = true, device_ready = true, auto_complete;
 static int init_result, write_result;
 static bool short_write;
 static unsigned int writes;
+static unsigned int reboots;
+#define SYS_REBOOT_COLD 0
+static void sys_reboot(int mode) { assert(mode == SYS_REBOOT_COLD); reboots++; }
 static uint8_t last_report[6];
 static int k_sem_take(struct k_sem *s, int timeout)
 {
@@ -76,6 +79,7 @@ int main(void)
     init_result = 0; assert(init_wireless_hid() == 0);
     assert(wireless_hid_forward(p) == -ENODEV && writes == 0);
     wireless_hid_status(USB_DC_RESET, NULL); /* Initial enumeration reset is allowed. */
+    wireless_hid_restart_if_needed(); assert(reboots == 0);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
     assert(wireless_hid_forward(idle) == 0 && writes == 0);
     assert(wireless_hid_forward(status_packet) == 0 && writes == 0);
@@ -148,9 +152,28 @@ int main(void)
     assert(wireless_hid_reports == reports_before_link + 1);
     assert(wireless_hid_forward(p) == 0 && writes == 13); /* Retry still suppressed. */
     wireless_hid_status(USB_DC_DISCONNECTED, NULL);
+    assert(reboots == 0); /* USB callback only requests restart. */
     assert(wireless_hid_finish() == -ENODEV);
     assert(wireless_hid_forward(idle) == -ENODEV);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
     assert(wireless_hid_forward(p) == -ENODEV && writes == 13); /* Reboot required. */
+    wireless_hid_restart_if_needed();
+    assert(reboots == 1 && writes == 13);
+    /* Simulate fresh startup to exercise reset versus generic controller error. */
+    atomic_clear(&wireless_hid_online); atomic_clear(&wireless_hid_failed);
+    atomic_clear(&wireless_hid_restart);
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    wireless_hid_status(USB_DC_ERROR, NULL);
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    wireless_hid_restart_if_needed();
+    assert(reboots == 1 && wireless_hid_forward(p) == -ENODEV && writes == 13);
+    atomic_clear(&wireless_hid_failed);
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    wireless_hid_status(USB_DC_RESET, NULL);
+    assert(reboots == 1 && atomic_get(&wireless_hid_restart));
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    assert(wireless_hid_forward(p) == -ENODEV); /* No output before restart/rearm. */
+    wireless_hid_restart_if_needed();
+    assert(reboots == 2 && writes == 13);
     return 0;
 }

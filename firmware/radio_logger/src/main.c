@@ -16,6 +16,7 @@
 #ifdef WIRELESS_HID
 #include <zephyr/drivers/usb/udc_buf.h>
 #include <zephyr/sys/atomic.h>
+#include <zephyr/sys/reboot.h>
 #include <zephyr/usb/class/usb_hid.h>
 #include "wireless_hid.h"
 #endif
@@ -213,6 +214,9 @@ int main(void)
     }
     uint32_t dtr = 0;
     do {
+#ifdef WIRELESS_HID
+        wireless_hid_restart_if_needed();
+#endif
         err = uart_line_ctrl_get(console, UART_LINE_CTRL_DTR, &dtr);
         if (err) {
             return err;
@@ -222,7 +226,7 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v10: bounded five minutes; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v11: passive USB restart; bounded five minutes; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",
@@ -302,6 +306,9 @@ int main(void)
             }
 #endif
             if (err) {
+#ifdef WIRELESS_HID
+                wireless_hid_restart_if_needed();
+#endif
                 printk("ERROR receive loop %d\n", err);
                 return err;
             }
