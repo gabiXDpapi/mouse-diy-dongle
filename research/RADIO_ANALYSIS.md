@@ -1,5 +1,28 @@
 # First radio capture experiment
 
+## V9 flash/passive startup verified
+
+V9 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user confirmed NICENANO
+visible/Glorious wired-OFF. Bootloader0.6.0,nRF52840-nicenano,S1406.1.1 verified;
+exact v9 hash ecc725eb44c39194d1288873b049f26fedc66bbf0d300768d991f349cfe4718e,
+UF2 partition validation241 blocks0x26000..0x350FF PASS;copy completed.
+COM12 expected USB identity verified.6.5s passive capture privately saved as
+receiver-v9-passive-20261116-013345.txt:correct v9 explicit-x/quiet banner,
+zero traffic,no errors/arm/link/disarm. COM12 closed,no live serial/raw/build.
+Board NOW v9 UNARMED with unused65536 ACK/60s/eight-discovery budgets.
+V8 rollback preserved. Metadata receiver-v9-flash-validation.json:armed=false.
+NEXT PHYSICAL PAUSE: Glorious OFF/USB unplugged,selectable harmless text and
+other pointer,same DPI/settings;leave receiver connected without reset.
+Prepared ignored capture-v9-xstop.ps1 syntax PASS,not executed. Single p/DTR,
+2s drain,95s serial+100s hidden raw;enforces01:56AM arm cutoff. Actual arm
+confirmation BEFORE mouse ON. User circles5-10s,then hold LEFT dragging text.
+Script sends x ONCE25s after observed link start,logs command host UTC/elapsed,
+expects disarmed/neutral/reboot-required response. While LEFT physically held,
+other pointer without clicks should leave selection fixed,then release.
+No second p or automatic retry. Background raw for release events only,no
+cadence claim. Verify motion stays v8-like by user report. End/save by02:00.
+
+
 ## V9 explicit-stop prerequisite ready for hardware
 
 V9 EXPLICIT-STOP SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
