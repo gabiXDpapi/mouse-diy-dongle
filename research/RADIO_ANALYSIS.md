@@ -1,5 +1,20 @@
 # First radio capture experiment
 
+## Saved-1600 profile retry: variable speed persists
+
+95s drained/single-arm ignored capture
+`build-pairing-analysis/receiver-v7-dpi1600-retry-20261115-234324.txt`,
+`.host.jsonl`,`.summary.json`. One link,58365 ACKs:9813 idle,one status,48551
+type1.48444 unique HID submissions+107 retries.375 busy events,no ERROR or
+rediscovery,neutral-complete stop. User specifically reports speed changing
+during steady movement,not a uniform DPI offset. No independent sensor DPI,
+Windows delivery of each report or physical-event latency measurement.
+Next local Raw Input capture compares wired/custom HID counts/host arrival
+timing without firmware/Windows/DPI changes. Mouse-only known-device filtering;
+private CSV ignored,no input injection. Receiver expired/passive,COM12 closed.
+Microsoft API references: https://learn.microsoft.com/en-us/windows/win32/inputdev/using-raw-input
+and https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getrawinputdata
+
 ## Saved-1600-DPI attempt missed cue; no active link
 
 Unchanged v7/Windows settings,CORE wired Profile1 saved1600. User confirmed

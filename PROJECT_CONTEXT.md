@@ -319,6 +319,24 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+LATEST SAVED-DPI RESULT20261115-234324 COMPLETE:95s single-arm capture closed.
+Ignored build-pairing-analysis/receiver-v7-dpi1600-retry-20261115-234324.txt,
+.host.jsonl,.summary.json. One link,58365 ACKs:9813 idle,one status,48551 type1;
+48444 unique HID submissions+107 retries.375 USB-busy events,no ERROR or
+rediscovery,neutral-complete final stop in firmware log.73 stats lines,two
+completed timing samples. Last good59255/bad10/invalid2 are cumulative counters.
+User reports speed CHANGES DURING STEADY MOVEMENT,not a constant faster/slower
+offset,despite saved wired Profile1=1600 and unchanged DPI button/Windows/source.
+End-stop not separately user-confirmed. Do not claim matched wireless DPI,
+constant-gain fix,perfect motion or measured latency. No Windows settings changed.
+Board v7 expired/passive,one arm/discovery/58365 ACK attempts used;do NOT p again
+this boot. COM12 closed,no live build/serial. User told reconnect cable;unknown.
+NEXT SOFTWARE MEASUREMENT: local mouse-only Windows Raw Input logger to compare
+wired vs DIY HID motion counts/arrival timing,filtered to known VID/PIDs,no
+keyboard capture or input injection/settings changes. Keep v7/1600 unchanged.
+Build/self-test/start-stop check before physical wired/receiver measurement
+readiness. Raw arrival timing does NOT measure physical-event latency/DPI alone.
+
 SAVED-DPI ATTEMPT20261115-233835 COMPLETE;MISSED CUE/INCONCLUSIVE.95s continuous
 drained/single-arm COM12 capture closed/disposed. Ignored
 build-pairing-analysis/receiver-v7-dpi1600-20261115-233835.txt,.host.jsonl,.summary.json.
@@ -1092,3 +1110,8 @@ LIVE V7 DPI1600 20261115-233835 : user confirms normal receiver reboot/Glorious 
 LIVE V7 DPI1600: drain complete;ONE p sent. Await NEW arming text;no second p.
 LIVE V7 DPI1600: NEW actual arming confirmed;95s capture running. Power-on/comparison pop-up next;do not press DPI button.
 LIVE V7 DPI1600: COM12 closed/disposed;armSent=True confirmed=True. Inspect counters and user wired-vs-wireless control/stop observations. No live serial session.
+
+LIVE V7 DPI RETRY 20261115-234324 : user confirmed normal receiver reboot,Glorious OFF/unplugged,hand near power switch,same document/surface/other pointer. CORE Profile1 saved1600;no DPI-button/Windows/firmware changes. COM12/DTR2s drain thenONE p/95s. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v7-dpi1600-retry-20261115-234324.txt/.host.jsonl. Do not rearm/reset if interrupted.
+LIVE V7 DPI RETRY: drain complete;ONE p sent. Await NEW actual arming;no second p.
+LIVE V7 DPI RETRY: NEW actual arming confirmed;95s capture running. Immediate switch-ON/no-DPI-button comparison pop-up next.
+LIVE V7 DPI RETRY: COM12 closed/disposed;armSent=True confirmed=True. Inspect counters and user saved-DPI control/consistency/stop result. No live serial session.
