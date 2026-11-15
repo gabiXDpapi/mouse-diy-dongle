@@ -319,6 +319,29 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V8 QUIET-ACTIVE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
+branch feature/receiver-quiet-active-window. Receiver v8 BUILT/VALIDATED,NOT FLASHED.
+Change only active diagnostics:skip periodic stats while linked,replace per-busy
+text with cumulative EAGAIN counter in final summary. Keep v7 idle ACK rule,
+motion mapping,ACK timing,first timing samples,link/error prints and all limits.
+Regression failed on v7;all8 native tests PASS with v8. Receiver/probe/radio
+builds and UF2 checks PASS. Probe/radio hashes unchanged;default HID image hash
+unchanged,not rebuilt. Receiver staged source/config/v8 banner verified.
+V8 UF2: C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
+SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd.
+61256 flash/16128 RAM;240 UF2 blocks,0x26000..0x34FFF. Private preserved image
+build-pairing-analysis/receiver-v8-5df75330.uf2;metadata receiver-v8-build-validation.json.
+V7 rollback receiver-v7-b6a63b99.uf2 hash verified. V8 is an unproven A/B logging
+overhead experiment,not an established overshoot fix;less active-time telemetry.
+Board STILL v7 expired/passive after foreground trial:one arm/discovery,59129
+ACKs used. COM12 closed,no live raw/serial/build. Glorious asked to reconnect wired.
+NEXT PHYSICAL PAUSE via popup: keep Glorious wired/OFF,double-reset only RECEIVER
+into NICENANO. Verify bootloader identity and exact v8 hash/UF2 before copy,then
+passive startup only,no arming. Separate later motion readiness for paired
+foreground raw100s/serial95s,one p/DTR,actual arming confirmation BEFORE mouse ON.
+Raw logger accepts --foreground;user must activate window with other pointer;
+analyze input_code0. No repeat v7 baseline/build/extraction. DPI/Windows unchanged.
+
 FOREGROUND WIRELESS COMPARISON COMPLETE 2026-11-16: user kept window active;
 random overshoot persists;clean stop confirmed. Private base
 build-pairing-analysis/receiver-v7-foreground-20261116-003012 (csv/txt/host.jsonl/

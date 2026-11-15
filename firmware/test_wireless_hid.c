@@ -82,6 +82,7 @@ int main(void)
     assert(!wireless_hid_has_sequence);
     assert(wireless_hid_forward(p) == 0 && writes == 1);
     assert(wireless_hid_reports == 1 && wireless_hid_retries == 0);
+    assert(wireless_hid_busy == 0);
     assert(memcmp(last_report, expected, sizeof(expected)) == 0);
     assert(wireless_hid_forward(p) == 0 && writes == 1); /* Retransmission. */
     assert(wireless_hid_reports == 1 && wireless_hid_retries == 1);
@@ -91,6 +92,7 @@ int main(void)
     assert(wireless_hid_last_sequence == 0);
     p[1] = 1;
     assert(wireless_hid_forward(p) == -EAGAIN && writes == 1);
+    assert(wireless_hid_busy == 1);
     assert(wireless_hid_reports == 1); /* Busy did not submit or count a report. */
     assert(wireless_hid_last_sequence == 0); /* Busy never consumes the next sequence. */
     registered_ops->int_in_ready(&fake_device);
@@ -98,10 +100,12 @@ int main(void)
     registered_ops->int_in_ready(&fake_device);
     write_result = -EAGAIN; p[1] = 2;
     assert(wireless_hid_forward(p) == -EAGAIN && writes == 2);
+    assert(wireless_hid_busy == 2);
     assert(wireless_hid_last_sequence == 1);
     write_result = -EIO;
     unsigned int reports_before_io_error = wireless_hid_reports;
     assert(wireless_hid_forward(p) == -EIO && writes == 2);
+    assert(wireless_hid_busy == 2);
     assert(wireless_hid_reports == reports_before_io_error);
     write_result = 0;
     assert(wireless_hid_forward(p) == 0 && writes == 3);
@@ -110,6 +114,7 @@ int main(void)
     unsigned int reports_before_neutral = wireless_hid_reports;
     auto_complete = true;
     assert(wireless_hid_finish() == 0 && writes == 4);
+    assert(wireless_hid_busy == 2); /* Neutral submission is not input-busy telemetry. */
     assert(wireless_hid_reports == reports_before_neutral); /* Neutral is not new mouse input. */
     const uint8_t released[6] = {0};
     assert(memcmp(last_report, released, sizeof(released)) == 0);
@@ -124,6 +129,7 @@ int main(void)
     p[0] = 11; p[3] = 0x41; short_write = true;
     unsigned int reports_before_error = wireless_hid_reports;
     assert(wireless_hid_forward(p) == -EIO && writes == 8);
+    assert(wireless_hid_busy == 2);
     assert(wireless_hid_reports == reports_before_error);
     assert(wireless_hid_last_sequence == 1);
     short_write = false; assert(wireless_hid_finish() == 0 && writes == 9);

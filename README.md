@@ -7,8 +7,8 @@ original USB HID demo.
 
 ## Host Raw Input diagnostic
 
-The next measurement compares wired mouse and DIY receiver reports arriving at
-Windows while keeping v7,CORE's saved1600 profile,and Windows settings unchanged.
+The diagnostic compares wired mouse and DIY receiver reports arriving at
+Windows while keeping CORE's saved1600 profile and Windows settings unchanged.
 `research/capture_raw_mouse.c` registers mouse usage only,filters known device
 IDs,and writes monotonic arrival times and raw motion/button/flag fields to CSV.
 It leaves normal pointer input enabled and never registers keyboard input.
@@ -36,8 +36,11 @@ Use `--foreground`, click the capture window and keep it active during movement.
 CSV `input_code=0` is foreground delivery; `1` is background. The activation click
 is recorded normally and should be excluded from motion-only analysis.
 https://blogs.windows.com/windowsdeveloper/2023/05/26/delivering-delightful-performance-for-more-than-one-billion-users-worldwide/
-Native execution may require elevation in the Codex sandbox. No controlled
-foreground capture yet. Host arrival times alone do not measure sensor DPI,
+Native execution may require elevation in the Codex sandbox. Controlled
+foreground wired/wireless comparison now completed: wired smooth, v7 still
+occasionally overshoots. The v8 quiet-active firmware experiment is built and
+validated but not flashed; it removes periodic/per-busy text while linked and
+retains cumulative busy totals. Hardware benefit is unproven. Host arrival times alone do not measure sensor DPI,
 RF loss or physical input latency.
 
 ## Default USB HID demo behavior

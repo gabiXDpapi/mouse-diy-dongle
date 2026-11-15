@@ -127,7 +127,7 @@ static int listen(uint8_t channel, bool pairing_address)
                     err = send_report_ack(packet);
 #ifdef WIRELESS_HID
                     if (err == -EAGAIN) {
-                        printk("HID busy; withholding ACK\n");
+                        /* Count backpressure without USB text in active RF processing. */
                         start_rx();
                         continue;
                     }
@@ -148,10 +148,10 @@ static int listen(uint8_t channel, bool pairing_address)
 #endif
 #ifdef WIRELESS_HID
                 if (receiver_diagnostics_due()) {
-                    printk("RECEIVER stats t=%lld good=%u bad_crc=%u invalid_len=%u ACKs=%u/%u idle=%u status=%u type1=%u hid_reports=%u retries=%u\n",
+                    printk("RECEIVER stats t=%lld good=%u bad_crc=%u invalid_len=%u ACKs=%u/%u idle=%u status=%u type1=%u hid_reports=%u retries=%u busy=%u\n",
                            k_uptime_get(), good, bad, invalid, ack_count, PROBE_ACK_LIMIT,
                            receiver_idle_acks, receiver_status_acks, receiver_type1_acks,
-                           wireless_hid_reports, wireless_hid_retries);
+                           wireless_hid_reports, wireless_hid_retries, wireless_hid_busy);
                 }
 #else
                 printk("RX t=%lld ch=%u base=%s match=%u len=%u data=",
@@ -214,7 +214,7 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v7: idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v8: quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",

@@ -1,70 +1,49 @@
-FOREGROUND WIRELESS COMPARISON COMPLETE 2026-11-16: user kept window active;
-random overshoot persists;clean stop confirmed. Private base
-build-pairing-analysis/receiver-v7-foreground-20261116-003012 (csv/txt/host.jsonl/
-raw.stdout.txt/summary.json).100s raw exit0,39180 receiver-only relative records,
-39076 foreground(39075 motion,1 button),104 background,0 read errors. Foreground
-median gap1025us,p90 2054us,p99 4044us;whole-run max273019us includes pauses.
-One arm/discovery,59129 ACKs(19317 idle,1 status,39811 type1),39709 HID
-submissions,102 retries,171 HID-busy messages,no ERROR;neutral complete.
-Wired foreground was user-confirmed smooth. Wireless max axis31/14 vs wired3/2;
-median motion magnitude1 in both,p99 wireless2.236 vs wired2. Occasional larger
-wireless steps occur near busy serial chunks;host chunks buffered,hand motion
-not identical,so correlation is not proof of logging cause or fixed DPI error.
-No live raw/serial/build. Board v7 expired/passive,59129 ACKs used. User told
-reconnect wired. NEXT SOFTWARE: resume preserved quiet-active-window A/B candidate
-(v8),keeping all protocol/timing/mapping/limits. Test actual suppression and busy
-counters,build/validate,preserve v7,then pause for physical flash readiness.
-Do not repeat foreground/background v7 baselines or guess motion scaling.
-
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-foreground-raw-input.md.
-Inspect git status/log first. Branch: feature/foreground-raw-input.
+Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
+research/RADIO_ANALYSIS.md,docs/plans/2026-11-16-receiver-quiet-active-window.md
+and docs/plans/2026-11-16-foreground-raw-input.md. Inspect git status/log first.
 
-FOREGROUND RAW INPUT SOFTWARE CHECKPOINT 2026-11-16: branch
-feature/foreground-raw-input. User clarified wireless symptom: occasional random
-overshoot during circles;stop was clean. Background paired capture completed as
-recorded below. Do not infer polling or dropped motion from background cadence.
-research/capture_raw_mouse.c now accepts optional final --foreground,shows an
-ordinary capture window without forcing focus,and appends input_code to CSV:
-0 foreground /1 background from WM_INPUT wParam. Default hidden mode preserved.
-Known-device filtering,mouse-only registration,exclusive-create output,1..180s
-limit and cleanup unchanged. No keyboard/injection/firmware/settings changes.
-Serializer regression failed on old code;new self-check passes both delivery
-codes plus prior bounds/filter/signed tests. GNU11 warnings-as-errors build PASS.
-Hidden1s lifecycle PASS;visible1s lifecycle verified exit0/records0/errors0 and
-DONE marker. Invalid option rejected before creating file. Explicit stdout flush
-added after DONE because initial visible smoke omitted buffered completion text.
-Final ignored exe SHA256
-1e6ed06a5b447461d77d2fa20add18269634bcc8475ea6aeea8a59130c832d16.
-Smoke is not movement/performance evidence. No controlled foreground capture yet.
-No live capture/serial/build sessions. Board v7 expired/passive after one arm,
-one discovery,58479 ACKs;COM12 closed. User told to keep mouse wired.
-NEXT PHYSICAL PAUSE: wired readiness,same surface/saved1600 profile/other pointer.
-Start45s logger --foreground;after readiness cue user clicks capture window and
-keeps it active while doing20-30s circles/straight strokes. Analyze input_code0
-only and record activation fraction. This is a new foreground measurement,not
-a repeat of background baseline. Later wireless needs reboot/OFF-unplugged
-readiness and one actual-confirmed arm. Do not rearm on current used boot.
+V8 QUIET-ACTIVE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
+branch feature/receiver-quiet-active-window. Receiver v8 BUILT/VALIDATED,NOT FLASHED.
+Change only active diagnostics:skip periodic stats while linked,replace per-busy
+text with cumulative EAGAIN counter in final summary. Keep v7 idle ACK rule,
+motion mapping,ACK timing,first timing samples,link/error prints and all limits.
+Regression failed on v7;all8 native tests PASS with v8. Receiver/probe/radio
+builds and UF2 checks PASS. Probe/radio hashes unchanged;default HID image hash
+unchanged,not rebuilt. Receiver staged source/config/v8 banner verified.
+V8 UF2: C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
+SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd.
+61256 flash/16128 RAM;240 UF2 blocks,0x26000..0x34FFF. Private preserved image
+build-pairing-analysis/receiver-v8-5df75330.uf2;metadata receiver-v8-build-validation.json.
+V7 rollback receiver-v7-b6a63b99.uf2 hash verified. V8 is an unproven A/B logging
+overhead experiment,not an established overshoot fix;less active-time telemetry.
+Board STILL v7 expired/passive after foreground trial:one arm/discovery,59129
+ACKs used. COM12 closed,no live raw/serial/build. Glorious asked to reconnect wired.
+NEXT PHYSICAL PAUSE via popup: keep Glorious wired/OFF,double-reset only RECEIVER
+into NICENANO. Verify bootloader identity and exact v8 hash/UF2 before copy,then
+passive startup only,no arming. Separate later motion readiness for paired
+foreground raw100s/serial95s,one p/DTR,actual arming confirmation BEFORE mouse ON.
+Raw logger accepts --foreground;user must activate window with other pointer;
+analyze input_code0. No repeat v7 baseline/build/extraction. DPI/Windows unchanged.
 
-Firmware remains tested v7 idle-ACK sequence hold. UF2 SHA256:
-b6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a.
-Bounds:65536 ACKs/60s,8 discoveries,1s gap;initial discovery30s,one p per boot.
-No rearm without normal receiver reboot. No live serial/build/raw logger.
-Last paired base:build-pairing-analysis/receiver-v7-raw-20261116-001759.
-Raw7198 receiver-only relative records/errors0;serial52983 HID submissions,
-117 retries,one discovery,58479 ACKs,neutral complete. Background counts do not
-prove loss or polling. Wired background baseline3674 records,subjectively smooth.
-CORE saved wired Profile1 selected1600 DPI;wireless equivalence unverified.
-Windows acceleration1/speed9 unchanged;receiver signed X/Y mapping1:1.
-No fixed DPI adjustment or confirmed overshoot cause. Quiet-active firmware
-candidate deferred;private patch preserved,no new firmware build/flash.
+Latest foreground v7 pair:private base receiver-v7-foreground-20261116-003012.
+Raw39180 receiver-only relative records,39076 foreground,0 read errors.
+Foreground median1025us,p99 4044us. Serial59129 ACKs,39709 HID submissions,
+102 retries,171 busy messages,one discovery,neutral complete. User confirms
+random overshoot persists during circles;clean stop. Wired foreground baseline
+raw-wired-foreground-20261116-002746:20109 foreground records,median1079us,
+user-confirmed smooth. Wireless occasional max axis31/14 vs wired3/2;some big
+steps near busy log chunks,not causal proof. Physical strokes not mechanically
+matched. Background125-events/s samples are confounded by Windows background
+throttling/coalescing;do not claim polling rate,RF loss or DPI from counts.
+CORE wired Profile1 selected1600 saved unchanged;wireless equivalence unverified.
+Windows acceleration1/speed9 unchanged. Signed X/Y mapping1:1. No fixed gain hack.
 
-Keep PROJECT_CONTEXT.md and this resume prompt updated after each meaningful
-step. Push tested milestones on feature-based branches. Continue until physical
-intervention;use question pop-ups to pause. Confirm actual arming before mouse
-power-on;never silently assume readiness. Keep captures/RF addresses/binaries
-ignored in build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.
-Do not repeat completed extraction,builds,flashes or background baselines.
+V7/8 limits:65536 ACKs/60s,8 discoveries,1s gap;initial discovery30s,one p per boot.
+No rearm on used boot. Confirm actual arming before telling mouse power-on.
+Continue until physical intervention;use question pop-ups to pause. Keep this
+resume prompt and PROJECT_CONTEXT.md current after each meaningful step. Push
+tested milestones on feature-based branches. All private captures/RF addresses/
+binaries ignored in build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.

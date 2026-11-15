@@ -218,6 +218,7 @@ int main(void)
     unsigned int links_before = new_link_calls;
     assert(send_probe() == 0 && new_link_calls == links_before + 1);
     int64_t session_deadline = receiver_session_deadline;
+    assert(!receiver_diagnostics_due()); /* No periodic USB text in an active link. */
     assert(receiver_trace_next_ack);
     unsigned int timing_before_ack = timing_calls;
     assert(session_deadline == 160000 && receiver_discoveries == 1);

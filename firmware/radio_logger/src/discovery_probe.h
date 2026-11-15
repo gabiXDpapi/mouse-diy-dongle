@@ -39,7 +39,7 @@ static bool probe_discovery_allowed(void)
 #ifdef WIRELESS_HID
 static bool receiver_diagnostics_due(void)
 {
-    if (k_uptime_get() < receiver_next_stats_ms) {
+    if (probe_sent || k_uptime_get() < receiver_next_stats_ms) {
         return false;
     }
     receiver_next_stats_ms = k_uptime_get() + 1000;
@@ -59,10 +59,10 @@ static int receiver_end_link(void)
     if (err) {
         return err;
     }
-    printk("RECEIVER link stopped: ACKs=%u/%u discoveries=%u/%u; neutral complete; idle=%u status=%u type1=%u hid_reports=%u retries=%u\n",
+    printk("RECEIVER link stopped: ACKs=%u/%u discoveries=%u/%u; neutral complete; idle=%u status=%u type1=%u hid_reports=%u retries=%u busy=%u\n",
            ack_count, PROBE_ACK_LIMIT, receiver_discoveries, RECEIVER_DISCOVERY_LIMIT,
            receiver_idle_acks, receiver_status_acks, receiver_type1_acks,
-           wireless_hid_reports, wireless_hid_retries);
+           wireless_hid_reports, wireless_hid_retries, wireless_hid_busy);
     probe_sent = false;
     ack_deadline = 0;
     return 0;

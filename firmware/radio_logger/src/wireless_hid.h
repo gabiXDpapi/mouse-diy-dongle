@@ -15,7 +15,7 @@ static K_SEM_DEFINE(wireless_hid_slot, 1, 1);
 static atomic_t wireless_hid_online, wireless_hid_failed;
 static bool wireless_hid_has_sequence;
 static uint8_t wireless_hid_last_sequence, wireless_hid_last_buttons;
-static unsigned int wireless_hid_reports, wireless_hid_retries;
+static unsigned int wireless_hid_reports, wireless_hid_retries, wireless_hid_busy;
 UDC_STATIC_BUF_DEFINE(wireless_hid_report, WIRELESS_HID_REPORT_SIZE);
 BUILD_ASSERT(sizeof(wireless_hid_report) >= WIRELESS_HID_REPORT_SIZE);
 
@@ -103,6 +103,9 @@ static int wireless_hid_forward(const uint8_t *p)
     }
     uint8_t report[6] = {p[4] & 0x1f, p[6], p[7], p[8], p[9], p[5]};
     int err = wireless_hid_write(report, 0);
+    if (err == -EAGAIN) {
+        wireless_hid_busy++;
+    }
     if (!err) {
         wireless_hid_reports++;
         wireless_hid_last_sequence = p[1];
