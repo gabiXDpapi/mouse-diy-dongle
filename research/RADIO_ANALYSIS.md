@@ -1,5 +1,20 @@
 # First radio capture experiment
 
+## V7 motion comparison: subjective consistency improvement,not complete
+
+Ignored `build-pairing-analysis/receiver-v7-motion-20261115-231733.txt`,
+`.host.jsonl`,`.summary.json`.95s drained/single-arm capture,one continuous link,
+59121 ACKs:11305 idle,one status,47815 type1.47750 unique HID submissions+65
+retries;191 USB-busy events,no ERROR/rediscovery,neutral-complete final stop.
+Two completed timing samples. First stats good2534/bad18/invalid6,last61999/22/7
+are cumulative since boot;do not call them capture totals.
+User reports definitely more consistent than v6 but further tuning needed.
+No independent stop confirmation and no proven race/latency/lossless-delivery
+claim. Board v7 expired/passive,COM12 closed. Next minimal comparison removes
+active-window periodic stats/busy text while retaining counters/final summaries,
+v7 idle rule and all RF/USB behavior. Active logging is a potential timing
+disturbance,not an established cause of residual variation.
+
 ## V7 verified flash/passive startup (2026-11-15,23:12 Manila)
 
 User confirmed NICENANO/mouse wired-OFF readiness;verified bootloader0.6.0,

@@ -319,6 +319,24 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST V7 COMPARISON20261115-231733 COMPLETE:95s drained/single-arm capture
+closed. Ignored build-pairing-analysis/receiver-v7-motion-20261115-231733.txt,
+.host.jsonl,.summary.json. One link,59121/65536 ACKs:11305 idle,one status,
+47815 type1;47750 unique HID submissions+65 retries.191 USB-busy events,no
+ERROR or rediscovery;final neutral-complete stop in firmware log. Two completed
+timing samples. First stats good2534/bad18/invalid6,last61999/22/7 are cumulative
+since boot,not capture totals. User says 'definitely ... more consistent now'
+than v6,but not absolutely consistent. End-stop not separately user-confirmed.
+Subjective benefit supports retaining v7 for next comparison;queue-race cause/
+perfect delivery/latency still unproven. Board v7 expired/passive,one arm/
+discovery/59121 ACK attempts used;do NOT p again this boot. COM12 closed,no
+live build/serial. User told release buttons/reconnect cable;reconnection unknown.
+NEXT SOFTWARE comparison: retain v7 ACK rule;remove periodic stats and USB-busy
+text from ACTIVE RF loop. Keep counters/final link summaries and limited
+discovery/first-ACK timing samples;busy input gets a cumulative counter instead.
+Do not change RF bytes/timing,bounds,USB mapping or Windows preferences. Test/
+build/push then physical flash pause. Ask optional residual symptom/stop detail.
+
 NEWEST HARDWARE CHECKPOINT2026-11-15 about23:12 Manila: v7 FLASHED and5s
 passive startup PASSED. User confirmed NICENANO/mouse wired or OFF;reverified
 bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and b6a63b99... finalUF2 hash/240
@@ -1009,3 +1027,8 @@ LIVE V6 MOTION: COM12 closed/disposed;armSent=True confirmed=True. Inspect time-
 LIVE V7 FLASH: user NICENANO/mouse wired-OFF ready;verified bootloader0.6.0/nicenano/S1406.1.1 and b6a63b99... UF2 hash/bounds. Copying application only;NO arming.
 LIVE V7 FLASH: application copied;await enumeration/passive check. No p sent.
 LIVE V7 PASSIVE: COM12 closed/disposed;log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v7-passive-20261115-231231.txt. No commands sent;inspect before conclusions.
+
+LIVE V7 MOTION 20261115-231733 : user clarified detection concern was expected unarmed state and asked proceed. Windows COM12/composite/HID/Input all OK;no Glorious wired device enumerated. Told keep Glorious OFF/unplugged until cue. Continuous COM12/DTR2s drain thenONE p/95s. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v7-motion-20261115-231733.txt/.host.jsonl. No reset/rearm if interrupted.
+LIVE V7 MOTION: drain complete;ONE p sent. Await NEW arming text;no second p.
+LIVE V7 MOTION: NEW actual arming confirmed;95s capture running. Power-on/30s steady-circle comparison pop-up next. Idle ACK holds sequence only;no automatic retry.
+LIVE V7 MOTION: COM12 closed/disposed;armSent=True confirmed=True. Inspect stats/type1/HID/retry/busy and user speed-consistency outcome. No live serial session.
