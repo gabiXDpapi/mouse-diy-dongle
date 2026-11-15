@@ -173,7 +173,9 @@ Current receiver v6 build and UF2 validation pass:240 blocks,payload
 `0x26000..0x34FFF`,SHA256 `c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef`.
 V6 is flashed and hardware-tested:controls worked before/after mouse power-cycle,
 clean stop,and user-reported much better responsiveness. Intermittent pointer
-stops during continued motion remain unresolved. Its trial had55417 ACKs,
+stops during continued motion remain unresolved. A focused motion trial had no
+noticed hard freezes,but user-reported varying pointer speed/sensitivity persists;
+wired comparison is next. Its mixed-input trial had55417 ACKs,
 14557 unique HID submissions,51 retries,95 USB-busy events and no errors.
 It retains quiet logging and adds cumulative successful
 idle/status/type1 ACK counters,HID unique-submission/retry counters,and a finite

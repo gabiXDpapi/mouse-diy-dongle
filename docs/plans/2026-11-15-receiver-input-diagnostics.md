@@ -25,3 +25,7 @@ with improved perceived responsiveness.55417 ACKs,14557 unique HID submissions,
 51 retries,95 USB-busy events,no errors. User reports intermittent motion stalls;
 do not claim reliable/gaming completion. Next focused steady-motion test on
 unchanged v6 before selecting a fix;exact state/procedure/evidence in context.
+Focused motion trial subsequently had one continuous link/53314 unique HID
+submissions,no errors. User reports no hard freezes,but variable pointer speed.
+Windows acceleration is enabled(read-only inspection,no changes). Next same
+wired circles/surface/settings comparison;do not attribute cause yet.

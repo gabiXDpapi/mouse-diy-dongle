@@ -319,6 +319,29 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST FOCUSED MOTION RESULT20261115-225106:95s unchanged-v6 single-arm capture
+completed/closed. Ignored build-pairing-analysis/receiver-v6-motion-20261115-225106.txt,
+.host.jsonl,.summary.json. One continuous link,58171/65536 ACKs:4769 idle,one
+status,53401 type1.53314 unique HID submissions+87 retries match type1 ACKs.
+387 USB-busy events withheld ACK;no ERROR,no rediscovery;normal neutral-complete
+final stop.71 stats lines,last cumulative good59017/bad_crc6/invalid_len1.
+Two completed timing samples,not total TX count. User reports NO hard freezes
+noticed in this focused run,BUT varying sensitivity/slower pointer than hand
+motion during circles. Previous mixed-input intermittent-stop observation is
+not erased;cause remains unknown.1s bins cannot diagnose subsecond motion loss
+or Windows pointer behavior;no motion-payload/nonzero-delta telemetry exists.
+Read-only Windows SPI_GETMOUSE/SPI_GETMOUSESPEED:acceleration1(enabled),speed9/20,
+thresholds6/10. Registry corroborates. No settings changed. Saved ignored
+build-pairing-analysis/windows-pointer-settings-20261115.json. Microsoft reference:
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfow
+Acceleration could affect perceived sensitivity;NOT established as cause.
+Board v6 expired/passive,one arm/discovery/58171 ACK attempts used;do NOT p again
+this boot. COM12 closed,no live build/serial. Mouse cable reconnection unconfirmed.
+NEXT PHYSICAL PAUSE via pop-up: plug Glorious USB in and try15-20s same circles
+on same surface/settings in WIRED mode. Receiver stays connected/expired,
+no reset/arming/flash or setting changes. Ask whether speed variation also occurs
+wired or wired stays consistently smooth. Use that result before firmware fixes.
+
 NEWEST V6 RF RESULT20261115-224452:95s drained/single-arm capture completed,
 COM12 closed/disposed. Ignored build-pairing-analysis/receiver-v6-input-20261115-224452.txt,
 .host.jsonl,.summary.json. One arm,two links,55417/65536 ACK attempts;40808 idle,
@@ -912,3 +935,8 @@ LIVE V6 INPUT 20261115-224452 : user confirmed document/other pointer/Glorious O
 LIVE V6 INPUT: drain complete;ONE p sent. Await new v6 arming text;no second p.
 LIVE V6 INPUT: NEW actual65536-cap arming confirmed;95s capture running. Power-on/controls/recovery pop-up next;no automatic retry.
 LIVE V6 INPUT: COM12 closed/disposed;armSent=True confirmed=True. Inspect ACK-type/HID submission/retry counters and user observations. No live serial session.
+
+LIVE V6 MOTION 20261115-225106 : user confirmed normal receiver reboot/Glorious OFF-unplugged/document-other pointer ready. Same v6;NO build/flash/baseline. Continuous COM12/DTR2s drain thenONE p/95s capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v6-motion-20261115-225106.txt/.host.jsonl. No rearm/reset if interrupted.
+LIVE V6 MOTION:2s drain complete;ONE p sent. Await new65536-cap arming;do not send second p.
+LIVE V6 MOTION: NEW actual arming confirmed;95s capture running. Power-on/30s steady motion pop-up next;no clicks/wheel/OFF cycle requested.
+LIVE V6 MOTION: COM12 closed/disposed;armSent=True confirmed=True. Inspect time-binned counters/busy bursts/link transitions and user freeze times. No live serial session.

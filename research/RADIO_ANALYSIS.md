@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## Focused v6 motion: no hard freeze noticed; pointer-speed variation persists
+
+Unchanged v6,normal reboot/fresh readiness,95s drained/single-arm capture:
+ignored `build-pairing-analysis/receiver-v6-motion-20261115-225106.txt`,
+`.host.jsonl`,`.summary.json`. One continuous link,58171 ACKs:4769 idle,one
+status,53401 type1;53314 unique HID submissions+87 retries.387 USB-busy events,
+no ERROR or rediscovery;normal neutral-complete stop.71 stats lines,last
+cumulative good59017/bad_crc6/invalid_len1. Two completed timing samples only.
+User noticed no hard freezes in this run,but perceived varying sensitivity/
+slower pointer than hand movement during circles. Aggregate/subsecond and motion
+payload coverage is insufficient to assign cause. Some1s intervals had high idle
+ACK progress but low type1/HID progress;intentional movement timing is unmeasured.
+Read-only SystemParametersInfoW SPI_GETMOUSE returned[6,10,1] and SPI_GETMOUSESPEED
+returned9. Registry corroborated;no settings changed. Ignored settings snapshot:
+`build-pairing-analysis/windows-pointer-settings-20261115.json`. API documentation:
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfow
+Nonzero acceleration may affect perceived speed,not proven as cause. Next same
+circles wired/same surface/settings before firmware guesses. Receiver expired/
+passive,COM12 closed;no reset/rearm/flash needed for wired comparison.
+
 ## V6 input/recovery result: responsive with intermittent motion stalls
 
 95s drained/single-arm capture ignored at
