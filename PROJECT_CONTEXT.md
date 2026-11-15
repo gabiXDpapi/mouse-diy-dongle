@@ -319,6 +319,22 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+PAIRED BACKGROUND RAW CAPTURE COMPLETE 2026-11-16: private base
+build-pairing-analysis/receiver-v7-raw-20261116-001759. User performed movement
+and reports speed still changed or paused;detail/clean-stop answer pending.
+100s raw logger exit0,7198 receiver-only relative motion records,0 buttons,
+0 read errors;median8000us,p99 16936us,max65459us. One serial arm/discovery,
+58479 ACKs(5378 idle,1 status,53100 type1),52983 HID submissions,117 retries,
+no ERROR. Firmware final neutral complete. Board now v7 expired/passive;COM12
+and raw logger closed. No reset/rearm/build/flash. User asked to reconnect wired.
+MEASUREMENT LIMITATION: logger uses background INPUTSINK/message-only HWND.
+Microsoft documents background raw listeners may be throttled/coalesced:
+https://blogs.windows.com/windowsdeveloper/2023/05/26/delivering-delightful-performance-for-more-than-one-billion-users-worldwide/
+Thus125 events/s and raw-vs-HID counts cannot establish polling rate or loss.
+NEXT SOFTWARE: minimal foreground capture mode and foreground/background event
+labels;self-check/build/smoke,then physical foreground wired/wireless comparison.
+Retain background captures;do not repeat them or infer DPI scaling.
+
 WIRED RAW INPUT BASELINE COMPLETE 2026-11-16: user performed movement and
 confirmed smooth/consistent wired control. Private capture raw-wired-20261116-001333.csv,
 .stdout.txt and .summary.json in build-pairing-analysis. 45s run exited0:

@@ -1,3 +1,19 @@
+PAIRED BACKGROUND RAW CAPTURE COMPLETE 2026-11-16: private base
+build-pairing-analysis/receiver-v7-raw-20261116-001759. User performed movement
+and reports speed still changed or paused;detail/clean-stop answer pending.
+100s raw logger exit0,7198 receiver-only relative motion records,0 buttons,
+0 read errors;median8000us,p99 16936us,max65459us. One serial arm/discovery,
+58479 ACKs(5378 idle,1 status,53100 type1),52983 HID submissions,117 retries,
+no ERROR. Firmware final neutral complete. Board now v7 expired/passive;COM12
+and raw logger closed. No reset/rearm/build/flash. User asked to reconnect wired.
+MEASUREMENT LIMITATION: logger uses background INPUTSINK/message-only HWND.
+Microsoft documents background raw listeners may be throttled/coalesced:
+https://blogs.windows.com/windowsdeveloper/2023/05/26/delivering-delightful-performance-for-more-than-one-billion-users-worldwide/
+Thus125 events/s and raw-vs-HID counts cannot establish polling rate or loss.
+NEXT SOFTWARE: minimal foreground capture mode and foreground/background event
+labels;self-check/build/smoke,then physical foreground wired/wireless comparison.
+Retain background captures;do not repeat them or infer DPI scaling.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
@@ -6,7 +22,7 @@ research/RADIO_ANALYSIS.md;and docs/plans/2026-11-15-raw-mouse-input.md.
 
 Current branch: feature/raw-mouse-input-diagnostics. Inspect git status/log first.
 Receiver hardware is still v7,idle ACK sequence hold,expired/passive after its
-last trial:one arm/discovery and58365 ACK attempts used. COM12 is closed;no live
+last trial:one arm/discovery and58479 ACK attempts used. COM12 is closed;no live
 serial/build/Raw Input session. Do not send p again before a normal receiver
 reboot. V7 limits remain65536 total ACKs/60s/eight discoveries/1s gap;initial
 discovery arm30s,once per boot. Current UF2 hashb6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a.
@@ -40,9 +56,8 @@ motion records and5 button-event records. X range-73..72,Y-33..26. Median
 whole-run arrival gap8004us;steady seconds21..35 each125 records/s. Idle/user
 pauses affect whole-run tails;not a physical latency,polling or DPI measurement.
 No live logger/serial/build session. Receiver remains v7 expired/passive.
-NEXT: physical pop-up for normal receiver reboot(no double-reset),Glorious
-OFF/USB unplugged,same surface/profile/document and other pointer. Then paired
-raw/serial wireless capture with one p/DTR and confirmed arming before mouse ON.
+NEXT: see newest checkpoint at the top;background pair is complete and
+foreground logger comparison is next. Do not rearm on the used boot.
 Do not repeat wired baseline. Keep private captures ignored.
 
 
