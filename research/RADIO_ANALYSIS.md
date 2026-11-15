@@ -1,5 +1,22 @@
 # First radio capture experiment
 
+## V4 power-cycle recovery and reported pointer delay (2026-11-15)
+
+95s continuous/drained single-arm capture ignored at
+`build-pairing-analysis/receiver-v4-recovery-20261115-140838.txt`,`.host.jsonl`,
+`.summary.json`. Two links,3348 ACKs,2310 unique type1 reports,28 type1 retries,
+3350 completed TXs,no ERROR/USB busy. First link1586 ACKs then neutral-complete
+gap stop;second discovery starts at ACK1586 with28632ms left,uses1762 more ACKs,
+then neutral-complete final stop. User confirms all controls before/after mouse
+OFF3s/ON with receiver untouched,and final stop without stuck buttons.
+User also reports visible motion-to-pointer delay. Both links have16ms median
+unique-report gaps and360ms maximum (mixed inputs/idle included),about44Hz
+overall unique-report cadence including pauses. TX handler/READY/END ranges
+20..487/151..618/196..663us include discovery. None measures end-to-end latency.
+Do not infer the cause yet. Next comparison reduces receiver per-packet text
+while preserving RF bytes/timing,shared budgets/recovery and USB semantics.
+Board v4 expired/passive;COM12 closed. No automatic rearm.
+
 ## Receiver v4 software work (2026-11-15; hardware still v3)
 
 Plan: `docs/plans/2026-11-15-bounded-link-recovery.md`;branch

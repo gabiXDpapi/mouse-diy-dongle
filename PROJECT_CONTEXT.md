@@ -322,6 +322,28 @@ LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
 CURRENT RECEIVER CHECKPOINT (v4; newest hardware state first):
+NEWEST RF MILESTONE: v4 power-cycle recovery PASSED,with visible pointer delay
+reported by user.95s continuous/drained single-arm COM12 capture completed/closed.
+Ignored build-pairing-analysis/receiver-v4-recovery-20261115-140838.txt,
+.host.jsonl and .summary.json. One arm,two links,3348 ACKs,2310 unique type1,
+28 duplicate type1 ACKs,3350 complete TXs,no ERROR/USB busy. Link1 used1586 ACKs;
+after neutral-complete gap stop,link2 starts ACKcount1586 with28632ms remaining,
+uses1762 more ACKs,then neutral-complete final stop. Budgets/deadline not refilled.
+User CONFIRMED movement/clicks/wheel worked before/after ONLY mouse OFF3s/ON,
+receiver untouched,and stopped with no stuck buttons. BUT user noticed delay
+between mouse movement and pointer. Record as open limitation,not gaming-ready.
+Both links median unique-report gap16ms;max360ms (includes mixed/idle activity).
+Per-link observed unique-report cadence about44Hz includes user pauses;not a
+polling-rate or latency measurement. TX handler/READY/END ranges20..487/
+151..618/196..663us include discovery. Logging/polling contribution is hypothesis.
+Board v4 expired/passive,one arm used,2 discoveries/3348 ACK attempts used;
+do NOT p again this boot. COM12 closed,no live build/serial. User told reconnect
+mouse cable;physical reconnection unconfirmed. Cutoff14:30 Manila still applies.
+NEXT software: preserve tested v4;new feature branch for quieter receiver
+diagnostics comparison. Replace per-packet receiver text with periodic counters,
+retain limited discovery/first-ACK timing trace and link logs,leave non-HID probe
+verbose and RF/USB mapping unchanged. Test/build/check before physical pause.
+
 NEWEST HARDWARE CHECKPOINT (supersedes flash-pending notes below):v4 FLASHED
 on2026-11-15 about14:04 Asia/Manila. Verified D:/NICENANO bootloader0.6.0,
 nRF52840-nicenano,S1406.1.1 and final2162a852... UF2 hash/application bounds,
@@ -722,3 +744,8 @@ LIVE HELD-BUTTON TRIAL: NEW actual v3 arming confirmed;45s capture running. Powe
 LIVE HELD-BUTTON TRIAL: COM12 closed/disposed;armSent=True confirmed=True. Raw/host evidence saved;await user observation. No live serial session.
 
 LIVE FLASH: v4 application UF2 copied to verified D:/NICENANO. Await USB enumeration/passive startup;no p sent.
+
+LIVE V4 RECOVERY 20261115-140838 : user confirmed document/other pointer/mouse OFF-unplugged. Receiver NOT reset since passive v4 check. COM12/DTR open;continuous reader drains2s before ONE p/95s capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v4-recovery-20261115-140838.txt and .host.jsonl. No automatic retry.
+LIVE V4 RECOVERY: drain complete;one p sent. Await NEW RECEIVER armed text;never send second p this boot.
+LIVE V4 RECOVERY: NEW actual arming confirmed;95s capture running. Power-on/15s controls/OFF3s/ON pop-up next. Shared budgets/deadline;no receiver reset.
+LIVE V4 RECOVERY: COM12 closed/disposed;armSent=True confirmed=True. Inspect raw/host/link-phase evidence and user recovery/stop observations. No live serial session.

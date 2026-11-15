@@ -49,5 +49,9 @@ unchanged. Receiver v4 hash2162a852...;full metadata and exact next steps in
 PROJECT_CONTEXT.md. Physical flash and5s passive COM12/HID startup subsequently
 passed;v4 fresh/unarmed,budgets unused. RF recovery remains pending,separate
 input readiness required. Do not repeat the completed flash/passive check.
+Subsequent single-arm95s RF trial passed mouse OFF/ON recovery:two links,3348
+ACKs,shared deadline/budgets retained,all controls user-confirmed before/after,
+no errors/USB busy and final stop without stuck buttons. User reports visible
+pointer delay;next scoped comparison reduces receiver logging. Details in context.
 User requests project pause by14:30 Asia/Manila on2026-11-15. No physical session
 will begin near that cutoff;save exact state and close live sessions before pause.

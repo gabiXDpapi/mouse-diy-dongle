@@ -172,8 +172,10 @@ Do not flash until the build and application-only UF2 validation pass.
 Current receiver v4 build and UF2 validation pass:239 blocks,payload
 `0x26000..0x34EFF`,SHA256 `2162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3`.
 All eight native tests,receiver/probe/radio builds and mode-separation checks
-pass. V4 is flashed and passed passive COM12/HID startup with unused budgets;
-its sustained-input/RF-recovery test is pending.
+pass. V4 is flashed and its60s controls/mouse-OFF-ON recovery trial passed:
+3348 ACKs across two links without budget/deadline reset,no errors/USB busy,
+user-confirmed controls before/after and stop without stuck buttons.
+The user noticed visible pointer delay;latency remains an open limitation.
 Hardware-tested v3 is preserved locally at ignored
 `build-pairing-analysis/receiver-v3-4bc43f35.uf2`.
 V3 previously
