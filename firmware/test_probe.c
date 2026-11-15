@@ -68,7 +68,7 @@ static int wireless_hid_forward(const uint8_t *p)
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
-_Static_assert(PROBE_ACK_LIMIT == 8192u, "Receiver ACK budget spans all links");
+_Static_assert(PROBE_ACK_LIMIT == 65536u, "Finite receiver budget accommodates observed quiet ACK cadence");
 _Static_assert(PROBE_DATA_WINDOW_MS == 60000u, "Receiver session is sixty seconds total");
 _Static_assert(RECEIVER_DISCOVERY_LIMIT == 8u, "Discovery retries are bounded");
 _Static_assert(RECEIVER_LINK_GAP_MS == 1000u, "Release after one second without successful ACK");
@@ -162,10 +162,14 @@ int main(void)
     assert(send_report_ack(report) == -EAGAIN && ack_count == 0 && radio.TASKS_TXEN == 0);
     hid_result = -EIO;
     assert(send_report_ack(report) == -EIO && ack_count == 0 && radio.TASKS_TXEN == 0);
+    assert(receiver_type1_acks == 0 && receiver_idle_acks == 0 && receiver_status_acks == 0);
     assert(hid_calls == calls_before + 2);
     hid_result = 0;
 #endif
     assert(send_report_ack(report) == 0 && ack_count == 1);
+#ifdef WIRELESS_HID
+    assert(receiver_type1_acks == 1 && receiver_idle_acks == 0 && receiver_status_acks == 0);
+#endif
     assert(turnaround_delay == 0);
     assert(ack_reply[0] == 2 && ack_reply[1] == 0 && ack_reply[2] == 0x3f);
     /* Idle sequence can stay unchanged while the outgoing queue is empty. */
@@ -173,6 +177,9 @@ int main(void)
     assert(ack_reply[0] == 2 && ack_reply[1] == 0x12 && ack_reply[2] == 0);
     assert(send_report_ack(idle) == 0 && ack_count == 3);
     assert(send_report_ack(status_packet) == 0 && ack_count == 4);
+#ifdef WIRELESS_HID
+    assert(receiver_type1_acks == 1 && receiver_idle_acks == 2 && receiver_status_acks == 1);
+#endif
     assert(ack_reply[1] == 1 && ack_reply[2] == 0);
     now = original_deadline;
     assert(send_report_ack(idle) == -EACCES && ack_count == 4);
@@ -193,6 +200,9 @@ int main(void)
     /* Failure consumes all remaining attempts, so there is no automatic retry. */
     ack_count = 1; complete_tx = false;
     assert(send_report_ack(report) == -ETIMEDOUT && ack_count == PROBE_ACK_LIMIT);
+#ifdef WIRELESS_HID
+    assert(receiver_type1_acks + receiver_idle_acks + receiver_status_acks == PROBE_ACK_LIMIT);
+#endif
     assert(send_report_ack(report) == -EALREADY);
 #ifdef WIRELESS_HID
     /* New arm, total budgets and deadline survive rediscovery. */

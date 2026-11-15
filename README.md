@@ -169,8 +169,12 @@ uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
 Its UF2 is staged outside OneDrive in
 `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
 Do not flash until the build and application-only UF2 validation pass.
-Current receiver v5 build and UF2 validation pass:238 blocks,payload
-`0x26000..0x34DFF`,SHA256 `ab8e3001d0a075a2e2480379894f868e9987000a3752965e41bc93984c6dbf2d`.
+Current receiver v6 build and UF2 validation pass:240 blocks,payload
+`0x26000..0x34FFF`,SHA256 `c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef`.
+V6 is NOT flashed. It retains quiet logging and adds cumulative successful
+idle/status/type1 ACK counters,HID unique-submission/retry counters,and a finite
+65536-ACK cap. USB submission does not prove Windows delivery. The60s session,
+eight-discovery cap,1s link gap and RF/USB report mapping remain unchanged.
 V5 reduces per-packet USB text to1s counters,retaining discovery/first-ACK timing
 samples per link,link transitions and error/busy logs. V5 is flashed and passed
 passive COM12/HID startup. Its input-delay comparison was inconclusive:8192 ACK
@@ -179,7 +183,7 @@ no usable pointer/button response. No latency improvement is established.
 The tested v4 image is preserved at ignored
 `build-pairing-analysis/receiver-v4-2162a852.uf2`.
 All eight native tests,receiver/probe/radio builds and mode-separation checks
-pass. V4 is flashed and its60s controls/mouse-OFF-ON recovery trial passed:
+pass. V4 previously passed its60s controls/mouse-OFF-ON recovery trial:
 3348 ACKs across two links without budget/deadline reset,no errors/USB busy,
 user-confirmed controls before/after and stop without stuck buttons.
 The user noticed visible pointer delay;latency remains an open limitation.
@@ -198,8 +202,8 @@ V2 already
 forwarded87 unique movement reports and produced user-confirmed wireless Windows
 pointer movement followed by the bounded stop.
 
-V4 stays passive until serial `p`,with30seconds for initial discovery. After the
-first successful discovery,it permits60seconds total,8192 total ACK attempts
+V6 stays passive until serial `p`,with30seconds for initial discovery. After the
+first successful discovery,it permits60seconds total,65536 total ACK attempts
 and eight total discovery attempts across all links. A1000ms gap since the last
 successful ACK disables radio and attempts neutral release before resuming
 discovery scanning. Rediscovery never refills budgets or extends the deadline.
@@ -210,7 +214,7 @@ five button bits, signed16 X/Y and signed8 wheel to USB; idle and retransmitted
 reports do not replay movement. USB busy withholds ACK. Test termination/error
 attempts neutral button release with bounded waits. USB reset/disconnect after
 configuration requires a board reboot. No input is generated during passive startup.
-Idle/status packets never generate input. For v4/v5,use a95-second capture after
+Idle/status packets never generate input. For v4/v5/v6,use a95-second capture after
 arming to cover30seconds initial discovery plus60seconds total session and
 cleanup margin. Keep one continuous serial reader and save/drain startup output
 before sending one `p`;confirm NEW `RECEIVER armed:` text before mouse power-on.

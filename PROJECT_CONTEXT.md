@@ -326,6 +326,35 @@ explicitly states95s capture/wrap-up may run a little past14:30 and offers keepi
 the cutoff instead. Await readiness;do NOT arm yet. No new development afterward.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
 CURRENT RECEIVER CHECKPOINT (v5; newest hardware state first):
+FINAL SOFTWARE-ONLY STEP COMPLETE;PAUSED FOR BREAK per user's latest request.
+V5 inconclusive result pushed8d48e7e. New branch feature/receiver-input-diagnostics;
+plan docs/plans/2026-11-15-receiver-input-diagnostics.md. V5 artifact preserved
+and hash-verified at ignored build-pairing-analysis/receiver-v5-ab8e3001.uf2.
+V6 source adds cumulative successful ACK type counts(idle/status/type1) and
+unique HID submission/suppressed-retry counts to1s and link-stop summaries.
+Finite shared ACK cap65536;60s deadline/eight discoveries/1s gap/manual arm and
+RF bytes/timing/USB mapping unchanged. A queued report count is NOT proof of
+Windows delivery. New native assertions failed before code,then all8 PASS.
+Receiver/probe/radio builds/UF2 bounds and mode/binary/staged-source separation
+checks PASS. Default HID unchanged058c1ff5... . No binaries/private header tracked.
+V6 UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2:
+SHA256c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef,
+flash61200/RAM16128,240 blocks,payload0x26000..0x34FFF. V6 NOT FLASHED.
+Probe v9 hashc3fd1efa911fde6d323fb153bbcba51b9d91135a97f97f2a047dbecc766429b6;
+radio4c53da0a8d462b36757dcada52d50386d73a756498b4f9a3eec3ef497c9fb172.
+Ignored metadata build-pairing-analysis/receiver-v6-software-validation.json.
+Board still v5 expired/passive (one arm/discovery,8192 ACK attempts used);
+COM12 closed,no live build/serial. NO further hardware flash/test before break.
+RESUME AFTER USER RETURNS: ask NICENANO bootloader readiness with mouse wired/
+OFF via pop-up. Reverify bootloader0.6.0/nicenano/S1406.1.1 and finalv6 hash/bounds,
+flash application,5s passive check. Then separate harmless-document/other-pointer/
+Glorious OFF-unplugged readiness. Same2s-drained continuous95s single-arm capture,
+confirm NEW RECEIVER armed text with65536 cap before power-on pop-up. Inspect
+idle/status/type1 ACK counts vs hid_reports/retries and user controls/delay.
+Stats counters count successful RF ACKs and accepted unique USB submissions;
+they are cumulative across links. Submissions do NOT prove Windows delivery;
+neutral reports do not count as new mouse input. No v6 hardware or latency claim.
+
 V5 COMPARISON COMPLETE20261115-142958:95s single-arm/drained capture closed.
 Ignored build-pairing-analysis/receiver-v5-comparison-20261115-142958.txt,
 .host.jsonl,.summary.json. One link,8192/8192 ACKs,neutral-complete budget stop,

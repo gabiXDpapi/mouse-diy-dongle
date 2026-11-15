@@ -1,6 +1,6 @@
 /* Fresh power-on also sends standalone type5 status; ACK it without HID output. */
 #ifdef WIRELESS_HID
-#define PROBE_ACK_LIMIT 8192u
+#define PROBE_ACK_LIMIT 65536u
 #define PROBE_DATA_WINDOW_MS 60000u
 #define RECEIVER_DISCOVERY_LIMIT 8u
 #define RECEIVER_LINK_GAP_MS 1000u
@@ -8,6 +8,7 @@ static unsigned int receiver_discoveries;
 static int64_t receiver_session_deadline, receiver_last_ack_ms;
 static int64_t receiver_next_stats_ms;
 static bool receiver_trace_next_ack;
+static unsigned int receiver_idle_acks, receiver_status_acks, receiver_type1_acks;
 #else
 #define PROBE_ACK_LIMIT 256u
 #define PROBE_DATA_WINDOW_MS 2000u
@@ -58,8 +59,10 @@ static int receiver_end_link(void)
     if (err) {
         return err;
     }
-    printk("RECEIVER link stopped: ACKs=%u/%u discoveries=%u/%u; neutral complete\n",
-           ack_count, PROBE_ACK_LIMIT, receiver_discoveries, RECEIVER_DISCOVERY_LIMIT);
+    printk("RECEIVER link stopped: ACKs=%u/%u discoveries=%u/%u; neutral complete; idle=%u status=%u type1=%u hid_reports=%u retries=%u\n",
+           ack_count, PROBE_ACK_LIMIT, receiver_discoveries, RECEIVER_DISCOVERY_LIMIT,
+           receiver_idle_acks, receiver_status_acks, receiver_type1_acks,
+           wireless_hid_reports, wireless_hid_retries);
     probe_sent = false;
     ack_deadline = 0;
     return 0;
@@ -220,6 +223,13 @@ static int send_report_ack(const uint8_t *p)
 #ifdef WIRELESS_HID
     else {
         receiver_last_ack_ms = k_uptime_get();
+        if (p[0] == 2) {
+            receiver_idle_acks++;
+        } else if (p[3] == 0x45) {
+            receiver_status_acks++;
+        } else {
+            receiver_type1_acks++;
+        }
     }
 #endif
     return err;

@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## V6 input diagnostics software checkpoint; paused before hardware
+
+After inconclusive v5 trial,user explicitly requested one software-only next
+step then break. Branch `feature/receiver-input-diagnostics`;v5 preserved at
+ignored `build-pairing-analysis/receiver-v5-ab8e3001.uf2`. V6 has65536 finite
+shared ACK attempts,unchanged60s/eight-discovery/1s-gap/manual-arm behavior.
+Existing1s/link-stop summaries now include cumulative successful idle/status/
+type1 ACK counts and unique HID submission/suppressed retry counts. RF bytes/
+timing,packet filters and USB report mapping unchanged. Neutral reports and
+busy/error/short writes do not count as successful unique input submissions.
+New native assertions failed before implementation;all8 tests then pass.
+Receiver/probe/radio builds,UF2 bounds,mode/binary/source separation PASS.
+Receiver v6 SHA256c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef,
+flash61200/RAM16128,240 blocks,payload0x26000..0x34FFF. Full regression hashes in
+context/ignored receiver-v6-software-validation.json. Default HID unchanged.
+Board still v5 expired/passive;COM12 closed,no live sessions. V6 NOT FLASHED.
+PAUSED for user break;next verified v6 flash/passive readiness after return,
+then single-arm95s input test. Submission counts do not prove Windows delivery;
+no v6 input success/latency claim. Do not silently reuse v5 consumed arm.
+
 ## V5 comparison inconclusive: ACK cap exhausted before usable input
 
 Ignored `build-pairing-analysis/receiver-v5-comparison-20261115-142958.txt`,

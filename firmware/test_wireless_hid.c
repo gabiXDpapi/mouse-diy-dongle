@@ -81,14 +81,17 @@ int main(void)
     assert(wireless_hid_forward(status_packet) == 0 && writes == 0);
     assert(!wireless_hid_has_sequence);
     assert(wireless_hid_forward(p) == 0 && writes == 1);
+    assert(wireless_hid_reports == 1 && wireless_hid_retries == 0);
     assert(memcmp(last_report, expected, sizeof(expected)) == 0);
     assert(wireless_hid_forward(p) == 0 && writes == 1); /* Retransmission. */
+    assert(wireless_hid_reports == 1 && wireless_hid_retries == 1);
     assert(wireless_hid_forward(idle) == 0 && writes == 1);
     status_packet[1] = 1;
     assert(wireless_hid_forward(status_packet) == 0 && writes == 1);
     assert(wireless_hid_last_sequence == 0);
     p[1] = 1;
     assert(wireless_hid_forward(p) == -EAGAIN && writes == 1);
+    assert(wireless_hid_reports == 1); /* Busy did not submit or count a report. */
     assert(wireless_hid_last_sequence == 0); /* Busy never consumes the next sequence. */
     registered_ops->int_in_ready(&fake_device);
     assert(wireless_hid_forward(p) == 0 && writes == 2); /* Idle seq1 did not consume data seq1. */
@@ -97,13 +100,17 @@ int main(void)
     assert(wireless_hid_forward(p) == -EAGAIN && writes == 2);
     assert(wireless_hid_last_sequence == 1);
     write_result = -EIO;
+    unsigned int reports_before_io_error = wireless_hid_reports;
     assert(wireless_hid_forward(p) == -EIO && writes == 2);
+    assert(wireless_hid_reports == reports_before_io_error);
     write_result = 0;
     assert(wireless_hid_forward(p) == 0 && writes == 3);
     assert(wireless_hid_finish() == -ETIMEDOUT); /* Does not overwrite an in-flight report. */
     assert(memcmp(last_report, expected, sizeof(expected)) == 0);
+    unsigned int reports_before_neutral = wireless_hid_reports;
     auto_complete = true;
     assert(wireless_hid_finish() == 0 && writes == 4);
+    assert(wireless_hid_reports == reports_before_neutral); /* Neutral is not new mouse input. */
     const uint8_t released[6] = {0};
     assert(memcmp(last_report, released, sizeof(released)) == 0);
     assert(wireless_hid_finish() == 0 && writes == 4);
@@ -115,7 +122,9 @@ int main(void)
     p[0] = 11; p[3] = 0x46; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
     p[0] = 3; assert(wireless_hid_forward(p) == -EINVAL && writes == 7);
     p[0] = 11; p[3] = 0x41; short_write = true;
+    unsigned int reports_before_error = wireless_hid_reports;
     assert(wireless_hid_forward(p) == -EIO && writes == 8);
+    assert(wireless_hid_reports == reports_before_error);
     assert(wireless_hid_last_sequence == 1);
     short_write = false; assert(wireless_hid_finish() == 0 && writes == 9);
     p[1] = 3; assert(wireless_hid_forward(p) == 0 && writes == 10);
@@ -126,8 +135,11 @@ int main(void)
     }
     assert(wireless_hid_forward(p) == 0 && writes == 11);
     assert(wireless_hid_finish() == 0 && writes == 12);
+    unsigned int reports_before_link = wireless_hid_reports;
     wireless_hid_new_link();
+    assert(wireless_hid_reports == reports_before_link); /* Cumulative across links. */
     assert(wireless_hid_forward(p) == 0 && writes == 13); /* Restarted link may reuse sequence. */
+    assert(wireless_hid_reports == reports_before_link + 1);
     assert(wireless_hid_forward(p) == 0 && writes == 13); /* Retry still suppressed. */
     wireless_hid_status(USB_DC_DISCONNECTED, NULL);
     assert(wireless_hid_finish() == -ENODEV);
