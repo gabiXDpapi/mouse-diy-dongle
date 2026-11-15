@@ -2,71 +2,53 @@ Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
-research/RADIO_ANALYSIS.md,docs/plans/2026-11-16-receiver-quiet-active-window.md
-and docs/plans/2026-11-16-foreground-raw-input.md. Inspect git status/log first.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-quiet-active-window.md.
+Inspect git status/log first. Branch:feature/receiver-quiet-active-window.
 
-V8 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: v8 NOW FLASHED on receiver.
-User confirmed NICENANO visible with Glorious wired/OFF. Verified D: NICENANO,
-bootloader0.6.0/nRF52840-nicenano/S1406.1.1,and exact v8 UF2 hash
-5df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd;
-UF2 validation PASS240 blocks0x26000..0x34FFF. Copy completed;COM12 reenumerated
-with expected receiver USB ID.6.5s passive DTR capture privately saved as
-build-pairing-analysis/receiver-v8-passive-20261116-004355.txt. Verified v8 quiet
-banner,timing init,zero packets/CRC/invalid length,no ERROR/arming/link.
-Initial check incorrectly demanded ACKs=0 stats,which passive scan does not emit;
-saved log/source reviewed and validation corrected without repeat capture/flash.
-No p sent since flash,so UNARMED,unused65536 ACK/60s/eight-discovery budgets.
-COM12 closed,no live serial/raw/build. Metadata receiver-v8-flash-validation.json.
-NEXT PHYSICAL PAUSE: same harmless document/surface/saved DPI/other pointer;
-Glorious OFF and USB unplugged;leave receiver connected without reset. After
-readiness,paired100s foreground Raw Input/95s serial drain2s,one p/DTR,actual
-v8 arming confirmation before mouse ON. User activates capture window using
-other pointer,then30s circles/straight strokes,no clicks/wheel/DPI changes.
-Capture script must be updated for v8/previously consumed startup banner:
-verify flash checkpoint plus passive scans,no preexisting arm/link/errors,then
-confirm actual new arm. Do not require a second startup banner or repeat baseline.
-Compare input_code0 motion and user overshoot with preserved v7/wired captures.
-Hardware benefit of v8 remains untested;all firmware/host software checks passed.
+V8 FIRST MOTION HARDWARE PASS 2026-11-16: user reports "Overshoot gone /
+like wired;stopped cleanly" with capture window active. One successful trial;
+not calibrated physical latency/DPI or final gaming-performance validation.
+Private base build-pairing-analysis/receiver-v8-foreground-20261116-004654:
+100s raw exit0,50748 receiver-only relative foreground records,50746 motion,
+2 button records,0 read errors,no background records. Median arrival1001us,
+p90 1087us,p99 2926us;whole-run max includes pauses. Max axis6/5 vs v7's31/14,
+hand movements not mechanically matched. Serial one arm/discovery,59468 ACKs
+(8706 idle,1 status,50761 type1),50757 HID submissions,4 retries,busy895,
+no ERROR,neutral complete. Active-link stats/busy TEXT counts both0 as intended.
+Busy total retained;895 vs v7's171 messages is not a like-for-like loss metric.
+Board v8 NOW EXPIRED/PASSIVE,one arm/discovery used,59468 ACKs consumed.
+COM12 closed,no live raw/serial/build. User instructed reconnect Glorious wired.
+V8 image SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd;
+no further build/flash/tuning needed before regression check. V7 preserved.
+NEXT PHYSICAL PAUSE: v8 controls/recovery regression. User normal receiver
+unplug/replug(no double-reset),harmless scrollable document/other pointer,
+Glorious OFF/USB unplugged,same DPI/settings. Capture100s foreground+95s serial,
+one p/DTR with actual arm confirmed before mouse ON. User tries movement,
+left/right-click,wheel up/down,then MOUSE OFF3s/ON after about15s,tries controls
+again,and observes clean60s stop. Keep receiver connected. New boot/readiness
+must be explicitly confirmed before clearing used capture checkpoint;do not
+reuse current arm or flash-validation false state automatically. No flash.
+Analyze only foreground input_code0;activation with other pointer. Preserve
+successful wired/v7/v8 captures;do not repeat baseline/extraction/build.
 
-V8 QUIET-ACTIVE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
-branch feature/receiver-quiet-active-window. Historical software checkpoint before flash (see newest state above).
-Change only active diagnostics:skip periodic stats while linked,replace per-busy
-text with cumulative EAGAIN counter in final summary. Keep v7 idle ACK rule,
-motion mapping,ACK timing,first timing samples,link/error prints and all limits.
-Regression failed on v7;all8 native tests PASS with v8. Receiver/probe/radio
-builds and UF2 checks PASS. Probe/radio hashes unchanged;default HID image hash
-unchanged,not rebuilt. Receiver staged source/config/v8 banner verified.
-V8 UF2: C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
-SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd.
-61256 flash/16128 RAM;240 UF2 blocks,0x26000..0x34FFF. Private preserved image
-build-pairing-analysis/receiver-v8-5df75330.uf2;metadata receiver-v8-build-validation.json.
-V7 rollback receiver-v7-b6a63b99.uf2 hash verified. V8 is an unproven A/B logging
-overhead experiment,not an established overshoot fix;less active-time telemetry.
-Board STILL v7 expired/passive after foreground trial:one arm/discovery,59129
-ACKs used. COM12 closed,no live raw/serial/build. Glorious asked to reconnect wired.
-NEXT PHYSICAL PAUSE via popup: keep Glorious wired/OFF,double-reset only RECEIVER
-into NICENANO. Verify bootloader identity and exact v8 hash/UF2 before copy,then
-passive startup only,no arming. Separate later motion readiness for paired
-foreground raw100s/serial95s,one p/DTR,actual arming confirmation BEFORE mouse ON.
-Raw logger accepts --foreground;user must activate window with other pointer;
-analyze input_code0. No repeat v7 baseline/build/extraction. DPI/Windows unchanged.
+V8 differs from v7 only in diagnostic overhead:periodic stats suppressed while
+linked,per-busy USB text replaced by cumulative counter. Idle ACK sequence hold,
+RF/USB mapping/timing/guards/limits unchanged. Native regression failed on v7,
+then8 checks passed;receiver/probe/radio builds+UF2 checks passed,probe/radio
+hashes unchanged. Default HID image unchanged,not rebuilt. Verified flash/passive
+startup completed before first arm. Current image exists at
+C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2 and ignored
+build-pairing-analysis/receiver-v8-5df75330.uf2. V7 rollback preserved.
+Limits:65536 ACKs/60s,8 discoveries,1s gap;initial arm30s,once per boot.
+Use one serial reader,drain2s before p,keep open95s postarm,save raw serial and
+host UTC/elapsed/phase JSONL. Foreground raw logger100s includes UTC start;
+no input injection/keyboard collection. CLI: capture_raw_mouse.exe seconds new.csv
+--foreground. Click capture window and keep active;CSV input_code0 foreground,
+1 background. Background raw rate is Windows-throttling/coalescing confounded.
+No actual physical polling/latency/DPI claims. Saved CORE wired Profile1=1600;
+wireless equivalence unverified. Windows accel1/speed9 unchanged;X/Y mapping1:1.
 
-Latest foreground v7 pair:private base receiver-v7-foreground-20261116-003012.
-Raw39180 receiver-only relative records,39076 foreground,0 read errors.
-Foreground median1025us,p99 4044us. Serial59129 ACKs,39709 HID submissions,
-102 retries,171 busy messages,one discovery,neutral complete. User confirms
-random overshoot persists during circles;clean stop. Wired foreground baseline
-raw-wired-foreground-20261116-002746:20109 foreground records,median1079us,
-user-confirmed smooth. Wireless occasional max axis31/14 vs wired3/2;some big
-steps near busy log chunks,not causal proof. Physical strokes not mechanically
-matched. Background125-events/s samples are confounded by Windows background
-throttling/coalescing;do not claim polling rate,RF loss or DPI from counts.
-CORE wired Profile1 selected1600 saved unchanged;wireless equivalence unverified.
-Windows acceleration1/speed9 unchanged. Signed X/Y mapping1:1. No fixed gain hack.
-
-V7/8 limits:65536 ACKs/60s,8 discoveries,1s gap;initial discovery30s,one p per boot.
-No rearm on used boot. Confirm actual arming before telling mouse power-on.
 Continue until physical intervention;use question pop-ups to pause. Keep this
 resume prompt and PROJECT_CONTEXT.md current after each meaningful step. Push
-tested milestones on feature-based branches. All private captures/RF addresses/
-binaries ignored in build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.
+tested milestones on feature-based branches. Keep captures/addresses/binaries
+ignored under build-pairing-analysis;leave .vscode/ and INFO_UF2.TXT untracked.

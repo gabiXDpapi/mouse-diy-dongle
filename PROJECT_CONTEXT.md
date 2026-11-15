@@ -319,6 +319,32 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V8 FIRST MOTION HARDWARE PASS 2026-11-16: user reports "Overshoot gone /
+like wired;stopped cleanly" with capture window active. One successful trial;
+not calibrated physical latency/DPI or final gaming-performance validation.
+Private base build-pairing-analysis/receiver-v8-foreground-20261116-004654:
+100s raw exit0,50748 receiver-only relative foreground records,50746 motion,
+2 button records,0 read errors,no background records. Median arrival1001us,
+p90 1087us,p99 2926us;whole-run max includes pauses. Max axis6/5 vs v7's31/14,
+hand movements not mechanically matched. Serial one arm/discovery,59468 ACKs
+(8706 idle,1 status,50761 type1),50757 HID submissions,4 retries,busy895,
+no ERROR,neutral complete. Active-link stats/busy TEXT counts both0 as intended.
+Busy total retained;895 vs v7's171 messages is not a like-for-like loss metric.
+Board v8 NOW EXPIRED/PASSIVE,one arm/discovery used,59468 ACKs consumed.
+COM12 closed,no live raw/serial/build. User instructed reconnect Glorious wired.
+V8 image SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd;
+no further build/flash/tuning needed before regression check. V7 preserved.
+NEXT PHYSICAL PAUSE: v8 controls/recovery regression. User normal receiver
+unplug/replug(no double-reset),harmless scrollable document/other pointer,
+Glorious OFF/USB unplugged,same DPI/settings. Capture100s foreground+95s serial,
+one p/DTR with actual arm confirmed before mouse ON. User tries movement,
+left/right-click,wheel up/down,then MOUSE OFF3s/ON after about15s,tries controls
+again,and observes clean60s stop. Keep receiver connected. New boot/readiness
+must be explicitly confirmed before clearing used capture checkpoint;do not
+reuse current arm or flash-validation false state automatically. No flash.
+Analyze only foreground input_code0;activation with other pointer. Preserve
+successful wired/v7/v8 captures;do not repeat baseline/extraction/build.
+
 V8 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: v8 NOW FLASHED on receiver.
 User confirmed NICENANO visible with Glorious wired/OFF. Verified D: NICENANO,
 bootloader0.6.0/nRF52840-nicenano/S1406.1.1,and exact v8 UF2 hash

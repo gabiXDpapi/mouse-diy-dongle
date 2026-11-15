@@ -24,3 +24,10 @@ UF2 validation pass. Probe/radio hashes remain unchanged;existing default HID
 image unchanged without rebuild. V8 source/config/banner match and image is
 preserved (hash5df75330...). No flash or passive startup yet. Physical bootloader
 readiness is next;hardware still v7 expired/passive.
+
+## First hardware motion result
+
+V8 flashed/passive startup verified. First foreground trial completed with no
+read errors,active stats/busy text absent,and final busy count retained. User
+reports overshoot gone/like wired and clean stop. One successful trial;controls
+and OFF/ON recovery regression pending on unchanged v8. No further tuning yet.
