@@ -19,6 +19,9 @@
 #ifndef RIDEV_DEVNOTIFY
 #define RIDEV_DEVNOTIFY 0x00002000
 #endif
+#ifndef GET_RAWINPUT_CODE_WPARAM
+#define GET_RAWINPUT_CODE_WPARAM(w) ((w) & 0xff)
+#endif
 
 static FILE *output;
 static LARGE_INTEGER frequency, start;
@@ -68,15 +71,15 @@ static const char *device_label(HANDLE device)
 }
 
 static int write_mouse(FILE *file, const RAWINPUT *raw, UINT bytes,
-                       const char *label, long long time_us)
+                       const char *label, long long time_us, UINT input_code)
 {
     size_t needed = offsetof(RAWINPUT, data) + sizeof(RAWMOUSE);
     if (!label || bytes < needed || raw->header.dwType != RIM_TYPEMOUSE ||
         raw->header.dwSize < needed || raw->header.dwSize > bytes) return 0;
     const RAWMOUSE *m = &raw->data.mouse;
-    return fprintf(file, "%lld,%s,%ld,%ld,%u,%u,%u\n", time_us, label,
+    return fprintf(file, "%lld,%s,%ld,%ld,%u,%u,%u,%u\n", time_us, label,
                    m->lLastX, m->lLastY, (unsigned int)m->usButtonFlags,
-                   (unsigned int)m->usButtonData, (unsigned int)m->usFlags) < 0 ? -1 : 1;
+                   (unsigned int)m->usButtonData, (unsigned int)m->usFlags, input_code) < 0 ? -1 : 1;
 }
 
 static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM l)
@@ -91,7 +94,7 @@ static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM 
         else if (raw.header.dwType == RIM_TYPEMOUSE) {
             const char *label = device_label(raw.header.hDevice);
             long long elapsed = (arrival.QuadPart - start.QuadPart) * 1000000 / frequency.QuadPart;
-            int result = write_mouse(output, &raw, got, label, elapsed);
+            int result = write_mouse(output, &raw, got, label, elapsed, GET_RAWINPUT_CODE_WPARAM(w));
             if (result > 0) records++;
             if (result < 0) failed = 1;
         }
@@ -108,6 +111,8 @@ static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM 
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL line %d: %s\n", __LINE__, #c); return 1; } } while (0)
 static int self_test(void)
 {
+    CHECK(GET_RAWINPUT_CODE_WPARAM(0x100) == RIM_INPUT);
+    CHECK(GET_RAWINPUT_CODE_WPARAM(0x101) == RIM_INPUTSINK);
     CHECK(device_label(NULL) == NULL && read_errors == 0);
     CHECK(strcmp(classify_name("\\\\?\\HID#VID_258A&PID_2018&MI_00#test"), "wired") == 0);
     CHECK(strcmp(classify_name("hid#vid_2fe3&pid_0008&mi_02#test"), "receiver") == 0);
@@ -118,19 +123,22 @@ static int self_test(void)
     raw.data.mouse.lLastX = (-2147483647L - 1); raw.data.mouse.lLastY = 2147483647L;
     raw.data.mouse.usFlags = MOUSE_MOVE_ABSOLUTE;
     FILE *file = tmpfile(); CHECK(file);
-    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 10) == 1);
-    CHECK(write_mouse(file, &raw, sizeof(RAWINPUTHEADER), "wired", 11) == 0);
-    CHECK(write_mouse(file, &raw, sizeof(raw), NULL, 12) == 0);
+    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 10, RIM_INPUT) == 1);
+    CHECK(write_mouse(file, &raw, sizeof(raw), "receiver", 11, RIM_INPUTSINK) == 1);
+    CHECK(write_mouse(file, &raw, sizeof(RAWINPUTHEADER), "wired", 12, RIM_INPUT) == 0);
+    CHECK(write_mouse(file, &raw, sizeof(raw), NULL, 13, RIM_INPUT) == 0);
     raw.header.dwType = RIM_TYPEKEYBOARD;
-    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 13) == 0);
+    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 14, RIM_INPUT) == 0);
     raw.header.dwType = RIM_TYPEMOUSE; raw.header.dwSize = sizeof(raw) + 1;
-    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 14) == 0);
+    CHECK(write_mouse(file, &raw, sizeof(raw), "wired", 15, RIM_INPUT) == 0);
     rewind(file);
     char line[160]; CHECK(fgets(line, sizeof(line), file));
-    CHECK(strcmp(line, "10,wired,-2147483648,2147483647,0,0,1\n") == 0);
+    CHECK(strcmp(line, "10,wired,-2147483648,2147483647,0,0,1,0\n") == 0);
+    CHECK(fgets(line, sizeof(line), file));
+    CHECK(strcmp(line, "11,receiver,-2147483648,2147483647,0,0,1,1\n") == 0);
     CHECK(fgets(line, sizeof(line), file) == NULL);
     CHECK(fclose(file) == 0);
-    puts("PASS: device filtering, packet bounds/type, signed motion and flags; no input registered");
+    puts("PASS: device filtering, packet bounds/type, signed motion, flags and delivery codes; no input registered");
     return 0;
 }
 
@@ -142,10 +150,11 @@ int main(void)
     if (argc == 2 && wcscmp(argv[1], L"--self-test") == 0) {
         LocalFree(argv); return self_test();
     }
+    int foreground = argc == 4 && wcscmp(argv[3], L"--foreground") == 0;
     wchar_t *end = NULL;
-    long seconds = argc == 3 ? wcstol(argv[1], &end, 10) : 0;
-    if (argc != 3 || !end || *end || seconds < 1 || seconds > 180) {
-        fputs("Usage: capture_raw_mouse <1..180 seconds> <new CSV path> | --self-test\n", stderr);
+    long seconds = argc == 3 || foreground ? wcstol(argv[1], &end, 10) : 0;
+    if ((argc != 3 && !foreground) || !end || *end || seconds < 1 || seconds > 180) {
+        fputs("Usage: capture_raw_mouse <1..180 seconds> <new CSV path> [--foreground] | --self-test\n", stderr);
         LocalFree(argv); return 2;
     }
     HANDLE file = CreateFileW(argv[2], GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_NEW,
@@ -159,13 +168,25 @@ int main(void)
     output = _fdopen(descriptor, "wb");
     if (!output) { _close(descriptor); return 1; }
     if (setvbuf(output, NULL, _IOFBF, 65536) != 0 ||
-        fputs("time_us,source,dx,dy,button_flags,button_data,mouse_flags\n", output) < 0) failed = 1;
+        fputs("time_us,source,dx,dy,button_flags,button_data,mouse_flags,input_code\n", output) < 0) failed = 1;
     HINSTANCE instance = GetModuleHandleA(NULL);
     WNDCLASSA wc = {0};
     wc.hInstance = instance; wc.lpfnWndProc = window_proc; wc.lpszClassName = "DiyMouseRawCapture";
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     ATOM atom = RegisterClassA(&wc);
-    HWND window = atom ? CreateWindowExA(0, wc.lpszClassName, "", 0, 0, 0, 0, 0,
-                                         HWND_MESSAGE, NULL, instance, NULL) : NULL;
+    HWND window = atom ? CreateWindowExA(0, wc.lpszClassName, "DIY Mouse Raw Input Capture",
+        foreground ? WS_OVERLAPPEDWINDOW : 0,
+        foreground ? CW_USEDEFAULT : 0, foreground ? CW_USEDEFAULT : 0, 640, 240,
+        foreground ? NULL : HWND_MESSAGE, NULL, instance, NULL) : NULL;
+    if (window && foreground) {
+        if (!CreateWindowExA(0, "STATIC",
+            "Click this window, then keep it active during movement.\r\n"
+            "Use the same surface and DPI; move circles and straight strokes.\r\n"
+            "No clicks or scrolling during motion. Capture closes automatically.",
+            WS_CHILD | WS_VISIBLE | SS_CENTER, 15, 30, 590, 130, window, NULL, instance, NULL)) failed = 1;
+        ShowWindow(window, SW_SHOWNOACTIVATE);
+    }
     RAWINPUTDEVICE device = {1, 2, RIDEV_INPUTSINK | RIDEV_DEVNOTIFY, window};
     BOOL registered = window && !failed && QueryPerformanceFrequency(&frequency) &&
                       RegisterRawInputDevices(&device, 1, sizeof(device));
@@ -180,6 +201,7 @@ int main(void)
                (unsigned int)utc.wHour, (unsigned int)utc.wMinute, (unsigned int)utc.wSecond,
                (unsigned int)utc.wMilliseconds);
         fflush(stdout);
+        if (foreground) { puts("FOREGROUND_WINDOW_SHOWN: click capture window and keep it active; input_code=0 identifies foreground delivery"); fflush(stdout); }
         MSG message;
         int result;
         while ((result = GetMessageA(&message, NULL, 0, 0)) > 0) {
@@ -196,5 +218,6 @@ int main(void)
     if (atom) UnregisterClassA(wc.lpszClassName, instance);
     if (fclose(output) != 0) failed = 1;
     printf("RAW_INPUT_DONE records=%llu read_errors=%u failed=%d\n", records, read_errors, failed);
+    fflush(stdout);
     return failed || read_errors ? 1 : 0;
 }

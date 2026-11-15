@@ -21,18 +21,24 @@ Build with the existing Windows MinGW toolchain:
 gcc -std=gnu11 -Wall -Wextra -Werror -O2 research/capture_raw_mouse.c -o build-pairing-analysis/capture_raw_mouse.exe -luser32 -lshell32
 & ./build-pairing-analysis/capture_raw_mouse.exe --self-test
 $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-& ./build-pairing-analysis/capture_raw_mouse.exe 45 "build-pairing-analysis/raw-wired-$stamp.csv" |
+& ./build-pairing-analysis/capture_raw_mouse.exe 45 "build-pairing-analysis/raw-wired-$stamp.csv" --foreground |
     Tee-Object -FilePath "build-pairing-analysis/raw-wired-$stamp.stdout.txt"
 ```
 
 Run controlled input only after physical readiness. Duration is1..180s;CSV paths
 must be new(existing files are refused). Source labels are `wired` or `receiver`;
 full device paths are not written. All CSV/executable outputs remain ignored.
-Self-checks,timed1s start/stop and overwrite protection pass;no controlled raw
-wireless comparison has run yet. Wired baseline on 2026-11-16 captured
-3674 wired-only relative records without errors;user confirmed smooth control. Native tests/USB access may require elevated
-execution in the Codex sandbox. Host scheduling/coalescing can affect arrival
-times;these logs do not alone measure sensor DPI,RF loss or physical input latency.
+Self-checks, timed 1s hidden/visible lifecycle and invalid-option checks pass.
+Wired and wireless background captures completed; wired felt smooth, wireless
+occasionally overshot during circles and stopped cleanly. Background event rates
+cannot establish polling or loss: Windows can throttle/coalesce background listeners.
+Use `--foreground`, click the capture window and keep it active during movement.
+CSV `input_code=0` is foreground delivery; `1` is background. The activation click
+is recorded normally and should be excluded from motion-only analysis.
+https://blogs.windows.com/windowsdeveloper/2023/05/26/delivering-delightful-performance-for-more-than-one-billion-users-worldwide/
+Native execution may require elevation in the Codex sandbox. No controlled
+foreground capture yet. Host arrival times alone do not measure sensor DPI,
+RF loss or physical input latency.
 
 ## Default USB HID demo behavior
 

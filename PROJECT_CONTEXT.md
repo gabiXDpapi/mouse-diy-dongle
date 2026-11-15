@@ -319,9 +319,35 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+FOREGROUND RAW INPUT SOFTWARE CHECKPOINT 2026-11-16: branch
+feature/foreground-raw-input. User clarified wireless symptom: occasional random
+overshoot during circles;stop was clean. Background paired capture completed as
+recorded below. Do not infer polling or dropped motion from background cadence.
+research/capture_raw_mouse.c now accepts optional final --foreground,shows an
+ordinary capture window without forcing focus,and appends input_code to CSV:
+0 foreground /1 background from WM_INPUT wParam. Default hidden mode preserved.
+Known-device filtering,mouse-only registration,exclusive-create output,1..180s
+limit and cleanup unchanged. No keyboard/injection/firmware/settings changes.
+Serializer regression failed on old code;new self-check passes both delivery
+codes plus prior bounds/filter/signed tests. GNU11 warnings-as-errors build PASS.
+Hidden1s lifecycle PASS;visible1s lifecycle verified exit0/records0/errors0 and
+DONE marker. Invalid option rejected before creating file. Explicit stdout flush
+added after DONE because initial visible smoke omitted buffered completion text.
+Final ignored exe SHA256
+1e6ed06a5b447461d77d2fa20add18269634bcc8475ea6aeea8a59130c832d16.
+Smoke is not movement/performance evidence. No controlled foreground capture yet.
+No live capture/serial/build sessions. Board v7 expired/passive after one arm,
+one discovery,58479 ACKs;COM12 closed. User told to keep mouse wired.
+NEXT PHYSICAL PAUSE: wired readiness,same surface/saved1600 profile/other pointer.
+Start45s logger --foreground;after readiness cue user clicks capture window and
+keeps it active while doing20-30s circles/straight strokes. Analyze input_code0
+only and record activation fraction. This is a new foreground measurement,not
+a repeat of background baseline. Later wireless needs reboot/OFF-unplugged
+readiness and one actual-confirmed arm. Do not rearm on current used boot.
+
 PAIRED BACKGROUND RAW CAPTURE COMPLETE 2026-11-16: private base
 build-pairing-analysis/receiver-v7-raw-20261116-001759. User performed movement
-and reports speed still changed or paused;detail/clean-stop answer pending.
+and reports speed still changed or paused;later clarified random overshoot during circles;stop clean.
 100s raw logger exit0,7198 receiver-only relative motion records,0 buttons,
 0 read errors;median8000us,p99 16936us,max65459us. One serial arm/discovery,
 58479 ACKs(5378 idle,1 status,53100 type1),52983 HID submissions,117 retries,
