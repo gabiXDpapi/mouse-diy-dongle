@@ -5,6 +5,34 @@ Bounded wireless Windows pointer control is user-confirmed. Continuous operation
 and gaming performance remain under development; the default build is still the
 original USB HID demo.
 
+## Host Raw Input diagnostic
+
+The next measurement compares wired mouse and DIY receiver reports arriving at
+Windows while keeping v7,CORE's saved1600 profile,and Windows settings unchanged.
+`research/capture_raw_mouse.c` registers mouse usage only,filters known device
+IDs,and writes monotonic arrival times and raw motion/button/flag fields to CSV.
+It leaves normal pointer input enabled and never registers keyboard input.
+Raw Input motion is separate from Control Panel pointer-speed processing:
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-rawmouse
+
+Build with the existing Windows MinGW toolchain:
+
+```powershell
+gcc -std=gnu11 -Wall -Wextra -Werror -O2 research/capture_raw_mouse.c -o build-pairing-analysis/capture_raw_mouse.exe -luser32 -lshell32
+& ./build-pairing-analysis/capture_raw_mouse.exe --self-test
+$stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+& ./build-pairing-analysis/capture_raw_mouse.exe 45 "build-pairing-analysis/raw-wired-$stamp.csv" |
+    Tee-Object -FilePath "build-pairing-analysis/raw-wired-$stamp.stdout.txt"
+```
+
+Run controlled input only after physical readiness. Duration is1..180s;CSV paths
+must be new(existing files are refused). Source labels are `wired` or `receiver`;
+full device paths are not written. All CSV/executable outputs remain ignored.
+Self-checks,timed1s start/stop and overwrite protection pass;no controlled raw
+movement comparison has run yet. Native tests/USB access may require elevated
+execution in the Codex sandbox. Host scheduling/coalescing can affect arrival
+times;these logs do not alone measure sensor DPI,RF loss or physical input latency.
+
 ## Default USB HID demo behavior
 
 - Enumerates as `DIY Mouse HID Prototype` (Windows may display `HID-compliant mouse`).

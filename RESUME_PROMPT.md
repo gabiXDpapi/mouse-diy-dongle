@@ -1,0 +1,51 @@
+Continue my DIY mouse receiver project in:
+C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
+
+Read PROJECT_CONTEXT.md,especially LATEST HANDOFF / NEXT;README.md;
+research/RADIO_ANALYSIS.md;and docs/plans/2026-11-15-raw-mouse-input.md.
+
+Current branch: feature/raw-mouse-input-diagnostics. Inspect git status/log first.
+Receiver hardware is still v7,idle ACK sequence hold,expired/passive after its
+last trial:one arm/discovery and58365 ACK attempts used. COM12 is closed;no live
+serial/build/Raw Input session. Do not send p again before a normal receiver
+reboot. V7 limits remain65536 total ACKs/60s/eight discoveries/1s gap;initial
+discovery arm30s,once per boot. Current UF2 hashb6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a.
+
+Wired motion is smooth. Wireless v7 felt better than v6,but user still reports
+speed changing during steady movement. CORE wired Profile1 had1600 DPI selected
+and was saved unchanged on request. No separate wireless DPI control exposed;
+battery-mode DPI equivalence is unverified. Windows acceleration1/speed9 was
+read only,not changed. Receiver X/Y mapping remains1:1. Do not guess scaling or
+claim a fixed DPI/latency solution. Quiet-active candidate was deferred and its
+source changes restored;private patch/plan exist under build-pairing-analysis.
+
+New read-only Windows mouse diagnostic: research/capture_raw_mouse.c.
+Built executable: ignored build-pairing-analysis/capture_raw_mouse.exe.
+Build/self-test:
+gcc -std=gnu11 -Wall -Wextra -Werror -O2 research/capture_raw_mouse.c -o build-pairing-analysis/capture_raw_mouse.exe -luser32 -lshell32
+build-pairing-analysis/capture_raw_mouse.exe --self-test
+Compile/self-tests,1s timed start/stop and existing-file protection PASS.
+No controlled Raw Input movement capture yet. Logger registers mouse only,
+filters wired258A:2018 and receiver2FE3:0008,does not inject input or change
+settings. CSV records QPC elapsed microseconds/source/deltas/buttons/flags;
+stdout includes UTC start. New CSV required;duration1..180s. Host arrival is
+not physical-event latency,DPI or RF loss. Native execution may need elevation
+because of sandbox restrictions. Raw metadata/binaries/captures stay ignored.
+
+NEXT: pause via question pop-up for Glorious WIRED USB readiness,same surface/
+saved profile and other pointer. No receiver reset/arming for this wired capture.
+Run45s to unique build-pairing-analysis/raw-wired-...csv,save stdout too;after
+RAW_INPUT_READY cue ask20-30s controlled circles/straight strokes,no buttons/
+wheel/DPI change. Validate source/relative flags/cadence/deltas and get user
+observation. This is the first controlled host Raw Input baseline.
+
+Later wireless comparison requires normal receiver reboot,separate Glorious
+OFF/unplugged readiness,paired raw/serial capture,single p with DTR,and actual
+arming confirmation BEFORE mouse power-on. Do not auto-retry or silently rearm.
+Do not repeat completed extraction,firmware builds/flashes or passive baselines.
+
+Continue until physical intervention is needed. Use question pop-ups for those
+pauses. Keep PROJECT_CONTEXT.md AND this copy-paste RESUME_PROMPT.md current
+after meaningful steps. Push tested milestones on feature-based branches.
+Keep private captures,addresses,binaries ignored;leave .vscode/ and INFO_UF2.TXT
+untracked. No messages to others. No actual1000Hz/latency/perfect-consistency claim.

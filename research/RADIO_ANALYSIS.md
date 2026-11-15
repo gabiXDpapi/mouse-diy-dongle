@@ -1,5 +1,23 @@
 # First radio capture experiment
 
+## Host Raw Input tool ready; controlled wired baseline pending
+
+2026-11-16 software checkpoint on feature/raw-mouse-input-diagnostics:
+`research/capture_raw_mouse.c`,existing MinGW GNU11/user32/shell32,no new package.
+Mouse-only INPUTSINK/DEVNOTIFY,message-only window,no NOLEGACY/keyboard/input
+injection. Known wired258A:2018 and receiver2FE3:0008 labels only;private CSV
+time_us/deltas/buttons/flags plus UTC startup in stdout. Buffered output,
+exclusive-create protection,1..180s stop and registration/window/file cleanup.
+Self-tests validate filtering/packet bounds/type/signed extremes/flags.1s timed
+smoke0 records/0 read-errors/failed0;existing capture overwrite rejected without
+file change. Final exe SHA25641a46ce524380cc1f50c3542889729008ff5cc1e556fdd85bc59411021c45a39.
+No controlled raw movement sample yet. WindowsAPI references:
+https://learn.microsoft.com/en-us/windows/win32/inputdev/using-raw-input
+https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-rawmouse
+Firmware/source/Windows/DPI unchanged. Next wired USB readiness and45s host
+capture with20-30s deliberate motion;then a separately armed paired wireless
+comparison. Host arrival times are not physical-event latency/sensor DPI proof.
+
 ## Saved-1600 profile retry: variable speed persists
 
 95s drained/single-arm ignored capture

@@ -319,6 +319,41 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+RAW INPUT SOFTWARE CHECKPOINT2026-11-16: branch feature/raw-mouse-input-diagnostics.
+User requests ready-to-copy continuation prompt;maintain RESUME_PROMPT.md after
+meaningful steps along with this handoff. Last RF/DPI result pushed3f7676e.
+New research/capture_raw_mouse.c built to ignored
+build-pairing-analysis/capture_raw_mouse.exe SHA256
+41a46ce524380cc1f50c3542889729008ff5cc1e556fdd85bc59411021c45a39.
+Build: gcc -std=gnu11 -Wall -Wextra -Werror -O2 research/capture_raw_mouse.c
+-o build-pairing-analysis/capture_raw_mouse.exe -luser32 -lshell32.
+Self-test PASS(known/unknown IDs,bounds/type,signed extremes/flags,no registration).
+Timed1s hidden/message-only smoke PASS,0 records/read-errors/failures;exclusive
+create test rejects existing file(WinError80) without changing hash. Final smoke
+ignored raw-input-smoke-20261116-000158.csv;prior overwrite test235919.
+Metadata ignored build-pairing-analysis/raw-input-software-validation.json.
+No controlled Raw Input movement capture yet. Logger mouse-only INPUTSINK,no
+NOLEGACY/keyboard registration/injection/settings changes;filters wired258A:2018
+and receiver2FE3:0008,omits full device paths. UTC start printed to stdout;CSV
+QPC elapsed time_us/source/dx/dy/button_flags/button_data/mouse_flags.1..180s
+bounded duration;normal stop unregisters/destroys/closes. Save stdout with CSV
+to align host timing later. Arrival timing is not physical latency or sensor DPI.
+Legacy MinGW needs GNU C extensions;documented Vista constants supplied locally.
+Firmware source unchanged,UF2 remains v7 b6a63b99... . Board v7 expired/passive,
+one arm/discovery/58365 ACK attempts used;COM12 closed. No live raw/build/serial.
+CORE wired Profile1=1600 saved;Windows accel1/speed9 unchanged. Wireless speed
+still varies within steady motion;do not guess gain/DPI or claim calibration fixed.
+NEXT PHYSICAL PAUSE via pop-up: connect Glorious WIRED USB,same surface/profile,
+other pointer available;no receiver reset/arm/flash required. After readiness,
+run logger45s to unique private raw-wired-...csv and stdout transcript;after
+RAW_INPUT_READY cue ask20-30s circles/straight strokes,no DPI/buttons/wheel.
+Inspect source filtering,relative flags,signed deltas and host gaps;get user
+speed-consistency observation. This is the first controlled host raw baseline.
+Later wireless comparison needs normal receiver reboot plus OFF/unplugged
+readiness,paired raw/serial capture,ONE p/DTR and actual arming confirmation
+before mouse ON. Do not automatically arm or repeat completed builds/flashes/
+baseline/extraction. All private captures/addresses/binaries stay ignored.
+
 LATEST SAVED-DPI RESULT20261115-234324 COMPLETE:95s single-arm capture closed.
 Ignored build-pairing-analysis/receiver-v7-dpi1600-retry-20261115-234324.txt,
 .host.jsonl,.summary.json. One link,58365 ACKs:9813 idle,one status,48551 type1;
