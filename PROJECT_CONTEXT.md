@@ -319,6 +319,12 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+EXPLICIT USER PAUSE 2026-11-16: user selected "Pause here — resume flashing
+later" after v9 software milestone2f86867. Stop project work until user resumes.
+V9 built/tested/pushed,NOT FLASHED;board remains v8 expired/passive59958 ACKs.
+COM12 closed,no live serial/raw/build. Next after resume is physical NICENANO
+flash readiness,not automatic copy/arming. See full v9 checkpoint below.
+
 V9 EXPLICIT-STOP SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
 branch feature/receiver-explicit-stop. User resumed and requested break after
 next step;software preparation complete,now at physical flash/break boundary.

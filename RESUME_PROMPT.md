@@ -6,6 +6,12 @@ research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-explicit-stop.md.
 Inspect git status/log first. Branch:feature/receiver-explicit-stop.
 User requested a break after v9 software preparation;this continuation resumes.
 
+EXPLICIT USER PAUSE 2026-11-16: user selected "Pause here — resume flashing
+later" after v9 software milestone2f86867. Stop project work until user resumes.
+V9 built/tested/pushed,NOT FLASHED;board remains v8 expired/passive59958 ACKs.
+COM12 closed,no live serial/raw/build. Next after resume is physical NICENANO
+flash readiness,not automatic copy/arming. See full v9 checkpoint below.
+
 V9 EXPLICIT-STOP SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
 branch feature/receiver-explicit-stop. User resumed and requested break after
 next step;software preparation complete,now at physical flash/break boundary.
