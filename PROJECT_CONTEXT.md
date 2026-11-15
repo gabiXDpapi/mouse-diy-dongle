@@ -322,6 +322,31 @@ LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
 CURRENT RECEIVER CHECKPOINT (v4; newest hardware state first):
+QUIET-DIAGNOSTICS SOFTWARE READY;PAUSED FOR PHYSICAL WORK. V4 recovery milestone
+pushed78315c9. Branch
+feature/receiver-quiet-diagnostics;plan docs/plans/2026-11-15-receiver-quiet-diagnostics.md.
+Tested v4 preserved/verified at ignored build-pairing-analysis/receiver-v4-2162a852.uf2.
+V5 removes receiver RX/ACK per-packet text,uses1s cumulative stats,and samples
+discovery/first-ACK timing per link. RF/USB mapping/recovery/budgets unchanged.
+New native assertions failed before implementation;all8 tests now PASS.
+V5 receiver build/UF2 PASS:flash60904/RAM16128,238 blocks,0x26000..0x34DFF,
+SHA256ab8e3001d0a075a2e2480379894f868e9987000a3752965e41bc93984c6dbf2d.
+Probe/radio regression builds and UF2 checks PASS. Binary/config/source separation
+PASS:receiver has no raw RX/per-ACK format strings,probe/radio keep intended
+verbose paths. Default HID unchanged058c1ff5... . Ignored validation metadata
+build-pairing-analysis/receiver-v5-software-validation.json.
+Current probe UF2 hash2676573f60010419047f1db5958e4a0bcc369a964a633c20c963f28a397a3be1;
+radio a7e6609c1b209c0a36d56eb3db331f43f4c172bfccd84657b2e6511c263378a0.
+Board still tested v4 expired/passive (2 discoveries/3348 ACKs used);COM12
+closed,no live builds/serial. V5 NOT flashed;no latency improvement claim.
+NEXT after user readiness/return: NICENANO bootloader entry with mouse wired/OFF,
+verify identity/finalv5 hash/bounds,application copy,5s passive startup;then
+separate harmless-document/other-pointer/Glorious OFF-unplugged readiness.
+One continuously drained95s capture/single p with actual arming confirmation
+before mouse power-on. Compare responsiveness with v4;analyze cumulative
+RECEIVER stats/link-stop ACK totals. Timing lines are SAMPLES,not all TXs.
+No raw RX/per-ACK output in v5,so do not reuse v4 packet-count analyzer.
+Pause by14:30 Manila;do NOT start a new armed95s trial after14:26 today.
 NEWEST RF MILESTONE: v4 power-cycle recovery PASSED,with visible pointer delay
 reported by user.95s continuous/drained single-arm COM12 capture completed/closed.
 Ignored build-pairing-analysis/receiver-v4-recovery-20261115-140838.txt,

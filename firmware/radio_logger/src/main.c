@@ -140,10 +140,18 @@ static int listen(uint8_t channel, bool pairing_address)
                         printk("ERROR data ACK transmit %d; no retry\n", err);
                         return err;
                     }
+#ifndef WIRELESS_HID
                     printk("PROBE ACK sent: count=%u/%u len=%u seq=%u next=%u\n",
                            ack_count, PROBE_ACK_LIMIT, packet[0], packet[1], ack_reply[1]);
+#endif
                 }
 #endif
+#ifdef WIRELESS_HID
+                if (receiver_diagnostics_due()) {
+                    printk("RECEIVER stats t=%lld good=%u bad_crc=%u invalid_len=%u ACKs=%u/%u\n",
+                           k_uptime_get(), good, bad, invalid, ack_count, PROBE_ACK_LIMIT);
+                }
+#else
                 printk("RX t=%lld ch=%u base=%s match=%u len=%u data=",
                        k_uptime_get(), channel, pairing_address ? "pair" : "mouse",
                        NRF_RADIO->RXMATCH, length);
@@ -151,6 +159,7 @@ static int listen(uint8_t channel, bool pairing_address)
                     printk("%02x", packet[i + 1]);
                 }
                 printk("\n");
+#endif
             } else {
                 bad++;
             }
@@ -203,7 +212,7 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v4: passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v5: quiet counters; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",

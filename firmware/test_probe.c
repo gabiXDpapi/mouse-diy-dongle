@@ -50,7 +50,8 @@ static void k_busy_wait(int us)
 }
 static int disable_radio(void) { radio.TASKS_TXEN = 0; return 0; }
 static void probe_timing_before_tx(void) { }
-static void probe_timing_after_tx(bool ended) { (void)ended; }
+static unsigned int timing_calls;
+static void probe_timing_after_tx(bool ended) { (void)ended; timing_calls++; }
 #ifdef WIRELESS_HID
 static int hid_result;
 static unsigned int hid_calls;
@@ -202,9 +203,13 @@ int main(void)
     unsigned int links_before = new_link_calls;
     assert(send_probe() == 0 && new_link_calls == links_before + 1);
     int64_t session_deadline = receiver_session_deadline;
+    assert(receiver_trace_next_ack);
+    unsigned int timing_before_ack = timing_calls;
     assert(session_deadline == 160000 && receiver_discoveries == 1);
     now += 999; assert(!receiver_link_should_stop());
     assert(send_report_ack(idle) == 0 && ack_count == 1);
+    assert(!receiver_trace_next_ack && timing_calls == timing_before_ack + 1);
+    assert(transmit_probe_packet(ack_reply, 0) == 0 && timing_calls == timing_before_ack + 1);
     now += 999; assert(!receiver_link_should_stop());
     now++; assert(receiver_link_should_stop());
     assert(send_report_ack(idle) == -EACCES && ack_count == 1);
@@ -216,10 +221,12 @@ int main(void)
     now = 132000; /* Initial 30s arming expired; the original 60s session remains. */
     assert(probe_discovery_allowed() && send_probe() == 0);
     assert(ack_deadline == session_deadline && receiver_discoveries == 2);
+    assert(receiver_trace_next_ack);
     hid_result = -EAGAIN;
     int64_t last_ack = receiver_last_ack_ms;
     now += 500;
     assert(send_report_ack(idle) == -EAGAIN && receiver_last_ack_ms == last_ack);
+    assert(receiver_trace_next_ack); /* USB busy must not consume the timing sample. */
     hid_result = 0;
     while (receiver_discoveries < RECEIVER_DISCOVERY_LIMIT) {
         now += RECEIVER_LINK_GAP_MS;
@@ -240,6 +247,12 @@ int main(void)
     assert(receiver_link_should_stop() && receiver_end_link() == 0);
     assert(!probe_discovery_allowed() && send_probe() == -EACCES);
     command = 'p'; poll_probe_arm();
+    assert(receiver_session_deadline == session_deadline && ack_count == 2);
+    receiver_next_stats_ms = 0;
+    assert(receiver_diagnostics_due());
+    assert(!receiver_diagnostics_due());
+    now += 999; assert(!receiver_diagnostics_due());
+    now++; assert(receiver_diagnostics_due());
     assert(receiver_session_deadline == session_deadline && ack_count == 2);
 #endif
     return 0;

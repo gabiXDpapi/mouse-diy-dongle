@@ -169,8 +169,13 @@ uses local USB ID `2FE3:0008` and product `DIY Mouse RX HID Probe`.
 Its UF2 is staged outside OneDrive in
 `C:\Users\Gabriel\zephyrproject\build-mouse-receiver\zephyr\zephyr.uf2`.
 Do not flash until the build and application-only UF2 validation pass.
-Current receiver v4 build and UF2 validation pass:239 blocks,payload
-`0x26000..0x34EFF`,SHA256 `2162a852cb11c8a6c5b26630cdcaa1456390cdb56223dc2c447c38b727362ff3`.
+Current receiver v5 build and UF2 validation pass:238 blocks,payload
+`0x26000..0x34DFF`,SHA256 `ab8e3001d0a075a2e2480379894f868e9987000a3752965e41bc93984c6dbf2d`.
+V5 reduces per-packet USB text to1s counters,retaining discovery/first-ACK timing
+samples per link,link transitions and error/busy logs. It is NOT flashed yet;
+no improvement in the user-reported pointer delay has been established.
+The tested v4 image is preserved at ignored
+`build-pairing-analysis/receiver-v4-2162a852.uf2`.
 All eight native tests,receiver/probe/radio builds and mode-separation checks
 pass. V4 is flashed and its60s controls/mouse-OFF-ON recovery trial passed:
 3348 ACKs across two links without budget/deadline reset,no errors/USB busy,
@@ -203,10 +208,12 @@ five button bits, signed16 X/Y and signed8 wheel to USB; idle and retransmitted
 reports do not replay movement. USB busy withholds ACK. Test termination/error
 attempts neutral button release with bounded waits. USB reset/disconnect after
 configuration requires a board reboot. No input is generated during passive startup.
-Idle/status packets never generate input. For v4,use a95-second capture after
+Idle/status packets never generate input. For v4/v5,use a95-second capture after
 arming to cover30seconds initial discovery plus60seconds total session and
 cleanup margin. Keep one continuous serial reader and save/drain startup output
 before sending one `p`;confirm NEW `RECEIVER armed:` text before mouse power-on.
+V5 has no raw RX/per-ACK lines;analyze cumulative stats/link-stop totals instead.
+Timing lines are samples and cannot be counted as total transmissions.
 V3's earlier ten-second/1024-ACK sessions used45-second captures.
 
 This first HID bridge keeps USB text logging and radio polling; neither latency

@@ -6,6 +6,8 @@
 #define RECEIVER_LINK_GAP_MS 1000u
 static unsigned int receiver_discoveries;
 static int64_t receiver_session_deadline, receiver_last_ack_ms;
+static int64_t receiver_next_stats_ms;
+static bool receiver_trace_next_ack;
 #else
 #define PROBE_ACK_LIMIT 256u
 #define PROBE_DATA_WINDOW_MS 2000u
@@ -34,6 +36,15 @@ static bool probe_discovery_allowed(void)
 }
 
 #ifdef WIRELESS_HID
+static bool receiver_diagnostics_due(void)
+{
+    if (k_uptime_get() < receiver_next_stats_ms) {
+        return false;
+    }
+    receiver_next_stats_ms = k_uptime_get() + 1000;
+    return true;
+}
+
 static bool receiver_link_should_stop(void)
 {
     return probe_sent && (ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
@@ -128,7 +139,17 @@ static int transmit_probe_packet(uint8_t *reply, uint32_t delay_us)
     }
     int err = disable_radio();
     NRF_RADIO->PACKETPTR = (uint32_t)packet;
+#ifdef WIRELESS_HID
+    /* Keep one discovery/first-ACK timing sample per link without per-packet USB text. */
+    if (delay_us || receiver_trace_next_ack) {
+        probe_timing_after_tx(ended);
+    }
+    if (!delay_us) {
+        receiver_trace_next_ack = false;
+    }
+#else
     probe_timing_after_tx(ended);
+#endif
     return err ? err : (ended ? 0 : -ETIMEDOUT);
 }
 
@@ -153,6 +174,7 @@ static int send_probe(void)
         }
         ack_deadline = receiver_session_deadline;
         receiver_last_ack_ms = k_uptime_get();
+        receiver_trace_next_ack = true;
         wireless_hid_new_link();
 #else
         ack_deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;

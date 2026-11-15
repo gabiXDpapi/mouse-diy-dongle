@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## V5 quiet-diagnostics comparison in progress
+
+V4 recovery milestone pushed78315c9. Tested v4 preserved at ignored
+`build-pairing-analysis/receiver-v4-2162a852.uf2`. Branch
+`feature/receiver-quiet-diagnostics`,plan `docs/plans/2026-11-15-receiver-quiet-diagnostics.md`.
+V5 receiver omits raw RX/per-ACK text,emits cumulative stats at most once/second
+on valid RX,and retains discovery/first-ACK timing samples per link plus link,
+busy and error logs. Per-packet verbose probe/radio behavior stays unchanged.
+Native assertions failed before implementation,then all8 passed. Receiver/probe/
+radio builds and UF2 bounds pass;compiled-image/config/source separation confirms
+per-packet formats removed only from receiver. Receiver v5 SHA256
+ab8e3001d0a075a2e2480379894f868e9987000a3752965e41bc93984c6dbf2d,
+flash60904/RAM16128,238 blocks,payload0x26000..0x34DFF. Probe hash2676573f...
+and radio a7e6609c...;full hashes/state in context. Default HID unchanged.
+Hardware still tested v4 expired/passive,COM12 closed. Pause for physical
+flash/readiness;no new armed trial after14:26 for user's14:30 departure.
+This only tests a possible logging contribution to reported delay;no latency
+improvement claim yet. V5 timing lines are SAMPLES,not a total TX-completion count.
+
+
 ## V4 power-cycle recovery and reported pointer delay (2026-11-15)
 
 95s continuous/drained single-arm capture ignored at
