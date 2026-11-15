@@ -1,5 +1,16 @@
 # First radio capture experiment
 
+## V6 verified flash/passive startup (2026-11-15,22:41 Manila)
+
+After user NICENANO/mouse wired-OFF readiness,verified bootloader0.6.0,
+nRF52840-nicenano,S1406.1.1 and finalc0e18e29... UF2 hash/240 blocks/application
+bounds,then copied application only. Five-second DTR COM12 startup passed:v6
+input counters,8 discoveries/65536 ACKs/60000ms/1000ms gap,1MHz timing,19channels,
+six zero scans,no errors/arming. Windows composite/CDC/HID/Input statuses OK.
+Ignored `build-pairing-analysis/receiver-v6-passive-20261115-224120.txt` and
+`.summary.json`. COM12 closed;v6 fresh/unarmed,budgets unused. Next separate
+input readiness/one95s capture;do not repeat flash/baseline. No input/latency claim.
+
 ## V6 input diagnostics software checkpoint; paused before hardware
 
 After inconclusive v5 trial,user explicitly requested one software-only next

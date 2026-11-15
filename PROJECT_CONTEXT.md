@@ -319,13 +319,35 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
-USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
-LATEST USER STEERING at about14:28: 'we can proceed with that, after that we can
-take a break'. One finalv5 comparison requested before break;readiness pop-up
-explicitly states95s capture/wrap-up may run a little past14:30 and offers keeping
-the cutoff instead. Await readiness;do NOT arm yet. No new development afterward.
-Save exact handoff and close live sessions;do not start physical work near cutoff.
-CURRENT RECEIVER CHECKPOINT (v5; newest hardware state first):
+NEWEST HARDWARE CHECKPOINT2026-11-15 about22:41 Asia/Manila: v6 FLASHED and
+passive startup PASSED after user NICENANO/mouse wired-OFF readiness. Verified
+bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and finalc0e18e29... UF2 hash/240
+blocks/application bounds0x26000..0x34FFF before application copy. COM12 returned;
+Windows composite/CDC/HID/Input statuses all OK. Five-second DTR startup shows
+v6 input-counters banner,8 discoveries/65536 ACKs/60000ms/1000ms gap,1MHz timing,
+19channels,six zero-counter SCAN lines,no ERROR or arming. Evidence ignored
+build-pairing-analysis/receiver-v6-passive-20261115-224120.txt and .summary.json.
+Board v6 fresh/passive/UNARMED;all budgets unused. NO p sent. COM12 closed/
+disposed,no live build/serial session. Branch feature/receiver-input-diagnostics.
+NEXT PHYSICAL PAUSE: harmless scrollable document/other pointer/Glorious OFF
+and USB unplugged readiness via pop-up. Leave receiver connected/no reset;
+do NOT repeat flash/passive baseline/build. Then same continuous reader saves/
+drains2s,ONE p,confirm NEW 'RECEIVER armed:' with65536 ACK cap before power-on
+pop-up;capture95s. Try deliberate movement,buttons,wheel;mouse OFF3s/ON after
+about15s,try controls again,observe final stop. Inspect successful idle/status/
+type1 ACKs vs hid_reports/retries and user response/delay. Counts of queued
+USB input do not prove Windows delivery. No v6 input success or latency claim.
+Earlier break/departure and v5 state below are historical;user resumed.
+
+RESUMED: user returned and explicitly requested continuing where we left off.
+Previous departure/break pause is lifted. Software milestone501d183 is pushed
+on feature/receiver-input-diagnostics. V6 image hash/bounds rechecked;no rebuild.
+Board last known v5 expired/passive;COM12 closed. NEXT PHYSICAL PAUSE: user
+confirms NICENANO bootloader visible with Glorious wired or OFF. Then reverify
+bootloader/finalv6 UF2,flash application and5s passive startup WITHOUT p.
+Separate input readiness is still required before any v6 arm. No completed
+extraction/build/v4 recovery trial repeated. Keep per-step handoff current.
+EARLIER RECEIVER CHECKPOINT (v5/software v6; superseded by hardware note above):
 FINAL SOFTWARE-ONLY STEP COMPLETE;PAUSED FOR BREAK per user's latest request.
 V5 inconclusive result pushed8d48e7e. New branch feature/receiver-input-diagnostics;
 plan docs/plans/2026-11-15-receiver-input-diagnostics.md. V5 artifact preserved
@@ -855,3 +877,7 @@ LIVE V5 COMPARISON 20261115-142958 : user explicitly selected readiness acknowle
 LIVE V5 COMPARISON:2s drain complete;ONE p sent. Await NEW arming text;no second p.
 LIVE V5 COMPARISON: NEW actual arming confirmed;95s capture running. Power-on/delay-comparison/recovery pop-up next. This is final trial before break.
 LIVE V5 COMPARISON: COM12 closed/disposed;armSent=True confirmed=True. Inspect cumulative stats/link-stop totals and user latency/control observations. No live session;save result then BREAK.
+
+LIVE V6 FLASH: user NICENANO/mouse wired-OFF ready;verified bootloader0.6.0/nicenano/S1406.1.1 and c0e18e29... hash/bounds. Copying application only;NO arming.
+LIVE V6 FLASH: application UF2 copied;await enumeration/passive check. NO p sent.
+LIVE V6 PASSIVE: COM12 closed/disposed;log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v6-passive-20261115-224120.txt. No commands sent;inspect before conclusions.

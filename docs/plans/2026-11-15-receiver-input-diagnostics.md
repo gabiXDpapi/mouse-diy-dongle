@@ -14,3 +14,8 @@
 Next after break: verified v6 flash/passive check,separate readiness,single-arm95s capture. Compare ACK types vs HID submissions and user pointer response.65536 remains a cap;it does not guarantee60s if actual ACK cadence is higher. No latency or reliability claim until measured.
 
 **Completed software checkpoint:** all8 native tests pass,including error/short-write/neutral exclusion and cumulative counters. Receiver/probe/radio builds,UF2 bounds and mode/source/binary checks PASS;default HID unchanged. V6 hashc0e18e29...,full metadata in context. PAUSED BEFORE FLASHING;hardware remains expired/passive v5,all live sessions closed.
+
+**Hardware checkpoint after return:** verified v6 flash and5s passive COM12/HID
+startup PASSED on2026-11-15 about22:41 Manila. V6 unarmed/budgets unused;port
+closed. Pause for separate harmless-document/mouse-OFF-unplugged readiness,
+then one95s capture. Do not repeat completed flash/passive check.
