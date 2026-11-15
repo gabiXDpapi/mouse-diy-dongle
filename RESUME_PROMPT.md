@@ -5,8 +5,31 @@ Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
 research/RADIO_ANALYSIS.md,docs/plans/2026-11-16-receiver-quiet-active-window.md
 and docs/plans/2026-11-16-foreground-raw-input.md. Inspect git status/log first.
 
+V8 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: v8 NOW FLASHED on receiver.
+User confirmed NICENANO visible with Glorious wired/OFF. Verified D: NICENANO,
+bootloader0.6.0/nRF52840-nicenano/S1406.1.1,and exact v8 UF2 hash
+5df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd;
+UF2 validation PASS240 blocks0x26000..0x34FFF. Copy completed;COM12 reenumerated
+with expected receiver USB ID.6.5s passive DTR capture privately saved as
+build-pairing-analysis/receiver-v8-passive-20261116-004355.txt. Verified v8 quiet
+banner,timing init,zero packets/CRC/invalid length,no ERROR/arming/link.
+Initial check incorrectly demanded ACKs=0 stats,which passive scan does not emit;
+saved log/source reviewed and validation corrected without repeat capture/flash.
+No p sent since flash,so UNARMED,unused65536 ACK/60s/eight-discovery budgets.
+COM12 closed,no live serial/raw/build. Metadata receiver-v8-flash-validation.json.
+NEXT PHYSICAL PAUSE: same harmless document/surface/saved DPI/other pointer;
+Glorious OFF and USB unplugged;leave receiver connected without reset. After
+readiness,paired100s foreground Raw Input/95s serial drain2s,one p/DTR,actual
+v8 arming confirmation before mouse ON. User activates capture window using
+other pointer,then30s circles/straight strokes,no clicks/wheel/DPI changes.
+Capture script must be updated for v8/previously consumed startup banner:
+verify flash checkpoint plus passive scans,no preexisting arm/link/errors,then
+confirm actual new arm. Do not require a second startup banner or repeat baseline.
+Compare input_code0 motion and user overshoot with preserved v7/wired captures.
+Hardware benefit of v8 remains untested;all firmware/host software checks passed.
+
 V8 QUIET-ACTIVE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
-branch feature/receiver-quiet-active-window. Receiver v8 BUILT/VALIDATED,NOT FLASHED.
+branch feature/receiver-quiet-active-window. Historical software checkpoint before flash (see newest state above).
 Change only active diagnostics:skip periodic stats while linked,replace per-busy
 text with cumulative EAGAIN counter in final summary. Keep v7 idle ACK rule,
 motion mapping,ACK timing,first timing samples,link/error prints and all limits.

@@ -39,7 +39,7 @@ https://blogs.windows.com/windowsdeveloper/2023/05/26/delivering-delightful-perf
 Native execution may require elevation in the Codex sandbox. Controlled
 foreground wired/wireless comparison now completed: wired smooth, v7 still
 occasionally overshoots. The v8 quiet-active firmware experiment is built and
-validated but not flashed; it removes periodic/per-busy text while linked and
+validated and flashed; passive startup passed with no arming. It removes periodic/per-busy text while linked and
 retains cumulative busy totals. Hardware benefit is unproven. Host arrival times alone do not measure sensor DPI,
 RF loss or physical input latency.
 
