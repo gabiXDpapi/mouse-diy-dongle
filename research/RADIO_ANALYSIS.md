@@ -1,5 +1,20 @@
 # First radio capture experiment
 
+## V5 comparison inconclusive: ACK cap exhausted before usable input
+
+Ignored `build-pairing-analysis/receiver-v5-comparison-20261115-142958.txt`,
+`.host.jsonl`,`.summary.json`.95s single-arm capture,one link,8192 ACK budget
+exhausted,neutral-complete stop,no ERROR/USB busy. ACK1 at315034ms and first
+observed ACK8192 at324753ms:9719ms counter-rise span,not exact active duration.
+Two completed timing SAMPLES (discovery/first ACK).49 cumulative stats lines.
+User reports missed/could-not-perform cue,no pointer/button response and no
+usable control. Do not claim improved latency or v5 HID success. Quiet counters
+cannot identify ACKed packet types or USB report submission. Fast idle ACKs
+could exhaust budget before user action;this is a hypothesis,not established
+cause. Board v5 expired/passive,COM12 closed. User requested next software-only
+diagnostic step then break: ACK-type/HID-submit/retry counters and finite65536
+ACK cap while retaining60s deadline/recovery and unchanged RF/USB mapping.
+
 ## V5 quiet-diagnostics comparison in progress
 
 V4 recovery milestone pushed78315c9. Tested v4 preserved at ignored

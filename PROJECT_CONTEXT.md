@@ -320,8 +320,30 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
+LATEST USER STEERING at about14:28: 'we can proceed with that, after that we can
+take a break'. One finalv5 comparison requested before break;readiness pop-up
+explicitly states95s capture/wrap-up may run a little past14:30 and offers keeping
+the cutoff instead. Await readiness;do NOT arm yet. No new development afterward.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
 CURRENT RECEIVER CHECKPOINT (v5; newest hardware state first):
+V5 COMPARISON COMPLETE20261115-142958:95s single-arm/drained capture closed.
+Ignored build-pairing-analysis/receiver-v5-comparison-20261115-142958.txt,
+.host.jsonl,.summary.json. One link,8192/8192 ACKs,neutral-complete budget stop,
+49 stats lines,no ERROR/USB busy. Counter rose ACK1->8192 across9719ms between
+observed stats samples (not exact active duration). Two completed TIMING samples.
+User selected missed/could-not-perform cue and reports NO movement/buttons or
+usable control. Latency/recovery/control comparison INCONCLUSIVE,not passed.
+Quiet counters do not distinguish idle/status/type1 or HID report submission.
+Budget exhaustion could have prevented deliberate input;cause of no response
+NOT established. No claim quieter logging fixed delay. Board v5 expired/passive,
+one arm/one discovery/8192 ACK attempts used;do NOT p again this boot.
+COM12 closed;no live session. User told release buttons/reconnect cable.
+LATEST USER STEERING after result: 'proceed with the next step and then ... break'.
+Authorized ONE software-only step: ACK-type/HID-submit/retry counters and finite
+65536 ACK cap for60s trial at observed higher ACK cadence. Keep RF timing/bytes,
+recovery/USB semantics unchanged. Test/build/push,then PAUSE BEFORE flashing.
+No further hardware trial before break. Exact next steps after software checkpoint.
+
 PAUSED UNTIL USER RETURNS for requested14:30 departure. At about14:25 Manila,
 user confirmed NICENANO visible/mouse wired or OFF. Reverified bootloader0.6.0,
 nRF52840-nicenano,S1406.1.1 and finalv5 ab8e3001... UF2 hash/238 blocks/application
@@ -799,3 +821,8 @@ LIVE V4 RECOVERY: COM12 closed/disposed;armSent=True confirmed=True. Inspect raw
 LIVE V5 FLASH: user NICENANO/mouse wired-OFF ready;verified bootloader0.6.0/nicenano/S1406.1.1 and ab8e3001... hash/bounds. Copying application only;NO arming. Time14:24 Manila;passive check then pause.
 LIVE V5 FLASH: application UF2 copied;await enumeration/passive check. NO p sent.
 LIVE V5 PASSIVE: COM12 closed/disposed;log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v5-passive-20261115-142507.txt. No commands sent;inspect before conclusions.
+
+LIVE V5 COMPARISON 20261115-142958 : user explicitly selected readiness acknowledging wrap-up past14:30,then break. Glorious OFF/unplugged,document/other pointer ready. COM12/DTR open;continuous2s drain thenONE p/95s capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v5-comparison-20261115-142958.txt and .host.jsonl. Do not rearm/reset;no new work after this test.
+LIVE V5 COMPARISON:2s drain complete;ONE p sent. Await NEW arming text;no second p.
+LIVE V5 COMPARISON: NEW actual arming confirmed;95s capture running. Power-on/delay-comparison/recovery pop-up next. This is final trial before break.
+LIVE V5 COMPARISON: COM12 closed/disposed;armSent=True confirmed=True. Inspect cumulative stats/link-stop totals and user latency/control observations. No live session;save result then BREAK.
