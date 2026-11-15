@@ -319,6 +319,32 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NEWEST V6 RF RESULT20261115-224452:95s drained/single-arm capture completed,
+COM12 closed/disposed. Ignored build-pairing-analysis/receiver-v6-input-20261115-224452.txt,
+.host.jsonl,.summary.json. One arm,two links,55417/65536 ACK attempts;40808 idle,
+one status,14608 type1 ACKs.14557 unique HID input submissions+51 suppressed
+retries exactly account for type1 ACKs. Four completed TIMING samples;no ERROR,
+95 USB-busy lines (ACK withheld,not fatal). Link1 stops neutral at22573 ACKs;
+link2 starts samecount with33244ms remaining;final neutral stop at55417 ACKs.
+No unplanned extra rediscoveries observed.62 stats lines,2 cumulative CRC failures,
+zero invalid lengths at last stats. About999 ACK/s median over1s intervals
+includes idle;max observed HID submission rate864/s over1s interval. These are
+counter rates,NOT measured USB polling or physical-event latency/packet loss.
+User CONFIRMED controls before/after mouse OFF3s/ON and clean stop,no stuck
+buttons. Subjectively noticeably more responsive/no obvious v4-style delay.
+BUT intermittent pointer stops despite continued motion,then resumption remain
+an OPEN defect. USB busy may contribute;cause not established by aggregate stats.
+Board v6 expired/passive,one arm/two discoveries/55417 ACK attempts used;do NOT p
+again this boot. No live build/serial. User told release/reconnect cable;
+reconnection unconfirmed. V6 is hardware-tested with intermittent-stall limitation.
+NEXT PHYSICAL PAUSE: focused continuous-motion trial on SAME v6,no code guesses.
+Ask normal receiver unplug/replug (no double-reset),harmless document/other
+pointer,Glorious OFF/unplugged,then ready via pop-up. No flash/build/baseline.
+Same continuous2s-drained95s single-arm capture;after confirmed arm/power-on,
+keep moving steadily for about30s,no buttons/wheel/OFF cycle. Note approximate
+freeze times if any;then let session end. Compare per-second HID/type1 progress,
+busy bursts and link transitions against observed stalls before choosing a fix.
+
 NEWEST HARDWARE CHECKPOINT2026-11-15 about22:41 Asia/Manila: v6 FLASHED and
 passive startup PASSED after user NICENANO/mouse wired-OFF readiness. Verified
 bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and finalc0e18e29... UF2 hash/240
@@ -881,3 +907,8 @@ LIVE V5 COMPARISON: COM12 closed/disposed;armSent=True confirmed=True. Inspect c
 LIVE V6 FLASH: user NICENANO/mouse wired-OFF ready;verified bootloader0.6.0/nicenano/S1406.1.1 and c0e18e29... hash/bounds. Copying application only;NO arming.
 LIVE V6 FLASH: application UF2 copied;await enumeration/passive check. NO p sent.
 LIVE V6 PASSIVE: COM12 closed/disposed;log C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v6-passive-20261115-224120.txt. No commands sent;inspect before conclusions.
+
+LIVE V6 INPUT 20261115-224452 : user confirmed document/other pointer/Glorious OFF-unplugged. Receiver unchanged since passive check. COM12/DTR open;continuous2s drain thenONE p/95s capture. Evidence C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\receiver-v6-input-20261115-224452.txt and .host.jsonl. Do not rearm/reset if interrupted.
+LIVE V6 INPUT: drain complete;ONE p sent. Await new v6 arming text;no second p.
+LIVE V6 INPUT: NEW actual65536-cap arming confirmed;95s capture running. Power-on/controls/recovery pop-up next;no automatic retry.
+LIVE V6 INPUT: COM12 closed/disposed;armSent=True confirmed=True. Inspect ACK-type/HID submission/retry counters and user observations. No live serial session.

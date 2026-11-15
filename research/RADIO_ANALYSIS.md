@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## V6 input/recovery result: responsive with intermittent motion stalls
+
+95s drained/single-arm capture ignored at
+`build-pairing-analysis/receiver-v6-input-20261115-224452.txt`,`.host.jsonl`,
+`.summary.json`. Two links,55417/65536 ACKs:40808 idle,one status,14608 type1.
+14557 unique HID submissions+51 suppressed retries exactly match type1 ACKs.
+Four completed timing samples,no ERROR;95 USB-busy events withheld ACK.
+Link1 neutral stop22573 ACKs;link2 starts at22573 with33244ms left,then final
+neutral stop55417. No extra rediscovery observed.62 stats lines,last cumulative
+good55748/bad_crc2/invalid0. Median1s ACK-counter rate999/s includes idle;max
+1s HID submission rate864/s. These do not establish USB polling,packet loss,
+physical-event latency or host delivery of each individual report.
+User confirms controls before/after mouse OFF3s/ON,clean stop,and noticeably
+better responsiveness/no obvious v4-style delay. However pointer sometimes
+stops despite continued movement then resumes. Cause unresolved;USB-busy count
+alone cannot establish causality. Board expired/passive,COM12 closed. Next a
+focused steady-motion/no-click/no-wheel/no-power-cycle trial on unchanged v6,
+correlating approximate freeze times with counters,busy bursts and link logs.
+Requires normal receiver reboot/fresh readiness;no build/flash/baseline repeat.
+
 ## V6 verified flash/passive startup (2026-11-15,22:41 Manila)
 
 After user NICENANO/mouse wired-OFF readiness,verified bootloader0.6.0,

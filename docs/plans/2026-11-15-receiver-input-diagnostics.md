@@ -19,3 +19,9 @@ Next after break: verified v6 flash/passive check,separate readiness,single-arm9
 startup PASSED on2026-11-15 about22:41 Manila. V6 unarmed/budgets unused;port
 closed. Pause for separate harmless-document/mouse-OFF-unplugged readiness,
 then one95s capture. Do not repeat completed flash/passive check.
+
+**RF checkpoint:** v6 controls/power-cycle recovery/clean stop confirmed by user,
+with improved perceived responsiveness.55417 ACKs,14557 unique HID submissions,
+51 retries,95 USB-busy events,no errors. User reports intermittent motion stalls;
+do not claim reliable/gaming completion. Next focused steady-motion test on
+unchanged v6 before selecting a fix;exact state/procedure/evidence in context.

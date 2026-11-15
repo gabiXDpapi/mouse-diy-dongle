@@ -171,8 +171,11 @@ Its UF2 is staged outside OneDrive in
 Do not flash until the build and application-only UF2 validation pass.
 Current receiver v6 build and UF2 validation pass:240 blocks,payload
 `0x26000..0x34FFF`,SHA256 `c0e18e29413dd720c70f3779f25edaee9513253235a3bfdf0e5f8ad1f38bfcef`.
-V6 is flashed and passed passive COM12/HID startup;unarmed,budgets unused.
-Its input test is pending. It retains quiet logging and adds cumulative successful
+V6 is flashed and hardware-tested:controls worked before/after mouse power-cycle,
+clean stop,and user-reported much better responsiveness. Intermittent pointer
+stops during continued motion remain unresolved. Its trial had55417 ACKs,
+14557 unique HID submissions,51 retries,95 USB-busy events and no errors.
+It retains quiet logging and adds cumulative successful
 idle/status/type1 ACK counters,HID unique-submission/retry counters,and a finite
 65536-ACK cap. USB submission does not prove Windows delivery. The60s session,
 eight-discovery cap,1s link gap and RF/USB report mapping remain unchanged.
