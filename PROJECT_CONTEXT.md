@@ -319,6 +319,26 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+DPI PROFILE CHECKPOINT: user connected Glorious USB;Glorious CORE recognizes
+SERIES ONE PRO WIRELESS in wired mode. Official UI shows PROFILE1 with selected
+1600 DPI(red outlined slider stage),presets400/800/1600/3200. No separate wired/
+wireless DPI control exposed on Performance page. Under user's explicit request
+to match wired DPI,clicked SAVE with existing1600 profile;UI refreshed and still
+shows selected1600. No DPI preset values,Windows settings,firmware/gain scaling
+or other exposed settings manually changed. This official UI save is authorized
+mouse configuration;do not confuse with guessed vendor HID/config commands.
+Saved profile does NOT independently verify battery-mode DPI retention. Raw
+receiver still forwards signed X/Y1:1. CORE left open. Mouse last wired.
+Quiet-active candidate remains deferred privately;source/binary stays testedv7,
+branch feature/idle-ack-queue-guard. No live build/serial;receiver last v7 expired/
+passive,one arm/discovery/59121 ACK attempts used (no subsequent reset confirmed).
+NEXT PHYSICAL PAUSE: normal RECEIVER unplug/replug(no double-reset),same harmless
+document/surface/other pointer;Glorious OFF/USB unplugged,do not press DPI button.
+Then single-arm95s v7 comparison using saved1600 profile,after separate readiness
+and actual arming confirmation before power-on. No build/flash/baseline repeat.
+Compare comfortable wired1600 control with wireless response;do not claim actual
+wireless DPI equivalence from CORE's one profile display alone.
+
 DPI MATCH TASK / PHYSICAL PAUSE: user clarified high DPI may have made circles
 hard to control,then explicitly asked to set wireless DPI same as wired if possible.
 Do not treat this as proven residual RF variation. Deferred the unflashed quiet-

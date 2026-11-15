@@ -1,5 +1,18 @@
 # First radio capture experiment
 
+## DPI profile inspection/save after wired connection
+
+Official Glorious CORE recognized wired Series One PRO. Performance UI shows
+PROFILE1,selected1600-DPI(red outlined stage),presets400/800/1600/3200,one DPI
+set with no separate wired/wireless selector. User explicitly requested matching
+wired DPI;clicked SAVE without changing existing values,then refreshed UI still
+shows selected1600. No other setting manually changed;Windows speed/acceleration
+and v7 receiver code/binary unchanged. Save may apply current mouse profile,
+but battery-mode retention/equivalence is not independently verified.
+Next controlled v7 trial uses this saved profile without DPI-button changes;
+normal receiver reboot/fresh readiness required because prior arm consumed.
+Do not add receiver motion scaling or issue guessed vendor configuration writes.
+
 ## DPI clarification before further firmware tuning
 
 User clarified high DPI may explain difficulty drawing fine circles,then asked

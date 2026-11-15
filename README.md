@@ -180,6 +180,10 @@ stay unchanged. The risk is inferred from the saved mouse firmware;no v7
 motion-quality improvement or original-receiver ACK behavior is established.
 Non-HID probe keeps its earlier idle+1 behavior. Tested v6 is preserved locally
 at ignored `build-pairing-analysis/receiver-v6-c0e18e29.uf2`.
+For the next DPI-controlled comparison,Glorious CORE's wired Profile1 had1600
+DPI selected and was saved unchanged. No separate wireless DPI control was
+exposed;wireless retention/equivalence still needs checking. Windows settings
+and receiver1:1 motion mapping remain unchanged.
 V6 is flashed and hardware-tested:controls worked before/after mouse power-cycle,
 clean stop,and user-reported much better responsiveness. Intermittent pointer
 stops during continued motion remain unresolved. A focused motion trial had no
