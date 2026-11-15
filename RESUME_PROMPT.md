@@ -25,19 +25,26 @@ Build/self-test:
 gcc -std=gnu11 -Wall -Wextra -Werror -O2 research/capture_raw_mouse.c -o build-pairing-analysis/capture_raw_mouse.exe -luser32 -lshell32
 build-pairing-analysis/capture_raw_mouse.exe --self-test
 Compile/self-tests,1s timed start/stop and existing-file protection PASS.
-No controlled Raw Input movement capture yet. Logger registers mouse only,
+Wired controlled capture is complete (see NEXT checkpoint below). Logger registers mouse only,
 filters wired258A:2018 and receiver2FE3:0008,does not inject input or change
 settings. CSV records QPC elapsed microseconds/source/deltas/buttons/flags;
 stdout includes UTC start. New CSV required;duration1..180s. Host arrival is
 not physical-event latency,DPI or RF loss. Native execution may need elevation
 because of sandbox restrictions. Raw metadata/binaries/captures stay ignored.
 
-NEXT: pause via question pop-up for Glorious WIRED USB readiness,same surface/
-saved profile and other pointer. No receiver reset/arming for this wired capture.
-Run45s to unique build-pairing-analysis/raw-wired-...csv,save stdout too;after
-RAW_INPUT_READY cue ask20-30s controlled circles/straight strokes,no buttons/
-wheel/DPI change. Validate source/relative flags/cadence/deltas and get user
-observation. This is the first controlled host Raw Input baseline.
+WIRED RAW INPUT BASELINE COMPLETE 2026-11-16: user performed movement and
+confirmed smooth/consistent wired control. Private capture raw-wired-20261116-001333.csv,
+.stdout.txt and .summary.json in build-pairing-analysis. 45s run exited0:
+3674 wired-only records,0 read errors/failed0;all mouse_flags0(relative),3669
+motion records and5 button-event records. X range-73..72,Y-33..26. Median
+whole-run arrival gap8004us;steady seconds21..35 each125 records/s. Idle/user
+pauses affect whole-run tails;not a physical latency,polling or DPI measurement.
+No live logger/serial/build session. Receiver remains v7 expired/passive.
+NEXT: physical pop-up for normal receiver reboot(no double-reset),Glorious
+OFF/USB unplugged,same surface/profile/document and other pointer. Then paired
+raw/serial wireless capture with one p/DTR and confirmed arming before mouse ON.
+Do not repeat wired baseline. Keep private captures ignored.
+
 
 Later wireless comparison requires normal receiver reboot,separate Glorious
 OFF/unplugged readiness,paired raw/serial capture,single p with DTR,and actual

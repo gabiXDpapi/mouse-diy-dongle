@@ -29,7 +29,8 @@ Run controlled input only after physical readiness. Duration is1..180s;CSV paths
 must be new(existing files are refused). Source labels are `wired` or `receiver`;
 full device paths are not written. All CSV/executable outputs remain ignored.
 Self-checks,timed1s start/stop and overwrite protection pass;no controlled raw
-movement comparison has run yet. Native tests/USB access may require elevated
+wireless comparison has run yet. Wired baseline on 2026-11-16 captured
+3674 wired-only relative records without errors;user confirmed smooth control. Native tests/USB access may require elevated
 execution in the Codex sandbox. Host scheduling/coalescing can affect arrival
 times;these logs do not alone measure sensor DPI,RF loss or physical input latency.
 

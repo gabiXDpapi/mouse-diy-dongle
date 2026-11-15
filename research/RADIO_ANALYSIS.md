@@ -1,5 +1,21 @@
 # First radio capture experiment
 
+## Wired Raw Input baseline complete
+
+WIRED RAW INPUT BASELINE COMPLETE 2026-11-16: user performed movement and
+confirmed smooth/consistent wired control. Private capture raw-wired-20261116-001333.csv,
+.stdout.txt and .summary.json in build-pairing-analysis. 45s run exited0:
+3674 wired-only records,0 read errors/failed0;all mouse_flags0(relative),3669
+motion records and5 button-event records. X range-73..72,Y-33..26. Median
+whole-run arrival gap8004us;steady seconds21..35 each125 records/s. Idle/user
+pauses affect whole-run tails;not a physical latency,polling or DPI measurement.
+No live logger/serial/build session. Receiver remains v7 expired/passive.
+NEXT: physical pop-up for normal receiver reboot(no double-reset),Glorious
+OFF/USB unplugged,same surface/profile/document and other pointer. Then paired
+raw/serial wireless capture with one p/DTR and confirmed arming before mouse ON.
+Do not repeat wired baseline. Keep private captures ignored.
+
+
 ## Host Raw Input tool ready; controlled wired baseline pending
 
 2026-11-16 software checkpoint on feature/raw-mouse-input-diagnostics:

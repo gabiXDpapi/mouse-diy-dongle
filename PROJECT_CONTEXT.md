@@ -319,6 +319,19 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+WIRED RAW INPUT BASELINE COMPLETE 2026-11-16: user performed movement and
+confirmed smooth/consistent wired control. Private capture raw-wired-20261116-001333.csv,
+.stdout.txt and .summary.json in build-pairing-analysis. 45s run exited0:
+3674 wired-only records,0 read errors/failed0;all mouse_flags0(relative),3669
+motion records and5 button-event records. X range-73..72,Y-33..26. Median
+whole-run arrival gap8004us;steady seconds21..35 each125 records/s. Idle/user
+pauses affect whole-run tails;not a physical latency,polling or DPI measurement.
+No live logger/serial/build session. Receiver remains v7 expired/passive.
+NEXT: physical pop-up for normal receiver reboot(no double-reset),Glorious
+OFF/USB unplugged,same surface/profile/document and other pointer. Then paired
+raw/serial wireless capture with one p/DTR and confirmed arming before mouse ON.
+Do not repeat wired baseline. Keep private captures ignored.
+
 RAW INPUT SOFTWARE CHECKPOINT2026-11-16: branch feature/raw-mouse-input-diagnostics.
 User requests ready-to-copy continuation prompt;maintain RESUME_PROMPT.md after
 meaningful steps along with this handoff. Last RF/DPI result pushed3f7676e.
