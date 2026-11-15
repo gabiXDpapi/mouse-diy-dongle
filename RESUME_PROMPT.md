@@ -1,3 +1,17 @@
+FOREGROUND WIRED CAPTURE COMPLETE 2026-11-16: private base
+build-pairing-analysis/raw-wired-foreground-20261116-002746.45s exit0,20389
+wired-only relative records/errors0.20109 foreground(input_code0;20106 motion,
+3 button records),280 background. Foreground median arrival1079us,p90 2947us,
+p99 4950us;whole-run max includes movement pauses. Background median8007us.
+User confirmed capture window stayed active;subjective smoothness answer pending.
+No physical polling/latency/DPI claim. This verifies background cadence confound.
+No live logger/serial/build. Firmware remains v7. NEXT pop-up already pending:
+user wired observation plus normal receiver reboot/Glorious OFF-unplugged
+readiness for matching foreground wireless pair. Do not assume readiness;do not
+repeat wired capture. Pair script must pass --foreground and show its window;
+user activates with other pointer after confirmed arm then moves Glorious.
+One p/DTR,95s serial+100s raw;analyze input_code0 only. Do not reuse old boot.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
