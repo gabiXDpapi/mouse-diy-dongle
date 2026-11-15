@@ -322,6 +322,9 @@ LATEST HANDOFF / NEXT:
 USER TIME LIMIT: pause project by2026-11-15 14:30 Asia/Manila for user departure.
 Save exact handoff and close live sessions;do not start physical work near cutoff.
 NEWEST SOFTWARE MILESTONE: receiver v4 ready for physical flash;NOT flashed.
+Software milestone cddf342 committed/pushed with upstream tracking on
+feature/bounded-link-recovery. PAUSED for physical bootloader readiness via
+question pop-up;no live build/serial session and board still v3.
 Branch feature/bounded-link-recovery;plan docs/plans/2026-11-15-bounded-link-recovery.md.
 Receiver-only60s session starts at first successful discovery;8192 total ACK
 attempts,eight total discovery attempts.1000ms since successful ACK triggers
