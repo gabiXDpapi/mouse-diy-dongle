@@ -319,6 +319,22 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+LATEST WIRED COMPARISON: user confirms same circles/surface/settings are smooth
+and consistent WIRED;wireless feels different. Windows acceleration alone is
+therefore not a sufficient explanation. No Windows settings changed.
+READ-ONLY STATIC FOLLOW-UP: existing ignored mouse-disassembly.txt shows
+0x1890A..0x18950 snapshots queue indices and can send length2 when empty;
+0x16088..0x160B8 handles ACK sequence+1 by rereading CURRENT queue indices,
+popping a queued report if no longer empty,and advancing outgoing sequence.
+Inference: a new report queued while idle is in flight could be released by our
+idle sequence+1 ACK without ever being transmitted. Race not proven on hardware.
+NEXT SOFTWARE experiment: receiver-only idle ACK keeps received sequence;data/
+status ACKs retain+1. Preserve tested v6,add actual ACK-byte/wrap/same-sequence
+tests,build/validate all variants,then physical flash/readiness pause. Keep
+probe's prior behavior and all RF timing/USB/budgets unchanged. No speculative
+gain curves or Windows preference changes. Board still v6 expired/passive,
+one arm/discovery/58171 ACK attempts used;COM12 closed,no live session.
+
 NEWEST FOCUSED MOTION RESULT20261115-225106:95s unchanged-v6 single-arm capture
 completed/closed. Ignored build-pairing-analysis/receiver-v6-motion-20261115-225106.txt,
 .host.jsonl,.summary.json. One continuous link,58171/65536 ACKs:4769 idle,one

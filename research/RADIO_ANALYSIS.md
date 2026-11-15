@@ -1,5 +1,21 @@
 # First radio capture experiment
 
+## Wired control and idle-ACK queue-release hypothesis
+
+User reports wired circles smooth/consistent on same surface/settings,wireless
+different. Acceleration alone is not a sufficient explanation;settings unchanged.
+Existing local snapshot disassembly:0x1890A..0x18950 reads queue indices while
+building outgoing packet and sends length2 if empty.0x16088..0x160B8 matches
+ACK=outgoing sequence+1,then rereads current queue indices and pops a report if
+nonempty. A report arriving after idle construction but before ACK processing
+could therefore be popped unsent by current idle+1 ACK. This is an inferred
+interleaving risk,NOT observed/proven loss or recovered original-receiver ACK.
+Receiver-only bounded experiment will hold sequence for length2 idle ACK;
+data/status ACK+1,second ACK byte,timing,guards,budgets and USB mapping unchanged.
+Non-HID probe retains previously tested behavior. Native checks/builds precede
+separate verified flash and controlled steady-motion comparison. No Windows
+setting change or speculative scaling/filtering. Exact state/progress in context.
+
 ## Focused v6 motion: no hard freeze noticed; pointer-speed variation persists
 
 Unchanged v6,normal reboot/fresh readiness,95s drained/single-arm capture:
