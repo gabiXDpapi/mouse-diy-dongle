@@ -5,6 +5,28 @@ Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT),README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-quiet-active-window.md.
 Inspect git status/log first. Branch:feature/receiver-quiet-active-window.
 
+V8 CONTROLS/RECOVERY HARDWARE PASS 2026-11-16: user confirms movement,
+left/right clicks and wheel UP/DOWN worked before/after ONLY mouse OFF/ON,
+receiver untouched;clean stop,no stuck buttons. Private base
+build-pairing-analysis/receiver-v8-controls-20261116-005207.100s hidden raw
+exit0,4982 receiver-only background records,0 read errors,4865 motion.
+Left down/up32/32,right4/4,wheel63(41 negative120,22 positive120). Both wheel
+directions captured in later segment;before-recovery wheel supported by user
+report,not independently present in raw events. No cadence conclusions from
+background capture. Serial one arm,two discoveries/links;second discovery had
+30371ms remaining in original session. Final53698 ACKs(21225 idle,2 status,
+32471 type1),32437 HID submissions,34 retries,busy396,no ERROR. Both link stops
+neutral complete. V8 motion previously user-confirmed wired-like/no overshoot.
+Board v8 EXPIRED/PASSIVE,one arm/two discoveries,53698 ACKs used. COM12 closed,
+no live raw/serial/build. User told to reconnect mouse USB. No new firmware changes.
+NEXT PHYSICAL PAUSE: v8 held-left timeout regression on harmless selectable
+plain text and other pointer. Normal receiver reboot(no double-reset),Glorious
+OFF/unplugged. One confirmed arm;hold LEFT over text beyond60s window,while
+still held use other pointer without clicks to confirm selection fixed,then
+release. Hidden raw/serial capture can verify release event at stop. Do not
+increase limits/build/flash/rearm on current used boot. This checks forced
+release on unchanged v8 before considering sustained sessions.
+
 V8 FIRST MOTION HARDWARE PASS 2026-11-16: user reports "Overshoot gone /
 like wired;stopped cleanly" with capture window active. One successful trial;
 not calibrated physical latency/DPI or final gaming-performance validation.

@@ -31,3 +31,10 @@ V8 flashed/passive startup verified. First foreground trial completed with no
 read errors,active stats/busy text absent,and final busy count retained. User
 reports overshoot gone/like wired and clean stop. One successful trial;controls
 and OFF/ON recovery regression pending on unchanged v8. No further tuning yet.
+
+## Controls/recovery hardware result
+
+User confirms all supported controls before/after mouse-only OFF/ON and no
+stuck buttons. Logs show two neutral-complete links within original60s session.
+Host raw has balanced left/right transitions and both wheel directions,without
+read errors. Held-left timeout release on v8 is the next physical check.

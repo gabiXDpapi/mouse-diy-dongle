@@ -40,8 +40,8 @@ Native execution may require elevation in the Codex sandbox. Controlled
 foreground wired/wireless comparison now completed: wired smooth, v7 still
 occasionally overshoots. V8 suppresses periodic/per-busy text while linked and
 retains cumulative busy totals. In its first foreground motion trial the user
-reported no overshoot, wired-like control and a clean stop. Controls/recovery
-regression on v8 is next; hardware still uses bounded sessions. Host arrival
+reported no overshoot, wired-like control and a clean stop. V8 movement/clicks/wheel and mouse-only OFF/ON recovery are also user-confirmed
+with clean stops. Held-left expiry regression on v8 is next; sessions stay bounded. Host arrival
 times alone do not measure sensor DPI, RF loss or physical input latency.
 
 ## Default USB HID demo behavior
