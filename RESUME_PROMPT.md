@@ -4,6 +4,21 @@ Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-five-minute-session.md.
 Inspect git status/log first. Branch:feature/receiver-five-minute-session.
 
+V10 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: exact v10 hash/UF2 and
+NICENANO0.6.0/nRF52840-nicenano/S1406.1.1 verified;copy complete. COM12 expected
+USB identity confirmed. Passive6.5s capture receiver-v10-passive-20261116-014706.txt
+shows correct bounded-five-minute/x-stop banner,zero traffic,no errors/arm/link.
+Board NOW v10 UNARMED,unused327680 ACK/300000ms/eight-discovery budgets.
+COM12 closed,no live sessions. Metadata receiver-v10-flash-validation.json.
+Prepared capture-v10-sustained.ps1:335s serial+first180s hidden raw;single p/DTR,
+2s drain,actual arm confirmation. Per-capture .stop-request file sends x ONCE
+through same reader if user reports issue. Arm cutoff01:52AM Manila2026-11-16;
+pause/save by02:00. No full-session raw/foreground cadence claim.
+NEXT physical trial readiness: harmless scrollable document/other pointer,
+Glorious OFF/USB unplugged,same settings,receiver connected unchanged. Trial
+movement/clicks/wheel,mouse-only OFF3s/ON around1min and3min,then observe original
+5-minute stop. Stop early with x on trouble;never reopen serial/automatically rearm.
+
 V10 FIVE-MINUTE SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
 branch feature/receiver-five-minute-session. V10 BUILT/VALIDATED,NOT FLASHED.
 Only receiver cap/session constants327680 ACKs/300000ms and banner changed;
