@@ -38,3 +38,11 @@ User confirms all supported controls before/after mouse-only OFF/ON and no
 stuck buttons. Logs show two neutral-complete links within original60s session.
 Host raw has balanced left/right transitions and both wheel directions,without
 read errors. Held-left timeout release on v8 is the next physical check.
+
+## Held-left timeout hardware result and break
+
+Raw left-up coincides with neutral-complete session stop;user confirms other
+pointer left selection fixed while Glorious LEFT stayed physically held beyond
+70s. PASS. V8 bounded motion/controls/recovery/forced-release validation complete.
+Paused for requested01:10 AM Manila break;no more hardware actions until resume.
+Future work is a separately designed bounded sustained-session experiment.

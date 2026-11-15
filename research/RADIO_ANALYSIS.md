@@ -1,5 +1,32 @@
 # First radio capture experiment
 
+## V8 held-left timeout confirmed; project paused for break
+
+PAUSED FOR BREAK / V8 BOUNDED VALIDATION COMPLETE 2026-11-16:
+User requested break around01:10 AM Manila;paused early after final trial.
+Resume ONLY when user returns;no automatic hardware action. Branch
+feature/receiver-quiet-active-window. User now confirms held LEFT beyond70s,
+other pointer did not extend selection:forced timeout release HARDWARE PASS.
+Raw up at80.928s matches neutral-complete stop~80.947s after link~20.954s.
+V8 motion(no overshoot/wired-like),movement/clicks/wheel,mouse-only OFF/ON
+recovery and held-left timeout are all user-confirmed with clean stops.
+Last private base receiver-v8-held-20261116-005751:2016 receiver-only raw records,
+0 read errors;one arm/discovery,59958 ACKs,5613 HID submissions,23 retries,busy2,
+no ERROR,neutral complete. No further build/flash needed for these completed checks.
+Board v8 EXPIRED/PASSIVE;current boot one arm/discovery,59958 ACKs used. COM12
+closed;no live serial/raw/build. User instructed release buttons/reconnect USB.
+V8 UF2 SHA2565df75330e7d0ac8bd95af8fc33799bac92d83e5a87f93e32440748e3960e97bd;
+C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2 and ignored
+receiver-v8-5df75330.uf2;v7 rollback preserved. Source/tests/software milestones pushed.
+NEXT WHEN RESUMED: design a bounded sustained-session experiment using v8 as
+stable baseline,including explicit stop/neutral handling and finite safety limits.
+Review existing guards/tests and decide smallest change before building. Do not
+silently enable continuous/unbounded operation,increase limits or arm. New live
+trial requires explicit physical readiness and normal reboot of used receiver.
+No repeated extraction,baseline,flashing or completed v8 tests without new reason.
+No physical1000Hz/end-to-end latency/DPI equivalence/daily-use reliability claim.
+
+
 ## V8 forced-release capture before break
 
 V8 HELD-LEFT CAPTURE COMPLETE / BREAK PAUSE 2026-11-16: final trial before
