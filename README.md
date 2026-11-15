@@ -171,7 +171,8 @@ Its UF2 is staged outside OneDrive in
 Do not flash until the build and application-only UF2 validation pass.
 Current receiver v7 build and UF2 validation pass:240 blocks,payload
 `0x26000..0x34FFF`,SHA256 `b6a63b99667a764ed32efb2a3f46bf0721c99f43ecbd9131f81ea08370fde16a`.
-V7 is NOT flashed. This bounded experiment holds sequence for idle ACKs to
+V7 is flashed and passed passive COM12/HID startup;unarmed,budgets unused.
+This bounded experiment holds sequence for idle ACKs to
 avoid a possible unsent-queue release;data/status ACK+1 and all other behavior
 stay unchanged. The risk is inferred from the saved mouse firmware;no v7
 motion-quality improvement or original-receiver ACK behavior is established.

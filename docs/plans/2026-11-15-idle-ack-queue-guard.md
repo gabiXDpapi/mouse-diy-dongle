@@ -20,3 +20,8 @@ wrap cases and unchanged non-HID behavior. All three builds/UF2 bounds and
 source/config/binary checks pass;probe/radio/default HID artifacts unchanged.
 V7 hashb6a63b99...,full metadata in context. Hardware still expired v6;PAUSED
 before physical flash. Queue-race hypothesis and v7 motion quality unproven.
+
+**Hardware checkpoint:** verified v7 flash and5s passive COM12/HID startup
+PASSED about23:12 Manila on2026-11-15. Fresh/unarmed,budgets unused;port closed.
+Next separate input readiness/steady-circle comparison;do not repeat flash/
+baseline. Queue-race cause and v7 improvement remain unproven.

@@ -1,5 +1,17 @@
 # First radio capture experiment
 
+## V7 verified flash/passive startup (2026-11-15,23:12 Manila)
+
+User confirmed NICENANO/mouse wired-OFF readiness;verified bootloader0.6.0,
+nRF52840-nicenano/S1406.1.1 and finalb6a63b99... UF2 hash/bounds,application copy.
+Five-second DTR COM12 startup passed:v7 idle-sequence-hold banner/expected
+65536/60s/eight-discovery/1s-gap limits,1MHz timing,19channels,six zero scans,
+no errors/arming. Windows composite/CDC/HID/Input statuses OK. Ignored
+`build-pairing-analysis/receiver-v7-passive-20261115-231231.txt` and `.summary.json`.
+COM12 closed;v7 fresh/unarmed,budgets unused. Next separate readiness/single-arm
+95s steady-circle comparison with unchanged surface/DPI/Windows settings.
+Do not repeat completed flash/passive check. No v7 input/fix claim yet.
+
 ## Wired control and idle-ACK queue-release hypothesis
 
 User reports wired circles smooth/consistent on same surface/settings,wireless
