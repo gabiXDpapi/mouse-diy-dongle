@@ -29,7 +29,7 @@ movement/clicks/wheel after two mouse-only OFF/ON cycles and a clean original
 session stop. Sessions remain bounded; USB reconnect recovery and longer-term
 reliability are still pending.
 
-V11 is a built, unflashed USB-recovery experiment: configured USB reset or
+V11 is a flashed USB-recovery experiment with passive startup verified: configured USB reset or
 disconnect requests a software restart to passive startup; a new explicit arm is
 required. Generic USB errors remain fatal. Hardware recovery is not yet verified.
 

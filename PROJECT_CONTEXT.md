@@ -319,6 +319,25 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V11 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user confirmed NICENANO
+visible/mouse wired-OFF. Bootloader0.6.0/nRF52840-nicenano/S1406.1.1 and exact
+v11 hash b1d27489bd8fa65b2972fa5fefe83c19b843428bb27492991cf66aa3e727561b verified;
+242 UF2 blocks0x26000..0x351FF validated,copy complete,COM12 USB identity matched.
+6.5s passive capture receiver-v11-passive-20261116-021434.txt:correct v11 passive
+USB-restart banner,zero traffic,no ERROR/arming/link/disarm. COM12 closed.
+Board NOW v11 UNARMED,unused327680 ACK/300000ms/eight-discovery budgets.
+Metadata receiver-v11-flash-validation.json. No host USB-restart test yet.
+NEXT physical/UAC readiness:keep Glorious wired/OFF,receiver unchanged. Windows
+administrator token absent;launch fixed receiver-only restart-receiver-usb-admin.ps1
+via Start-Process -Verb RunAs -WindowStyle Hidden,with validated run-name and
+exact target from receiver-usb-restart-target.json. User approves Windows UAC.
+Read private result,wait for expected CDC re-enumeration,open sole serial reader
+DTR and capture new startup passively without p. Verify fresh v11 boot/unarmed,
+no errors or reset loop. If approval/restart fails,no blind retry or driver change.
+Configured-passive restart test alone doesn't prove active held-button recovery;
+record scope honestly. Then separate explicit-arm readiness/control trial if time.
+Pause02:30;no short armed trial after02:26,5min after02:22. No new firmware build.
+
 V11 PASSIVE USB RESTART SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
 branch feature/receiver-usb-reset-restart. V11 BUILT/VALIDATED,NOT FLASHED.
 User policy:stay passive after USB reconnect,explicit arm required. Configured
