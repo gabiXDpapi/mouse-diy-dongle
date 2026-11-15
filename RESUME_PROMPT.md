@@ -6,6 +6,24 @@ research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-explicit-stop.md.
 Inspect git status/log first. Branch:feature/receiver-explicit-stop.
 User requested a break after v9 software preparation;this continuation resumes.
 
+V9 EXPLICIT X STOP HARDWARE PASS 2026-11-16: user confirms selection fixed
+while LEFT physically held after x stop;circles smooth like v8/wired.
+Private base build-pairing-analysis/receiver-v9-xstop-20261116-013634.
+100s hidden raw2393 receiver records,0 read errors. Link observed22.335s;
+host x sent47.365s,raw left-up47.372s,serial neutral/disarmed chunk47.397s.
+Host/USB/serial chunk times are not physical stop latency. One arm/discovery,
+25000 ACKs(11151 idle,0 status,13849 type1),13840 HID submissions,9 retries,
+busy4011,no ERROR;one disarmed/reboot-required response. No second p sent.
+Board v9 DISARMED/LATCHED,one arm/discovery,25000 ACKs used. COM12 closed,
+no live raw/serial/build. User instructed reconnect mouse USB. V9 preserved.
+NEXT SOFTWARE: v10 bounded5-minute experiment,327680 ACK cap/300000ms,keep
+8 discoveries/1s gap/30s initial arm/one arm per boot/x stop/neutral/quiet logic.
+Only constants/banner and dependent tests change. All normal checks/builds.
+No automatic flash/arm. Physical readiness later explains5-minute bounds.
+Hard stop02:00 Manila;no new5-minute arm after01:52 (full335s capture+wrap).
+Host raw logger stays1..180s;first180s optional raw is partial,full335s serial
+covers5-minute session. Do not claim full-session raw coverage or gaming latency.
+
 V9 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user confirmed NICENANO
 visible/Glorious wired-OFF. Bootloader0.6.0,nRF52840-nicenano,S1406.1.1 verified;
 exact v9 hash ecc725eb44c39194d1288873b049f26fedc66bbf0d300768d991f349cfe4718e,

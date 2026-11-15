@@ -22,7 +22,7 @@ original USB HID demo.
 V8 is the validated hardware baseline. V9 adds a receiver-only lowercase `x`
 stop and has passed software checks; it is flashed and passive startup has passed. After a
 successful stop response, a receiver reboot is required before arming again.
-Session limits remain unchanged. V9 stop behavior and motion need hardware tests.
+Session limits remain unchanged. V9 held-left explicit stop and smooth motion are user-confirmed; longer sessions remain untested.
 
 ## Host Raw Input diagnostic
 
