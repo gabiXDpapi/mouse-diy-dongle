@@ -5,6 +5,25 @@ Bounded wireless Windows pointer control is user-confirmed. Continuous operation
 and gaming performance remain under development; the default build is still the
 original USB HID demo.
 
+## Project stack
+
+| Technology | Use |
+|---|---|
+| C and Zephyr RTOS 4.2 | Receiver firmware, USB drivers, timing and synchronization |
+| nRF52840 radio registers | Proprietary 2.4 GHz packet reception and ACK transmission |
+| Zephyr SDK, west, CMake and Ninja | Board configuration, compilation and linking |
+| USB HID and CDC serial | Windows mouse input plus commands/diagnostics |
+| UF2 bootloader | Validated firmware copying through NICENANO |
+| Python, unittest and native GCC | Protocol/USB behavior checks, image validation and analysis |
+| PowerShell | Build, hardware inspection, flash and serial-capture workflow |
+| Win32 Raw Input and MinGW C | Separate Windows wired/wireless mouse-event logger |
+| Git and GitHub | Versioned experiments and tested milestones |
+
+V8 is the validated hardware baseline. V9 adds a receiver-only lowercase `x`
+stop and has passed software checks; it is built but not flashed. After a
+successful stop response, a receiver reboot is required before arming again.
+Session limits remain unchanged. V9 stop behavior and motion need hardware tests.
+
 ## Host Raw Input diagnostic
 
 The diagnostic compares wired mouse and DIY receiver reports arriving at

@@ -8,6 +8,8 @@ static unsigned int receiver_discoveries;
 static int64_t receiver_session_deadline, receiver_last_ack_ms;
 static int64_t receiver_next_stats_ms;
 static bool receiver_trace_next_ack;
+static bool receiver_disarm_requested, receiver_disarm_handled;
+static int64_t receiver_next_command_ms;
 static unsigned int receiver_idle_acks, receiver_status_acks, receiver_type1_acks;
 #else
 #define PROBE_ACK_LIMIT 256u
@@ -26,6 +28,9 @@ static bool probe_discovery_allowed(void)
         return false;
     }
 #ifdef WIRELESS_HID
+    if (receiver_disarm_requested) {
+        return false;
+    }
     if (receiver_discoveries >= RECEIVER_DISCOVERY_LIMIT || ack_count >= PROBE_ACK_LIMIT) {
         return false;
     }
@@ -48,7 +53,7 @@ static bool receiver_diagnostics_due(void)
 
 static bool receiver_link_should_stop(void)
 {
-    return probe_sent && (ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
+    return probe_sent && (receiver_disarm_requested || ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
            k_uptime_get() - receiver_last_ack_ms >= RECEIVER_LINK_GAP_MS);
 }
 
@@ -67,14 +72,43 @@ static int receiver_end_link(void)
     ack_deadline = 0;
     return 0;
 }
+
+static int receiver_handle_disarm(void)
+{
+    if (!receiver_disarm_requested || receiver_disarm_handled) {
+        return 0;
+    }
+    int err = disable_radio();
+    if (err) {
+        return err;
+    }
+    err = probe_sent ? receiver_end_link() : wireless_hid_finish();
+    if (err) {
+        return err;
+    }
+    receiver_disarm_handled = true;
+    printk("RECEIVER disarmed: neutral complete; reboot required\n");
+    return 0;
+}
 #endif
 
 static void poll_probe_arm(void)
 {
     unsigned char command;
     const struct device *console = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
-    if (uart_poll_in(console, &command) == 0 && command == 'p' &&
-        !probe_sent && probe_arm_deadline == 0) {
+    if (uart_poll_in(console, &command) != 0) {
+        return;
+    }
+#ifdef WIRELESS_HID
+    if (command == 'x') {
+        receiver_disarm_requested = true;
+        return;
+    }
+    if (receiver_disarm_requested) {
+        return;
+    }
+#endif
+    if (command == 'p' && !probe_sent && probe_arm_deadline == 0) {
         probe_arm_deadline = k_uptime_get() + 30000;
 #ifdef WIRELESS_HID
         printk("RECEIVER armed: first discovery within 30000 ms; up to %u discoveries and %u ACKs total in %u ms; gap=%u ms\n",
@@ -85,6 +119,17 @@ static void poll_probe_arm(void)
 #endif
     }
 }
+
+#ifdef WIRELESS_HID
+static void receiver_poll_commands(void)
+{
+    int64_t now = k_uptime_get();
+    if (now >= receiver_next_command_ms) {
+        receiver_next_command_ms = now + 10;
+        poll_probe_arm();
+    }
+}
+#endif
 
 static bool is_discovery(const uint8_t *p, uint8_t channel, bool pairing_address,
                          uint32_t match)

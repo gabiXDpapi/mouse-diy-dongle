@@ -32,12 +32,14 @@ static const uint8_t channels[] = {3, 49, 78, 51};
 static uint8_t packet[65];
 static int64_t now;
 static int command = -1;
+static unsigned int uart_polls;
 static bool complete_tx;
 static int turnaround_delay;
 static int64_t k_uptime_get(void) { return now; }
 static int uart_poll_in(const struct device *d, unsigned char *c)
 {
     (void)d;
+    uart_polls++;
     if (command < 0) return -1;
     *c = (unsigned char)command;
     command = -1;
@@ -48,7 +50,8 @@ static void k_busy_wait(int us)
     if (us != 1) turnaround_delay = us;
     if (radio.TASKS_TXEN && complete_tx) radio.EVENTS_END = 1;
 }
-static int disable_radio(void) { radio.TASKS_TXEN = 0; return 0; }
+static int disable_result;
+static int disable_radio(void) { if (!disable_result) radio.TASKS_TXEN = 0; return disable_result; }
 static void probe_timing_before_tx(void) { }
 static unsigned int timing_calls;
 static void probe_timing_after_tx(bool ended) { (void)ended; timing_calls++; }
@@ -56,8 +59,9 @@ static void probe_timing_after_tx(bool ended) { (void)ended; timing_calls++; }
 static int hid_result;
 static unsigned int hid_calls;
 static int finish_result;
+static unsigned int finish_calls;
 static unsigned int new_link_calls;
-static int wireless_hid_finish(void) { return finish_result; }
+static int wireless_hid_finish(void) { assert(!radio.TASKS_TXEN); finish_calls++; return finish_result; }
 static void wireless_hid_new_link(void) { new_link_calls++; }
 static int wireless_hid_forward(const uint8_t *p)
 {
@@ -123,7 +127,7 @@ int main(void)
 #endif
     assert(send_probe() == -EACCES && !probe_sent);
     now = 1000;
-    command = 'x'; poll_probe_arm(); assert(probe_arm_deadline == 0);
+    command = 'z'; poll_probe_arm(); assert(probe_arm_deadline == 0);
     command = 'p'; poll_probe_arm(); assert(probe_arm_deadline == 31000);
     now = 40000;
     command = 'p'; poll_probe_arm(); assert(probe_arm_deadline == 31000);
@@ -294,5 +298,55 @@ int main(void)
     assert(send_report_ack(status_packet) == 0 && ack_reply[1] == 0);
     compound[1] = 0xff;
     assert(send_report_ack(compound) == 0 && ack_reply[1] == 0);
+#ifdef WIRELESS_HID
+    assert(!receiver_link_should_stop());
+    command = 'x'; poll_probe_arm();
+    assert(receiver_link_should_stop());
+    unsigned int count_before_stop = ack_count;
+    assert(send_report_ack(report) == -EACCES && ack_count == count_before_stop);
+    radio.TASKS_TXEN = 1;
+    unsigned int finish_before_stop = finish_calls;
+    disable_result = -ETIMEDOUT;
+    assert(receiver_handle_disarm() == -ETIMEDOUT && finish_calls == finish_before_stop);
+    assert(!receiver_disarm_handled && probe_sent);
+    disable_result = 0; finish_result = -EIO;
+    assert(receiver_handle_disarm() == -EIO && !receiver_disarm_handled && probe_sent);
+    assert(!probe_discovery_allowed());
+    finish_result = 0;
+    assert(receiver_handle_disarm() == 0 && receiver_disarm_handled && !probe_sent);
+    finish_before_stop = finish_calls;
+    assert(receiver_handle_disarm() == 0 && finish_calls == finish_before_stop);
+    command = 'p'; poll_probe_arm();
+    assert(!probe_discovery_allowed() && ack_count == count_before_stop);
+    assert(send_probe() == -EACCES);
+    /* Simulate reboot: cancel before first arm must also prevent a later p. */
+    receiver_disarm_requested = receiver_disarm_handled = false;
+    probe_arm_deadline = receiver_session_deadline = 0;
+    receiver_discoveries = 0; ack_count = 0;
+    command = 'x'; poll_probe_arm();
+    command = 'p'; poll_probe_arm();
+    assert(probe_arm_deadline == 0 && !probe_discovery_allowed());
+    assert(receiver_handle_disarm() == 0 && receiver_disarm_handled);
+    /* Cancel in the rediscovery gap; keep cumulative budgets unchanged. */
+    receiver_disarm_requested = receiver_disarm_handled = false;
+    probe_arm_deadline = now + 30000; receiver_session_deadline = now + 60000;
+    receiver_discoveries = 1; ack_count = 12;
+    assert(probe_discovery_allowed());
+    command = 'x'; poll_probe_arm();
+    assert(!probe_discovery_allowed() && send_probe() == -EACCES);
+    assert(receiver_handle_disarm() == 0 && ack_count == 12 && receiver_discoveries == 1);
+    /* Paced CDC polling leaves a queued stop pending until the next check. */
+    receiver_disarm_requested = receiver_disarm_handled = false;
+    receiver_next_command_ms = 0; now = 600000;
+    unsigned int polls_before = uart_polls;
+    command = 'z'; receiver_poll_commands();
+    command = 'x'; now += 9; receiver_poll_commands();
+    assert(uart_polls == polls_before + 1 && !receiver_disarm_requested);
+    now++; receiver_poll_commands();
+    assert(uart_polls == polls_before + 2 && receiver_disarm_requested);
+    assert(receiver_handle_disarm() == 0);
+#else
+    command = 'x'; poll_probe_arm(); /* Non-HID probe command behavior unchanged. */
+#endif
     return 0;
 }

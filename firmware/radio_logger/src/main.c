@@ -64,7 +64,11 @@ static void start_rx(void)
 static int listen(uint8_t channel, bool pairing_address)
 {
 #ifdef DISCOVERY_PROBE
+#ifdef WIRELESS_HID
+    receiver_poll_commands();
+#else
     poll_probe_arm();
+#endif
 #endif
     int err = disable_radio();
     if (err) {
@@ -76,6 +80,10 @@ static int listen(uint8_t channel, bool pairing_address)
     int64_t deadline = k_uptime_get() + 40;
     while (k_uptime_get() < deadline) {
 #ifdef WIRELESS_HID
+        receiver_poll_commands();
+        if (receiver_disarm_requested && !receiver_disarm_handled) {
+            return receiver_handle_disarm();
+        }
         if (!atomic_get(&wireless_hid_online)) {
             disable_radio();
             return -ENODEV;
@@ -214,7 +222,7 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v8: quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v9: explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",

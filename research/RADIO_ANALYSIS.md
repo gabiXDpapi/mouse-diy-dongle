@@ -1,5 +1,37 @@
 # First radio capture experiment
 
+## V9 explicit-stop prerequisite ready for hardware
+
+V9 EXPLICIT-STOP SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
+branch feature/receiver-explicit-stop. User resumed and requested break after
+next step;software preparation complete,now at physical flash/break boundary.
+V9 BUILT/VALIDATED,NOT FLASHED. Adds receiver-only lowercase x cancellation:
+10ms paced CDC checks during scan/active loops,latches off ACKs/discovery/p
+arming,disables RF before neutral,prints disarmed success only after release.
+Reboot required to rearm. Poll interval is not a physical stop-latency guarantee.
+Limits remain65536 ACKs/60s/8 discoveries/1s gap;no sustained limit increase yet.
+Native active-stop regression failed on v8;all8 tests now PASS (prearm/active/
+rediscovery cancellation,disable/neutral errors,no ACK after latch,no p rearm,
+repeated handling and paced polling). Receiver/probe/radio builds/UF2 checks PASS.
+Staged sources/config/HID separation/v9 banner+disarmed response verified.
+Probe/radio controls not byte-identical after shared-source edits;native probe
+behavior checked,new stop code receiver-only;default HID existing image unchanged.
+V9 UF2 C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
+SHA256ecc725eb44c39194d1288873b049f26fedc66bbf0d300768d991f349cfe4718e.
+61536 flash/16128 RAM;241 blocks,0x26000..0x350FF. Private rollback/candidate
+receiver-v8-5df75330.uf2 and receiver-v9-ecc725eb.uf2;metadata
+build-pairing-analysis/receiver-v9-build-validation.json. No v9 hardware claim.
+Board STILL validated v8 EXPIRED/PASSIVE,one arm/discovery,59958 ACKs used.
+COM12 closed,no live serial/raw/build. No new flash/arming on this resumed turn.
+NEXT PHYSICAL PAUSE when user continues: Glorious wired/OFF,double-reset only
+RECEIVER into NICENANO;verify bootloader identity/exact v9 image before copy,
+then passive startup without arming. Separate explicit motion/held-left x-stop
+readiness and one arm;capture x command timestamp,neutral/reboot-required response
+and Windows release while physically held. Also check motion remains v8-like.
+Do not extend limits until explicit-stop hardware pass;preserve v8 as baseline.
+Do not repeat completed extraction/v8 tests/builds without a new reason.
+
+
 ## V8 held-left timeout confirmed; project paused for break
 
 PAUSED FOR BREAK / V8 BOUNDED VALIDATION COMPLETE 2026-11-16:
