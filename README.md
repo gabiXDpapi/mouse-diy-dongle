@@ -44,6 +44,21 @@ allowing RF input. It adds no button press or motion. The active PnP-reset retes
 confirmed). The host was cleared by Esc/releases/receiver unplug. This did not
 fix the PnP case;physical USB removal is the next separate diagnostic.
 
+The physical receiver-unplug trial also retained the held state. A wired
+Glorious reference is next, with the DIY receiver unplugged, before further
+firmware changes. This uses only read-only mouse capture, no serial/RF/UAC.
+
+```powershell
+& ./research/capture_wired_usb_loss.ps1 -SelfTest
+# After wired physical readiness; this example is17:10 Manila on November16:
+& ./research/capture_wired_usb_loss.ps1 -FinishBeforeUtc '2026-11-16T09:10:00Z'
+```
+
+The60s reference refuses to start unless another60s of wrap time fits before
+the supplied break. Its1s smoke and deadline-refusal checks pass;wired held-loss
+behavior remains pending. Physical observations and raw transition counts must
+be reported separately.
+
 ## Physical USB-removal diagnostic
 
 The next comparison uses installed v12 without rebuilding or flashing. It records

@@ -319,6 +319,24 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+WIRED USB-LOSS REFERENCE PREPARED 2026-11-16: physical receiver unplug
+also retained LEFT per user;host cleared,other pointer normal. No firmware
+changes. Added research/capture_wired_usb_loss.ps1:60s native raw+read-only host
+LEFT state,NO serial/RF/PnP/UAC. One-second wrapper/native lifecycle selfcheck
+PASS(records0/errors0,not movement evidence);expired break deadline refusal
+PASS before capture. Script requires FinishBeforeUtc and60s wrap margin.
+NEXT physical readiness:leave DIY receiver UNPLUGGED,connect Glorious by USB in
+WIRED mode,same selectable text/other pointer,mouse cable reachable while LEFT
+held. No arming. Start60s capture;user holds LEFT/drag then physically unplugs
+Glorious USB,waits5s and tests other pointer without clicks while stillheld.
+Then release/clear with Esc/click other pointer ifneeded. This reference tests
+same Windows/app behavior without DIY radio/firmware. Record outcome before
+attributing held state to dongle. Do not assume generic Windows behavior yet.
+Use -FinishBeforeUtc 2026-11-16T09:10:00Z for17:10 Manila break;controller refuses
+if60s capture+60s wrap won't fit. No new armed trial after17:06;wired hasnoarm.
+All capture/serial/helper/build sessions currently closed;only1s software smoke
+ran. Current installed v12 remains unplugged. Save/push before break.
+
 PHYSICAL RECEIVER REMOVAL ALSO RETAINS HELD STATE 2026-11-16:
 User confirms physical unplug with LEFT held;selection kept following OTHER
 pointer,cleared afterward,normal now. Job v12-physicalusb-20261116-165002-295ec075:

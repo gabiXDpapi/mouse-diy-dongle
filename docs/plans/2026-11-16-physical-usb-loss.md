@@ -14,3 +14,13 @@ Capture does not claim a release fix or unexpected USB-reset recovery. A success
 Software checkpoint:actual action gate and expired-cutoff entry refusal PASS;
 syntax/diff checks PASS,firmware diff0. No hardware/serial/UAC action. Capture
 ready;physical setup/one-arm observation next before17:06 cutoff.
+
+## Physical result and wired reference
+
+User confirmed physical receiver unplug with LEFT held;selection followed other
+pointer until cleanup. Raw2050/errors0,left down2/up1,host LEFT remainedTrue
+after port loss. No x/PnP/UAC. This is not specific to PnP. Before further firmware
+changes,run same held-unplug procedure on Glorious wired USB with receiver off.
+New capture_wired_usb_loss.ps1 provides60s raw/global-state capture,no serial or
+mutating APIs;1s lifecycle smoke/deadline refusal PASS. Requires finish deadline
+with60s wrap margin. Wired hardware observation pending;pause by17:10.

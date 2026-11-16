@@ -1,5 +1,26 @@
 # First radio capture experiment
 
+## Wired USB-loss reference next
+
+WIRED USB-LOSS REFERENCE PREPARED 2026-11-16: physical receiver unplug
+also retained LEFT per user;host cleared,other pointer normal. No firmware
+changes. Added research/capture_wired_usb_loss.ps1:60s native raw+read-only host
+LEFT state,NO serial/RF/PnP/UAC. One-second wrapper/native lifecycle selfcheck
+PASS(records0/errors0,not movement evidence);expired break deadline refusal
+PASS before capture. Script requires FinishBeforeUtc and60s wrap margin.
+NEXT physical readiness:leave DIY receiver UNPLUGGED,connect Glorious by USB in
+WIRED mode,same selectable text/other pointer,mouse cable reachable while LEFT
+held. No arming. Start60s capture;user holds LEFT/drag then physically unplugs
+Glorious USB,waits5s and tests other pointer without clicks while stillheld.
+Then release/clear with Esc/click other pointer ifneeded. This reference tests
+same Windows/app behavior without DIY radio/firmware. Record outcome before
+attributing held state to dongle. Do not assume generic Windows behavior yet.
+Use -FinishBeforeUtc 2026-11-16T09:10:00Z for17:10 Manila break;controller refuses
+if60s capture+60s wrap won't fit. No new armed trial after17:06;wired hasnoarm.
+All capture/serial/helper/build sessions currently closed;only1s software smoke
+ran. Current installed v12 remains unplugged. Save/push before break.
+
+
 ## Physical receiver unplug retained LEFT too
 
 PHYSICAL RECEIVER REMOVAL ALSO RETAINS HELD STATE 2026-11-16:
