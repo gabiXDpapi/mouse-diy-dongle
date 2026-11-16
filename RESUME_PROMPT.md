@@ -1,3 +1,43 @@
+V14 NORMAL RAW CAPTURE COMPLETE / USER REPORT PENDING - 2026-11-17 01:47 Manila:
+exec74926exited0;1160srawonly,noCDC/DTR/armcommand.44814records,allreceiver/all
+backgroundcode1,read_errors0/failed0. CompleteCSVvalidated;monotonictimestamps.
+Receiverfirst28.314609s,last1159.762713s,span1131.448104s(18min51.448s).
+11522recordsafter15minfromfirst;8365after16min;2710after18min. LEFT213down/up,
+RIGHT9down/up,wheelUP107/DOWN132. No middle/sideevents inthisrun (v13all5baseline
+preserved;donotclaimindependentv14rawcoverageforthose). No captureerrors.
+Privatebasev14-normal-20261117-012742-226176cb summarypendinguserreport. USBsnapshot
+LastArrival17:26:32 predatescapture;cannotindependentlyproveplanned1minreplug.
+Usercompletion/observationspopupsstillpending;needautomaticinitialstartup,
+receiverreplugwithmouseON,bothmouseOFF/ONcycles,controlsafteroldlimit/stalls.
+No live serial/raw/build/helper/UAC. NORMALv14 remainsautoactive/listening while
+USBconnected;captureendDIDNOTstopit. UserinstructedmouseOFForUSBwiredfornow;actual
+posttrialmousepower/cableNOTverified. Do notassumeexpired/unarmed/passive.
+Deadline02:00AMManilaNov17. NEXT collectreportthenpushconfirmedresult;iftheUSB
+replugwasnotperformed,recordthatscopeandaskseparateshortreplugreadinessratherthan
+repeatlongtrial. No newbuild/flashneeded. V13rollbackpreserved;normalimage93eb987a.
+
+V14 NORMAL LIVE UPDATE ~01:33 Manila: raw-only exec74926 still active, file growing, stderr empty. NO CDC/DTR/arm commands. Read-only USB snapshot saved; LastArrivalDate predates capture and must NOT independently prove timed replug. User replug/powercycle/feel report still pending.
+
+V14 NORMAL LIVE UPDATE ~01:38 Manila: raw-only exec74926 running, receiver-labelled movement verified (firstevent28.314609s afterrawstart), stderr empty/file growing. No serial/DTR/arm command. Ten-minute mouse cycle due; user observations/replug confirmation still pending. Normal firmware stays active after capture.
+
+V14 NORMAL LIVE UPDATE ~01:44 Manila: exec74926 still recording; receiver event timestamp984.334777s observed in growing file versusfirst28.314609s (>15min span). Streaminglastrowcanbepartial;parseonlyafterclose. No serial/arm command. User16/18minchecks/replug/cyclereportsstillpending. Captureend~01:47:02;normaldonglecontinuesbeyondcapture.
+
+V14 NORMAL 18-MINUTE TRIAL LIVE - 2026-11-17 01:27 Manila:
+Userconfirmedharmlessdoc/otherpointer/GloriousOFF USBunplugged/unchangedsettings.
+Raw-onlycapture1160sstarted;NOCDCreader,NO DTR,NO armcommand. LIVEexec74926,
+privatebasev14-normal-20261117-012742-226176cb. Expectedcaptureend~01:47:02Manila.
+Loggerhashverified09d2e29c90ff0e5e363381c7412b389d11251c862a2a30ac3972ce143eeeab6d.
+UsercueON/start18mintimer;allcontrols;releaseALLbuttonsandreceiver-onlynormalUSB
+replugaround1minwithmouseON;mouse-onlyOFF3s/ONaround5/10min;controlsat16/18min.
+At18minmouseOFF/reconnectUSB. NORMALFIRMWAREDOESNOTTIMEDSTOP,andcaptureclosure
+DOESNOTstopreceiver. Do not openserial/arm/reflash/resetduringtrial. IfuserStop,
+confirmphysicalmouseOFForreceiverunplugged;capturemayfinishorbeclosedpartial.
+Metadata.capture.jsoninitialsuccessfalseuntilrawcompletion;dataallignored.
+NEXT poll74926/read-onlyfiles,collectautomaticinitialstartup/replug/bothmousecycles/
+continuedafterold15minlimit andnountestedcontrols. Nohardwarepassyet. Deadline
+02:00AMManilaNov17 (UTCNov16T18:00Z). Normalv14installedautoactive/listening;
+previousunarmed/passivestateshistorysuperseded. Flashmilestonea05de2fpushed.
+
 V14 NORMAL FLASHED / USB ENUMERATION PASS - 2026-11-17 01:24 Manila:
 PhysicalreadyGloriouswired/OFF. VerifieduniqueNICENANOnRF52840-nicenano/S1406.1.1
 andnormalUF293eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052

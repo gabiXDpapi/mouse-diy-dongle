@@ -20,7 +20,10 @@ explicit `p` or reboot; errors fail closed.
 This candidate passes native checks, build/config/source and UF2 validation;
 **it is flashed and USB enumeration is verified** as DIY Mouse Dongle v14,
 with HID and CDC present. No serial reader or arm command was used. Automatic
-wireless input is still pending its first trial; v13 remains the validated rollback. Normal mode disables serial-console diagnostics and the
+wireless input is recorded without serial activation: receiver events span over
+eighteen minutes, with zero capture read errors. User confirmation of the planned
+USB replug, mouse power cycles and control feel is pending; v13 remains the
+validated rollback. Normal mode disables serial-console diagnostics and the
 boot banner to work independently of DTR. Keep the mouse wired/OFF before flash.
 The existing v13 serial capture controller is for the bounded diagnostic image,
 and must not be used with the silent normal build.

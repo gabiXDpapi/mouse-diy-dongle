@@ -1,5 +1,23 @@
 # First radio capture experiment
 
+## V14 no-serial recording complete; user observations pending
+
+The 1160-second normal-mode recording completed with 44,814 receiver events,
+zero read errors and exit0. Receiver input spans 1,131.448104 seconds (18m51s),
+with 2,710 records after eighteen minutes from the first receiver event.
+No CDC reader, DTR or arm command was used. This demonstrates automatic wireless
+input beyond the old timed limit. It does not independently establish the user's
+planned USB replug or mouse power cycles; the result pop-up is pending.
+All records are background delivery, so polling/latency conclusions are excluded.
+LEFT213/213, RIGHT9/9, wheelUP107/DOWN132; middle/thumb controls were not captured
+in this run. Their earlier v13 baseline remains separately documented.
+Private base: v14-normal-20261117-012742-226176cb, with final raw metadata/summary.
+The USB LastArrivalDate snapshot predates recording and cannot time the replug.
+All capture processes are closed. Normal firmware stays active while connected;
+it did not stop when the recorder closed. User was asked to leave Glorious OFF
+or wired. Confirm practical observations before marking the full trial passed.
+
+
 ## V14 normal flash and enumeration passed
 
 V14 NORMAL FLASHED / USB ENUMERATION PASS - 2026-11-17 01:24 Manila:
