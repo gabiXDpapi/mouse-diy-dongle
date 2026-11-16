@@ -11,8 +11,8 @@ V13 is the current software candidate for a finite fifteen-minute session:
 983,040 ACK attempts and 900,000 ms from first link, with eight discoveries,
 one arm per boot, explicit `x` stop and passive USB restart. It restores the
 tested v11 bridge; v12's startup-neutral experiment did not fix the held-state
-symptom. V13 is built and software-checked, **not yet flashed or hardware-tested**.
-The installed v12 receiver is currently unplugged.
+symptom. V13 is built, flashed and software-checked; passive startup passed on COM12.
+It remains unarmed; the fifteen-minute controls/recovery trial is pending.
 
 `research/capture_receiver_session.ps1` records 935 seconds of serial and
 mouse-only Raw Input. Supply the current user-approved UTC finish deadline;

@@ -1,3 +1,19 @@
+V13 FLASHED / PASSIVE STARTUP PASS — 2026-11-16 17:27 Manila:
+Verified unique NICENANO board nRF52840-nicenano/S1406.1.1 and exact preserved
+v13 UF2 SHA256396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc
+before copying. Fresh v13 banner on COM12;8s passive capture PASS, no ERROR,
+no arm/link/disarm. No serial command written. Reader closed. Private artifact
+receiver-v13-passive-20261116-172732.txt/.json. Installed hardware NOW v13,
+UNARMED with unused budgets (983040 ACK attempts/900000ms/8 discoveries).
+No live serial/raw/build/UAC/helper session. Glorious user-confirmed wired/OFF.
+NEXT separate15min trial readiness: normal receiver unplug/replug (fresh banner
+needed after passive reader); harmless scrollable document/other pointer; mouse
+OFF/USB unplugged, unchanged DPI/surface/settings. Keep OFF until actual arm cue.
+Use research/capture_receiver_session.ps1 -FinishBeforeUtc 2026-11-16T10:00:00Z.
+Full935s serial/raw; one p, confirm before mouse ON. Controls and mouse-only
+OFF3s/ON around5 and10min; observe original15min stop. Stop-request=x once.
+No arm at/after17:42;save/push and pause by18:00. Full v13 trial still UNTESTED.
+
 V13 SOFTWARE CHECKPOINT / FLASH READINESS NEXT — 2026-11-16:
 User authorizes work until18:00 Manila; do not arm15min trial at/after17:42.
 Branch feature/receiver-fifteen-minute-session. V13 restores v11 bridge/main/HID
