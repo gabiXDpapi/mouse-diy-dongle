@@ -319,6 +319,32 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+RESUMED / V13 FOREGROUND TIMING NEXT - 2026-11-17 00:12 Manila:
+User resumes and sets pause time2 (interpreted/announced02:00 AM Manila today,
+UTC2026-11-16T18:00:00Z). Yesterday18:00 deadline expired. Git clean except
+unrelated untracked .vscode/ and INFO_UF2.TXT; latestfb26dad pushed. No hardware
+access,arming,build,flash or live capture has occurred in resumed session.
+Installed image last verifiedv13; last session expired/neutral,one arm used.
+Current physical connection/state not reverified since break.
+Reviewed context,README,radio analysis,original wireless HID plan,15min plan,
+foreground capture plan,existing C logger/controller and prior timing summaries.
+Reuse prior wired foreground reference raw-wired-foreground-20261116-002746;
+no repeat of completed wired baseline. V8 foreground capture50748records/allcode0,
+median hostgap1001us and several~1000event/s seconds. This is host delivery,
+NOT physical polling/latency certification. V13 full935s recording was entirely
+background(code1),so cannot establish current foreground delivery rate.
+NEXT focused v13 motion-only foreground timing,unchanged firmware: normal receiver
+reboot;GloriousOFF/USBunplugged,same surface/DPI/settings,other pointer available.
+One serial reader/freshv13 banner/onep/actualconfirm before mouseON. Show existing
+Raw Input window;user activates with other pointer and makes steady circles/strokes
+~45-60s,no clicks/wheel/DPI/powercycle. Explicit x around60s after first link;
+full100s serial/raw captures with confirmed neutral/disarm,not full15min validation.
+Need prepare bounded controller by reusing existing session and xstop patterns,
+with deadline/one-stop checks;no firmware build or flash needed. Pause via readiness
+pop-up now;do not arm based on yesterday's readiness. Save controls/feel separately
+from host statistics;foreground(code0) only for rates/gaps;manual motion gaps are
+not proof of RF loss. Finish/save/push by02:00. Existing v13 pass remains baseline.
+
 V13 FIFTEEN-MINUTE TRIAL PASS / READY FOR BREAK — 2026-11-16 17:50 Manila:
 User confirms all controls worked smoothly after BOTH mouse-only OFF3s/ON cycles,
 receiver untouched, and clean original15min stop. Full935s serial AND Raw Input
