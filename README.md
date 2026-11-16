@@ -25,7 +25,10 @@ it refuses to arm with eighteen minutes or less remaining. A per-job
 The controller's deadline/stop self-check and syntax checks pass.
 Use `-ForegroundMotion` for a focused 100-second visible-window capture; it
 sends `x` once about 60 seconds after the first link and confirms neutral stop.
-This new mode passes software checks; its first hardware run is pending. Full-length
+This mode passed its first hardware run: 39,210 foreground records, zero read
+errors, smooth user-reported motion and confirmed explicit stop. Median host gap
+was 1.007 ms; peak full-second delivery was 988 events. This is host timing,
+with manual movement, and does not certify physical polling or end-to-end latency. Full-length
 capture and v13 controls/recovery passed in the first fifteen-minute trial.
 Repeated reliability and physical polling/latency measurements remain pending.
 

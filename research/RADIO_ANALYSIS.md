@@ -1,5 +1,34 @@
 # First radio capture experiment
 
+## V13 foreground delivery result
+
+V13 FOREGROUND MOTION PASS - 2026-11-17 00:21 Manila:
+User:Smooth like wired;stopped cleanly. Full100s raw/serial exit0,39210 receiver
+records,ALL code0 foreground,read_errors0/failed0. One p,one link,one x,one neutral
+linkstop+disarm,no ERROR. x sent60027ms after host-observed link;disarm chunk25ms
+later (host timestamps,not device precision). Native controller mode hardware PASS.
+Foreground median gap1007us,p90=2016us,p99=4926us,max939042us.56 interior one-second
+bins;peak988events/s,4 bins950..1050.39208 motion records,maxabsX36/Y22. Firmware
+58809 ACKs,39210 HIDreports,39 retries,535 busy;idle19559/status1/type139249.
+User confirmed capture window active. Reused older wired/v8 foreground reference;
+manual motion not matched,so do NOT rank latency/loss or diagnose maxgap as RF stall.
+Host data supports near1000event/s capability in parts of run,not certified physical
+1000Hz or end-to-end latency. No firmware/settings/DPI changes or injected input.
+Private base v13-motion-20261117-001840-d854159f (csv,serial,journal,stdout/stderr,
+capture.json,summary.json),ignored. exec23691 complete;no live serial/raw/helper/
+UAC/build. Installedv13 now DISARMED/neutral;normal reboot required for new arm.
+Glorious instructed reconnectUSB;cable not independently verified. Deadline02:00 AM
+Manila November17 (UTC2026-11-16T18:00Z). Branch feature/receiver-foreground-timing.
+NEXT repeatability: second bounded15min normal-use/recovery trial on samev13,
+using existing default935s controller;reason is repeated reliability beyond single
+long-run pass,not a new build/baseline. Need new normal reboot/input readiness pop-up.
+No flash. Keep same surface/DPI/settings and harmless doc/other pointer. Mouse-only
+OFF3s/ON around5/10min;all controls/smoothness/original15min cleanstop. Existing
+foreground test establishes host capacity;defaultlongrun backgroundcannotcertifypolling.
+No15min arm at/after01:42. Keep private evidence ignored and push tested result.
+EarlierLIVE entries are history;currentcompletedstate here supersedes them.
+
+
 ## V13 full fifteen-minute validation passed
 
 V13 FIFTEEN-MINUTE TRIAL PASS / READY FOR BREAK — 2026-11-16 17:50 Manila:
