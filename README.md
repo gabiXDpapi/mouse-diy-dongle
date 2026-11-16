@@ -33,8 +33,11 @@ capture and v13 controls/recovery passed in the first fifteen-minute trial.
 A second fifteen-minute run also passed with both mouse-only recoveries and
 a clean original deadline stop: 75,552 background records, zero read errors.
 That is two separate bounded sessions, not continuous thirty-minute validation.
-Physical polling/latency measurements and deliberate middle/thumb-button
-validation remain pending.
+All five buttons and wheel UP/DOWN now have deliberate hardware coverage.
+Middle and each thumb button produced five balanced press/release pairs; the
+user confirmed clean stop with no stuck buttons. Front thumb maps to Windows
+button 5, rear thumb to button 4. Physical polling/latency and intended desk
+placement checks remain pending.
 
 ```powershell
 & ./research/capture_receiver_session.ps1 -SelfTest

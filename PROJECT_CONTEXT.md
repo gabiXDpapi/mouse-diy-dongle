@@ -319,6 +319,37 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V13 ALL FIVE BUTTONS VALIDATED - 2026-11-17 00:47 Manila:
+User confirms requestedmiddle/frontthumb/rearthumborder,cleanstop,no stuckbuttons.
+Full100s raw/serial exited0:25819 receiverrecords,allforeground(code0),read_errors0/
+failed0. Middle5down/5up,side2=5/5,side1=5/5;oneextraLEFTdown/up. Temporalorder
+plususerconfirmation mapsfrontthumb->Windowsbutton5(side2),rearthumb->button4(side1).
+Onep,onelink,onex,neutralstop+disarm,noERROR. Final59898ACKs,25821HIDreports,
+23retries,919busy. Raw/HID totals differ2;do not equate reportcounts with physical
+packetloss. Privatebasev13-motion-20261117-004417-1a641303 summarywithmappingignored.
+Togetherwithpriorleft/right/wheeltests,allfivebuttons+wheelup/downnowdeliberately
+validated. No firmware/build/flash/Windows/DPI changes. exec13642finished;no live
+serial/raw/UAC/helper/build. Installedv13DISARMEDneutral;normalrebootfornewarm.
+UserinstructedreconnectUSB. Branchfeature/receiver-foreground-timing;deadline02:00
+AMManilaNovember17. Preservev13UF2396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc.
+NEXT intendeddesk-placementRFcheck onunchangedv13:receiverinintendeddailyposition,
+sameDPI/surface/settings,otherpointer/harmlesscapturewindow. Normalreceiverreboot,
+GloriousOFF USBunplugged;onearmactualconfirmbeforeON. Existing100sforeground
+controller/autox60s. Usersteadycircles/strokes45-60snormalgripfromnormaldeskspot,
+reportstalls/overshoot/cleanstoptogetherwithapproxreceiverdistance/obstacles.
+This checksonepracticalplacement,notcertifiedrange/interference/gaminglatency.
+No need repeatcompleted wired/extraction/build/flash or longrunbaseline.
+CurrentcompletedstatesupersedesearlierLIVEhistory. Save/pushthenphysicalpopup.
+
+MIDDLE/THUMB BUTTON CAPTURE LIVE - 2026-11-17 00:44 Manila:
+Fresh readinessconfirmed;unchangedv13;onep/newactualarmingconfirmedbeforeONcue.
+LIVEexec13642,privatebasev13-motion-20261117-004417-1a641303. Existing100s foreground
+controllerusedforbuttoncoverage;autox60sfromfirstlink. Do not reopenserial/rearm.
+Useractivateblankcapturewindowwithotherpointer;middle5/frontthumb5/rearthumb5.
+No firmware/settingschanges. Resultpending. Abortexactbase.stop-request ifneeded.
+NEXT poll13642,analyzemiddle/side1/side2 down/up and temporalorder;collectuser
+performed/cleanstopreport,save/push. Deadline02:00AMManilaNovember17.
+
 SECOND V13 FIFTEEN-MINUTE RELIABILITY PASS - 2026-11-17 00:41 Manila:
 User confirms all controls smooth after BOTH mouse-only powercycles;original15min
 cleanstop. Full935s serial/raw exited0,75552 receiverrecords/allbackground,errors0.
