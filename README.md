@@ -44,6 +44,24 @@ allowing RF input. It adds no button press or motion. The active PnP-reset retes
 confirmed). The host was cleared by Esc/releases/receiver unplug. This did not
 fix the PnP case;physical USB removal is the next separate diagnostic.
 
+## Physical USB-removal diagnostic
+
+The next comparison uses installed v12 without rebuilding or flashing. It records
+one arm, read-only LEFT state and serial loss while the user physically unplugs
+only the receiver with LEFT held. No UAC or PnP action is used. User confirmation
+is required;serial loss alone does not establish physical removal or release.
+
+```powershell
+& ./research/capture_physical_usb_loss.ps1 -SelfTest
+# Only after physical readiness; use the current user's explicit UTC arm cutoff:
+& ./research/capture_physical_usb_loss.ps1 -ArmBeforeUtc '2026-11-16T09:06:00Z'
+```
+
+That example cutoff is specific to November16,2026 at17:06 Manila. Expired
+cutoffs are refused. Capture is120s;no-link/cancel/no-unplug fallback sends x
+once while connected. No automatic reopen/rearm. All output is private/ignored.
+Self-checks pass;the physical-removal result is still pending.
+
 ## Active USB-reset capture tools
 
 No firmware rebuild is needed for the next v12 test after verified flashing. The deferred

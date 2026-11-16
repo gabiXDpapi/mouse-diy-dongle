@@ -1,112 +1,58 @@
-V12 ACTIVE PNP-RESET HELD-RELEASE FAILURE 2026-11-16:
-Job v12-activeusb-20261116-162436-bb444906 finished transport capture:2353 raw
-receiver records,0 read errors,one arm/targeted restart,fresh passive v12 boot
-and startup-neutral-complete marker,no second arm. Host LEFT probe True before
-AND after reset. User waited/checks confirmed selection still followed OTHER
-pointer. Startup-zero hypothesis FAILED for this Windows PnP restart case.
-User cleared via Esc/releases/receiver unplug and confirms other pointer normal.
-All serial/raw/helper processes finished;receiver PHYSICALLY UNPLUGGED,installed
-v12. No Windows settings/input injection changed. Do not claim overall PASS.
-NEXT DIAGNOSTIC: distinguish PHYSICAL USB removal from host PnP restart,using
-unchanged installed v12. No more guessed firmware release behavior or synthetic
-press. Prepare bounded one-arm/raw capture for user physically unplugging only
-receiver while holding Glorious LEFT;probe host LEFT before/after removal,then
-observe selection before clearing. If physical removal clears it,scope remaining
-problem to PnP scenario;otherwise investigate host/class behavior further. No
-new rebuild/flash or automatic rearm needed. Separate physical readiness required.
-
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-startup-neutral.md.
-Inspect git status/log first. Branch:feature/receiver-startup-neutral.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-physical-usb-loss.md.
+Inspect git status/log first. Branch:feature/physical-usb-loss-validation.
 
-V12 DEFERRED HELPER PREPARED 2026-11-16: user approved UAC with Glorious
-wired/OFF. Job v12-activeusb-20261116-162436-bb444906 ready;expires
-2026-11-16T08:27:41Z (16:27:41 Manila). NO restart/arm/capture yet. Separate
-normal receiver reboot/OFF-unplugged/text/other-pointer popup pending. Capture
-requires75s remaining plus prearm checks;refuse/cancel if late. On confirmed
-readiness run controller -Mode Capture -RunName v12-activeusb-20261116-162436-bb444906.
-To cancel write exact private job.cancel;helper expires without action. Never
-reuse v11 jobs. Arm cue must precede mouse ON;hold through real reset before
-selection check. Old v11 host-held failure now cleared,not assumed fixed by v12.
+PHYSICAL USB-REMOVAL CAPTURE SOFTWARE READY 2026-11-16:
+branch feature/physical-usb-loss-validation. V12 startup-neutral PnP held-state
+fix FAILED (recorded1e1b1e5). User cleared host via Esc/releases/receiver unplug;
+other pointer normal. Installed v12 remains physically unplugged,no live tasks.
+No firmware changes/build/flash. New research/capture_physical_usb_loss.ps1
+captures one explicit arm,raw120s/serial loss,global LEFT state1Hz. User physically
+unplugs receiver while LEFT held;no UAC/PnP/automatic restart/reopen/rearm. If
+cancelled/no link35s/no unplug60s,one x fallback while connected. Capturer130s
+bound. Serial loss alone needs user physical confirmation,not assumed proof.
+Self-checks PASS for live/cancel/timeout/no-link/disconnected action gate and
+actual expired-cutoff CLI rejection before hardware access. Syntax/diff checks
+PASS,firmware diff0. No physical test run. No native firmware test repeat needed.
+Current user break17:10 Manila;script requires explicit future UTC arm cutoff,
+check before hardware and again before p. Use -ArmBeforeUtc 2026-11-16T09:06:00Z
+for this session (17:06 Manila). Stop/save/close by17:10. Refuse if cutoff passed.
+NEXT physical readiness popup:reconnect receiver normally(no double-reset),
+Glorious OFF/USB unplugged,selectable text/other pointer,receiver cable reachable
+while holding LEFT. Actual arm cue before mouse ON;move5s,hold LEFT/drag,physically
+unplug ONLY receiver around15s afterON. While still held move OTHER pointer with
+no clicks,observe whether selection fixes. Then release LEFT,leave receiver
+unplugged. Ifstuck Esc/release/click other pointer,confirm clear. Do not replug/
+rearm until observation recorded. This separates physical removal from failed
+PnP restart;not a firmware fix or generalized USB-recovery certification.
 
-V12 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user reconnected receiver
-and confirmed NICENANO/Glorious wired-OFF. Bootloader0.6.0/nRF52840-nicenano/
-S1406.1.1 verified;exact v12 hash1e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30;
-UF2 PASS243 blocks0x26000..0x352FF,copy complete. COM12 expected USB identity
-confirmed.6.5s passive capture receiver-v12-passive-20261116-162126.txt shows
-v12 banner AND HID startup neutral complete,no RF arming,zero traffic,no errors.
-Board NOW v12 UNARMED,unused327680 ACK/5min/8 discovery budgets. COM12 closed,
-no live serial/raw/helper/build. Flash metadata receiver-v12-flash-validation.json.
-This verifies startup neutral completion,NOT Windows retained-held-button fix.
-NEXT physical/UAC readiness:Glorious wired/OFF,receiver normally connected.
-Controller -Mode Prepare gets UAC/deferred180s helper,then separate normal receiver
-reboot/OFF-unplugged/selectable-text/other-pointer readiness. Capture v12-only,
-75s helper lifetime required,one p/actual arm cue,reset at link+25s. Hold LEFT
-through actual reset and wait about40s from mouse ON (pointer inactive) BEFORE
-checking other-pointer selection without clicks;then release LEFT/moveGlorious
-and verify no auto-resume. Capture samples host LEFT state before/after reset.
-Do not reuse oldv11 job or invoke immediate restart helper. If still dragging,
-Esc/release all/unplugreceiver and confirm host clear. No press-pulse workaround.
+Installed v12 SHA2561e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30.
+Image C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2 and
+ignored receiver-v12-1e543890.uf2;v11/v10/v9/v8 preserved. V12 native8 checks,
+receiver/probe/radio builds/UF2/source/config validation passed. V12 sends one
+completed all-zero HID report before RF arming,but PnP-reset user test STILL left
+LEFT held. Host before/after probes True;2353 raw/error0 records. User confirmed
+stuck selection and cleared it by Esc/unplug;no host settings or input injection.
+Failure base:v12-activeusb-20261116-162436-bb444906.* . V11 failed the same case.
+Transport restart/unarmed RF recovery succeeded;overall held-release did not.
+Do not call neutral a fix or create synthetic press pulses. Next physical unplug
+comparison is on unchanged firmware;no extra UAC helper needed/running.
 
-V12 STARTUP-NEUTRAL SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
-branch feature/receiver-startup-neutral. V12 BUILT/VALIDATED,NOT FLASHED.
-V11 active USB-loss held-release failed;host cleared after Esc/released buttons/
-physical receiver unplug. Read-only host left/right=false,ClickLock=false.
-V12 sends exactly one six-byte all-zero neutral after first USB configuration,
-main-thread wait for completion BEFORE DTR/RF arming. Pending blocks forwarding;
-EAGAIN/I/O/timeout keeps output blocked. Duplicate config/service idempotent.
-Reuses link-end neutral helper;no synthetic press,motion,scaling/protocol/budget
-change. Passive startup now includes this zero HID report (not RF input).
-Runtime startup-gate regression failed on v11;all8 native tests PASS including
-zero bytes,no RF report/counter/sequence consumption,error/completion/offline
-cases and prior bounds/stop/reset behavior. Receiver/probe/radio builds+UF2 PASS.
-Staged source/config/HID separation/v12 banner+startup completion marker verified.
-61988 flash/16128 RAM,243 UF2 blocks0x26000..0x352FF. Exact receiver image:
-C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
-SHA2561e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30.
-Private receiver-v12-1e543890.uf2,priorv11/v10/v9/v8 preserved. Validation JSON
-receiver-v12-build-validation.json. Probe/radio rebuilt;byte identity not claimed;
-default HID existing image unchanged,not rebuilt. Host controller now expects
-v12+neutral completion marker,records read-only global LEFT state before/after
-reset;selfchecks/syntax PASS,no host input injection. No live helper/serial/raw/build.
-Hardware STILL v11,receiver PHYSICALLY UNPLUGGED;no v12 flash or hardware result.
-Windows may ignore initially zero button state after re-enumeration;this remains
-an UNPROVEN experiment,not a guaranteed fix. Do not claim release success until
-same active reset physical test. If it fails,clear host state via Esc/release/
-receiver unplug and reassess;no synthesized press/release workaround.
-NEXT PHYSICAL PAUSE:keep Glorious wired/OFF,reconnect only receiver and double-
-reset into NICENANO. Verify bootloader identity/exact v12 hash/UF2,copy,then
-passive startup showing startup neutral complete/no RF arm. Separate UAC Prepare
-and normal-reboot/OFF held-test readiness for controller's v12 job. No new timing
-cutoff supplied on this resumed afternoon session. Do not reuse old v11 job.
+To selfcheck:pwsh -File research/capture_physical_usb_loss.ps1 -SelfTest
+Only after separate physical readiness:pwsh -File research/capture_physical_usb_loss.ps1
+-ArmBeforeUtc 2026-11-16T09:06:00Z (current17:06 Manila arm cutoff). If a later
+session resumes,explicitly review/update the user's deadline;never silently reuse
+a past cutoff. All outputs ignored under build-pairing-analysis,new unique job.
+To cancel known active job create its .cancel file;one x fallback before removal.
 
-Failure capture:build-pairing-analysis/v11-activeusb-20261116-155201-22120a8b.*
-One p,one receiver-only PnP restart/helper exit0,fresh passive boot,ACKs0/HID0
-while2851 RF packets seen. Raw1795 records/errors0,LEFT down2/up1 (final down
-unreleased). User selection followed OTHER pointer and remained after click/up;
-Esc/release/physical receiver unplug cleared. Overall held-release FAIL despite
-capture transport success. All old controller/helper processes ended.
-
-V11 installed hashb1d27489bd8fa65b2972fa5fefe83c19b843428bb27492991cf66aa3e727561b.
-V11 configured-passive USB restart and fresh-arm x-release had passed;active
-loss exposed this new gap. V10 full5min/two mouse-only recoveries passed.
-Limits remain327680 ACKs/5min,8 discoveries,1s gap,30s first arm,one p/boot,x stop.
-User policy:no automatic session continuation after USB restart;fresh explicit arm.
-
-Host tools research/capture_active_usb_reset.ps1 (Prepare/Capture/SelfTest) and
-restart_receiver_usb_deferred.ps1 (-SelfTest) are tracked. Prepare obtains UAC,
-waits180s for signal;Capture needs75s left,unused job,fresh v12 startup. It arms
-once,closes sole serial reader and signals receiver-only reset at link+25s,
-reopens CDC and observes no automatic rearm;raw150s. Jobs/IDs/captures private
-in ignored build-pairing-analysis. To cancel exact known job,create .cancel.
-No helper currently running. All old v11 jobs consumed/finished;never reuse them.
-
-Use question pop-ups for physical readiness/pause;actual arm cue BEFORE mouse
-power-on. Keep both handoff files current,push tested milestones on feature
-branches. Leave .vscode/ and INFO_UF2.TXT untracked. No guessed scaling or host
-setting changes. CORE wired1600 saved,wireless equivalence unverified;Windows
-accel1/speed9 unchanged,X/Y1:1. Host raw/background timing not physical latency/
-DPI/RF-loss/polling proof. No daily-use/gaming reliability claim. Prior02:30
-cutoff belonged to earlier paused session;current user resumed without a new one.
+Bounds327680 ACKs/5min,8 discoveries,1s gap,30s first arm,one p/boot,x stop.
+No automatic resume after USB restart;fresh explicit arm is user policy. V10
+full5min/two mouse-only recoveries passed,V9 x release/V8 expiry release passed.
+Use question pop-ups for physical pauses,actual arm confirmation BEFORE mouse ON.
+Keep PROJECT_CONTEXT.md and RESUME_PROMPT.md current,push tested milestones on
+feature branches. Private captures/addresses/binaries ignored;leave .vscode/ and
+INFO_UF2.TXT untracked. No guessed scaling. CORE wired1600 saved,wireless DPI
+unverified;Windows accel1/speed9 unchanged,X/Y1:1. Background raw/host timing
+not physical latency/DPI/polling/loss proof. Daily-use reliability not established.
