@@ -1,3 +1,43 @@
+V16 FAST-POLL SOFTWARE READY / FLASH NEXT IF TIME FITS - 2026-11-17 02:42 Manila:
+Branchfeature/receiver-fast-poll-latency. App latency-fast changesONLYdiagnostic
+pollwait50->10us;FASTflagrequiresLATENCY;normal/defaultpathstill50us. Timingcore,
+RFbytes/ACKramp/mappingunchanged. All9nativecheckspass;build/config/UF2/stagingpass.
+Finalimage55a371eacf874e9d2aa8bb47bdedc586ca67d4ae08128bf229bf51e75b828951,
+49316flash/16448RAM,193blocks0x26000..0x32100exclusive. Privatepreserved
+build-pairing-analysis/timing-v16-55a371ea.uf2;softwaremeta v16-software-validation.json.
+ProductDIY Mouse Timing v16,all5featureflagsON,PRINTK/UARTconsole/bootbannerOFF.
+ParentcaptureExpectedProductv16supported,versionedprefix;SelfTest/syntaxPASS.
+Build99344complete;NOliveprocesses. InstalledSTILLtimingv15DISARMED,notnormalv14.
+Baselinev15hardwarepass8a3c63dpushed;RFUSBmean608.802us/max1153/p99upper1000,
+candidateage42.949us,busy1089/53635candidates,reports37597exactlyraw/samples.
+NEXT physicalNICENANOreadinesswired/OFF,verifyexactv16image/boardbeforeflashONLY
+ifbefore02:48. Thenproductverify/separateOFF USBunpluggedinputreadiness,100squiet
+capture -ExpectedProduct 'DIY Mouse Timing v16' -FinishBeforeUtc2026-11-16T19:00Z.
+OneCDC/noarm;x70s/poststopd. Do notstartat/after02:52. Comparemeans/tails/busyand
+hostcadence;manualmotion/USBphasedifferencesmeanoneA/BisNOTcausalorlongrunproof.
+RESTOREtestednormalv14UF293eb987a viafreshphysicalreadinessBEFORE03:00break.
+Do notpromotefastpolltonormalfromonebench. Ifdelayedskipcandidateandrestorev14.
+No morebuildsneeded;keepprivatecaptures/addresses/imagesignored/contextcurrent.
+
+V16 FAST-POLL DIAGNOSTIC BUILD LIVE - 2026-11-17 02:39 Manila:
+V15baselinehardwaremeasurementPASSEDandsaved/pushed8a3c63donfeature/receiver-latency-diagnostics.
+Currentbranchfeature/receiver-fast-poll-latency. Installedtimingv15DISARMEDafterx;
+userreportsSmoothlikenormalv14/cleanstopped;Gloriousinstructedwired. NoCDC/rawlive.
+NewcandidatechangesONLYdiagnosticRXpollpause50->10us (FAST_POLL_DIAGNOSTICScompile
+flagrequiresLATENCY_DIAGNOSTICS). Normal/defaultpathsretain50us. SameRFbytes,
+ACKramp,USBmapping,timingcollector/dumpprotocol. App latency-fast productDIY Mouse
+Timing v16;newseparatebuildfolder. ParentcaptureacceptsexplicitExpectedProductv15/
+v16only,versionedfileprefix;SelfTest/syntaxPASS. Nativechecksrunbybuildscript.
+LIVEBUILDexec99344 latency-fast. No v16flash/measurementyet;normalv14rollback93eb
+andbaselinev15d751preserved. Deadline03:00AMManilaNov17 UTCNov16T19:00Z.
+NEXT finishbuild/config/staging/UF2validation/preserve,pushsoftwarethenphysical
+NICENANOreadinessifclockfits. Do NOTflashv16at/after02:48;restorev14instead.
+Capturecontrollerrequires8minmargin(no startat/after02:52). Need100sforemotion
+trialwithv16expectedproduct,compareallmeans/tails/busy/retries,notjustCPUmean.
+ThenfreshphysicalNICENANOreadinessRESTORETESTEDnormalv14before03:00. Do notpromote
+fastpolltonormalwithoutrepeatability/longerreliabilityevidence. Ifdelayedskipnew
+trialandrestorev14. CompanionappdeferreduntilAFTERgamingwork. Contextcurrent.
+
 V15 FIRST LATENCY MEASUREMENT PASS - 2026-11-17 02:35 Manila:
 UsermotionSmoothlikenormalv14;stoppedcleanly. exec63319complete;100sforegroundraw
 37597receiverrecords/errors0,ALLcode0;oneCDCreader,NOp,onex,dactiveprobeSILENT,

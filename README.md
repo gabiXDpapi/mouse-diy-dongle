@@ -46,6 +46,13 @@ and reports histogram percentile bounds. These are instrumented receiver-stage
 timings, including callback dispatch; they exclude sensor, prior queue/retry,
 OS/game and display latency. No optimization is claimed from this preparation.
 
+The first v15 hardware timing run passed: 37,597 accepted input reports matched
+37,597 foreground host records. RF END to USB-completion callback averaged
+0.609 ms, with maximum 1.153 ms and p99 histogram upper bound 1 ms. This is one
+instrumented receiver-stage run, not full mouse/system latency certification.
+A diagnostic-only `-App latency-fast` candidate compares 10 µs polling against
+50 µs; its first hardware comparison is pending. Normal mode stays unchanged.
+
 ## Project stack
 
 V13 is the current software candidate for a finite fifteen-minute session:

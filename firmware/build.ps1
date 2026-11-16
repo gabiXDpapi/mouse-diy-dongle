@@ -1,4 +1,4 @@
-param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency')][string]$App = 'hid')
+param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency', 'latency-fast')][string]$App = 'hid')
 
 $ErrorActionPreference = 'Stop'
 $workspace = Join-Path $env:USERPROFILE 'zephyrproject'
@@ -27,6 +27,7 @@ if ($App -ne 'hid') {
     Copy-Item -LiteralPath "$source\receiver.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\dongle.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\latency.conf" -Destination $stage
+    Copy-Item -LiteralPath "$source\latency-fast.conf" -Destination $stage
     python "$PSScriptRoot\generate_radio_header.py" "$PSScriptRoot\..\build-pairing-analysis" "$stage\src\radio_parameters.h"
     if ($LASTEXITCODE -ne 0) { throw 'Radio evidence validation failed.' }
 }
@@ -36,12 +37,14 @@ try {
     if ($App -eq 'hid') {
         west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage
     } else {
-        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency')) { 'ON' } else { 'OFF' }
-        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency')) { 'ON' } else { 'OFF' }
-        $normal = if ($App -in @('dongle', 'latency')) { 'ON' } else { 'OFF' }
-        $timing = if ($App -eq 'latency') { 'ON' } else { 'OFF' }
-        $extraConf = if ($App -eq 'latency') { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -eq 'dongle') { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
-        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DNORMAL_DONGLE=$normal" "-DLATENCY_DIAGNOSTICS=$timing" "-DEXTRA_CONF_FILE=$extraConf"
+        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency', 'latency-fast')) { 'ON' } else { 'OFF' }
+        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency', 'latency-fast')) { 'ON' } else { 'OFF' }
+        $normal = if ($App -in @('dongle', 'latency', 'latency-fast')) { 'ON' } else { 'OFF' }
+        $timing = if ($App -in @('latency', 'latency-fast')) { 'ON' } else { 'OFF' }
+        $fast = if ($App -eq 'latency-fast') { 'ON' } else { 'OFF' }
+        $extraConf = if ($App -in @('latency', 'latency-fast')) { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -eq 'dongle') { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
+        if ($App -eq 'latency-fast') { $extraConf += ';latency-fast.conf' }
+        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DNORMAL_DONGLE=$normal" "-DLATENCY_DIAGNOSTICS=$timing" "-DFAST_POLL_DIAGNOSTICS=$fast" "-DEXTRA_CONF_FILE=$extraConf"
     }
     if ($LASTEXITCODE -ne 0) { throw 'Firmware build failed; do not flash an old UF2.' }
     python "$PSScriptRoot\check_uf2.py" "$build\zephyr\zephyr.uf2"

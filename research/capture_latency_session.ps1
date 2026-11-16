@@ -1,4 +1,4 @@
-param([DateTimeOffset]$FinishBeforeUtc,[switch]$SelfTest)
+param([DateTimeOffset]$FinishBeforeUtc,[ValidateSet('DIY Mouse Timing v15','DIY Mouse Timing v16')][string]$ExpectedProduct='DIY Mouse Timing v15',[switch]$SelfTest)
 $ErrorActionPreference='Stop'
 function Assert-LatencyTime([DateTimeOffset]$Now,[DateTimeOffset]$Finish){
     if($Now -ge $Finish.AddMinutes(-8)){throw 'Too little time for capture and physical rollback;no capture'}
@@ -13,10 +13,11 @@ if($SelfTest){
 if(!$PSBoundParameters.ContainsKey('FinishBeforeUtc')){throw 'Current user finish deadline required'}
 Assert-LatencyTime ([DateTimeOffset]::UtcNow) $FinishBeforeUtc
 $root=Join-Path (Split-Path $PSScriptRoot -Parent) 'build-pairing-analysis'
-$job=Join-Path $root ('v15-latency-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
+$version=[regex]::Match($ExpectedProduct,'v\d+$').Value
+$job=Join-Path $root ($version+'-latency-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
 $clock=[Diagnostics.Stopwatch]::StartNew();$log=[IO.StreamWriter]::new("$job.txt",$false);$journal=[IO.StreamWriter]::new("$job.host.jsonl",$false)
 $port=$null;$raw=$null;$allText='';$xSent=$false;$dumpSeen=$false
-$result=@{scope='quiet instrumented RF/USB timing;100s foreground raw;no arm command';success=$false;p_count=0;x_count=0;d_count=0}
+$result=@{scope='quiet instrumented RF/USB timing;100s foreground raw;no arm command';expected_product=$ExpectedProduct;success=$false;p_count=0;x_count=0;d_count=0}
 function Record-Latency([string]$Phase,[string]$Text){$journal.WriteLine((@{host_utc=[DateTime]::UtcNow.ToString('o');elapsed_ms=$clock.ElapsedMilliseconds;phase=$Phase;text=$Text}|ConvertTo-Json -Compress));$journal.Flush()}
 function Read-Latency([string]$Phase){$chunk=$port.ReadExisting();if($chunk.Length){$log.Write($chunk);$log.Flush();Record-Latency $Phase $chunk;$script:allText+=$chunk}}
 try{
@@ -24,7 +25,7 @@ try{
     $usb=@($devices|Where-Object{$_.PNPDeviceID -match '^USB\\VID_2FE3&PID_0008\\'})
     $cdc=@($devices|Where-Object{$_.Name -match '\(COM\d+\)'})
     if($usb.Count -ne 1 -or $cdc.Count -ne 1){throw 'Unique timing device/CDC missing'}
-    if((Get-PnpDeviceProperty -InstanceId $usb[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Timing v15'){throw 'Timing image product not verified;no device command'}
+    if((Get-PnpDeviceProperty -InstanceId $usb[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne $ExpectedProduct){throw 'Timing image product not verified;no device command'}
     $name=[regex]::Match($cdc[0].Name,'\((COM\d+)\)').Groups[1].Value
     $port=[IO.Ports.SerialPort]::new($name,115200);$port.DtrEnable=$true;$port.WriteTimeout=1000;$port.Open()
     $end=$clock.ElapsedMilliseconds+2000;while($clock.ElapsedMilliseconds -lt $end){Read-Latency 'pre';Start-Sleep -Milliseconds 20}
@@ -35,7 +36,7 @@ try{
     if((Get-Content "$job.raw.stdout.txt" -Raw) -notmatch 'RAW_INPUT_READY'){throw 'Raw capture readiness failed'}
     Assert-LatencyTime ([DateTimeOffset]::UtcNow) $FinishBeforeUtc
     $rawAt=$clock.ElapsedMilliseconds;$probeSent=$false;$xAt=$null;$nextDump=0;$dumps=0
-    Write-Output "CAPTURE_BASE=$job";Write-Output 'CAPTURE_RUNNING: timing v15 automatic startup;no arm command'
+    Write-Output "CAPTURE_BASE=$job";Write-Output "CAPTURE_RUNNING: $ExpectedProduct automatic startup;no arm command"
     while($clock.ElapsedMilliseconds -lt $rawAt+100000){
         Read-Latency 'capture'
         if(!$xSent -and $allText.Length){throw 'Serial output during active measurement'}

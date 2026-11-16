@@ -190,7 +190,11 @@ static int listen(uint8_t channel, bool pairing_address)
             start_rx();
         }
         /* shortcut: polling logger misses traffic; use an IRQ ring buffer for throughput work. */
+#ifdef FAST_POLL_DIAGNOSTICS
+        k_busy_wait(10);
+#else
         k_busy_wait(50);
+#endif
         k_yield();
     }
     err = disable_radio();
