@@ -319,6 +319,39 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V15 FIRST LATENCY MEASUREMENT PASS - 2026-11-17 02:35 Manila:
+UsermotionSmoothlikenormalv14;stoppedcleanly. exec63319complete;100sforegroundraw
+37597receiverrecords/errors0,ALLcode0;oneCDCreader,NOp,onex,dactiveprobeSILENT,
+frozenpoststopsummaryvalid. AcceptedHID37597 matchesraw37597 andallUSBsamples.
+Parserallhist/count/sum/component/ACK/busychecksPASS;failed/capped/trackingfault0.
+RFEND->USBcompletionCALLBACKmean608.802us,max1153us,p99UPPER1000us(135of37597>1ms).
+RFEND->submitSTARTmean52.458us,max185us. SubmitSTART->completionmean556.344us,
+max1085us,p99UPPER1000us. CandidateageallACKcandidateframesmean42.949us,max179us.
+ACKREADYmean207.954us/max362;ACKENDmean252.202us/max406. SuccessfulACK52546,
+candidate53635,retries15,busy1089;reconciliation53635=52546+1089. Rawall37597code0.
+Privatebasev15-latency-20261117-023337-d3bd3453 finalsummarysaved. No liveprocess.
+Installedtimingv15NOWDISARMEDbyx;Gloriousinstructedwired. NOTnormalcontinuousstate.
+Measurementsincludeinstrumentation+USBcallbackdispatch,andlastacceptedRFattempt;
+exclude sensor/priorqueue/retries/OS/game/display. PercentilesbucketUPPERbounds.
+No claim of totalmouse1mslatency or1000Hzcertification. Rollbacknormal93ebpreserved.
+NEXT smallA/Bdiagnosticcandidate:reduceONLYdiagnosticpollpause50->10us,keepnormal
+codepath50/RFbytes/ACKramp/mappingunchanged. ObserveCPUreaction/busy/tailtradeoffs;
+notassumebenefitfrommeanalone. Separatebuildproductv16;newflashreadinessandshort
+sameforemotioncapture. Needrestoretestednormalv14BEFORE03:00AMbreak regardless.
+Do notstartnewcaptureat/after02:52;deadlineUTC2026-11-16T19:00Z. Ifdoesnotfit,
+restorev14withoutnewcandidate. Apps/DPI/lightingremainexplicitlydeferred.
+
+V15 TIMING TRIAL LIVE - 2026-11-17 02:33 Manila:
+FreshreadinessconfirmedmouseOFF USBunplugged/otherpointer/samesettings. Controller
+runningoneCDCreaderDTR+100sforegroundraw,NOp. LIVEexec63319;privatebase
+v15-latency-20261117-023337-d3bd3453. CapturecuebeforemouseON. Active d at50s
+expectsnoserialtext;x70s;poststopdquery. Usersteadycircles/strokes~45swindowactive.
+Do notopenanotherreader/rearm/reset. Exactbase.stop-requestifuserrequestsabort.
+Expectedend~02:35:20;resultpending. NEXT poll63319,analyzecompleteframevia
+research/analyze_latency.py,collectfeel/stopreport,save/push. ThenphysicalNICENANO
+readinessrestoretestednormalv14before03:00. Installedtimingv15autoactiveuntilx;
+parentcapturewillleavedisarmedafterstop. No normaloperationclaimafterdiagnostic.
+
 V15 TIMING FLASHED / ENUMERATION PASS - 2026-11-17 02:32 Manila:
 UserphysicalNICENANOready/GloriouswiredOFF. VerifieduniqueNICENANOboard/S140and
 exactfinald751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7UF2,

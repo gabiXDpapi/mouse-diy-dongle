@@ -1,5 +1,30 @@
 # First radio capture experiment
 
+## First quiet receiver timing result
+
+V15 FIRST LATENCY MEASUREMENT PASS - 2026-11-17 02:35 Manila:
+UsermotionSmoothlikenormalv14;stoppedcleanly. exec63319complete;100sforegroundraw
+37597receiverrecords/errors0,ALLcode0;oneCDCreader,NOp,onex,dactiveprobeSILENT,
+frozenpoststopsummaryvalid. AcceptedHID37597 matchesraw37597 andallUSBsamples.
+Parserallhist/count/sum/component/ACK/busychecksPASS;failed/capped/trackingfault0.
+RFEND->USBcompletionCALLBACKmean608.802us,max1153us,p99UPPER1000us(135of37597>1ms).
+RFEND->submitSTARTmean52.458us,max185us. SubmitSTART->completionmean556.344us,
+max1085us,p99UPPER1000us. CandidateageallACKcandidateframesmean42.949us,max179us.
+ACKREADYmean207.954us/max362;ACKENDmean252.202us/max406. SuccessfulACK52546,
+candidate53635,retries15,busy1089;reconciliation53635=52546+1089. Rawall37597code0.
+Privatebasev15-latency-20261117-023337-d3bd3453 finalsummarysaved. No liveprocess.
+Installedtimingv15NOWDISARMEDbyx;Gloriousinstructedwired. NOTnormalcontinuousstate.
+Measurementsincludeinstrumentation+USBcallbackdispatch,andlastacceptedRFattempt;
+exclude sensor/priorqueue/retries/OS/game/display. PercentilesbucketUPPERbounds.
+No claim of totalmouse1mslatency or1000Hzcertification. Rollbacknormal93ebpreserved.
+NEXT smallA/Bdiagnosticcandidate:reduceONLYdiagnosticpollpause50->10us,keepnormal
+codepath50/RFbytes/ACKramp/mappingunchanged. ObserveCPUreaction/busy/tailtradeoffs;
+notassumebenefitfrommeanalone. Separatebuildproductv16;newflashreadinessandshort
+sameforemotioncapture. Needrestoretestednormalv14BEFORE03:00AMbreak regardless.
+Do notstartnewcaptureat/after02:52;deadlineUTC2026-11-16T19:00Z. Ifdoesnotfit,
+restorev14withoutnewcandidate. Apps/DPI/lightingremainexplicitlydeferred.
+
+
 ## Quiet radio/USB timing candidate
 
 V15 QUIET TIMING SOFTWARE READY / FLASH NEXT - 2026-11-17 02:28 Manila:
