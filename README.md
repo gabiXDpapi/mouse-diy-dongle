@@ -30,7 +30,11 @@ errors, smooth user-reported motion and confirmed explicit stop. Median host gap
 was 1.007 ms; peak full-second delivery was 988 events. This is host timing,
 with manual movement, and does not certify physical polling or end-to-end latency. Full-length
 capture and v13 controls/recovery passed in the first fifteen-minute trial.
-Repeated reliability and physical polling/latency measurements remain pending.
+A second fifteen-minute run also passed with both mouse-only recoveries and
+a clean original deadline stop: 75,552 background records, zero read errors.
+That is two separate bounded sessions, not continuous thirty-minute validation.
+Physical polling/latency measurements and deliberate middle/thumb-button
+validation remain pending.
 
 ```powershell
 & ./research/capture_receiver_session.ps1 -SelfTest

@@ -1,5 +1,31 @@
 # First radio capture experiment
 
+## V13 repeated fifteen-minute reliability passed
+
+SECOND V13 FIFTEEN-MINUTE RELIABILITY PASS - 2026-11-17 00:41 Manila:
+User confirms all controls smooth after BOTH mouse-only powercycles;original15min
+cleanstop. Full935s serial/raw exited0,75552 receiverrecords/allbackground,errors0.
+Onep/zerox,three links/three neutralstops,noERROR;hostobserved899945ms (~900s).
+Final879210/983040 ACKs;480531HIDreports,784retries,30952busy;idle397891/status4/
+type1=481315. LEFT658down/658up,RIGHT68/68,wheelUP217/DOWN548. No middle/sideflags.
+Privatebasev13-session-20261117-002340-2dc17d49 with finalsummary/userreportignored.
+Across two separate fifteen-minute trials:four planned mouse-only recoveries,
+all userconfirmed smooth and originaldeadlinecleanstop;30min total boundeduse,
+NOT one continuous30min session. Foregroundmeasurement4d9a89f passed separately.
+No live readers/logger/UAC/helper/build. Installedv13 now expiredneutral,onearm
+used;normalreboot beforefuturearm. No firmware/Windows/DPI changes. Userinstructed
+reconnectUSB,cablenotindependentlyverified. Deadline02:00AMManilaNovember17.
+Branchfeature/receiver-foreground-timing. NEXT focusedmiddle+thumbbuttonphysical
+check usingexisting100s -ForegroundMotion controller (recordsbuttons,onep,one x
+at60slink,full100sraw). Reason:fivebitmappingnativeverified,onlyleft/right/wheel
+physicallytested. Normalreceiverreboot,GloriousOFF/USBunplugged,otherpointerready.
+ActualarmcuebeforeON;activateblankRawInputwindowwithOTHERpointer andkeepactive.
+Press/release middle5times,frontthumb5,rearthumb5 separately,thenleft/right/wheel
+ifcomfortable;noDPI. CheckRawInputmiddle/side1/side2 balancedtransitions and user
+stuckstate separately. No browsernavigationtest/no new firmware/build/flash.
+CurrentcompletedstatesupersedesearlierLIVE/pendingentries. Save/pushandpopup.
+
+
 ## V13 foreground delivery result
 
 V13 FOREGROUND MOTION PASS - 2026-11-17 00:21 Manila:

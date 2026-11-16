@@ -319,6 +319,60 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+SECOND V13 FIFTEEN-MINUTE RELIABILITY PASS - 2026-11-17 00:41 Manila:
+User confirms all controls smooth after BOTH mouse-only powercycles;original15min
+cleanstop. Full935s serial/raw exited0,75552 receiverrecords/allbackground,errors0.
+Onep/zerox,three links/three neutralstops,noERROR;hostobserved899945ms (~900s).
+Final879210/983040 ACKs;480531HIDreports,784retries,30952busy;idle397891/status4/
+type1=481315. LEFT658down/658up,RIGHT68/68,wheelUP217/DOWN548. No middle/sideflags.
+Privatebasev13-session-20261117-002340-2dc17d49 with finalsummary/userreportignored.
+Across two separate fifteen-minute trials:four planned mouse-only recoveries,
+all userconfirmed smooth and originaldeadlinecleanstop;30min total boundeduse,
+NOT one continuous30min session. Foregroundmeasurement4d9a89f passed separately.
+No live readers/logger/UAC/helper/build. Installedv13 now expiredneutral,onearm
+used;normalreboot beforefuturearm. No firmware/Windows/DPI changes. Userinstructed
+reconnectUSB,cablenotindependentlyverified. Deadline02:00AMManilaNovember17.
+Branchfeature/receiver-foreground-timing. NEXT focusedmiddle+thumbbuttonphysical
+check usingexisting100s -ForegroundMotion controller (recordsbuttons,onep,one x
+at60slink,full100sraw). Reason:fivebitmappingnativeverified,onlyleft/right/wheel
+physicallytested. Normalreceiverreboot,GloriousOFF/USBunplugged,otherpointerready.
+ActualarmcuebeforeON;activateblankRawInputwindowwithOTHERpointer andkeepactive.
+Press/release middle5times,frontthumb5,rearthumb5 separately,thenleft/right/wheel
+ifcomfortable;noDPI. CheckRawInputmiddle/side1/side2 balancedtransitions and user
+stuckstate separately. No browsernavigationtest/no new firmware/build/flash.
+CurrentcompletedstatesupersedesearlierLIVE/pendingentries. Save/pushandpopup.
+
+SECOND V13 CAPTURE COMPLETE / USER REPORT PENDING - 2026-11-17 00:39 Manila:
+exec79121 exited0;full935s serial/raw,75552 receiver-only backgroundrecords,zero
+read errors/failed0. Onep/zerox,three links/three neutralstops/noERROR;hostobserved
+session899945ms (~900s). Final879210ACKs/480531HIDreports/784retries/30952busy.
+LEFT658down/up,RIGHT68down/up,wheelUP217/DOWN548. No middle/sideflags. Private base
+v13-session-20261117-002340-2dc17d49 with savedsummary pendinguserobservation.
+User selected completed;posttrial smoothness/recovery/stop reportpopup pending.
+No live serial/raw/helper/build. Installedv13 sessionexpiredneutral;rebootrequired
+beforeanotherarm. Current state supersedes LIVE history. Deadline02:00Manila.
+NEXT collectpendingreportthenpushrepeatabilityresult. Remaining deliberatebutton
+coverage:middle(wheelpress),two thumbbuttons;nativefivebitmapping tested,but not
+physicallyprompted. Use existing100s ForegroundMotion controller for focused
+buttoncapture,x60s;activateblankRawInputwindowwithotherpointer beforetesting,
+avoidbrowsernavigation. Need normalreboot/OFF USBunplugged readiness first.
+No newfirmware/build/flash or extra capturefeature needed.
+
+SECOND RUN LIVE UPDATE ~00:30 Manila: exec79121 active,six minutes recorded,two links/one neutral stop/no ERROR after first planned mouse-only cycle. Onep/zerox;usercontrol/feel observations pending.
+
+SECOND RUN LIVE UPDATE ~00:35 Manila: eleven minutes recorded,three links/two neutral stops/no ERROR after second planned mouse-only cycle. exec79121 active;onep/zerox. Finaldeadline/userreportstillpending.
+
+SECOND V13 RELIABILITY TRIAL LIVE - 2026-11-17 00:23 Manila:
+Fresh physical readiness confirmed normal reboot/mouseOFF USBunplugged/document.
+Default935s controller started,one p/new actual arming confirmation before ON cue.
+LIVE exec79121;private base v13-session-20261117-002340-2dc17d49. Do not open another
+reader/rearm/reset. Expectedcaptureend~00:39:18;original15min fromfirstlink.
+User normalcontrols+mouse-onlyOFF3s/ON at5/10min. No firmware/settings changes.
+No passed result yet. Abort exactbase.stop-request triggerssinglex/partialcleanup.
+NEXT poll79121,collectuserresults,compare fullcounters/stop timing,save/push.
+Deadline02:00 AM Manila November17 UTC2026-11-16T18:00Z. Prior foreground4d9a89f
+andfirstlongrunfb26dad passed/pushed. This live state supersedesdisarmedhistory.
+
 V13 FOREGROUND MOTION PASS - 2026-11-17 00:21 Manila:
 User:Smooth like wired;stopped cleanly. Full100s raw/serial exit0,39210 receiver
 records,ALL code0 foreground,read_errors0/failed0. One p,one link,one x,one neutral
