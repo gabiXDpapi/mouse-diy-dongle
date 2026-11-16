@@ -22,7 +22,10 @@ and fresh physical readiness are required for another arm.
 mouse-only Raw Input. Supply the current user-approved UTC finish deadline;
 it refuses to arm with eighteen minutes or less remaining. A per-job
 `.stop-request` file sends `x` once; early-abort raw data is explicitly partial.
-The controller's deadline/stop self-check and syntax checks pass. Full-length
+The controller's deadline/stop self-check and syntax checks pass.
+Use `-ForegroundMotion` for a focused 100-second visible-window capture; it
+sends `x` once about 60 seconds after the first link and confirms neutral stop.
+This new mode passes software checks; its first hardware run is pending. Full-length
 capture and v13 controls/recovery passed in the first fifteen-minute trial.
 Repeated reliability and physical polling/latency measurements remain pending.
 

@@ -1,3 +1,21 @@
+V13 FOREGROUND CONTROLLER READY / PHYSICAL SETUP NEXT - 2026-11-17:
+Branch feature/receiver-foreground-timing. Current deadline02:00 AM Manila today
+(UTC2026-11-16T18:00:00Z). No hardware access,build,flash or arming this session.
+Existing capture_receiver_session.ps1 now accepts -ForegroundMotion:100s serial/
+raw,existing visible Raw Input window,one x after60s from first link,confirmed
+neutral/disarm and full raw completion. Default935s fifteen-minute mode unchanged;
+conservative18min deadline margin retained in both modes. SelfTest passes original
+deadline/single-stop plus exact60s motion deadline/no-link/disabled cases;syntax
+and diff checks PASS. New live mode NOT hardware-tested. No firmware changes.
+Reuses prior wired foreground reference;do not repeat extraction/build/flash/wired
+baseline. NEXT pop-up: receiver normal unplug/replug (not double-reset),Glorious
+OFF/USBunplugged,unchanged DPI/surface/settings,other pointer. Keep OFF until new
+actual arming confirmation. Then ON,use other pointer to activate capture window,
+move continuous circles/strokes45-60s without buttons/wheel/powercycle. Keep window
+active until automatic close;expect x stop around60s after link. Capture lasts100s.
+Analyze code0 only,report manual motion/focus limitations;no physical1000Hz/latency
+claim from host arrival alone. Old v13 fifteen-minute result preserved.
+
 RESUMED / V13 FOREGROUND TIMING NEXT - 2026-11-17 00:12 Manila:
 User resumes and sets pause time2 (interpreted/announced02:00 AM Manila today,
 UTC2026-11-16T18:00:00Z). Yesterday18:00 deadline expired. Git clean except
