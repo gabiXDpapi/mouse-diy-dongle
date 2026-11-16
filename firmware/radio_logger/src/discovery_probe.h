@@ -111,6 +111,9 @@ static bool receiver_start_session(void)
 static void receiver_mark_disarmed(void)
 {
     if (!receiver_disarm_handled) {
+#ifdef LATENCY_DIAGNOSTICS
+        latency_stop();
+#endif
         receiver_disarm_requested = receiver_disarm_handled = true;
         printk("RECEIVER disarmed: neutral complete; explicit p required\n");
     }
@@ -161,6 +164,14 @@ static void poll_probe_arm(void)
         return;
     }
 #ifdef WIRELESS_HID
+#ifdef LATENCY_DIAGNOSTICS
+    if (command == 'd') {
+        if (receiver_disarm_handled) {
+            (void)latency_dump(console, wireless_hid_reports, wireless_hid_retries, wireless_hid_busy);
+        }
+        return;
+    }
+#endif
     if (command == 'x') {
         receiver_disarm_requested = true;
         return;
@@ -258,6 +269,9 @@ static int transmit_probe_packet(uint8_t *reply, uint32_t delay_us)
     }
     int err = disable_radio();
     NRF_RADIO->PACKETPTR = (uint32_t)packet;
+#ifdef LATENCY_DIAGNOSTICS
+    if (!delay_us && ended && !err) probe_timing_record_ack();
+#endif
 #ifdef WIRELESS_HID
     /* Keep one discovery/first-ACK timing sample per link without per-packet USB text. */
     if (delay_us || receiver_trace_next_ack) {
@@ -326,6 +340,9 @@ static int send_report_ack(const uint8_t *p)
     if (receiver_link_should_stop()) {
         return -EACCES;
     }
+#ifdef LATENCY_DIAGNOSTICS
+    latency_observe_rx(probe_timing_rx_end());
+#endif
     int hid_err = wireless_hid_forward(p);
     if (hid_err) {
         return hid_err;

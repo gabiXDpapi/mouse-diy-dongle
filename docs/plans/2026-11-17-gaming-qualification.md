@@ -1,8 +1,8 @@
 # Gaming performance and long-term reliability qualification
 
 User prioritizes long-term reliability and gaming capability, targeting 1000Hz
-if achievable. Keep the working normal v14 image as rollback. Today's work stops
-by02:00AM Manila November17; no new flash or physical trial before that break.
+if achievable. Keep the working normal v14 image as rollback. User extended this session to03:00AM Manila November17. Prepare quiet timing
+diagnostics before further performance changes;normalv14 remains rollback.
 These are project acceptance targets, not an external gaming certification.
 
 ## Current evidence and gaps

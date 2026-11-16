@@ -319,6 +319,97 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V15 QUIET TIMING SOFTWARE READY / FLASH NEXT - 2026-11-17 02:28 Manila:
+Deadlineextended03:00AMManilaNov17 (UTCNov16T19:00Z). Branchfeature/receiver-latency-diagnostics.
+InstalledhardwareSTILLworkingnormalv14autoactive;NOdiagnosticflashorlivetrialyet.
+No livebuild/serial/raw/UAC/helper. Normalrollback93eb987a fullhashpreserved.
+
+Finaltimingv15UF2d751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7,
+49304flash/16448RAM,193blocks,0x26000..0x32100exclusive. Privatepreserved
+build-pairing-analysis/timing-v15-d7516017.uf2. Finalstagedsourcesmatchall6headers/
+main;NORMAL_DONGLE/LATENCY_DIAGNOSTICS/WIRELESS_HID/DISCOVERY_PROBE ON. Product
+DIY Mouse Timing v15;PRINTK/UARTconsole/bootbannerOFF,HID/REBOOT/UARTinterruptON.
+NormalcontrolbuildpassedLATENCYOFF,hashf594d2bf988896be858d3885e1ffb20e3a51a1fe6d4edc0077a2f7bb32f511b3;
+notinstalled;restoreTESTED93ebimageafterdiagnostic. Builds67436/30244complete.
+All9nativechecksPASS(protocol3modes,bridgewith/withoutdiag,collector/writer).
+Researchparser2tests+invalidcasesPASS;controllerSelfTest/syntaxPASS,liverununtested.
+Coreinitialemptyhistfailedcountassertbeforeimplementation. Softwaremeta
+v15-software-validation.jsonprivate. Detailsdocs/plans/2026-11-17-latency-diagnostics.md.
+
+Fixed6histograms/9bins/1Msamplecap,IRQlockedinflightstate,async+earlyUSBcallback,
+failed/shortwrite exclusion,clockwrap,neutralexclusion,stop/drain tested. No text
+whileactive. xstopscollectionafterneutral;dONLYpostdisarm+nopending outputsframe,
+nonblockingFIFO+DTR+1.5sdeadline. Footerreports/retries/busyvalidatecoverage.
+Metricsareinstrumented RF END->submissionSTART/USBcompletionCALLBACK andACKready/
+end;NOTsensor/debounce/earlierqueue/retry/OS/game/displaylatency. Quantilesbucket
+UPPERbounds,mean/maxmeasured;observeroverheadincluded. No performancefixyet.
+
+NEXTphysicalpopup:Gloriouswired/OFF,double-resetONLYreceiverNICENANO. Verifyboard
+andEXACTfinaltimingimagebeforecopy;diagnosticAUTOACTIVATES,nopassive/unarmedclaim.
+Verifyproduct.Then separateinputreadiness(mouseOFF USBunplugged,harmlessdoc/other
+pointer,sameDPI/surface). Use research/capture_latency_session.ps1 withfinishUTC
+2026-11-16T19:00Z;oneCDCreader,100sforegroundraw,NOarmcommand. Actualcapturecue
+beforemouseON;useractivateswindow/moves~45s. d at50sactiveexpectsSILENCE;x70s;
+frozendumpafter250ms,up to3drequests. Perjob.stop-request sendsxonetimeearly.
+Do notopenanotherreader,rearmorresetduringcapture. Analyzeviaanalyze_latency.py;
+requirevalidfooter/hist/count/component reconciliation anduserreport. Restore
+preservednormalv14aftermeasurementviafreshphysicalreadinessBEFORE03:00break.
+AppforDPI/lighting/buttonsrequestedBUTexplicitlydeferreduntilAFTERgamingwork.
+GloriousCOREdoesnotgetofficialreceiverinterfacefromourstandardHID;wiredmousewas
+previouslydetected. No proprietarymouse-settingwritesorappimplementationdone.
+Keepprivatecaptures/addresses/imagesignored;context/resumecurrent/pushtestedsteps.
+Currentreadystateabove supersedesolderLIVE/buildhistory. No morebuildsneeded.
+
+QUIET LATENCY SOFTWARE / BUILDS LIVE - 2026-11-17 02:15 Manila:
+All9nativechecksPASS,protocolprobe/receiver/dongle andbridgebothdiagnosticsmodes.
+New latency_metrics.h/coretests:fixed6histograms/9bins,1Msamplecap,sum64,IRQlocked
+singleinflighttimestampownership,callbackbeforereturn/async/duplicates/failedshort
+writes/clockwrap/stopdrain/overlapfault tested. latency_dump.h outputsframedstats
+ONLYaftercollectstoppedandpendingfalse;DTR+1.5swhole-dumpdeadline,nonblockingFIFO,
+partialwrites/DTRloss/stall/activeguardtestsPASS. Coretestinitialemptycollector
+failedexpectedcountassertbeforeimplementation. No perpackettext/alloc.
+Integrated RFcandidateagehookfromTIMER2PPIEND,CC3CPUclock,USBsubmitstart/completion
+beforesemgive,andACKREADY/ENDhardwaretimestamps. Neutralnotmeasured;newsession
+cannotresetpending. Markdisarmstopscollection;dcommandonlywhenneutraldisarmhandled.
+App latency NORMAL_DONGLE+LATENCY_DIAGNOSTICS ON,printk/UARTconsole/bootbannerOFF,
+productDIY Mouse Timing v15. Normal Appdongle explicitLATENCYOFF stays independent.
+LIVEBUILDexec67436: building latency then normal dongle control. Nohardwarechange:
+installedworkingnormalv14 stillautoactive,UF293eb987a preserved. No live serial/
+raw/UAChelper. Deadline03:00AMManilaNov17 UTCNov16T19:00Z.
+NEXT finishbuild/config/staging/UF2hashpreserve/push,thenflashreadinesspopup with
+Gloriouswired/OFF (diagnosticimagealsoautoactivates). Prepareone-reader100sraw+
+CDCcapture,actualimage/productverified,noarmcommand,quietactivewindow,xthenpoststop
+dframe. Recordinstrumentationoverhead/scope:RFEND->USBDcompletionisnotphysical
+sensor->displaylatency. CompanionappexplicitlydeferreduntilAFTERgamingwork.
+
+LATER COMPANION APP REQUEST - 2026-11-17: user wants a receiver app for DPI,
+lighting and buttons,but explicitly defers it until AFTER gaming optimizations.
+Do not implement app now. Receiver button remapping is feasible;true sensorDPI/
+lighting depend on actual mouse hardware/proprietary command support. Keep focus
+on quiet latency measurement/reliability. No new mouse-setting writes authorized
+or attempted in this step.
+
+RESUMED UNTIL03:00 / QUIET LATENCY DIAGNOSTICS NEXT - 2026-11-17 01:59 Manila:
+User extends work to03:00AMManilaNov17 (UTCNov16T19:00Z),superseding02:00cutoff.
+Prioritylowlatency/reliability/consistent1000Hz. Branchfeature/receiver-latency-diagnostics.
+Installednormalv14 remainsworking/autoactive;NOlivehardwaretool,buildorcapture.
+Planopt-inApp latency (NORMAL_DONGLE+LATENCY_DIAGNOSTICS),preservev14normalbinary.
+UseexistingTIMER2PPI RFEND/READY capture;CC3free for synchronized CPU timestamps.
+Fixed6histograms:candidateRFage,RF->submitstart,submitstart->USBcompletion,
+RF->USBcompletion,RF->ACKready,RF->ACKend. No perpackettext/alloc/hotpathdump.
+MeasureUSBcompletioncallbackbeforesemgive;handlecallbackbeforereturnfromwrite,
+asynccompletion,failed/shortwrite,busy,neutralexcluded,32bclockwrap andstatscap.
+Smallirq_lock sections protectinflightstats;dumpONLYafterxneutralandnoinflight.
+KeepPRINTK/UARTconsole/bootbannerdisabled;explicitpoststopd command usesbounded
+nonblockinguart_fifo_fill withDTR/deadlinechecks. No output whileactive. Normal
+v14imageandv13rollbackpreserved;no speculativeoptimizationsbeforemeasurements.
+Neednativebehaviorregressions/core+bridgehooks,hardwaretimingadapter,buildflag/
+App latency/productv15,SDKbuild/config/UF2verify,pushsoftwarethenphysicalflashpopup.
+Newdiagnosticimageautoactivates,soGloriouswired/OFFforflash;laterharmlessdocmotion,
+xstop,dumpandrawhostcapturewithoneCDCreader. Do notuseoldv13controller.
+Coremetricsdonotprovephysicalsensor->screenlatency;observeroverheadmustbeacknowledged.
+Usermaykeepusingnormalmouseuntilphysicalflashneeded. Keepcontext/resumecurrent.
+
 GAMING/RELIABILITY PRIORITY SAVED - 2026-11-17, before02:00AM pause:
 User wants long-term reliability and especially gaming capability/1000Hz if
 possible,and asks which gaming features can be added. Preserve working normal

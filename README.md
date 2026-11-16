@@ -33,6 +33,19 @@ and must not be used with the silent normal build.
 only after a completed neutral stop. Both variants share RF/HID behavior.
 The sections below describe the validated v13 diagnostic baseline and history.
 
+## Quiet latency measurement candidate
+
+`firmware/build.ps1 -App latency` builds a separate v15 timing image. It collects
+fixed-memory radio/USB histograms and emits a summary only after `x` has stopped
+input and a `d` query is received. It passes native/build/config/UF2 checks;
+hardware measurement is pending. The working normal v14 image is preserved.
+
+Use `research/capture_latency_session.ps1` after physical setup and inspect its
+serial file with `research/analyze_latency.py`. The tool validates sample coverage
+and reports histogram percentile bounds. These are instrumented receiver-stage
+timings, including callback dispatch; they exclude sensor, prior queue/retry,
+OS/game and display latency. No optimization is claimed from this preparation.
+
 ## Project stack
 
 V13 is the current software candidate for a finite fifteen-minute session:

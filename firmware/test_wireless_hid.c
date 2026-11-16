@@ -65,6 +65,13 @@ static int hid_int_ep_write(const struct device *dev, const uint8_t *data,
     if (auto_complete) registered_ops->int_in_ready(dev);
     return 0;
 }
+#ifdef LATENCY_DIAGNOSTICS
+static uint32_t fake_us;
+static unsigned int irq_lock(void) { return 0; }
+static void irq_unlock(unsigned int key) { assert(key == 0); }
+static uint32_t latency_clock_us(void) { return fake_us; }
+#include "radio_logger/src/latency_metrics.h"
+#endif
 #include "radio_logger/src/wireless_hid.h"
 
 int main(void)
@@ -186,5 +193,27 @@ int main(void)
     assert(wireless_hid_new_session());
     assert(!wireless_hid_has_sequence && wireless_hid_reports == 0 &&
            wireless_hid_retries == 0 && wireless_hid_busy == 0);
+#ifdef LATENCY_DIAGNOSTICS
+    fake_us = 100; latency_observe_rx(50); auto_complete = true; p[1]++;
+    assert(wireless_hid_forward(p) == 0);
+    assert(latency_metrics[LAT_RF_USB].count == 1 && !latency_pending.active);
+    fake_us = 200; latency_observe_rx(150); auto_complete = false; p[1]++;
+    assert(wireless_hid_forward(p) == 0 && latency_pending.active);
+    assert(!wireless_hid_new_session());
+    fake_us = 1200; registered_ops->int_in_ready(&fake_device);
+    assert(latency_metrics[LAT_SUBMIT_USB].maximum == 1000 && !latency_pending.active);
+    write_result = -EIO; fake_us = 1300; latency_observe_rx(1250); p[1]++;
+    assert(wireless_hid_forward(p) == -EIO && !latency_pending.active);
+    assert(latency_failed_submissions == 1 && latency_metrics[LAT_RF_USB].count == 2);
+    write_result = 0; short_write = true; auto_complete = true;
+    fake_us = 1400; latency_observe_rx(1350);
+    assert(wireless_hid_forward(p) == -EIO && !latency_pending.active);
+    assert(latency_failed_submissions == 2 && latency_metrics[LAT_RF_USB].count == 2);
+    short_write = false;
+    unsigned int neutral_count = latency_metrics[LAT_RF_USB].count;
+    assert(wireless_hid_finish() == 0 && latency_metrics[LAT_RF_USB].count == neutral_count);
+    latency_ack(100, 150, 200); latency_stop();
+    assert(latency_dump_ready() && !latency_tracking_fault);
+#endif
     return 0;
 }

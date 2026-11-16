@@ -13,6 +13,15 @@
 #include <zephyr/usb/usb_device.h>
 #include <nrfx.h>
 #include "radio_parameters.h"
+#ifdef LATENCY_DIAGNOSTICS
+static uint32_t latency_clock_us(void)
+{
+    NRF_TIMER2->TASKS_CAPTURE[3] = 1;
+    return NRF_TIMER2->CC[3];
+}
+#include "latency_metrics.h"
+#include "latency_dump.h"
+#endif
 #ifdef WIRELESS_HID
 #include <zephyr/drivers/usb/udc_buf.h>
 #include <zephyr/sys/atomic.h>

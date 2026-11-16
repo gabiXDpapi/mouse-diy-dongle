@@ -22,6 +22,9 @@ BUILD_ASSERT(sizeof(wireless_hid_report) >= WIRELESS_HID_REPORT_SIZE);
 static void wireless_hid_ready(const struct device *dev)
 {
     ARG_UNUSED(dev);
+#ifdef LATENCY_DIAGNOSTICS
+    latency_usb_complete();
+#endif
     k_sem_give(&wireless_hid_slot);
 }
 
@@ -45,7 +48,7 @@ static void wireless_hid_status(enum usb_dc_status_code status, const uint8_t *p
 
 static void wireless_hid_restart_if_needed(void)
 {
-    /* Restart outside the USB callback; fresh startup stays unarmed. */
+    /* Restart outside the USB callback; main applies the selected startup policy. */
     if (atomic_get(&wireless_hid_restart)) {
         sys_reboot(SYS_REBOOT_COLD);
     }
@@ -74,8 +77,14 @@ static int wireless_hid_write(const uint8_t report[WIRELESS_HID_REPORT_SIZE], in
     /* The SDK pads the DMA allocation; only six report bytes belong on the wire. */
     memcpy(wireless_hid_report, report, WIRELESS_HID_REPORT_SIZE);
     uint32_t written = 0;
+#ifdef LATENCY_DIAGNOSTICS
+    bool measured = !wait_ms && latency_submit_begin();
+#endif
     int err = hid_int_ep_write(wireless_hid_device, wireless_hid_report,
                                WIRELESS_HID_REPORT_SIZE, &written);
+#ifdef LATENCY_DIAGNOSTICS
+    latency_submit_result(measured, !err && written == WIRELESS_HID_REPORT_SIZE);
+#endif
     if (err) {
         k_sem_give(&wireless_hid_slot);
         return err;
@@ -95,6 +104,9 @@ static bool wireless_hid_new_session(void)
         atomic_get(&wireless_hid_restart)) {
         return false;
     }
+#ifdef LATENCY_DIAGNOSTICS
+    if (!latency_reset()) return false;
+#endif
     wireless_hid_new_link();
     wireless_hid_reports = wireless_hid_retries = wireless_hid_busy = 0;
     return true;

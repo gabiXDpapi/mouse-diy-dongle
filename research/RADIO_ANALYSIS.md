@@ -1,5 +1,49 @@
 # First radio capture experiment
 
+## Quiet radio/USB timing candidate
+
+V15 QUIET TIMING SOFTWARE READY / FLASH NEXT - 2026-11-17 02:28 Manila:
+Deadlineextended03:00AMManilaNov17 (UTCNov16T19:00Z). Branchfeature/receiver-latency-diagnostics.
+InstalledhardwareSTILLworkingnormalv14autoactive;NOdiagnosticflashorlivetrialyet.
+No livebuild/serial/raw/UAC/helper. Normalrollback93eb987a fullhashpreserved.
+
+Finaltimingv15UF2d751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7,
+49304flash/16448RAM,193blocks,0x26000..0x32100exclusive. Privatepreserved
+build-pairing-analysis/timing-v15-d7516017.uf2. Finalstagedsourcesmatchall6headers/
+main;NORMAL_DONGLE/LATENCY_DIAGNOSTICS/WIRELESS_HID/DISCOVERY_PROBE ON. Product
+DIY Mouse Timing v15;PRINTK/UARTconsole/bootbannerOFF,HID/REBOOT/UARTinterruptON.
+NormalcontrolbuildpassedLATENCYOFF,hashf594d2bf988896be858d3885e1ffb20e3a51a1fe6d4edc0077a2f7bb32f511b3;
+notinstalled;restoreTESTED93ebimageafterdiagnostic. Builds67436/30244complete.
+All9nativechecksPASS(protocol3modes,bridgewith/withoutdiag,collector/writer).
+Researchparser2tests+invalidcasesPASS;controllerSelfTest/syntaxPASS,liverununtested.
+Coreinitialemptyhistfailedcountassertbeforeimplementation. Softwaremeta
+v15-software-validation.jsonprivate. Detailsdocs/plans/2026-11-17-latency-diagnostics.md.
+
+Fixed6histograms/9bins/1Msamplecap,IRQlockedinflightstate,async+earlyUSBcallback,
+failed/shortwrite exclusion,clockwrap,neutralexclusion,stop/drain tested. No text
+whileactive. xstopscollectionafterneutral;dONLYpostdisarm+nopending outputsframe,
+nonblockingFIFO+DTR+1.5sdeadline. Footerreports/retries/busyvalidatecoverage.
+Metricsareinstrumented RF END->submissionSTART/USBcompletionCALLBACK andACKready/
+end;NOTsensor/debounce/earlierqueue/retry/OS/game/displaylatency. Quantilesbucket
+UPPERbounds,mean/maxmeasured;observeroverheadincluded. No performancefixyet.
+
+NEXTphysicalpopup:Gloriouswired/OFF,double-resetONLYreceiverNICENANO. Verifyboard
+andEXACTfinaltimingimagebeforecopy;diagnosticAUTOACTIVATES,nopassive/unarmedclaim.
+Verifyproduct.Then separateinputreadiness(mouseOFF USBunplugged,harmlessdoc/other
+pointer,sameDPI/surface). Use research/capture_latency_session.ps1 withfinishUTC
+2026-11-16T19:00Z;oneCDCreader,100sforegroundraw,NOarmcommand. Actualcapturecue
+beforemouseON;useractivateswindow/moves~45s. d at50sactiveexpectsSILENCE;x70s;
+frozendumpafter250ms,up to3drequests. Perjob.stop-request sendsxonetimeearly.
+Do notopenanotherreader,rearmorresetduringcapture. Analyzeviaanalyze_latency.py;
+requirevalidfooter/hist/count/component reconciliation anduserreport. Restore
+preservednormalv14aftermeasurementviafreshphysicalreadinessBEFORE03:00break.
+AppforDPI/lighting/buttonsrequestedBUTexplicitlydeferreduntilAFTERgamingwork.
+GloriousCOREdoesnotgetofficialreceiverinterfacefromourstandardHID;wiredmousewas
+previouslydetected. No proprietarymouse-settingwritesorappimplementationdone.
+Keepprivatecaptures/addresses/imagesignored;context/resumecurrent/pushtestedsteps.
+Currentreadystateabove supersedesolderLIVE/buildhistory. No morebuildsneeded.
+
+
 ## V14 plug-and-play hardware validation passed
 
 V14 PLUG-AND-PLAY HARDWARE PASS / BREAK HANDOFF - 2026-11-17 01:51 Manila:

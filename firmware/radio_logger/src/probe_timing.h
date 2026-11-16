@@ -58,3 +58,15 @@ static void probe_timing_after_tx(bool ended)
            ended, probe_software_age_us, NRF_TIMER2->CC[1] - probe_rx_end_us,
            NRF_TIMER2->CC[0] - probe_rx_end_us, NRF_RADIO->MODECNF0);
 }
+
+#ifdef LATENCY_DIAGNOSTICS
+static uint32_t probe_timing_rx_end(void)
+{
+    return NRF_TIMER2->CC[0];
+}
+
+static void probe_timing_record_ack(void)
+{
+    latency_ack(probe_rx_end_us, NRF_TIMER2->CC[1], NRF_TIMER2->CC[0]);
+}
+#endif

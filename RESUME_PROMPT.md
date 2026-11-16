@@ -1,90 +1,65 @@
-GAMING/RELIABILITY PRIORITY SAVED - 2026-11-17, before02:00AM pause:
-User wants long-term reliability and especially gaming capability/1000Hz if
-possible,and asks which gaming features can be added. Preserve working normal
-v14;no firmware/settings/flash/serial/capture changes in this planning step.
-Next plan docs/plans/2026-11-17-gaming-qualification.md:verifyactual USB1ms
-configuration and controlledforeground consistency,then quiet device-side timing
-histograms/counters before targeted IRQ/hardware-timing changes. Distinguish fresh
-report delivery from polling and end-to-end latency. Validate fast motion/input
-edges,USB/mouse/system sleep recovery and practical RF robustness. Proposed4hour,
-then8+hour/multi-day soaks NOTyetperformed. DPI/debounce/lift-off/batteryfeatures
-need supported mouse-side protocol;receiver scaling is not true DPI. Userordinary
-wireless use may continue. Currentnormalv14 remainsinstalledautoactive/listening,
-no live tools/readers/helpers/builds. Latestnormalhardwarepass704c7c7pushed.
-NEXT resumeafterbreak:refreshworkwindow,readqualificationplan,and implement
-measurement step conservatively. Do not repeat extraction/build/flash/baselines
-without reason. Existing02:00AMNov17 deadline expires;do not reuse in laterday.
-
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-17-plug-and-play.md.
-Inspect git status/log first. Branch feature/receiver-plug-and-play.
-Keep context and this ready-to-copy prompt current for every meaningful step.
-Commit/push tested milestones;use feature-based branch names. Private captures,
-addresses and binaries stay ignored. Leave .vscode/ and INFO_UF2.TXT untracked.
-Use question pop-ups when physical intervention is required,then pause.
+Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,research/RADIO_ANALYSIS.md,
+docs/plans/2026-11-17-latency-diagnostics.md and gaming-qualification.md.
+Inspectgitstatus/logfirst.Currentbranchfeature/receiver-latency-diagnostics.
+Keepcontextandthiscopy-pastepromptcurrentaftereachmeaningfulstep.Pushtested
+milestones;usefeaturebranches.Privatecaptures/addresses/binariesstayignored.
+Leave.vscode/andINFO_UF2.TXTuntracked.Usequestionpopupstopauseforphysicalactions.
 
-V14 PLUG-AND-PLAY HARDWARE PASS / BREAK HANDOFF - 2026-11-17 01:51 Manila:
-User confirms: all worked automatically and smoothly, including receiver USB
-unplug/replug with mouse left ON, both mouse-only OFF/ON cycles, and controls at
-16/18min beyond old limit. User additionally reports mouse STILL WORKING after
-capture ended. This is intended: normal firmware runs independently until unplug,
-without Codex, serial reader or arm command. User may keep using it wirelessly.
-Do not stop/reflash/reset it merely because recording or the work session ended.
+V15 QUIET TIMING SOFTWARE READY / FLASH NEXT - 2026-11-17 02:28 Manila:
+Deadlineextended03:00AMManilaNov17 (UTCNov16T19:00Z). Branchfeature/receiver-latency-diagnostics.
+InstalledhardwareSTILLworkingnormalv14autoactive;NOdiagnosticflashorlivetrialyet.
+No livebuild/serial/raw/UAC/helper. Normalrollback93eb987a fullhashpreserved.
 
-First normal trial:1160s mouse-only recording exit0,44814 receiver-only background
-records,read_errors0/failed0. Receiver input span1131.448104s (18m51.448s);
-11522 records after15min,8365 after16min,2710 after18min fromfirst receiver event.
-LEFT213down/213up,RIGHT9/9,wheelUP107/DOWN132. Middle/thumb events absent in this
-run;their deliberate v13 coverage and unchanged mapping remain separate evidence.
-No CDC/DTR/arm command or Windows/DPI setting change. No active serial/raw/build/
-UAC/helper processes. Normalv14 installed and autoactive/listening while connected;
-NOT unarmed/passive/expired. Mouse is currently being used wirelessly per user.
-Private base v14-normal-20261117-012742-226176cb with complete CSV/metadata/summary.
-USB replug/cycles are user-confirmed; LastArrivalDate predates capture and does
-not independently establish their timing. Background arrivals do not certify
-physical polling/loss/latency. No claim of long-term reliability from one normal run.
+Finaltimingv15UF2d751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7,
+49304flash/16448RAM,193blocks,0x26000..0x32100exclusive. Privatepreserved
+build-pairing-analysis/timing-v15-d7516017.uf2. Finalstagedsourcesmatchall6headers/
+main;NORMAL_DONGLE/LATENCY_DIAGNOSTICS/WIRELESS_HID/DISCOVERY_PROBE ON. Product
+DIY Mouse Timing v15;PRINTK/UARTconsole/bootbannerOFF,HID/REBOOT/UARTinterruptON.
+NormalcontrolbuildpassedLATENCYOFF,hashf594d2bf988896be858d3885e1ffb20e3a51a1fe6d4edc0077a2f7bb32f511b3;
+notinstalled;restoreTESTED93ebimageafterdiagnostic. Builds67436/30244complete.
+All9nativechecksPASS(protocol3modes,bridgewith/withoutdiag,collector/writer).
+Researchparser2tests+invalidcasesPASS;controllerSelfTest/syntaxPASS,liverununtested.
+Coreinitialemptyhistfailedcountassertbeforeimplementation. Softwaremeta
+v15-software-validation.jsonprivate. Detailsdocs/plans/2026-11-17-latency-diagnostics.md.
 
-Current branch feature/receiver-plug-and-play. Software3f5934c,flash/enumeration
-withoutseriala05de2f,recordingfd4c32bpushed;nowrecordconfirmedhardwarepass. Normal
-image SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
-private preserved dongle-v14-93eb987a.uf2,46124flash/16064RAM,181UF2blocks,
-0x26000..0x31500exclusive. V13rollback396d7dd8 remains preserved. Do not flash
-bounded receiver-v14 image by mistake; normal uses build.ps1 -App dongle.
+Fixed6histograms/9bins/1Msamplecap,IRQlockedinflightstate,async+earlyUSBcallback,
+failed/shortwrite exclusion,clockwrap,neutralexclusion,stop/drain tested. No text
+whileactive. xstopscollectionafterneutral;dONLYpostdisarm+nopending outputsframe,
+nonblockingFIFO+DTR+1.5sdeadline. Footerreports/retries/busyvalidatecoverage.
+Metricsareinstrumented RF END->submissionSTART/USBcompletionCALLBACK andACKready/
+end;NOTsensor/debounce/earlierqueue/retry/OS/game/displaylatency. Quantilesbucket
+UPPERbounds,mean/maxmeasured;observeroverheadincluded. No performancefixyet.
 
-CORE NORMAL-DONGLE BEHAVIOR NOW USER-CONFIRMED. Automatic startup follows USB
-configuration, no DTR/manualarm/30sdiscovery/15min/ACK/discoverycap;mouse link gaps
-neutralize and rediscover. USB restart can automatically start normalmode again,
-per user's latest request overriding earlier passive/finite preference. Optional
-x stop/p restart is native-tested but NOT separately hardware-validated in normal
-mode; use physical mouseOFF or receiver unplug for immediate stop when needed.
-Abrupt unplug while held can leave Windows held state (also wired baseline);
-release buttons before unplug. No speculative startup-neutral fixes needed.
+NEXTphysicalpopup:Gloriouswired/OFF,double-resetONLYreceiverNICENANO. Verifyboard
+andEXACTfinaltimingimagebeforecopy;diagnosticAUTOACTIVATES,nopassive/unarmedclaim.
+Verifyproduct.Then separateinputreadiness(mouseOFF USBunplugged,harmlessdoc/other
+pointer,sameDPI/surface). Use research/capture_latency_session.ps1 withfinishUTC
+2026-11-16T19:00Z;oneCDCreader,100sforegroundraw,NOarmcommand. Actualcapturecue
+beforemouseON;useractivateswindow/moves~45s. d at50sactiveexpectsSILENCE;x70s;
+frozendumpafter250ms,up to3drequests. Perjob.stop-request sendsxonetimeearly.
+Do notopenanotherreader,rearmorresetduringcapture. Analyzeviaanalyze_latency.py;
+requirevalidfooter/hist/count/component reconciliation anduserreport. Restore
+preservednormalv14aftermeasurementviafreshphysicalreadinessBEFORE03:00break.
+AppforDPI/lighting/buttonsrequestedBUTexplicitlydeferreduntilAFTERgamingwork.
+GloriousCOREdoesnotgetofficialreceiverinterfacefromourstandardHID;wiredmousewas
+previouslydetected. No proprietarymouse-settingwritesorappimplementationdone.
+Keepprivatecaptures/addresses/imagesignored;context/resumecurrent/pushtestedsteps.
+Currentreadystateabove supersedesolderLIVE/buildhistory. No morebuildsneeded.
 
-Pause project work before02:00AMManilaNov17,as requested;dongle may remain in
-ordinary use. NEXT on explicit project resume: refresh available work window,
-review user experience from ordinary use;investigate only observed problems or
-plan measured gaming latency/long-term/RF robustness qualification. Do not repeat
-completed extraction/build/flash/functional baselines without reason. Old bounded
-v13 serial-controller MUST NOT be run against silent normalv14. Use raw-only
-capture for further normal-use observation unless deliberately changing mode.
-Keep private captures/addresses/images ignored,context and copy-paste handoff
-current,and push tested milestones. Unrelated .vscode/ and INFO_UF2.TXT untracked.
-This current completed state supersedes earlier LIVE/pending/passive history.
-
-Background:
-V13 had two separate15min sessions with both mouse-only recoveries and clean
-original stops;allfivebuttons+wheel physically validated. Frontthumb=Windows5,
-rearthumb=Windows4. Foreground and intended-desk tests were smooth;peakhostdelivery
-1000events/fullsecond,median1.003ms in desk trial. Notphysicalpolling/latency proof.
-V14 shares RF timing/mapping/idleACKhold with v13;adds normal compile mode and
-shared safe session preparation. All8 native checks pass with protocol subtests
-probe/receiver/dongle;USBfault gates,normalno-commandstart,oldlimits/telemetrywrap,
-x latch/fatalTX andboundedrearm/neutralfailurecases tested. Four firmware builds,
-stagedsource/config andUF2validationpassed;defaultHIDunchanged. Buildnormalwith
-firmware/build.ps1 -App dongle;bounded -App receiver is separate and notinstalled.
-Normal config PRINTK/UART_CONSOLE/BOOT_BANNER disabled,HID+REBOOT enabled,1ms
-endpoint. OptionalCDC input remains;no terminal required. SDKstagingoutsideOneDrive.
-No new build or flash is needed for currently installed/tested normalimage.
+Preservednormalbaseline:
+V14automaticplug-and-playpasseduser18mintrialincludingreceiverreplugwithmouseON,
+bothmouse-onlycycles,continuedpastold15minlimitandafterrecordingended(704c7c7).
+44814receiverbackgroundrecords/errors0,span18m51s;noserial/DTR/armcommandused.
+Userexplicitlywantsnormalautoactiveuntilunplug;do notrestoreoldfinite/passive
+preferenceasnormalbehavior. NormalUF2SHA93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+V13hadallfivebuttons/wheelvalidated(frontthumbWindows5/rearWindows4),two15min
+recoverypasses,foreground/intendeddesk smooth. Hostpeak1000/fullsecond andmedian
+1.003mswereNOTphysicalpolling/end-to-endlatencycertification. Newpriorityislow
+latency/consistent1kHz/long-termreliability;4h/8h/multi-daysoaksstillpending.
+AbruptunplugheldstateMATCHEDwiredreferenceonthisPC/app;releasebuttonsfirst.
+V12startupneutraldidnotfixit;do notreviveguesses. Workingnormalv14mayremainin
+ordinarywirelessuseuntilnewphysicalflashreadiness. NoextraWindowsdriverreplacements,
+inputinjection,mousewritesorappwork. Native/CIM/serial/gitwritesusuallyneedelevation.
