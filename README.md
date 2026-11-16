@@ -58,6 +58,14 @@ earlier mouse queue/retry waits, OS/game and display latency. Percentiles are
 histogram upper bounds. Manual motion and USB phase differed between runs; this
 single comparison does not establish causality or long-term reliability.
 
+A reverse-order repeat now provides two short runs per condition. RF-to-USB
+callback means were 0.609/0.503 ms for the 50 us baseline and 0.525/0.583 ms for
+10 us polling. Radio handling stayed faster, but overall latency and backpressure
+did not improve consistently. Keep normal v14 while investigating USB timing and
+input preservation. In the last baseline, 27,594 device reports corresponded to
+27,592 host Raw Input records; that unexplained difference is not proof of RF loss,
+and prevents a claim of lossless end-to-end input from report counts alone.
+
 The exact tested normal v14 image has been restored and its USB identity verified.
 The faster polling setting is **not promoted to normal use**. Repeatability,
 longer reliability and gaming qualification remain next steps. The timing images

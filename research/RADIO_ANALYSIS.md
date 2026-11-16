@@ -1,5 +1,35 @@
 # First radio capture experiment
 
+## Reverse-order timing replication
+
+Order: v15 A1, v16 B1, v16 B2, v15 A2. Same frozen images and capture workflow;
+manual motion, USB frame phase and load were not controlled. Each device frame
+passed internal histogram, sum, callback-count and ACK/backpressure reconciliation.
+
+| Run | RF bridge-entry mean (us) | RF to USB-callback mean (ms) | Max (ms) | Busy/candidates | Device / host reports |
+|---|---:|---:|---:|---:|---:|
+| A1, 50 us | 42.949 | 0.609 | 1.153 | 2.03% | 37597 / 37597 |
+| B1, 10 us | 21.612 | 0.525 | 1.107 | 0.303% | 36065 / 36065 |
+| B2, 10 us | 24.787 | 0.583 | 1.098 | 6.18% | 40272 / 40272 |
+| A2, 50 us | 44.646 | 0.503 | 1.131 | 0.764% | 27594 / 27592 |
+
+The software reaction difference repeats; the overall mean advantage reverses
+in the second pair. These data do not justify promoting the faster setting to
+normal use. Two boot trials per condition are not long-term proof; packet samples
+must not be treated as thousands of independent boot trials. USB-phase/workload
+variation is a hypothesis to measure, not an established cause.
+
+A2 host count is two lower than device completion count, with zero read errors.
+No device-side motion/button conservation counters exist yet. The difference
+cannot be assigned to RF loss or host suppression/coalescing from these data.
+Mean/max are instrumented components; quantiles remain histogram upper bounds.
+
+Private four-run record: latency-abba-20261117.json. Latest A2 capture:
+v15-latency-20261117-030634-b8ad37cb; B2:
+v16-latency-20261117-030043-9903f36e. User A2 feel report is pending; normal
+restoration readiness requested. No further diagnostic tests planned this session.
+
+
 ## Fast polling second run
 
 V16 RUN2 PASS / V15 RUN2 FLASH NEXT - 2026-11-17 03:03 Manila:

@@ -1,3 +1,40 @@
+V15 RUN2 CAPTURE VALID / ABBA CONCLUSION - 2026-11-17 03:10 Manila:
+exec27549complete100srawread_errors0. Internaldeviceframeall6hist/count/sum/ACK/
+busychecksPASS,failed/capped/trackingfault0. Deviceaccepted/completed27594;
+hostRawInput27592,ALLreceiverforegroundcode0. Unexplained2recorddifference;NOT
+proofRFpacketloss,butblocksclaimedzeroend-toenddrop. No device-motion/checksum
+accumulationexistsyet;hostcapturecoalescing/suppressiononlyhypothesis,notproven.
+Privatebasev15-latency-20261117-030634-b8ad37cb .summary.json saved,userreportpending.
+V15run2candidateage44.646us,RFsubmit54.928us,RFUSBcallback503.489usmean/max1131,
+p99UPPER1000us;candidate37190,ACK36906,busy284(.764%),retries17. No liveprocess;
+installedv15TIMINGDISARMED,userinstructedwired. Deadline03:30AM.
+FourrunABBAprivate latency-abba-20261117.json: RFUSBmeans v15run1=.609ms,
+v16run1=.525,v16run2=.583,v15run2=.503. Fastreactioncandidateage21.6-24.8usvs
+42.9-44.6us repeats,butwholelatencyrangesoverlapandpairedbenefitreverses. Busy
+fast.303%-6.18%,baseline.764%-2.03%. NOconsistentwhole-latency/backpressurebenefit;
+KEEPnormalv14stable. Do notpromotefastfromthesedata or treatpacketcountasbootN.
+NEXT collectpendinguserfeel/stopreport,thenfreshNICENANOreadyRESTOREEXACTtested
+normal93ebbefore03:30. No morediagnosticruns/codechanges thissession. Save/push
+fourrunresultandrestoration/concisehandoff. FuturemeasureUSBframephaseanddevice
+motion/button-edgeconservationbeforemoreoptimization;4h/8hsoaksstillpending.
+
+V15 RUN2 LIVE - 2026-11-17 03:06 Manila:
+FreshOFF USBunplugged/samesetupready. LIVEexec27549;privatebase
+v15-latency-20261117-030634-b8ad37cb. OneCDC+100sforegroundraw,NOarm;cueONprovided.
+Same d50squietprobe,x70s/poststopd. Do notopenanotherreader/rearm/reset.
+Exactbase.stop-requestifabort. NEXTpoll27549/analyze+userreport;fourper-runcomparison;
+thenphysicalNICENANOreadyRESTOREtestednormalv14before03:30AM. No morediagnostic
+runsplanned. Installedv15autoactiveuntilx,thenDISARMED. Deadline19:30ZNov16.
+
+V15 RUN2 FLASH VERIFIED - 2026-11-17 03:05 Manila:
+FreshNICENANOreadywired/OFF;board/S140/exactd7516017UF2hash/rangeverifiedthenflashed.
+ProductDIY Mouse Timing v15verifiedwithoutserial. Privatetiming-v15-replication-flash.json.
+InstalledNOWv15timingautoactive/listening;v16notinstalled. No liveprocesses.
+NEXT separateOFF USBunplugged/samesetupreadiness,then100scaptureExpectedProductv15
+FinishBeforeUtc2026-11-16T19:30Z. No newbuild/code. Afterresult/userreportcompare
+fourper-runmetricsandRESTOREtestednormalv14-93ebbefore03:30AM. No normalfast
+promotion. Currentstate supersedesv16-installedhistory. Deadline/restoreunchanged.
+
 V16 RUN2 PASS / V15 RUN2 FLASH NEXT - 2026-11-17 03:03 Manila:
 UserSmooth/cleanstopped/noissue. exec2275complete;40272acceptedHID/USBsamplesmatch
 40272receiver-onlyforegroundrecords/errors0. Active d silent,onex,frameallchecks
