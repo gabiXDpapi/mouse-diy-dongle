@@ -72,8 +72,8 @@ static int wireless_hid_forward(const uint8_t *p)
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
-_Static_assert(PROBE_ACK_LIMIT == 327680u, "Finite five-minute receiver ACK budget");
-_Static_assert(PROBE_DATA_WINDOW_MS == 300000u, "Receiver session is five minutes total");
+_Static_assert(PROBE_ACK_LIMIT == 983040u, "Finite fifteen-minute receiver ACK budget");
+_Static_assert(PROBE_DATA_WINDOW_MS == 900000u, "Receiver session is fifteen minutes total");
 _Static_assert(RECEIVER_DISCOVERY_LIMIT == 8u, "Discovery retries are bounded");
 _Static_assert(RECEIVER_LINK_GAP_MS == 1000u, "Release after one second without successful ACK");
 #else
@@ -83,7 +83,7 @@ _Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at
 int main(void)
 {
 #ifdef WIRELESS_HID
-    assert(PROBE_DATA_WINDOW_MS == 300000u && PROBE_ACK_LIMIT == 327680u);
+    assert(PROBE_DATA_WINDOW_MS == 900000u && PROBE_ACK_LIMIT == 983040u);
 #endif
     uint8_t report[12] = {11, 0xff, 0xff, 0x41};
     probe_self_test();

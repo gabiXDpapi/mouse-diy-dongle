@@ -13,7 +13,6 @@ static const uint8_t wireless_hid_descriptor[] = {
 static const struct device *wireless_hid_device;
 static K_SEM_DEFINE(wireless_hid_slot, 1, 1);
 static atomic_t wireless_hid_online, wireless_hid_failed, wireless_hid_restart;
-static atomic_t wireless_hid_startup_pending;
 static bool wireless_hid_has_sequence;
 static uint8_t wireless_hid_last_sequence, wireless_hid_last_buttons;
 static unsigned int wireless_hid_reports, wireless_hid_retries, wireless_hid_busy;
@@ -30,8 +29,7 @@ static void wireless_hid_status(enum usb_dc_status_code status, const uint8_t *p
 {
     ARG_UNUSED(param);
     if (status == USB_DC_CONFIGURED) {
-        if (!atomic_get(&wireless_hid_failed) && !atomic_get(&wireless_hid_online)) {
-            atomic_set(&wireless_hid_startup_pending, 1);
+        if (!atomic_get(&wireless_hid_failed)) {
             atomic_set(&wireless_hid_online, 1);
         }
     } else if (status == USB_DC_RESET || status == USB_DC_DISCONNECTED || status == USB_DC_ERROR) {
@@ -91,45 +89,10 @@ static void wireless_hid_new_link(void)
     wireless_hid_has_sequence = false;
 }
 
-static int wireless_hid_neutral(void)
-{
-    const uint8_t released[6] = {0};
-    int err = wireless_hid_write(released, 1000);
-    if (err) {
-        return err;
-    }
-    if (k_sem_take(&wireless_hid_slot, K_MSEC(1000)) != 0) {
-        return -ETIMEDOUT;
-    }
-    k_sem_give(&wireless_hid_slot);
-    return 0;
-}
-
-static int wireless_hid_prepare_startup(void)
-{
-    if (atomic_get(&wireless_hid_failed)) {
-        return -ENODEV;
-    }
-    if (!atomic_get(&wireless_hid_online)) {
-        return -EAGAIN;
-    }
-    if (atomic_get(&wireless_hid_startup_pending)) {
-        int err = wireless_hid_neutral();
-        if (err) {
-            return err;
-        }
-        atomic_clear(&wireless_hid_startup_pending);
-    }
-    return 0;
-}
-
 static int wireless_hid_forward(const uint8_t *p)
 {
     if (!atomic_get(&wireless_hid_online)) {
         return -ENODEV;
-    }
-    if (atomic_get(&wireless_hid_startup_pending)) {
-        return -EAGAIN;
     }
     if (p[0] == 2) {
         return 0; /* Idle does not advance the transport sequence. */
@@ -166,5 +129,14 @@ static int wireless_hid_finish(void)
     if (!wireless_hid_last_buttons) {
         return 0;
     }
-    return wireless_hid_neutral();
+    const uint8_t released[6] = {0};
+    int err = wireless_hid_write(released, 1000);
+    if (err) {
+        return err;
+    }
+    if (k_sem_take(&wireless_hid_slot, K_MSEC(1000)) != 0) {
+        return -ETIMEDOUT;
+    }
+    k_sem_give(&wireless_hid_slot);
+    return 0;
 }

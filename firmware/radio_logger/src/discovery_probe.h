@@ -1,7 +1,7 @@
 /* Fresh power-on also sends standalone type5 status; ACK it without HID output. */
 #ifdef WIRELESS_HID
-#define PROBE_ACK_LIMIT 327680u
-#define PROBE_DATA_WINDOW_MS 300000u
+#define PROBE_ACK_LIMIT 983040u
+#define PROBE_DATA_WINDOW_MS 900000u
 #define RECEIVER_DISCOVERY_LIMIT 8u
 #define RECEIVER_LINK_GAP_MS 1000u
 static unsigned int receiver_discoveries;

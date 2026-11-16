@@ -1,5 +1,39 @@
 # First radio capture experiment
 
+## V13 finite-session software checkpoint
+
+V13 SOFTWARE CHECKPOINT / FLASH READINESS NEXT — 2026-11-16:
+User authorizes work until18:00 Manila; do not arm15min trial at/after17:42.
+Branch feature/receiver-fifteen-minute-session. V13 restores v11 bridge/main/HID
+harness (e106a79), removes ineffective v12 startup-neutral experiment and changes
+only receiver cap983040/900000ms/banner. All8 native tests PASS; receiver/probe/
+radio builds complete. Staged receiver sources match. CONFIG_REBOOT=y and both
+receiver features ON. Receiver UF2 SHA256
+396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc;
+61816 flash/16128 RAM,242 blocks,0x26000..0x35200 end exclusive.
+Preserved ignored receiver-v13-396d7dd8.uf2. Probe/radio/default HID hashes match
+v11 controls. Installed hardware STILL v12, physically unplugged; no live build,
+serial/raw/UAC/helper session. No v13 flashing/arming occurred.
+Raw logger max now1200s; warnings-as-errors compile/native self-test PASS.
+1200 boundary accepted then safely refused existing output;0/1201 rejected;
+marker unchanged. One-second hidden lifecycle PASS, raw_exit0 (private smoke
+wired-usbloss-smoke-20261116-171316-d29d03e5). New executable SHA256
+09d2e29c90ff0e5e363381c7412b389d11251c862a2a30ac3972ce143eeeab6d.
+Sandbox native launch was blocked; same self-test passed outside sandbox.
+New research/capture_receiver_session.ps1: full935s serial+raw, fresh v13 passive
+banner, one p/actual arming confirmation before mouse ON; explicit finish deadline
+and18min margin; stop-request sends one x; early abort partial; cleanup on error.
+Deadline/single-stop self-check and syntax PASS. Full935s capture NOT yet tested.
+NEXT physical pop-up: Glorious wired/OFF, reconnect receiver then double-reset
+NICENANO. Verify board/image before copy, passive startup no arm. Then separate
+15min input readiness: harmless scrollable doc/other pointer, Glorious OFF/USB
+unplugged, same DPI/settings. Trial controls and mouse-only OFF3s/ON around5/10min;
+observe original900s stop, note overshoot/stalls. Controller deadline UTC10:00
+November16. If time no longer fits, pause without arm. Save/push result and stop
+by18:00. Unexpected USB removal held state matched wired physical-unplug baseline;
+wired PnP restart not compared. Connected x/timeout release remains validated.
+
+
 ## Wired reference reproduces abrupt-unplug held state
 
 WIRED USB-LOSS CONTROL MATCHED / PAUSED AHEAD17:10 BREAK 2026-11-16:

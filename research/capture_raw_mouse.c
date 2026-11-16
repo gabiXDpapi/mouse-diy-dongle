@@ -153,8 +153,8 @@ int main(void)
     int foreground = argc == 4 && wcscmp(argv[3], L"--foreground") == 0;
     wchar_t *end = NULL;
     long seconds = argc == 3 || foreground ? wcstol(argv[1], &end, 10) : 0;
-    if ((argc != 3 && !foreground) || !end || *end || seconds < 1 || seconds > 180) {
-        fputs("Usage: capture_raw_mouse <1..180 seconds> <new CSV path> [--foreground] | --self-test\n", stderr);
+    if ((argc != 3 && !foreground) || !end || *end || seconds < 1 || seconds > 1200) {
+        fputs("Usage: capture_raw_mouse <1..1200 seconds> <new CSV path> [--foreground] | --self-test\n", stderr);
         LocalFree(argv); return 2;
     }
     HANDLE file = CreateFileW(argv[2], GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_NEW,
