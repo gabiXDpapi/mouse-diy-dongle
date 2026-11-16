@@ -1,5 +1,24 @@
 # First radio capture experiment
 
+## Physical receiver unplug retained LEFT too
+
+PHYSICAL RECEIVER REMOVAL ALSO RETAINS HELD STATE 2026-11-16:
+User confirms physical unplug with LEFT held;selection kept following OTHER
+pointer,cleared afterward,normal now. Job v12-physicalusb-20261116-165002-295ec075:
+one actual arm/link,physical serial loss,user confirmed,no x sent. Raw2050
+records/errors0,LEFTdown2/up1. Serial loss~58.387s;host LEFTTrue across portloss,
+false only~81.586s after cleanup. No rearm/reopen/PnP/UAC. Firmware unchanged.
+Receiver remains PHYSICALLY UNPLUGGED;all capture/serial tasks ended. Do not
+claim release PASS. This is not exclusively a PnP-restart symptom.
+NEXT CONTROL:run the same held-left physical USB-unplug test on Glorious in
+WIRED mode,DIY receiver unplugged. Read-only raw+host button capture,no RF arm.
+Compare observed host behavior before any further firmware changes. If same,
+retain scoped host-lifecycle limitation and use explicit x before planned
+restart;do not claim firmware can transmit a release after power is removed.
+Current break17:10,armed cutoff17:06;wired reference must also finish+save before
+break. No rebuild/flash/repeat of v12 PnP/removal trials now.
+
+
 ## Physical removal diagnostic ready
 
 PHYSICAL USB-REMOVAL CAPTURE SOFTWARE READY 2026-11-16:
