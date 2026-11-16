@@ -24,3 +24,14 @@ changes,run same held-unplug procedure on Glorious wired USB with receiver off.
 New capture_wired_usb_loss.ps1 provides60s raw/global-state capture,no serial or
 mutating APIs;1s lifecycle smoke/deadline refusal PASS. Requires finish deadline
 with60s wrap margin. Wired hardware observation pending;pause by17:10.
+
+## Wired result and interpretation
+
+User confirms stock wired Glorious also retained selection after physical USB
+unplug while LEFT held;cleared afterward.60s capture1458 wired-only records,
+no read errors,LEFTdown without up,host state held until cleanup. Thus abrupt
+physical-unplug expectation was not met by wired baseline either;this is not
+evidence of a DIY-specific physical-removal regression. Do not generalize to
+all systems or wired PnP restart (untested). No further firmware guess justified
+for this symptom. Pause ahead17:10;later consolidate stable baseline/consider
+dropping v12's unhelpful startup-neutral experiment before longer testing.

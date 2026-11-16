@@ -1,5 +1,39 @@
 # First radio capture experiment
 
+## Wired reference reproduces abrupt-unplug held state
+
+WIRED USB-LOSS CONTROL MATCHED / PAUSED AHEAD17:10 BREAK 2026-11-16:
+User confirms wired Glorious also kept selecting after physical USB unplug with
+LEFT held;cleared afterward,other pointer normal. DIY receiver unplugged throughout.
+Private base wired-usbloss-20261116-165945-b57d350d:60s read-only capture1458
+wired-only raw records/errors0,one LEFTdown/no LEFTup. Host LEFTFalse initially,
+True~24.527s,False~53.924s after cleanup;one later click transition. No RF/serial/
+PnP/UAC,input injection or Windows setting change. All processes closed.
+INTERPRETATION:physical receiver-removal behavior MATCHES wired reference on this
+PC/app. The expected automatic release on abrupt unplug was not established by
+baseline;do not call it a DIY-specific physical-removal bug. This is a scoped
+local observation,not universal Windows behavior. Wired PnP restart was NOT
+compared,so don't generalize that exact scenario. V12 startup-neutral did not
+change the observed PnP held state;no demonstrated benefit for that symptom.
+Known connected x/timeout neutral-release checks still passed;keep those guards.
+Pause now ahead of user17:10 break;resume ONLY on user request. No more firmware
+changes/live trials this session. Current branch feature/physical-usb-loss-validation.
+Installed/source/staged image remains v12 SHA256
+1e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30;receiver physically
+unplugged. Glorious USB may be reconnected for ordinary wired use;not independently
+checked after instruction. No live serial/raw/helper/build/UAC sessions.
+NEXT WHEN RESUMED:consolidate findings and choose smallest stable baseline before
+longer normal-use testing. Do not add more firmware release guesses for physical
+unplug behavior. Review whether to drop v12 startup-neutral experiment (no benefit
+shown for target symptom) in favor of preserved v11;no rollback/build/flash done.
+A planned host restart can be made graceful by x+confirmed neutral before PnP,
+but that is not unexpected-loss release and not newly hardware-tested. Keep the
+remaining PnP-specific limitation scoped. Then plan finite longer-use validation
+with explicit stop/time/reconnect limits and fresh physical readiness. No unlimited
+mode or daily-use/gaming latency certification. Refresh user deadline after break;
+old17:06/17:10 UTC guards must not be blindly reused in a later session.
+
+
 ## Wired USB-loss reference next
 
 WIRED USB-LOSS REFERENCE PREPARED 2026-11-16: physical receiver unplug

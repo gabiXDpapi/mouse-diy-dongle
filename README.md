@@ -45,8 +45,9 @@ confirmed). The host was cleared by Esc/releases/receiver unplug. This did not
 fix the PnP case;physical USB removal is the next separate diagnostic.
 
 The physical receiver-unplug trial also retained the held state. A wired
-Glorious reference is next, with the DIY receiver unplugged, before further
-firmware changes. This uses only read-only mouse capture, no serial/RF/UAC.
+Glorious reference reproduced the same physical-unplug behavior on this PC/app.
+Treat physical-removal held state as the local baseline,not a DIY-specific
+regression. Wired PnP restart was not compared;keep that scenario separate. This uses only read-only mouse capture, no serial/RF/UAC.
 
 ```powershell
 & ./research/capture_wired_usb_loss.ps1 -SelfTest
@@ -56,7 +57,7 @@ firmware changes. This uses only read-only mouse capture, no serial/RF/UAC.
 
 The60s reference refuses to start unless another60s of wrap time fits before
 the supplied break. Its1s smoke and deadline-refusal checks pass;wired held-loss
-behavior remains pending. Physical observations and raw transition counts must
+behavior matched the receiver on this setup. Physical observations and raw transition counts must
 be reported separately.
 
 ## Physical USB-removal diagnostic
