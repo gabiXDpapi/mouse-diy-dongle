@@ -51,7 +51,11 @@ The first v15 hardware timing run passed: 37,597 accepted input reports matched
 0.609 ms, with maximum 1.153 ms and p99 histogram upper bound 1 ms. This is one
 instrumented receiver-stage run, not full mouse/system latency certification.
 A diagnostic-only `-App latency-fast` candidate compares 10 µs polling against
-50 µs; its first hardware comparison is pending. Normal mode stays unchanged.
+50 µs. The first comparison passed with smooth user-reported motion: RF-to-USB
+callback mean was 0.525 ms versus 0.609 ms, and maximum was 1.107 ms versus
+1.153 ms. Both p99 histogram upper bounds were 1 ms. This single manual-motion
+comparison does not establish causality or long-term reliability; the faster
+setting has not been promoted to normal mode.
 
 ## Project stack
 

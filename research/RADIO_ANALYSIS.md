@@ -1,5 +1,31 @@
 # First radio capture experiment
 
+## First diagnostic polling comparison
+
+V16 FIRST COMPARISON PASS / NORMAL RESTORE READINESS PENDING - 2026-11-17 02:48 Manila:
+UserSmooth/cleanstopped/noissue. exec84480complete,100sraw36065receiverrecords,
+ALLforegroundcode0/errors0;matchesacceptedHID/USBsamples36065. OneCDC,noarm,onex,
+active d silent,poststopframeallintegritychecksPASS;failed/capped/trackingfault0.
+Privatebasev16-latency-20261117-024522-caa71a4b finalsummarysaved;comparisonJSON
+v15-v16-latency-comparison.jsonignored. No livecapture/serial/build/helper.
+V16mean candidateage21.612us(v15=42.949),RFsubmit30.914us(v15=52.458),
+RFUSBcallback525.125us(v15=608.802),max1107us(v15=1153),p99UPPER1000usboth.
+V16reports36065,retries2,busy150/49516candidates(.303%);v15busy1089/53635(2.03%).
+ACKready187.540us/ACKend231.789usmeans. Counts/componentsreconcileall6metrics.
+One manualA/Bonly:USBphase/workloadvariationcanexplainpartoftotalmeanchange;
+NOcausal/longrun/fullsensor-to-screenlatencyclaim. Do notpromotefasttonormalyet.
+InstalledNOWv16TIMINGDISARMEDafterx;normalv14NOTyetrestored. RestorepopupPENDING:
+Gloriouswired/OFF,double-resetreceiverNICENANO. OnReady verifyboardandEXACTtested
+normalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2 SHA
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;copythenUSBproduct
+DIY Mouse Dongle v14,HID/CDCverifyWITHOUTserial. Normalautoactivatesuntilunplug.
+RestoreBEFORE03:00AMNov17 UTCNov16T19:00Z;no new experiments. Thenoptionalshort
+ordinary-useconfirmation,pushresult/context/conciseresume,andpauseprojectwork.
+Currentbranchfeature/receiver-fast-poll-latency;softwareb7c9cebpushed,measurement
+stillneedscommit. Native9/parser2/controllergatespassedbeforelive,h/wnowpassed.
+Workingnormalv14preserved;companionappdeferreduntilAFTERgaming/reliability.
+
+
 ## First quiet receiver timing result
 
 V15 FIRST LATENCY MEASUREMENT PASS - 2026-11-17 02:35 Manila:

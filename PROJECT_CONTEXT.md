@@ -319,6 +319,49 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V16 FIRST COMPARISON PASS / NORMAL RESTORE READINESS PENDING - 2026-11-17 02:48 Manila:
+UserSmooth/cleanstopped/noissue. exec84480complete,100sraw36065receiverrecords,
+ALLforegroundcode0/errors0;matchesacceptedHID/USBsamples36065. OneCDC,noarm,onex,
+active d silent,poststopframeallintegritychecksPASS;failed/capped/trackingfault0.
+Privatebasev16-latency-20261117-024522-caa71a4b finalsummarysaved;comparisonJSON
+v15-v16-latency-comparison.jsonignored. No livecapture/serial/build/helper.
+V16mean candidateage21.612us(v15=42.949),RFsubmit30.914us(v15=52.458),
+RFUSBcallback525.125us(v15=608.802),max1107us(v15=1153),p99UPPER1000usboth.
+V16reports36065,retries2,busy150/49516candidates(.303%);v15busy1089/53635(2.03%).
+ACKready187.540us/ACKend231.789usmeans. Counts/componentsreconcileall6metrics.
+One manualA/Bonly:USBphase/workloadvariationcanexplainpartoftotalmeanchange;
+NOcausal/longrun/fullsensor-to-screenlatencyclaim. Do notpromotefasttonormalyet.
+InstalledNOWv16TIMINGDISARMEDafterx;normalv14NOTyetrestored. RestorepopupPENDING:
+Gloriouswired/OFF,double-resetreceiverNICENANO. OnReady verifyboardandEXACTtested
+normalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2 SHA
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;copythenUSBproduct
+DIY Mouse Dongle v14,HID/CDCverifyWITHOUTserial. Normalautoactivatesuntilunplug.
+RestoreBEFORE03:00AMNov17 UTCNov16T19:00Z;no new experiments. Thenoptionalshort
+ordinary-useconfirmation,pushresult/context/conciseresume,andpauseprojectwork.
+Currentbranchfeature/receiver-fast-poll-latency;softwareb7c9cebpushed,measurement
+stillneedscommit. Native9/parser2/controllergatespassedbeforelive,h/wnowpassed.
+Workingnormalv14preserved;companionappdeferreduntilAFTERgaming/reliability.
+
+V16 COMPARISON LIVE - 2026-11-17 02:45 Manila:
+UserfreshOFF USBunplugged/samesettings/otherpointerready. OneCDC+100sforeground
+capturestarted,NOp. LIVEexec84480;privatebasev16-latency-20261117-024522-caa71a4b.
+CueONprovided;d50squietprobe,x70s,poststopd. Do notopenanotherreader/rearm/reset.
+Exactbase.stop-requestifabort. Expectedend~02:47:10. Deadline03:00. NEXTpoll84480,
+analyzeframeanduserfeel,compareagainstv15baselinewithoutcausal/longrunclaim.
+ThenphysicalNICENANOreadinessrestoreTESTEDnormalv14UF293eb987aBEFORE03:00.
+Installedv16timingautoactiveuntilx;captureleavesdisarmed. No normalfastpromotion.
+
+V16 TIMING FLASHED / USB IDENTITY PASS - 2026-11-17 02:44 Manila:
+FreshNICENANOreadywired/OFF;timebefore02:48verified. Board/S140/UF2exact55a371ea
+fullhashverifiedthenflashed. ProductDIY Mouse Timing v16 readbackPASS;no serial
+opened/armcommand. Private timing-v16-flash-validation.jsonsaved. InstalledNOW
+v16timingautoactive/listening;v15notinstalled. No liveprocess. Deadline03:00AM.
+NEXT separateinputreadiness(mouseOFF USBunplugged,otherpointer,sameDPI/surface),
+thenexisting100scapture -ExpectedProduct 'DIY Mouse Timing v16' withfinish19:00Z.
+Do notstartat/after02:52. Comparewithv15baselineprivatev15-latency-20261117-023337-d3bd3453.
+ThenRESTOREtestednormalv14-93eb987aviafreshphysicalNICENANOreadyBEFORE03:00.
+No extra build/flashofcompletedcandidate;no normalfastpollpromotionfromoneA/B.
+
 V16 FAST-POLL SOFTWARE READY / FLASH NEXT IF TIME FITS - 2026-11-17 02:42 Manila:
 Branchfeature/receiver-fast-poll-latency. App latency-fast changesONLYdiagnostic
 pollwait50->10us;FASTflagrequiresLATENCY;normal/defaultpathstill50us. Timingcore,
