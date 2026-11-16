@@ -319,6 +319,54 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V14 PLUG-AND-PLAY HARDWARE PASS / BREAK HANDOFF - 2026-11-17 01:51 Manila:
+User confirms: all worked automatically and smoothly, including receiver USB
+unplug/replug with mouse left ON, both mouse-only OFF/ON cycles, and controls at
+16/18min beyond old limit. User additionally reports mouse STILL WORKING after
+capture ended. This is intended: normal firmware runs independently until unplug,
+without Codex, serial reader or arm command. User may keep using it wirelessly.
+Do not stop/reflash/reset it merely because recording or the work session ended.
+
+First normal trial:1160s mouse-only recording exit0,44814 receiver-only background
+records,read_errors0/failed0. Receiver input span1131.448104s (18m51.448s);
+11522 records after15min,8365 after16min,2710 after18min fromfirst receiver event.
+LEFT213down/213up,RIGHT9/9,wheelUP107/DOWN132. Middle/thumb events absent in this
+run;their deliberate v13 coverage and unchanged mapping remain separate evidence.
+No CDC/DTR/arm command or Windows/DPI setting change. No active serial/raw/build/
+UAC/helper processes. Normalv14 installed and autoactive/listening while connected;
+NOT unarmed/passive/expired. Mouse is currently being used wirelessly per user.
+Private base v14-normal-20261117-012742-226176cb with complete CSV/metadata/summary.
+USB replug/cycles are user-confirmed; LastArrivalDate predates capture and does
+not independently establish their timing. Background arrivals do not certify
+physical polling/loss/latency. No claim of long-term reliability from one normal run.
+
+Current branch feature/receiver-plug-and-play. Software3f5934c,flash/enumeration
+withoutseriala05de2f,recordingfd4c32bpushed;nowrecordconfirmedhardwarepass. Normal
+image SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
+private preserved dongle-v14-93eb987a.uf2,46124flash/16064RAM,181UF2blocks,
+0x26000..0x31500exclusive. V13rollback396d7dd8 remains preserved. Do not flash
+bounded receiver-v14 image by mistake; normal uses build.ps1 -App dongle.
+
+CORE NORMAL-DONGLE BEHAVIOR NOW USER-CONFIRMED. Automatic startup follows USB
+configuration, no DTR/manualarm/30sdiscovery/15min/ACK/discoverycap;mouse link gaps
+neutralize and rediscover. USB restart can automatically start normalmode again,
+per user's latest request overriding earlier passive/finite preference. Optional
+x stop/p restart is native-tested but NOT separately hardware-validated in normal
+mode; use physical mouseOFF or receiver unplug for immediate stop when needed.
+Abrupt unplug while held can leave Windows held state (also wired baseline);
+release buttons before unplug. No speculative startup-neutral fixes needed.
+
+Pause project work before02:00AMManilaNov17,as requested;dongle may remain in
+ordinary use. NEXT on explicit project resume: refresh available work window,
+review user experience from ordinary use;investigate only observed problems or
+plan measured gaming latency/long-term/RF robustness qualification. Do not repeat
+completed extraction/build/flash/functional baselines without reason. Old bounded
+v13 serial-controller MUST NOT be run against silent normalv14. Use raw-only
+capture for further normal-use observation unless deliberately changing mode.
+Keep private captures/addresses/images ignored,context and copy-paste handoff
+current,and push tested milestones. Unrelated .vscode/ and INFO_UF2.TXT untracked.
+This current completed state supersedes earlier LIVE/pending/passive history.
+
 V14 NORMAL RAW CAPTURE COMPLETE / USER REPORT PENDING - 2026-11-17 01:47 Manila:
 exec74926exited0;1160srawonly,noCDC/DTR/armcommand.44814records,allreceiver/all
 backgroundcode1,read_errors0/failed0. CompleteCSVvalidated;monotonictimestamps.
