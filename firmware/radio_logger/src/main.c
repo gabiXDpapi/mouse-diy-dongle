@@ -216,6 +216,16 @@ int main(void)
     do {
 #ifdef WIRELESS_HID
         wireless_hid_restart_if_needed();
+        err = wireless_hid_prepare_startup();
+        if (err == -EAGAIN) {
+            k_sleep(K_MSEC(100));
+            continue;
+        }
+        if (err) {
+            wireless_hid_restart_if_needed();
+            printk("ERROR startup neutral %d; no RF\n", err);
+            return err;
+        }
 #endif
         err = uart_line_ctrl_get(console, UART_LINE_CTRL_DTR, &dtr);
         if (err) {
@@ -226,8 +236,9 @@ int main(void)
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v11: passive USB restart; bounded five minutes; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v12: startup neutral; passive USB restart; bounded five minutes; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
+    printk("HID startup neutral complete; no RF arming\n");
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",
            PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS);

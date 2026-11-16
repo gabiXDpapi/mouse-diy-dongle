@@ -78,9 +78,26 @@ int main(void)
     device_ready = true; init_result = -EIO; assert(init_wireless_hid() == -EIO);
     init_result = 0; assert(init_wireless_hid() == 0);
     assert(wireless_hid_forward(p) == -ENODEV && writes == 0);
+    assert(wireless_hid_prepare_startup() == -EAGAIN && writes == 0);
     wireless_hid_status(USB_DC_RESET, NULL); /* Initial enumeration reset is allowed. */
     wireless_hid_restart_if_needed(); assert(reboots == 0);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    assert(wireless_hid_forward(p) == -EAGAIN && writes == 0); /* Startup neutral first. */
+    write_result = -EAGAIN;
+    assert(wireless_hid_prepare_startup() == -EAGAIN && writes == 0);
+    write_result = -EIO;
+    assert(wireless_hid_prepare_startup() == -EIO && writes == 0);
+    write_result = 0;
+    assert(wireless_hid_prepare_startup() == -ETIMEDOUT && writes == 1);
+    assert(wireless_hid_forward(p) == -EAGAIN && !wireless_hid_has_sequence);
+    registered_ops->int_in_ready(&fake_device); auto_complete = true;
+    assert(wireless_hid_prepare_startup() == 0 && writes == 2);
+    const uint8_t startup_zero[6] = {0};
+    assert(memcmp(last_report, startup_zero, sizeof(startup_zero)) == 0);
+    assert(wireless_hid_reports == 0 && wireless_hid_busy == 0 && !wireless_hid_has_sequence);
+    wireless_hid_status(USB_DC_CONFIGURED, NULL);
+    assert(wireless_hid_prepare_startup() == 0 && writes == 2); /* Idempotent. */
+    writes = 0; auto_complete = false; /* Preserve subsequent mock write-count fixtures. */
     assert(wireless_hid_forward(idle) == 0 && writes == 0);
     assert(wireless_hid_forward(status_packet) == 0 && writes == 0);
     assert(!wireless_hid_has_sequence);
@@ -153,6 +170,7 @@ int main(void)
     assert(wireless_hid_forward(p) == 0 && writes == 13); /* Retry still suppressed. */
     wireless_hid_status(USB_DC_DISCONNECTED, NULL);
     assert(reboots == 0); /* USB callback only requests restart. */
+    assert(wireless_hid_prepare_startup() == -ENODEV);
     assert(wireless_hid_finish() == -ENODEV);
     assert(wireless_hid_forward(idle) == -ENODEV);
     wireless_hid_status(USB_DC_CONFIGURED, NULL);

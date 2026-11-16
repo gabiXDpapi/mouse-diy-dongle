@@ -319,6 +319,38 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V12 STARTUP-NEUTRAL SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
+branch feature/receiver-startup-neutral. V12 BUILT/VALIDATED,NOT FLASHED.
+V11 active USB-loss held-release failed;host cleared after Esc/released buttons/
+physical receiver unplug. Read-only host left/right=false,ClickLock=false.
+V12 sends exactly one six-byte all-zero neutral after first USB configuration,
+main-thread wait for completion BEFORE DTR/RF arming. Pending blocks forwarding;
+EAGAIN/I/O/timeout keeps output blocked. Duplicate config/service idempotent.
+Reuses link-end neutral helper;no synthetic press,motion,scaling/protocol/budget
+change. Passive startup now includes this zero HID report (not RF input).
+Runtime startup-gate regression failed on v11;all8 native tests PASS including
+zero bytes,no RF report/counter/sequence consumption,error/completion/offline
+cases and prior bounds/stop/reset behavior. Receiver/probe/radio builds+UF2 PASS.
+Staged source/config/HID separation/v12 banner+startup completion marker verified.
+61988 flash/16128 RAM,243 UF2 blocks0x26000..0x352FF. Exact receiver image:
+C:/Users/Gabriel/zephyrproject/build-mouse-receiver/zephyr/zephyr.uf2
+SHA2561e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30.
+Private receiver-v12-1e543890.uf2,priorv11/v10/v9/v8 preserved. Validation JSON
+receiver-v12-build-validation.json. Probe/radio rebuilt;byte identity not claimed;
+default HID existing image unchanged,not rebuilt. Host controller now expects
+v12+neutral completion marker,records read-only global LEFT state before/after
+reset;selfchecks/syntax PASS,no host input injection. No live helper/serial/raw/build.
+Hardware STILL v11,receiver PHYSICALLY UNPLUGGED;no v12 flash or hardware result.
+Windows may ignore initially zero button state after re-enumeration;this remains
+an UNPROVEN experiment,not a guaranteed fix. Do not claim release success until
+same active reset physical test. If it fails,clear host state via Esc/release/
+receiver unplug and reassess;no synthesized press/release workaround.
+NEXT PHYSICAL PAUSE:keep Glorious wired/OFF,reconnect only receiver and double-
+reset into NICENANO. Verify bootloader identity/exact v12 hash/UF2,copy,then
+passive startup showing startup neutral complete/no RF arm. Separate UAC Prepare
+and normal-reboot/OFF held-test readiness for controller's v12 job. No new timing
+cutoff supplied on this resumed afternoon session. Do not reuse old v11 job.
+
 V11 ACTIVE USB-LOSS HELD-RELEASE FAILURE CONFIRMED 2026-11-16:
 Job v11-activeusb-20261116-155201-22120a8b completed capture with0 read errors,
 1795 receiver records. One arm/link,one receiver PnP restart(helper exit0),one

@@ -38,9 +38,14 @@ release: selection still followed the other pointer. The host state was cleared
 with Esc/button release and receiver unplug. Startup-neutral reporting is the
 next isolated experiment; v11 is not validated for abrupt active USB loss.
 
+V12 is a built, unflashed startup-neutral experiment for that failure. It sends
+one all-zero HID report after USB configuration and waits for completion before
+allowing RF input. It adds no button press or motion. Whether Windows clears
+its retained state remains unproven;repeat hardware validation is required.
+
 ## Active USB-reset capture tools
 
-No firmware rebuild is needed for the next installed-v11 test. The deferred
+No firmware rebuild is needed for the next v12 test after verified flashing. The deferred
 receiver-only helper obtains UAC approval before the held-input observation,
 waits at most 180 seconds for its unique job signal, and revalidates the exact
 receiver target before one PnP restart. The controller refuses reused/expired
@@ -58,8 +63,9 @@ jobs and existing capture files. All job data and device instance IDs are privat
 Capture needs at least 75 seconds of helper life left. It arms once, requests
 receiver restart 25 seconds after link start, and observes passive recovery
 without another arm. A 150-second hidden Raw Input recording supports button
-observations, not foreground cadence claims. Self-checks pass; the active-loss
-hardware trial remains pending. Firmware and existing Windows settings are unchanged.
+observations, not foreground cadence claims. Self-checks pass; the v11 trial exposed held-button persistence and the v12 retest is pending.
+The controller requires the v12 startup-neutral marker and records read-only
+host LEFT state before/after reset. Windows settings remain unchanged.
 
 ## Host Raw Input diagnostic
 

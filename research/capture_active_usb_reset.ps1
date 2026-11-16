@@ -36,7 +36,7 @@ if ($Mode -eq 'SelfTest') {
 }
 if ($Mode -eq 'Prepare') {
     if ($RunName) { throw 'Prepare generates a unique run name' }
-    $RunName='v11-activeusb-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8)
+    $RunName='v12-activeusb-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8)
     $job=Join-Path $privateRoot $RunName
     if (Test-Path "$job.state.json") { throw 'Job already exists' }
     @{run_name=$RunName;armed=$false} | ConvertTo-Json | Set-Content "$job.state.json"
@@ -71,6 +71,14 @@ try {
     [IO.File]::WriteAllText("$job.cancel",'cancel')
     throw
 }
+if (-not ('ReceiverMouseButtonProbe' -as [type])) {
+    Add-Type -TypeDefinition @'
+using System.Runtime.InteropServices;
+public static class ReceiverMouseButtonProbe {
+ [DllImport("user32.dll")] public static extern short GetAsyncKeyState(int key);
+}
+'@
+}
 $clock=[Diagnostics.Stopwatch]::StartNew()
 $log=[IO.StreamWriter]::new("$job.txt",$false)
 $journal=[IO.StreamWriter]::new("$job.host.jsonl",$false)
@@ -101,7 +109,7 @@ try {
     $port=Open-ReceiverPort
     $drainEnd=$clock.ElapsedMilliseconds+2000
     while ($clock.ElapsedMilliseconds -lt $drainEnd) { Read-Chunk 'prearm';Start-Sleep -Milliseconds 20 }
-    if (!$allText.Contains('DIY Mouse Wireless HID Probe v11: passive USB restart;') -or $allText -match 'ERROR|RECEIVER armed:|RECEIVER link started:|RECEIVER disarmed:') { throw 'Fresh passive v11 boot not verified;no arm' }
+    if (!$allText.Contains('DIY Mouse Wireless HID Probe v12: startup neutral; passive USB restart;') -or !$allText.Contains('HID startup neutral complete; no RF arming') -or $allText -match 'ERROR|RECEIVER armed:|RECEIVER link started:|RECEIVER disarmed:') { throw 'Fresh passive v12 boot not verified;no arm' }
     $raw=Start-Process -FilePath (Join-Path $privateRoot 'capture_raw_mouse.exe') -ArgumentList @('150',('"'+"$job.csv"+'"')) -WindowStyle Hidden -PassThru -RedirectStandardOutput "$job.raw.stdout.txt" -RedirectStandardError "$job.raw.stderr.txt"
     $rawReadyEnd=$clock.ElapsedMilliseconds+3000
     while ($clock.ElapsedMilliseconds -lt $rawReadyEnd -and !$raw.HasExited) {
@@ -120,7 +128,7 @@ try {
         Read-Chunk 'active'
         if (Test-Path "$job.cancel") { throw 'Capture cancelled' }
         if (!$armSeen -and $allText.Contains('RECEIVER armed: first discovery within 30000 ms; up to 8 discoveries and 327680 ACKs total in 300000 ms; gap=1000 ms')) {
-            $armSeen=$true;Write-Output 'ARMING_CONFIRMED: fresh v11 response;UAC already completed'
+            $armSeen=$true;Write-Output 'ARMING_CONFIRMED: fresh v12 response;UAC already completed'
         }
         if (!$armSeen -and $clock.ElapsedMilliseconds -gt $armAt+3000) { throw 'No arming confirmation;no retry' }
         if ($null -eq $linkAt -and $allText.Contains('RECEIVER link started:')) { $linkAt=$clock.ElapsedMilliseconds }
@@ -129,6 +137,7 @@ try {
         Start-Sleep -Milliseconds 20
     }
     $port.Close();$port.Dispose();$port=$null
+    Record 'host_button_state_before_reset' "left_down=$(([ReceiverMouseButtonProbe]::GetAsyncKeyState(1) -band 0x8000) -ne 0)"
     Record 'usb_reset_signal' 'restart'
     [IO.File]::WriteAllText("$job.signal.tmp",'restart');[IO.File]::Move("$job.signal.tmp","$job.signal")
     Write-Output 'USB_RESTART_SIGNALLED: one receiver restart;no further arm command'
@@ -143,8 +152,9 @@ try {
     $allText='';$port=Open-ReceiverPort
     $postEnd=$clock.ElapsedMilliseconds+9000
     while ($clock.ElapsedMilliseconds -lt $postEnd) { Read-Chunk 'post_reset';Start-Sleep -Milliseconds 20 }
-    if (!$allText.Contains('DIY Mouse Wireless HID Probe v11: passive USB restart;') -or ([regex]::Matches($allText,'Booting Zephyr OS')).Count -ne 1 -or $allText -match 'ERROR|RECEIVER armed:|RECEIVER link started:') { throw 'Fresh unarmed restart not verified' }
+    if (!$allText.Contains('DIY Mouse Wireless HID Probe v12: startup neutral; passive USB restart;') -or !$allText.Contains('HID startup neutral complete; no RF arming') -or ([regex]::Matches($allText,'Booting Zephyr OS')).Count -ne 1 -or $allText -match 'ERROR|RECEIVER armed:|RECEIVER link started:') { throw 'Fresh unarmed restart not verified' }
     $recovered=$true;Write-Output 'FRESH_PASSIVE_BOOT_SEEN: no second p sent'
+    Record 'host_button_state_after_reset' "left_down=$(([ReceiverMouseButtonProbe]::GetAsyncKeyState(1) -band 0x8000) -ne 0)"
     while (!$raw.HasExited) {
         Read-Chunk 'post_reset';Start-Sleep -Milliseconds 20
         if ($clock.ElapsedMilliseconds -gt 160000) { throw 'Raw logger exceeded deadline' }
