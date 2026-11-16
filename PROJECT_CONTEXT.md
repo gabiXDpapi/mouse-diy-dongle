@@ -319,6 +319,60 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NORMAL V14 RESTORED / READY FOR 03:00 BREAK - 2026-11-17 02:54 Manila:
+Exact hardware-tested normalv14 image restored at02:50 after fresh userNICENANO
+readiness (Gloriouswired/OFF),board/S140/hash/UF2checks. USBproductDIY Mouse Dongle
+v14,HID/CDCverified WITHOUTserial/arm. Private normal-v14-restored-after-timing.json.
+InstallednormalSHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
+normalautomaticoperationuntilunplug. NOTdiagnostic/disarmed/passive/expired.
+Brief ordinary-use restoration-check popup remains pending;USB restore verification
+passed,mouse's current cable/power not independently verified. No need reflash or
+repeatlongbaseline. User may keep using normalwireless operation after projectpause.
+No live serial/raw/build/UAC/helper sessions. Untracked.vscode/INFO_UF2.TXTuntouched.
+
+Currentbranchfeature/receiver-fast-poll-latency. Tested comparisonaac3941pushed;
+softwareb7c9ceb;v15baseline8a3c63d. V15/v16 diagnostic images preservedNOTinstalled.
+V15(50us)37597accepted/device/foregroundhostrecordsallmatch,RF->USBcallbackmean
+608.802us,max1153us,p99UPPER1000us,candidateage42.949us,busy2.03%,retries15.
+V16(10us)36065matchingrecords,RF->USBcallbackmean525.125us,max1107us,p99UPPER1000us,
+candidateage21.612us,busy.303%,retries2. Bothquietactive/nativecounts/reconciliation
+checksPASS;usersmooth/cleanstopinboth. One manualA/B:USBphase/workloadvariation
+prevents causal/longrunclaim. These instrumented receiver components exclude sensor,
+earlierqueue/retries,OS/game/display;percentilesarehistogrambounds. Fastpoll NOT
+promotedtonormal. Normal50uspathunchanged. Private summaries/comparison retained.
+
+Pause work before03:00AMManilaNov17,asrequested;normaldonglemayremainordinaryuse.
+NEXT explicitresume:refreshworkwindow;collectpendingbriefrestorationconfirmation
+ifstillneeded;readgaming-qualification/latency-diagnosticsplans. RepeatA/Bunder
+controlledmotion/load/USBphase;assessmeans/tails,busy/retries andhostcadence. Only
+thenprepareoptimizedNORMALcandidateandqualifylongerbeforepromoting. 4h/8h/multi-day
+soaks,Windows sleep/wake/RFrobustness andsustained1kHzqualification stillpending.
+No needless extraction/build/flash/baseline repeats;no newexperiment thissession.
+Userlowlatency/reliability/1kHz priorities persist. Companionapp DPI/lighting/buttons
+explicitlyDEFERREDuntilAFTERgamingoptimization;trueDPI/lightingneedprotocol/hardware
+support. No mouse-settingwrites attempted. Keepprivatecaptures/addresses/binaries
+ignored and context/resumecurrent,pushtestedmilestones,featurebranches. Usepopups
+forphysicalintervention. Refreshdeadlineonlaterday;03:00authorizationexpires.
+This restoredstate supersedes all older LIVE/timing-installed/pendingrestorehistory.
+
+NORMAL V14 RESTORED / USB VERIFIED - 2026-11-17 02:50 Manila:
+UserNICENANOreadyGloriouswired/OFF. Verifiedboard/S140/exactTESTEDnormal93eb987a
+fullhashand181blockUF2thenrestored. USBproductDIY Mouse Dongle v14,HID/CDCstatus
+verifiedWITHOUTserial/DTR/arm. Private normal-v14-restored-after-timing.jsonsaved.
+InstalledNOWnormalv14autoactive/listening,NOTtimingv16/disarmed. Diagnosticimages
+v15/v16preservedbutnotinstalled;fastpollNOTpromoted. No livecapture/serial/build/
+UAC/helper. Comparisonaac3941pushed;v15baseline8a3c63d;v16softwareb7c9ceb.
+NEXT shortordinary-useconfirmationpopup(optionaltestrestoredoperation),savefinal
+context/resumeandpushthenpauseBEFORE03:00AMManilaNov17. Usermayusewirelessnormally
+withoutCodex/serial/arm;releasebuttonsfirstifUSBunplugging. No newexperiments.
+Measurementnextresume:repeatA/Bundercontrolledload/USBphase,preservecoverage/tails/
+busy;thenqualifyfasterNORMALcandidatewithlongerreliabilitybeforepromoting. Device
+RF->USBcallbackcomponentmeans0.609ms(v15)vs0.525ms(v16)singlemanualA/B;notfullmouse
+latency/causalproof. CompanionappDPI/lighting/buttonsdeferreduntilAFTERgamingwork.
+Long-termsoaks/sleeprecovery/gaming1000Hzqualificationremainpending. Deadline3AM
+expiresafterthissession;asknewworkwindowonlaterresume. Currentstate supersedes
+olderLIVE/timing-installed/pendingrestorehistory.
+
 V16 FIRST COMPARISON PASS / NORMAL RESTORE READINESS PENDING - 2026-11-17 02:48 Manila:
 UserSmooth/cleanstopped/noissue. exec84480complete,100sraw36065receiverrecords,
 ALLforegroundcode0/errors0;matchesacceptedHID/USBsamples36065. OneCDC,noarm,onex,

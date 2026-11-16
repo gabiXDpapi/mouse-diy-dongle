@@ -33,33 +33,39 @@ and must not be used with the silent normal build.
 only after a completed neutral stop. Both variants share RF/HID behavior.
 The sections below describe the validated v13 diagnostic baseline and history.
 
-## Quiet latency measurement candidate
+## Quiet latency measurements
 
-`firmware/build.ps1 -App latency` builds a separate v15 timing image. It collects
-fixed-memory radio/USB histograms and emits a summary only after `x` has stopped
-input and a `d` query is received. It passes native/build/config/UF2 checks;
-hardware measurement is pending. The working normal v14 image is preserved.
+`firmware/build.ps1 -App latency` builds the v15 timing image; `-App latency-fast`
+builds the v16 comparison with a 10 us diagnostic polling wait instead of 50 us.
+Both collect fixed-memory histograms without active serial text. Only after `x`
+neutralizes input can `d` emit a frozen summary. Native tests, builds and both
+first hardware captures passed; users reported smooth motion and clean stops.
 
-Use `research/capture_latency_session.ps1` after physical setup and inspect its
-serial file with `research/analyze_latency.py`. The tool validates sample coverage
-and reports histogram percentile bounds. These are instrumented receiver-stage
-timings, including callback dispatch; they exclude sensor, prior queue/retry,
-OS/game and display latency. No optimization is claimed from this preparation.
+| Instrumented receiver metric | v15, 50 us wait | v16, 10 us wait |
+|---|---:|---:|
+| Accepted reports matching host records | 37,597 | 36,065 |
+| Mean RF END to bridge entry | 42.95 us | 21.61 us |
+| Mean RF END to USB submission start | 52.46 us | 30.91 us |
+| Mean RF END to USB-completion callback | 0.609 ms | 0.525 ms |
+| Maximum RF END to USB-completion callback | 1.153 ms | 1.107 ms |
+| p99 histogram upper bound, RF to USB callback | 1 ms | 1 ms |
+| USB-busy candidates / all ACK candidates | 2.03% | 0.303% |
 
-The first v15 hardware timing run passed: 37,597 accepted input reports matched
-37,597 foreground host records. RF END to USB-completion callback averaged
-0.609 ms, with maximum 1.153 ms and p99 histogram upper bound 1 ms. This is one
-instrumented receiver-stage run, not full mouse/system latency certification.
-A diagnostic-only `-App latency-fast` candidate compares 10 µs polling against
-50 µs. The first comparison passed with smooth user-reported motion: RF-to-USB
-callback mean was 0.525 ms versus 0.609 ms, and maximum was 1.107 ms versus
-1.153 ms. Both p99 histogram upper bounds were 1 ms. This single manual-motion
-comparison does not establish causality or long-term reliability; the faster
-setting has not been promoted to normal mode.
+The tool `research/analyze_latency.py` validates histogram, sample-count and time
+component reconciliation. These are short, instrumented receiver-stage timings,
+including callback dispatch and instrumentation overhead. They exclude sensor,
+earlier mouse queue/retry waits, OS/game and display latency. Percentiles are
+histogram upper bounds. Manual motion and USB phase differed between runs; this
+single comparison does not establish causality or long-term reliability.
+
+The exact tested normal v14 image has been restored and its USB identity verified.
+The faster polling setting is **not promoted to normal use**. Repeatability,
+longer reliability and gaming qualification remain next steps. The timing images
+and measurements are preserved separately for those tests.
 
 ## Project stack
 
-V13 is the current software candidate for a finite fifteen-minute session:
+V13 was the finite fifteen-minute diagnostic baseline:
 983,040 ACK attempts and 900,000 ms from first link, with eight discoveries,
 one arm per boot, explicit `x` stop and passive USB restart. It restores the
 tested v11 bridge; v12's startup-neutral experiment did not fix the held-state
@@ -67,8 +73,8 @@ symptom. V13 is built, flashed and software-checked; passive startup passed on C
 Its full fifteen-minute trial passed: smooth movement, left/right clicks and
 wheel after both mouse-only OFF/ON cycles, followed by a clean original deadline
 stop. Full 935-second serial/Raw Input recording completed with 92,400 receiver
-records and zero read errors. The receiver is now expired/neutral; normal reboot
-and fresh physical readiness are required for another arm.
+records and zero read errors. At the end of those historical trials it was expired/neutral; a new diagnostic
+arm required a normal reboot and fresh physical readiness.
 
 `research/capture_receiver_session.ps1` records 935 seconds of serial and
 mouse-only Raw Input. Supply the current user-approved UTC finish deadline;
