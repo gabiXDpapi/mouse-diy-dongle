@@ -319,6 +319,55 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V13 FIFTEEN-MINUTE TRIAL PASS / READY FOR BREAK — 2026-11-16 17:50 Manila:
+User confirms all controls worked smoothly after BOTH mouse-only OFF3s/ON cycles,
+receiver untouched, and clean original15min stop. Full935s serial AND Raw Input
+completed exit0;92400 receiver-only records/read_errors0/failed0 (all background).
+One p,zero x,three link starts/three neutral stops,no ERROR. Host-observed first
+link09:34:06.773UTC -> final stop09:49:06.705UTC (~900s;host chunk timestamps are
+not firmware-level timing). Final883050/983040 ACKs;658536 HID reports,438 retries,
+47107 busy;idle=224074/status=2/type1=658974. LEFT381down/381up,RIGHT86/86,wheelUP135/
+DOWN262. Raw coalescing means these counts do NOT certify1000Hz or physical loss.
+Private base v13-session-20261116-173338-5a62c157 (.txt/.csv/.host.jsonl/.capture.json/
+.raw.stdout.txt/.raw.stderr.txt/.summary.json),all ignored. No private addresses
+or binaries committed. All live readers/logger/build/UAC/helper sessions CLOSED;
+exec55451 completed. Installed v13 remains connected,session EXPIRED/neutral,
+one-arm-per-boot budget used;do NOT rearm without normal reboot and fresh setup.
+Mouse instructed reconnect USB;user report does not independently verify cable.
+Image396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc.
+Branch feature/receiver-fifteen-minute-session. Previous milestones fa9936c software,
+5e1ca7e flash/passive startup pushed. Context/resume updated with full result.
+No further15min arm fits current18:00 stop (cutoff17:42 already passed). Pause
+hardware work here;user may use Glorious wired. NEXT on explicit resume: refresh
+user deadline, review this result and plan repeated bounded normal-use validation
+or measured gaming-performance work;do not rebuild/flash/repeat completed baseline
+without reason. Preserve v13 as tested finite-session baseline. No unlimited mode.
+Remaining: repeated longer reliability,passive USB restart regression for this exact
+v13 image if needed,physical polling/latency/channel/IRQ work. V11 recovery,x stop
+and held-timeout previously tested;v13 long session does not independently repeat
+every safety case. Abrupt physical unplug held state matched wired reference on
+this PC/app;wired PnP restart not compared. Do not revive startup-neutral guesses.
+Current state above supersedes earlier LIVE/IN PROGRESS/history entries below.
+
+LIVE UPDATE ~17:40 Manila: session55451 still running; six minutes captured, two link starts/one neutral link stop/no ERROR after first planned mouse-only cycle. User controls/feel not yet collected. No extra p/x sent.
+
+LIVE UPDATE ~17:45 Manila: eleven minutes captured; three link starts/two neutral stops/no ERROR after second planned mouse-only cycle. Session55451 continues; no extra p/x. User controls and final deadline observations pending.
+
+V13 LIVE TRIAL IN PROGRESS — 2026-11-16 17:33 Manila:
+User confirmed normal receiver reboot, Glorious OFF/USB unplugged and harmless
+scrollable doc/other pointer. Controller started one serial reader/DTR,drained
+fresh v13 banner,started935s raw capture and sent exactly one p. Actual arming
+response confirmed BEFORE mouse-ON pop-up. LIVE exec session55451; private base
+v13-session-20261116-173338-5a62c157. Do NOT open another serial reader or rearm.
+Expected capture end~17:49:20 Manila; final active deadline15min from first link.
+User asked mouse-only OFF3s/ON around5/10min, controls/consistency/finalstop.
+To abort: create exact private base.stop-request; controller sends x ONCE then
+closes partial capture. No UAC/helper. Deadline remains18:00; pause afterward.
+NEXT monitor session55451 with bounded polls, read private logs if needed without
+opening device; collect user results after capture. If context is lost,inspect
+process/artifacts before acting;never blindly restart controller. Trial NOT passed
+yet. Previous flashed/passive milestone5e1ca7e pushed; this live state local only.
+
 V13 FLASHED / PASSIVE STARTUP PASS — 2026-11-16 17:27 Manila:
 Verified unique NICENANO board nRF52840-nicenano/S1406.1.1 and exact preserved
 v13 UF2 SHA256396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc

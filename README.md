@@ -12,14 +12,19 @@ V13 is the current software candidate for a finite fifteen-minute session:
 one arm per boot, explicit `x` stop and passive USB restart. It restores the
 tested v11 bridge; v12's startup-neutral experiment did not fix the held-state
 symptom. V13 is built, flashed and software-checked; passive startup passed on COM12.
-It remains unarmed; the fifteen-minute controls/recovery trial is pending.
+Its full fifteen-minute trial passed: smooth movement, left/right clicks and
+wheel after both mouse-only OFF/ON cycles, followed by a clean original deadline
+stop. Full 935-second serial/Raw Input recording completed with 92,400 receiver
+records and zero read errors. The receiver is now expired/neutral; normal reboot
+and fresh physical readiness are required for another arm.
 
 `research/capture_receiver_session.ps1` records 935 seconds of serial and
 mouse-only Raw Input. Supply the current user-approved UTC finish deadline;
 it refuses to arm with eighteen minutes or less remaining. A per-job
 `.stop-request` file sends `x` once; early-abort raw data is explicitly partial.
 The controller's deadline/stop self-check and syntax checks pass. Full-length
-capture and v13 controls/recovery remain pending physical readiness.
+capture and v13 controls/recovery passed in the first fifteen-minute trial.
+Repeated reliability and physical polling/latency measurements remain pending.
 
 ```powershell
 & ./research/capture_receiver_session.ps1 -SelfTest
