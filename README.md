@@ -36,6 +36,29 @@ v11 startup without errors. A fresh explicit arm afterward restored smooth
 controls and x-stop held-button release by user report. Active USB-loss recovery
 and held-button behavior across that loss remain untested.
 
+## Active USB-reset capture tools
+
+No firmware rebuild is needed for the next installed-v11 test. The deferred
+receiver-only helper obtains UAC approval before the held-input observation,
+waits at most 180 seconds for its unique job signal, and revalidates the exact
+receiver target before one PnP restart. The controller refuses reused/expired
+jobs and existing capture files. All job data and device instance IDs are private.
+
+```powershell
+& ./research/restart_receiver_usb_deferred.ps1 -SelfTest
+& ./research/capture_active_usb_reset.ps1 -Mode SelfTest
+# After UAC readiness; this prepares a helper but does not restart or arm:
+& ./research/capture_active_usb_reset.ps1 -Mode Prepare
+# Only after separate physical reboot/OFF readiness, using the returned job:
+& ./research/capture_active_usb_reset.ps1 -Mode Capture -RunName <ready-job>
+```
+
+Capture needs at least 75 seconds of helper life left. It arms once, requests
+receiver restart 25 seconds after link start, and observes passive recovery
+without another arm. A 150-second hidden Raw Input recording supports button
+observations, not foreground cadence claims. Self-checks pass; the active-loss
+hardware trial remains pending. Firmware and existing Windows settings are unchanged.
+
 ## Host Raw Input diagnostic
 
 The diagnostic compares wired mouse and DIY receiver reports arriving at

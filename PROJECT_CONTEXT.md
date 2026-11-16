@@ -319,6 +319,38 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+RESUMED / ACTIVE USB-RESET HOST TOOLS READY 2026-11-16:
+User resumed later;old02:30 cutoff/pause no longer applies. No new cutoff given.
+Branch feature/active-usb-reset-validation. Installed firmware remains v11,
+last known disarmed/latched24544 ACKs;COM12 closed,no live sessions. No firmware
+edit/build/flash or hardware/serial/admin action on this resumed turn.
+New tracked scripts research/restart_receiver_usb_deferred.ps1 and
+research/capture_active_usb_reset.ps1 reuse existing exact receiver PnP target.
+Deferred helper gets UAC FIRST,waits180s for unique signal,expires/cancels without
+restart,revalidates healthy exact USB root and safe ID characters before one
+restart. PnP child limited15s;result private. Controller Prepare creates unique
+job;Capture requires unused matching job/>75s helper life,fresh v11 startup and
+explicit physical reboot/OFF readiness.150s hidden raw,one p/actual arm cue,
+link+25s close sole serial reader and signal restart,reopen expected receiver CDC
+and observe new passive startup without second p. Abort attempts x if armed and
+recovery not verified;helper cancelled on exit. Background raw not cadence proof.
+Self-checks PASS:exact/foreign/duplicate/mismatched targets,unsafe ID chars,
+cancel/signal/expiry gates,used/wrong/expired/short-lived jobs,and existing-log
+protection. JSON DateTime/string deadline conversion bug caught/fixed;fixture
+preserves logs and touches no hardware. Syntax/diff checks PASS;firmware diff0.
+Recorded private target ID fits strict format;raw executable exists. No helper
+prepared or running yet. Runtime active USB loss/held-release remains UNTESTED.
+NEXT PHYSICAL PAUSE:mouse wired/OFF,receiver normally connected;user ready for
+UAC. Run controller -Mode Prepare,approve helper BEFORE any mouse holding.
+Record RUN_NAME/helper expiry. Then promptly separate readiness popup for normal
+receiver reboot(no double-reset),Glorious OFF/USB unplugged,selectable text/other
+pointer. Capture -Mode Capture -RunName ... only with sufficient helper lifetime;
+if expired cancel/defer,new job/UAC needed,no automatic arm retry. After real arm
+cue,user briefly moves then holds LEFT through targeted restart,checks other
+pointer selection fixed while still held,releases,then moves Glorious to verify
+NO input resumes without explicit arm. Keep receiver connected/mouse ON afterward
+for passive RF observation. Save scoped outcomes;MCU reset cause not instrumented.
+
 PAUSED BEFORE02:30 / V11 POST-RECOVERY ARM PASS 2026-11-16:
 User's02:30 Manila work window is ending;pause after completed test. No further
 hardware actions until user resumes. Branch feature/receiver-usb-reset-restart.
