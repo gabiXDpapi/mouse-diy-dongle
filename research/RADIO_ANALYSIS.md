@@ -1,5 +1,30 @@
 # First radio capture experiment
 
+## V13 intended desk placement validated
+
+V13 INTENDED DESK POSITION PASS / NEXT MILESTONE CHOICE - 2026-11-17 00:52 Manila:
+User confirms receiverinintendednormaldeskposition,normalmousegrip/spot,smoothmotion
+andcleanstop;distance/obstaclesunknown. Full100sserial/rawexit0,39356receiverrecords
+ALLforeground,readerrors0/failed0. Onep,onelink,onex,neutralstop/disarm,noERROR.
+Hostmedian1003us,p90=1222us,p99=4893us,max418994us;peak1000events/fullsecond,
+23of55interiorbins950..1050events. Manualmotionnotinstrumented;hosttimingisnot
+physicalpolling/latencyorinterference/rangecertification. Final58610ACKs,
+39360HIDreports,8retries,1471busy. Raw/HIDtotalsdiffer4;donotcallthatRFpacketloss.
+Privatebasev13-motion-20261117-004932-493d1a24 summarywithuserreportignored.
+exec1572completed;no live serial/raw/UAC/helper/build. Installedv13DISARMEDneutral,
+onearmused;normalrebootbeforefuturearm. GloriousinstructedreconnectUSB,cablenot
+independentlyverified. No firmware/settings/DPI changes. Deadline02:00AMManila
+November17 (UTC2026-11-16T18:00Z). Branchfeature/receiver-foreground-timing.
+Completedbaseline:all5buttons/wheelvalidated,two15minrecoverytrialsandforeground
+motion/intendedplacementpassed. Preservev13image/guards;no needrepeatthosechecks.
+NEXT userpreferencepopup: prioritize convenient REPEATED EXPLICIT Start/Stop,
+keepingfiniteboundsandpassiveUSBreconnect (wouldrequirecarefullytestedrearmstate
+changefromonearmperboot),or device-sidetiminginstrumentationforperformancework.
+No newrearmbehavior/firmwareimplemented or armed. Untilpreferencearrives,do not
+silentlyremoveonearmguardoraddautoarm/unboundedmode. Hardwareinterventionwill
+stillneedpopupforanyfutureflash/inputtrial. CurrentstatesupersedesLIVEhistory.
+
+
 ## V13 middle and thumb buttons validated
 
 V13 ALL FIVE BUTTONS VALIDATED - 2026-11-17 00:47 Manila:

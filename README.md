@@ -36,8 +36,11 @@ That is two separate bounded sessions, not continuous thirty-minute validation.
 All five buttons and wheel UP/DOWN now have deliberate hardware coverage.
 Middle and each thumb button produced five balanced press/release pairs; the
 user confirmed clean stop with no stuck buttons. Front thumb maps to Windows
-button 5, rear thumb to button 4. Physical polling/latency and intended desk
-placement checks remain pending.
+button 5, rear thumb to button 4. The intended desk-position check also passed
+with smooth motion and clean stop: 39,356 foreground events, zero read errors,
+median host gap 1.003 ms and peak 1,000 events in a full second. Distance and
+obstacles were not recorded. Physical polling/latency and broader RF robustness
+remain unverified.
 
 ```powershell
 & ./research/capture_receiver_session.ps1 -SelfTest

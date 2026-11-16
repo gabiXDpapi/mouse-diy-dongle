@@ -1,3 +1,34 @@
+V13 INTENDED DESK POSITION PASS / NEXT MILESTONE CHOICE - 2026-11-17 00:52 Manila:
+User confirms receiverinintendednormaldeskposition,normalmousegrip/spot,smoothmotion
+andcleanstop;distance/obstaclesunknown. Full100sserial/rawexit0,39356receiverrecords
+ALLforeground,readerrors0/failed0. Onep,onelink,onex,neutralstop/disarm,noERROR.
+Hostmedian1003us,p90=1222us,p99=4893us,max418994us;peak1000events/fullsecond,
+23of55interiorbins950..1050events. Manualmotionnotinstrumented;hosttimingisnot
+physicalpolling/latencyorinterference/rangecertification. Final58610ACKs,
+39360HIDreports,8retries,1471busy. Raw/HIDtotalsdiffer4;donotcallthatRFpacketloss.
+Privatebasev13-motion-20261117-004932-493d1a24 summarywithuserreportignored.
+exec1572completed;no live serial/raw/UAC/helper/build. Installedv13DISARMEDneutral,
+onearmused;normalrebootbeforefuturearm. GloriousinstructedreconnectUSB,cablenot
+independentlyverified. No firmware/settings/DPI changes. Deadline02:00AMManila
+November17 (UTC2026-11-16T18:00Z). Branchfeature/receiver-foreground-timing.
+Completedbaseline:all5buttons/wheelvalidated,two15minrecoverytrialsandforeground
+motion/intendedplacementpassed. Preservev13image/guards;no needrepeatthosechecks.
+NEXT userpreferencepopup: prioritize convenient REPEATED EXPLICIT Start/Stop,
+keepingfiniteboundsandpassiveUSBreconnect (wouldrequirecarefullytestedrearmstate
+changefromonearmperboot),or device-sidetiminginstrumentationforperformancework.
+No newrearmbehavior/firmwareimplemented or armed. Untilpreferencearrives,do not
+silentlyremoveonearmguardoraddautoarm/unboundedmode. Hardwareinterventionwill
+stillneedpopupforanyfutureflash/inputtrial. CurrentstatesupersedesLIVEhistory.
+
+V13 DESK-POSITION CAPTURE LIVE - 2026-11-17 00:49 Manila:
+Usernormaldeskreceiverposition/freshnormalreboot/GloriousOFF USBunpluggedconfirmed.
+Distance/obstaclesnotprovided. Onep/newactualarmconfirmedbeforeONcue. LIVEexec1572;
+privatebasev13-motion-20261117-004932-493d1a24. Existing100sforeground/autox60slink.
+Useractivateswindowwithotherpointer,motion45-60snormalspot/grip. No firmware/settings
+change. Do not reopenserial/rearm/reset. Stopfileexactbase.stop-requestifabort.
+NEXT poll1572,collectstalls/overshoot/cleanstoppopupanddistanceifknown,save/push.
+Deadline02:00AMManilaNovember17. Earlierdisarmedstatehistorysupersededwhilelive.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
