@@ -1,5 +1,32 @@
 # First radio capture experiment
 
+## V11 active-loss held-button release failed
+
+V11 ACTIVE USB-LOSS HELD-RELEASE FAILURE CONFIRMED 2026-11-16:
+Job v11-activeusb-20261116-155201-22120a8b completed capture with0 read errors,
+1795 receiver records. One arm/link,one receiver PnP restart(helper exit0),one
+fresh passive v11 boot,no second p;post-reset ACKs0/hid_reports0 while2851 RF
+packets observed. Software transport recovery succeeds,but overall hardware
+held-release test FAIL:other-pointer movement extended selected text while
+Glorious LEFT remained held. Other-pointer click/release did not clear;Esc,
+release all buttons and physical receiver unplug cleared it. User confirms normal
+pointer now. Read-only Windows left/right state false;ClickLock disabled.
+Raw LEFT events:down23.717s/up23.772s/down28.174s,NO matching final up. Last
+raw47.810s;PnP began07:54:25.315Z,postboot07:54:28Z. Physical no-resume assertion
+confounded by held state;only log-based no rearm established. No injection/settings
+changes. All capture/helper/serial processes finished. Receiver PHYSICALLY UNPLUGGED
+per clearing instruction;last installed v11,postreset unarmed before poweroff.
+NEXT SOFTWARE: test an isolated startup-neutral report hypothesis. Current v11
+fresh boot has last_buttons0 and emits no neutral until armed/held;add exactly
+one all-zero HID report after configuration,outside callback,before RF output/
+arming,wait completion,gate output on success. Native zero/no-motion/error/
+idempotence checks,build/validate,preservev11. This is unproven on Windows after
+PnP reset (HID class may ignore unchanged zero state);no synthetic button press.
+Do not claim fix until same active-reset physical test. No repeat v11 test now.
+
+Windows raw button fields are transition flags: https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-rawmouse
+
+
 ## Active USB-loss capture preparation
 
 RESUMED / ACTIVE USB-RESET HOST TOOLS READY 2026-11-16:

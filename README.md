@@ -33,8 +33,10 @@ V11 is a flashed USB-recovery experiment with passive startup verified: configur
 disconnect requests a software restart to passive startup; a new explicit arm is
 required. Generic USB errors remain fatal. A targeted Windows restart while configured/passive returned a fresh unarmed
 v11 startup without errors. A fresh explicit arm afterward restored smooth
-controls and x-stop held-button release by user report. Active USB-loss recovery
-and held-button behavior across that loss remain untested.
+controls and x-stop held-button release by user report. Active USB-loss testing returned to passive startup but FAILED held-button
+release: selection still followed the other pointer. The host state was cleared
+with Esc/button release and receiver unplug. Startup-neutral reporting is the
+next isolated experiment; v11 is not validated for abrupt active USB loss.
 
 ## Active USB-reset capture tools
 
