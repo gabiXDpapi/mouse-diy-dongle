@@ -4,6 +4,25 @@ Read PROJECT_CONTEXT.md(LATEST HANDOFF / NEXT),README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-16-receiver-startup-neutral.md.
 Inspect git status/log first. Branch:feature/receiver-startup-neutral.
 
+V12 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user reconnected receiver
+and confirmed NICENANO/Glorious wired-OFF. Bootloader0.6.0/nRF52840-nicenano/
+S1406.1.1 verified;exact v12 hash1e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30;
+UF2 PASS243 blocks0x26000..0x352FF,copy complete. COM12 expected USB identity
+confirmed.6.5s passive capture receiver-v12-passive-20261116-162126.txt shows
+v12 banner AND HID startup neutral complete,no RF arming,zero traffic,no errors.
+Board NOW v12 UNARMED,unused327680 ACK/5min/8 discovery budgets. COM12 closed,
+no live serial/raw/helper/build. Flash metadata receiver-v12-flash-validation.json.
+This verifies startup neutral completion,NOT Windows retained-held-button fix.
+NEXT physical/UAC readiness:Glorious wired/OFF,receiver normally connected.
+Controller -Mode Prepare gets UAC/deferred180s helper,then separate normal receiver
+reboot/OFF-unplugged/selectable-text/other-pointer readiness. Capture v12-only,
+75s helper lifetime required,one p/actual arm cue,reset at link+25s. Hold LEFT
+through actual reset and wait about40s from mouse ON (pointer inactive) BEFORE
+checking other-pointer selection without clicks;then release LEFT/moveGlorious
+and verify no auto-resume. Capture samples host LEFT state before/after reset.
+Do not reuse oldv11 job or invoke immediate restart helper. If still dragging,
+Esc/release all/unplugreceiver and confirm host clear. No press-pulse workaround.
+
 V12 STARTUP-NEUTRAL SOFTWARE CHECKPOINT COMPLETE 2026-11-16:
 branch feature/receiver-startup-neutral. V12 BUILT/VALIDATED,NOT FLASHED.
 V11 active USB-loss held-release failed;host cleared after Esc/released buttons/

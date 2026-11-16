@@ -38,7 +38,7 @@ release: selection still followed the other pointer. The host state was cleared
 with Esc/button release and receiver unplug. Startup-neutral reporting is the
 next isolated experiment; v11 is not validated for abrupt active USB loss.
 
-V12 is a built, unflashed startup-neutral experiment for that failure. It sends
+V12 is a flashed startup-neutral experiment with passive startup completion verified for that failure. It sends
 one all-zero HID report after USB configuration and waits for completion before
 allowing RF input. It adds no button press or motion. Whether Windows clears
 its retained state remains unproven;repeat hardware validation is required.
