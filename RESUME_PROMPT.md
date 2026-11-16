@@ -1,3 +1,19 @@
+V15 TIMING FLASHED / ENUMERATION PASS - 2026-11-17 02:32 Manila:
+UserphysicalNICENANOready/GloriouswiredOFF. VerifieduniqueNICENANOboard/S140and
+exactfinald751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7UF2,
+valid193blocks0x26000..0x32100then copied. USBproductDIY Mouse Timing v15 plus
+HID/CDCverified. Private timing-v15-flash-validation.jsonsaved. NOserialopened/
+armcommand. InstalledNOWtimingv15autoactive/listening,NOTnormalv14/passive.
+No livebuild/serial/raw/helper. HardwaretimingdataNOTyetcaptured. Software70dc90b
+pushed. Deadline03:00AMManilaNov17. MustRESTOREtestednormalv14beforebreak.
+NEXT separateinputpopup:GloriousOFF USBunplugged,harmlessdoc/otherpointer,same
+surface/DPI/settings. Runresearch/capture_latency_session.ps1 -FinishBeforeUtc
+2026-11-16T19:00Z. OneCDCreader+100sforegroundRawInput,noarmcommand. CueONthen
+activatewindowwithOTHERpointer,motion~45s. Active d50s silent;x70s;frozendumpafterx.
+Analyzevalidframeonly;collectuserfeel/stoppopup;thenfreshNICENANOreadinessrestore
+build-pairing-analysis/dongle-v14-93eb987a.uf2 (fullhashinpriorcheckpoint),verify
+USBproductDIY Mouse Dongle v14. No extra builds/flashes needed for completedsteps.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 

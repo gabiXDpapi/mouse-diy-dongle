@@ -319,6 +319,22 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V15 TIMING FLASHED / ENUMERATION PASS - 2026-11-17 02:32 Manila:
+UserphysicalNICENANOready/GloriouswiredOFF. VerifieduniqueNICENANOboard/S140and
+exactfinald751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7UF2,
+valid193blocks0x26000..0x32100then copied. USBproductDIY Mouse Timing v15 plus
+HID/CDCverified. Private timing-v15-flash-validation.jsonsaved. NOserialopened/
+armcommand. InstalledNOWtimingv15autoactive/listening,NOTnormalv14/passive.
+No livebuild/serial/raw/helper. HardwaretimingdataNOTyetcaptured. Software70dc90b
+pushed. Deadline03:00AMManilaNov17. MustRESTOREtestednormalv14beforebreak.
+NEXT separateinputpopup:GloriousOFF USBunplugged,harmlessdoc/otherpointer,same
+surface/DPI/settings. Runresearch/capture_latency_session.ps1 -FinishBeforeUtc
+2026-11-16T19:00Z. OneCDCreader+100sforegroundRawInput,noarmcommand. CueONthen
+activatewindowwithOTHERpointer,motion~45s. Active d50s silent;x70s;frozendumpafterx.
+Analyzevalidframeonly;collectuserfeel/stoppopup;thenfreshNICENANOreadinessrestore
+build-pairing-analysis/dongle-v14-93eb987a.uf2 (fullhashinpriorcheckpoint),verify
+USBproductDIY Mouse Dongle v14. No extra builds/flashes needed for completedsteps.
+
 V15 QUIET TIMING SOFTWARE READY / FLASH NEXT - 2026-11-17 02:28 Manila:
 Deadlineextended03:00AMManilaNov17 (UTCNov16T19:00Z). Branchfeature/receiver-latency-diagnostics.
 InstalledhardwareSTILLworkingnormalv14autoactive;NOdiagnosticflashorlivetrialyet.
