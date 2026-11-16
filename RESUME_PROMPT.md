@@ -1,3 +1,38 @@
+V16 RUN2 PASS / V15 RUN2 FLASH NEXT - 2026-11-17 03:03 Manila:
+UserSmooth/cleanstopped/noissue. exec2275complete;40272acceptedHID/USBsamplesmatch
+40272receiver-onlyforegroundrecords/errors0. Active d silent,onex,frameallchecks
+PASS;failed/capped/trackingfault0. Privatebasev16-latency-20261117-030043-9903f36e
+finalsummarysaved. No liveprocess;installedv16TIMINGDISARMED,userinstructedwired.
+V16run2means:candidateage24.787us,RFsubmit34.988us,RFUSBcallback583.143us;
+RFUSBmax1098us,p99UPPER1098us (notexactpercentile). ACK46945,candidate50039,
+retries10,busy3094=6.18% ofcandidates. Run1v16busy.303% andmean525.125us;substantial
+USB-sidevariation confirmsneedrepeatbaselinebeforeclaimingoverallbenefit. Fast
+CPUreactionseemslowerthanv15run1butnolongrun/wholemousecausalclaim.
+NEXT freshNICENANOreadywired/OFF flashEXACTv15d7516017baselineimage,verifyproduct,
+separateinputOFF USBunpluggedreadythen100scaptureExpectedProductv15Finish19:30Z.
+Reuseexistingimages/tools,nobuilds. ThencomparePER-RUNfourresultsandRESTOREtested
+normalv14-93eb987abefore03:30AM. No newdiagnosticflashesat/after03:15ifdelayed;
+controllerlateststart03:22. Companionappstilldeferred. Contextupdated.
+
+V16 RUN2 LIVE - 2026-11-17 03:00 Manila:
+FreshOFF USBunplugged/samesetupready. LIVEexec2275,privatebase
+v16-latency-20261117-030043-9903f36e. OneCDC+100sforegroundraw,NOarm;cueONprovided.
+Sameactive d50squietprobe,x70s/poststopd. Do notopenanotherreader/rearm/reset.
+Exactbase.stop-requestifabort. NEXTpoll2275/analyzeframe+userreport;thenv15run2
+viafreshNICENANOready;restoretestednormalv14before03:30. No builds/codechanges.
+Installedv16autoactiveuntilx;willbedisarmedaftercapture. Deadline19:30ZNov16.
+
+V16 REPLICATION FLASH VERIFIED - 2026-11-17 03:00 Manila:
+Freshphysicalreadinesswired/OFF;uniqueNICENANO/S140/hash/UF2checksPASS;exactfrozen
+v1655a371eaflashed. USBproductDIY Mouse Timing v16verifiedwithoutserial. Private
+timing-v16-replication-flash.jsonsaved. InstalledNOWv16timingautoactive/listening;
+normalv14notinstalled. No livecapture/serial/build/helper. Deadline03:30AM.
+NEXT separateOFF USBunpluggedreadiness,samesettings/otherpointer/window;100scapture
+ExpectedProductv16,FinishBeforeUtc2026-11-16T19:30Z. Thenvalidate+saveuserreport,
+freshNICENANOreadyflashfrozenv15forsecondbaseline,thenrestoretestednormal93eb.
+No code/buildchanges. Don'tstartcaptureat/after03:22;skipdiagnosticflashesafter
+03:15ifdelayedandrestore. Currentstate supersedesnormal-installedhistory.
+
 RESUMED UNTIL03:30 / REVERSE-ORDER REPLICATION NEXT - 2026-11-17 02:57 Manila:
 User extends sessionto03:30AMManilaNov17 (UTCNov16T19:30Z),superseding03:00pause.
 Installednormalv14restoredanduserwirelessconfirmationPASS(dfca95f). No live serial/

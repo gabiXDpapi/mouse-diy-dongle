@@ -1,5 +1,24 @@
 # First radio capture experiment
 
+## Fast polling second run
+
+V16 RUN2 PASS / V15 RUN2 FLASH NEXT - 2026-11-17 03:03 Manila:
+UserSmooth/cleanstopped/noissue. exec2275complete;40272acceptedHID/USBsamplesmatch
+40272receiver-onlyforegroundrecords/errors0. Active d silent,onex,frameallchecks
+PASS;failed/capped/trackingfault0. Privatebasev16-latency-20261117-030043-9903f36e
+finalsummarysaved. No liveprocess;installedv16TIMINGDISARMED,userinstructedwired.
+V16run2means:candidateage24.787us,RFsubmit34.988us,RFUSBcallback583.143us;
+RFUSBmax1098us,p99UPPER1098us (notexactpercentile). ACK46945,candidate50039,
+retries10,busy3094=6.18% ofcandidates. Run1v16busy.303% andmean525.125us;substantial
+USB-sidevariation confirmsneedrepeatbaselinebeforeclaimingoverallbenefit. Fast
+CPUreactionseemslowerthanv15run1butnolongrun/wholemousecausalclaim.
+NEXT freshNICENANOreadywired/OFF flashEXACTv15d7516017baselineimage,verifyproduct,
+separateinputOFF USBunpluggedreadythen100scaptureExpectedProductv15Finish19:30Z.
+Reuseexistingimages/tools,nobuilds. ThencomparePER-RUNfourresultsandRESTOREtested
+normalv14-93eb987abefore03:30AM. No newdiagnosticflashesat/after03:15ifdelayed;
+controllerlateststart03:22. Companionappstilldeferred. Contextupdated.
+
+
 RESTORED NORMAL V14 WIRELESS CHECK PASS - 2026-11-17, final break checkpoint:
 User confirms restored wireless operation works normally after USBunplug/mouseON,
 movement/click on harmless document,without arm command. This resolves the prior
