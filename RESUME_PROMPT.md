@@ -1,3 +1,20 @@
+GAMING/RELIABILITY PRIORITY SAVED - 2026-11-17, before02:00AM pause:
+User wants long-term reliability and especially gaming capability/1000Hz if
+possible,and asks which gaming features can be added. Preserve working normal
+v14;no firmware/settings/flash/serial/capture changes in this planning step.
+Next plan docs/plans/2026-11-17-gaming-qualification.md:verifyactual USB1ms
+configuration and controlledforeground consistency,then quiet device-side timing
+histograms/counters before targeted IRQ/hardware-timing changes. Distinguish fresh
+report delivery from polling and end-to-end latency. Validate fast motion/input
+edges,USB/mouse/system sleep recovery and practical RF robustness. Proposed4hour,
+then8+hour/multi-day soaks NOTyetperformed. DPI/debounce/lift-off/batteryfeatures
+need supported mouse-side protocol;receiver scaling is not true DPI. Userordinary
+wireless use may continue. Currentnormalv14 remainsinstalledautoactive/listening,
+no live tools/readers/helpers/builds. Latestnormalhardwarepass704c7c7pushed.
+NEXT resumeafterbreak:refreshworkwindow,readqualificationplan,and implement
+measurement step conservatively. Do not repeat extraction/build/flash/baselines
+without reason. Existing02:00AMNov17 deadline expires;do not reuse in laterday.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
