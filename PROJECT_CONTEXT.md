@@ -319,6 +319,104 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V14 PLUG-AND-PLAY SOFTWARE READY / FLASH NEXT - 2026-11-17 01:15 Manila:
+User explicitly requests normal dongle operation: USB plug automatically activates
+until unplug. This supersedes previous finite-only/manual-start and passive USB
+reconnect preferences FOR THE NEW NORMAL BUILD. Current branch:
+feature/receiver-plug-and-play. Installed hardware STILL v13, disarmed/neutral;
+no v14 flash/arming/hardware trial yet. No live build/serial/raw/UAC/helper session.
+
+New App dongle / NORMAL_DONGLE=ON starts after USB configuration without DTR or
+host command. No discovery-arm timeout, session duration, ACK or discovery cap.
+One-second successful-ACK gap neutralizes then keeps rediscovering. Optional x
+stays stopped until explicit p or reboot. USB reset/reconnect can autoactivate
+again; USB/radio/HID errors fail closed. Telemetry wrapping does not affect link.
+Normal overlay disables UART console, printk and boot banner to avoid CDC output
+blocking with no reader. CDC input is optional. RF bytes/timing, mapping and idle
+ACK hold are unchanged. Bounded App receiver remains available and now permits
+explicit fresh p only after completed neutral stop; no active-session renewal.
+
+Tests: new expiry rearm regression failed on v13; normal-mode regression failed
+old 30s guard before implementation. All8 tests PASS, protocol subtests cover
+probe/receiver/dongle, no-command startup, offline/fault gates, old limits,
+telemetry wrap, gap recovery, x latch, fatal TX and neutral-failure cases. All four
+firmware builds PASS. Final staged sources/config match; NORMAL only ON for dongle.
+Normal PRINTK/UART_CONSOLE/BOOT_BANNER disabled, HID+REBOOT enabled, interval1ms.
+Normal UF2 SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+46124 flash/16064 RAM,181 blocks,0x26000..0x31500 end exclusive. Preserved ignored
+build-pairing-analysis/dongle-v14-93eb987a.uf2. Earlier ddd815ea image was superseded
+by final USB-reset-during-init fix; DO NOT flash that stale image.
+Bounded v14 receiver SHA256
+5aadca1a29a17d8fc25f022d4309e24159fd12d7aa25a1bd06882b25b42b3696,
+62268 flash/16128 RAM,244 blocks,0x26000..0x35400; preserved separately. Probe
+SHA e51374e433090fadbecf3092a3f76e002bef742279d062cd535dac5965d0b26f;
+radio SHA014953ed153a2cc50ca0577278be7fbd0154961faedb86233c57230b2c169438.
+Default HID hash unchanged. V13 rollback396d7dd8 full hash verified preserved.
+Private software metadata v14-software-validation.json ignored. Build15557 and
+final normal rebuild25478 finished; no more builds needed for current sources.
+
+NEXT physical flash popup: Glorious wired/OFF, double-reset ONLY receiver to
+NICENANO. Verify unique bootloader/board + exact normal image before copy. The new
+image AUTOACTIVATES; do not claim passive/unarmed startup. Verify USB enumeration
+and product DIY Mouse Dongle v14 without opening CDC. Then separate harmless-doc/
+other-pointer readiness, mouse OFF/USB unplugged; raw-only host capture, no serial
+reader or arm command. Test automatic controls/powercycle then safe USB replug,
+all buttons released first. Longer normal trial must exceed old15min window.
+Old capture_receiver_session.ps1 targets bounded v13 and MUST NOT be used for
+normal v14; normal has intentionally no serial diagnostics. Save/push every tested
+milestone and keep private images/captures ignored. Deadline02:00AM ManilaNov17,
+UTC2026-11-16T18:00Z; refresh if later. Abrupt unplug held-state known from both
+DIY and wired reference; no physical polling/latency or long-term certification.
+
+V14 PLUG-AND-PLAY BUILDS IN PROGRESS - 2026-11-17 ~01:07 Manila:
+User explicitly requests USBplug->automaticactivationuntilunplug;newnormalmode
+supersedespriorfinite/passivepreference. Branchfeature/receiver-plug-and-play.
+NORMAL_DONGLE added as separateAppdongle;boundedreceiver/probe/radio retained.
+Normalmain waitsUSBconfiguredinsteadDTR,startsreceiverwithoutCDCcommand,hasno
+30sdiscovery/15min/ACK/discoverycaps;gapneutralizesandrediscoverycontinues. Optional
+x stops/latches;explicitp/rebootrestarts. USBresetrestartcanactivateagain normalmode.
+USB/radio/HIDerrorsfailclosed. Unsignedtelemetrywrapdoesnotstopnormalmode.
+Normaloverlay UART_CONSOLE=n/PRINTK=n/BOOT_BANNER=n preventsCDCoutputblocking.
+SameRFbytes/timing/mapping/quietactive. Sharedv14explicitrearmresetsper-session
+counters/dedupaftercompletedneutralstop;pending/failedstopandUSBfaultsblockp.
+TDD: rearmexpiryregressionfailedonv13;continuousmodefailedold30sarmguard;nowall8
+nativeunittestsPASSwithprobe/receiver/donglesubtests. Newarmexpiry/failuregatesalso
+passedbybuildtest. Bridgefault/resetchecksPASS. HardwareNOTchanged:stillv13disarmed.
+LIVEBUILDexec15557:Appdongle thenreceiver/probe/radio,verifycompletion/artifacts.
+A one-line mainnormalinitialization reset-requestservice fix was added AFTER first
+donglestaging began;must ensurefinalbuildstagingmatchescurrentmain/rebuilddongleif
+needed (do notflasholdimage). No live serial/raw/UAChelper. Deadline02:00AMManila.
+Need completebuild/config/staging/UF2hash/privatepreservevalidation,README/context/
+resumeupdateandpushsoftwarecheckpointbeforephysicalflashpopup. Newnormalimage
+AUTOACTIVATES,soGloriouswired/OFFbeforeverifiedNICENANOcopy. Testnormalstartupwith
+NOCDCreader/NOarmcommand,harmlessdoc/otherpointer;collectallcontrols/powercycle/
+USBreplugresults. Do not callnormalstartupunarmed/passive. V13rollbackpreserved.
+Oldcapture_receiver_session.ps1 expectsboundedv13 andmustnotbeusedagainstnormal
+image(no serialdiagnosticsbydesign). Raw-onlyhostcapturecanmonitornewimage.
+
+USER CHANGES TARGET TO PLUG-AND-PLAY - 2026-11-17 ~01:04 Manila:
+User asks receiver automaticallyactive fromUSBpluguntilunplug. This supersedes
+priorfinite-only/passivestartselectionfornewNORMALbuild. Agentacknowledgedautomatic
+startup,noCDCwindowrequired,continuousoperation/mousepowercycle recovery,emergencyx.
+Currentbranchfeature/receiver-plug-and-play;priorfeature/receiver-explicit-rearm
+createdbutNOcommit/build/image/flashthere. Workingdiffcontainsv14explicitrearm
+sharedlogic+tests:originalexpiryregressionfailedonv13;all8nativecheckscurrentlyPASS.
+NOTfullyvalidatedv14;nohardwarechange. InstalledimageSTILLv13DISARMEDneutral,
+no live process. Deadline02:00AMManilaNov17 (UTCNov16T18:00Z).
+NEXT separateAppdongle normalbuildusingexistingreceiverlogic/compileflag;retain
+boundedreceiver diagnostic variant andv13rollback. MustremoveDTRstartupdependency
+andavoidCDCconsoleblockingwithoutreader. ProposednormaloverlayPRINTK=n,
+UART_CONSOLE=n,BOOT_BANNER=n;CDCcommandsstilloptional. InspectSDKdriver/config.
+NormalmodeautoarmsafterUSBconfigured;discoverywait/session/ACK/discoverylimits
+mustnotstopnormaluse;gapneutralizesandkeepsrediscovering;USBresetmayrestartnormal
+modeautomatically(usernewpreference),faultsfailclosed. xlatcheduntilfreshp/replug.
+Testactualguards/autoarmoffline/USBfault/noautoresumeafterx/numericalbudgetwrap;
+keepboundedreceiver/probechecks. No giantfakebudgetstostandforcontinuousmode.
+Needfinishplan,testsfirst,builddongle+receiver/probe/radio/config/UF2validation,
+preservetestedimage,pushbeforephysicalflashpopup. Gloriouswired/OFFbeforeflash
+becausenormalimagewillautoactivate. LaterverifyNOserialreader/armcommandrequired,
+allcontrols/mousecycles,andUSBreplugwithsafephysicalreadiness. Neverflashblindly.
+
 V13 INTENDED DESK POSITION PASS / NEXT MILESTONE CHOICE - 2026-11-17 00:52 Manila:
 User confirms receiverinintendednormaldeskposition,normalmousegrip/spot,smoothmotion
 andcleanstop;distance/obstaclesunknown. Full100sserial/rawexit0,39356receiverrecords

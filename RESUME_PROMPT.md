@@ -1,90 +1,74 @@
-V13 INTENDED DESK POSITION PASS / NEXT MILESTONE CHOICE - 2026-11-17 00:52 Manila:
-User confirms receiverinintendednormaldeskposition,normalmousegrip/spot,smoothmotion
-andcleanstop;distance/obstaclesunknown. Full100sserial/rawexit0,39356receiverrecords
-ALLforeground,readerrors0/failed0. Onep,onelink,onex,neutralstop/disarm,noERROR.
-Hostmedian1003us,p90=1222us,p99=4893us,max418994us;peak1000events/fullsecond,
-23of55interiorbins950..1050events. Manualmotionnotinstrumented;hosttimingisnot
-physicalpolling/latencyorinterference/rangecertification. Final58610ACKs,
-39360HIDreports,8retries,1471busy. Raw/HIDtotalsdiffer4;donotcallthatRFpacketloss.
-Privatebasev13-motion-20261117-004932-493d1a24 summarywithuserreportignored.
-exec1572completed;no live serial/raw/UAC/helper/build. Installedv13DISARMEDneutral,
-onearmused;normalrebootbeforefuturearm. GloriousinstructedreconnectUSB,cablenot
-independentlyverified. No firmware/settings/DPI changes. Deadline02:00AMManila
-November17 (UTC2026-11-16T18:00Z). Branchfeature/receiver-foreground-timing.
-Completedbaseline:all5buttons/wheelvalidated,two15minrecoverytrialsandforeground
-motion/intendedplacementpassed. Preservev13image/guards;no needrepeatthosechecks.
-NEXT userpreferencepopup: prioritize convenient REPEATED EXPLICIT Start/Stop,
-keepingfiniteboundsandpassiveUSBreconnect (wouldrequirecarefullytestedrearmstate
-changefromonearmperboot),or device-sidetiminginstrumentationforperformancework.
-No newrearmbehavior/firmwareimplemented or armed. Untilpreferencearrives,do not
-silentlyremoveonearmguardoraddautoarm/unboundedmode. Hardwareinterventionwill
-stillneedpopupforanyfutureflash/inputtrial. CurrentstatesupersedesLIVEhistory.
-
-V13 DESK-POSITION CAPTURE LIVE - 2026-11-17 00:49 Manila:
-Usernormaldeskreceiverposition/freshnormalreboot/GloriousOFF USBunpluggedconfirmed.
-Distance/obstaclesnotprovided. Onep/newactualarmconfirmedbeforeONcue. LIVEexec1572;
-privatebasev13-motion-20261117-004932-493d1a24. Existing100sforeground/autox60slink.
-Useractivateswindowwithotherpointer,motion45-60snormalspot/grip. No firmware/settings
-change. Do not reopenserial/rearm/reset. Stopfileexactbase.stop-requestifabort.
-NEXT poll1572,collectstalls/overshoot/cleanstoppopupanddistanceifknown,save/push.
-Deadline02:00AMManilaNovember17. Earlierdisarmedstatehistorysupersededwhilelive.
-
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md, docs/plans/2026-11-15-wireless-hid-prototype.md and
- docs/plans/2026-11-16-fifteen-minute-session.md. Inspect git status/log first.
-Current branch feature/receiver-foreground-timing; use feature-based names.
-Keep context and this copy-paste prompt current;push tested milestones.
-Private captures/addresses/images/binaries stay ignored in build-pairing-analysis.
-Leave unrelated .vscode/ and INFO_UF2.TXT untracked.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-17-plug-and-play.md.
+Original implementation: docs/plans/2026-11-15-wireless-hid-prototype.md.
+Inspect git status/log first. Current feature/receiver-plug-and-play.
+Keep context and this copy-paste prompt current after each meaningful step;
+commit/push tested milestones. Use feature-based branches. Leave unrelated
+.vscode/ and INFO_UF2.TXT untracked. Private captures/addresses/binaries ignored.
 
-V13 ALL FIVE BUTTONS VALIDATED - 2026-11-17 00:47 Manila:
-User confirms requestedmiddle/frontthumb/rearthumborder,cleanstop,no stuckbuttons.
-Full100s raw/serial exited0:25819 receiverrecords,allforeground(code0),read_errors0/
-failed0. Middle5down/5up,side2=5/5,side1=5/5;oneextraLEFTdown/up. Temporalorder
-plususerconfirmation mapsfrontthumb->Windowsbutton5(side2),rearthumb->button4(side1).
-Onep,onelink,onex,neutralstop+disarm,noERROR. Final59898ACKs,25821HIDreports,
-23retries,919busy. Raw/HID totals differ2;do not equate reportcounts with physical
-packetloss. Privatebasev13-motion-20261117-004417-1a641303 summarywithmappingignored.
-Togetherwithpriorleft/right/wheeltests,allfivebuttons+wheelup/downnowdeliberately
-validated. No firmware/build/flash/Windows/DPI changes. exec13642finished;no live
-serial/raw/UAC/helper/build. Installedv13DISARMEDneutral;normalrebootfornewarm.
-UserinstructedreconnectUSB. Branchfeature/receiver-foreground-timing;deadline02:00
-AMManilaNovember17. Preservev13UF2396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc.
-NEXT intendeddesk-placementRFcheck onunchangedv13:receiverinintendeddailyposition,
-sameDPI/surface/settings,otherpointer/harmlesscapturewindow. Normalreceiverreboot,
-GloriousOFF USBunplugged;onearmactualconfirmbeforeON. Existing100sforeground
-controller/autox60s. Usersteadycircles/strokes45-60snormalgripfromnormaldeskspot,
-reportstalls/overshoot/cleanstoptogetherwithapproxreceiverdistance/obstacles.
-This checksonepracticalplacement,notcertifiedrange/interference/gaminglatency.
-No need repeatcompleted wired/extraction/build/flash or longrunbaseline.
-CurrentcompletedstatesupersedesearlierLIVEhistory. Save/pushthenphysicalpopup.
+V14 PLUG-AND-PLAY SOFTWARE READY / FLASH NEXT - 2026-11-17 01:15 Manila:
+User explicitly requests normal dongle operation: USB plug automatically activates
+until unplug. This supersedes previous finite-only/manual-start and passive USB
+reconnect preferences FOR THE NEW NORMAL BUILD. Current branch:
+feature/receiver-plug-and-play. Installed hardware STILL v13, disarmed/neutral;
+no v14 flash/arming/hardware trial yet. No live build/serial/raw/UAC/helper session.
 
-Previously passed:
-- V13 two separate15min normal-use trials,each withtwo mouse-only OFF3s/ON
-  recoveries;allcontrols smooth,originaldeadlinecleanstops (fb26dad,2b7dabd).
-  First92400rawrecords,second75552;both935s/allbackground/errors0. Not one30minrun.
-- V13 foregroundmotion39210records/allcode0/errors0,usersmoothlikewired,xstopclean
-  (4d9a89f). Medianhostgap1007us,peak988events/fullsecond. Hosttimingonly;
-  manualmotion/stationaryintervalsunmarked,notphysical1000Hz/latencycertification.
-- V13 basedonexacttestedv11bridge/main/HIDharness;v12startupneutralexperiment
-  removedbecausenobenefit. Onlyreceivercap983040/900000ms/bannerchangedfromv11.
-  Eightnativechecks/builds/UF2config/stagingpassed;probe/radio/defaultHIDcontrols
-  matched. V13flashed/passivestartupverified (fa9936c,5e1ca7e).
-- Connected x/timeout heldLEFTneutralreleasepreviouslyuserverified. PassiveUSB
-  restart/rearmv11passed. AbruptphysicalunplugheldstateMATCHEDwiredreferenceon
-  thisPC/app;wiredPnPrestartnotcompared. Donotrevivestartupneutralguesses.
+New App dongle / NORMAL_DONGLE=ON starts after USB configuration without DTR or
+host command. No discovery-arm timeout, session duration, ACK or discovery cap.
+One-second successful-ACK gap neutralizes then keeps rediscovering. Optional x
+stays stopped until explicit p or reboot. USB reset/reconnect can autoactivate
+again; USB/radio/HID errors fail closed. Telemetry wrapping does not affect link.
+Normal overlay disables UART console, printk and boot banner to avoid CDC output
+blocking with no reader. CDC input is optional. RF bytes/timing, mapping and idle
+ACK hold are unchanged. Bounded App receiver remains available and now permits
+explicit fresh p only after completed neutral stop; no active-session renewal.
 
-Safety/workflow: continueuntilphysicalintervention;usequestionpopuptopause.
-Beforeanynewarm:currentdeadline,freshnormalreceiverrebootifused,harmlessdoc/
-otherpointer,GloriousOFF USBunpluggedconfirmed. OneCDCreader/DTR,drainfreshv13
-banner,ONEp,actualarmingresponseBEFOREmouseONcue. Neverautorearm/reopenreader.
-research/capture_receiver_session.ps1 requirescurrentFinishBeforeUtc and18min
-margin;defaultfull935s, -ForegroundMotion full100svisiblewindow+xafter60slink.
-Bothmodeshardwarepassed. Stopfile exactprivatejob.stop-request sendsxonetime;
-earlyabortmarkedpartial. Rawlogger1..1200s,mouse-only,exclusivecreate.
-Currentdeadline02:00AMManilaNov17=2026-11-16T18:00Z;lastarm01:42becauseconservative
-margin. Do not reuseexpireddeadlineonlaterresume. Native/CIM/serial/gitmutations
-usuallyneedrequire_escalated here. No currentliveprocesses.
+Tests: new expiry rearm regression failed on v13; normal-mode regression failed
+old 30s guard before implementation. All8 tests PASS, protocol subtests cover
+probe/receiver/dongle, no-command startup, offline/fault gates, old limits,
+telemetry wrap, gap recovery, x latch, fatal TX and neutral-failure cases. All four
+firmware builds PASS. Final staged sources/config match; NORMAL only ON for dongle.
+Normal PRINTK/UART_CONSOLE/BOOT_BANNER disabled, HID+REBOOT enabled, interval1ms.
+Normal UF2 SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+46124 flash/16064 RAM,181 blocks,0x26000..0x31500 end exclusive. Preserved ignored
+build-pairing-analysis/dongle-v14-93eb987a.uf2. Earlier ddd815ea image was superseded
+by final USB-reset-during-init fix; DO NOT flash that stale image.
+Bounded v14 receiver SHA256
+5aadca1a29a17d8fc25f022d4309e24159fd12d7aa25a1bd06882b25b42b3696,
+62268 flash/16128 RAM,244 blocks,0x26000..0x35400; preserved separately. Probe
+SHA e51374e433090fadbecf3092a3f76e002bef742279d062cd535dac5965d0b26f;
+radio SHA014953ed153a2cc50ca0577278be7fbd0154961faedb86233c57230b2c169438.
+Default HID hash unchanged. V13 rollback396d7dd8 full hash verified preserved.
+Private software metadata v14-software-validation.json ignored. Build15557 and
+final normal rebuild25478 finished; no more builds needed for current sources.
+
+NEXT physical flash popup: Glorious wired/OFF, double-reset ONLY receiver to
+NICENANO. Verify unique bootloader/board + exact normal image before copy. The new
+image AUTOACTIVATES; do not claim passive/unarmed startup. Verify USB enumeration
+and product DIY Mouse Dongle v14 without opening CDC. Then separate harmless-doc/
+other-pointer readiness, mouse OFF/USB unplugged; raw-only host capture, no serial
+reader or arm command. Test automatic controls/powercycle then safe USB replug,
+all buttons released first. Longer normal trial must exceed old15min window.
+Old capture_receiver_session.ps1 targets bounded v13 and MUST NOT be used for
+normal v14; normal has intentionally no serial diagnostics. Save/push every tested
+milestone and keep private images/captures ignored. Deadline02:00AM ManilaNov17,
+UTC2026-11-16T18:00Z; refresh if later. Abrupt unplug held-state known from both
+DIY and wired reference; no physical polling/latency or long-term certification.
+
+Preserved hardware baseline before new flash:
+V13 two separate15min runs each passed both mouse-only OFF/ON recoveries and
+original deadline clean stop;not one continuous30min run (fb26dad,2b7dabd).
+All five buttons/wheel validated (f8a922f):front thumb Windows5,rear Windows4.
+Foreground motion (4d9a89f) and intended desk position (f51f6d7) smooth/cleanstop;
+desk39356events,median1.003ms,peak1000/fullsecond. Host timing/manual motion only;
+distance/obstaclesunknown,not physical polling/loss/latency proof.
+Connected x/timeout heldLEFT release previously passed. Abrupt physical unplug
+held-state matched wired reference on thisPC/app;wired PnP restart not compared.
+V12 startup-neutral did not fix it;v13 restoredv11 bridge. Do not revive that guess.
+Use question pop-ups for physical intervention and pause so user notices. Do not
+repeat extraction, completed baselines/builds/flashes without a reason. Never
+reuse old one-arm/passive rules for the new normal build: user's latest request
+explicitly authorizes automatic continuous operation until unplug.

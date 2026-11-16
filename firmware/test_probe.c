@@ -61,6 +61,14 @@ static unsigned int hid_calls;
 static int finish_result;
 static unsigned int finish_calls;
 static unsigned int new_link_calls;
+static bool session_ready = true;
+static unsigned int wireless_hid_reports, wireless_hid_retries, wireless_hid_busy;
+static bool wireless_hid_new_session(void)
+{
+    if (!session_ready) return false;
+    wireless_hid_reports = wireless_hid_retries = wireless_hid_busy = 0;
+    return true;
+}
 static int wireless_hid_finish(void) { assert(!radio.TASKS_TXEN); finish_calls++; return finish_result; }
 static void wireless_hid_new_link(void) { new_link_calls++; }
 static int wireless_hid_forward(const uint8_t *p)
@@ -82,6 +90,50 @@ _Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at
 #endif
 int main(void)
 {
+#ifdef NORMAL_DONGLE
+    {
+    /* Actual normal-mode guards, without a terminal, time or attempt allowance. */
+    uint8_t idle[] = {2, 1, 0};
+    probe_self_test();
+    assert(!probe_discovery_allowed());
+    session_ready = false;
+    assert(!receiver_start_session());
+    assert(!probe_discovery_allowed());
+    session_ready = true;
+    assert(receiver_start_session() && uart_polls == 0); /* No CDC command needed. */
+    now = 100000000;
+    assert(probe_discovery_allowed());
+    complete_tx = true;
+    assert(send_probe() == 0);
+    ack_count = PROBE_ACK_LIMIT;
+    receiver_discoveries = RECEIVER_DISCOVERY_LIMIT;
+    receiver_last_ack_ms = now;
+    command = 'p'; poll_probe_arm();
+    assert(ack_count == PROBE_ACK_LIMIT && receiver_discoveries == RECEIVER_DISCOVERY_LIMIT);
+    assert(send_report_ack(idle) == 0 && ack_count == PROBE_ACK_LIMIT + 1);
+    now += RECEIVER_LINK_GAP_MS;
+    assert(receiver_link_should_stop() && receiver_end_link() == 0);
+    assert(probe_discovery_allowed() && send_probe() == 0);
+    now += 90000000;
+    receiver_last_ack_ms = now;
+    assert(!receiver_link_should_stop() && send_report_ack(idle) == 0);
+    command = 'x'; poll_probe_arm();
+    assert(receiver_link_should_stop() && receiver_handle_disarm() == 0);
+    assert(!probe_discovery_allowed());
+    now += 90000000;
+    receiver_poll_commands();
+    assert(!probe_discovery_allowed()); /* x does not auto-resume. */
+    command = 'p'; poll_probe_arm();
+    assert(probe_discovery_allowed() && ack_count == 0 && receiver_discoveries == 0);
+    assert(send_probe() == 0);
+    ack_count = UINT32_MAX;
+    assert(send_report_ack(idle) == 0 && ack_count == 0); /* Telemetry wrap is not a stop. */
+    complete_tx = false;
+    assert(send_report_ack(idle) == -ETIMEDOUT);
+    assert(send_report_ack(idle) == -EACCES); /* TX error cannot become auto-retry. */
+    return 0;
+    }
+#endif
 #ifdef WIRELESS_HID
     assert(PROBE_DATA_WINDOW_MS == 900000u && PROBE_ACK_LIMIT == 983040u);
 #endif
@@ -219,6 +271,7 @@ int main(void)
 #ifdef WIRELESS_HID
     /* New arm, total budgets and deadline survive rediscovery. */
     now = 100000; probe_sent = false; probe_arm_deadline = 0; ack_count = 0;
+    receiver_disarm_requested = receiver_disarm_handled = false;
     ack_deadline = 0; receiver_session_deadline = 0; receiver_discoveries = 0;
     complete_tx = true; command = 'p'; poll_probe_arm();
     assert(probe_discovery_allowed());
@@ -264,19 +317,21 @@ int main(void)
     receiver_discoveries = 1; ack_count = PROBE_ACK_LIMIT;
     assert(!probe_discovery_allowed() && send_probe() == -EACCES);
     ack_count = 2; now = session_deadline - 1;
+    receiver_disarm_requested = receiver_disarm_handled = false;
     probe_sent = true; ack_deadline = session_deadline; receiver_last_ack_ms = now;
     assert(!receiver_link_should_stop());
     now++;
     assert(receiver_link_should_stop() && receiver_end_link() == 0);
     assert(!probe_discovery_allowed() && send_probe() == -EACCES);
     command = 'p'; poll_probe_arm();
-    assert(receiver_session_deadline == session_deadline && ack_count == 2);
+    assert(receiver_session_deadline == 0 && ack_count == 0);
+    assert(receiver_discoveries == 0 && probe_arm_deadline == now + 30000);
     receiver_next_stats_ms = 0;
     assert(receiver_diagnostics_due());
     assert(!receiver_diagnostics_due());
     now += 999; assert(!receiver_diagnostics_due());
     now++; assert(receiver_diagnostics_due());
-    assert(receiver_session_deadline == session_deadline && ack_count == 2);
+    assert(receiver_session_deadline == 0 && ack_count == 0);
 #endif
     /* Idle and a subsequent data report may share a sequence,including wrap. */
     now = 500000; probe_sent = true; ack_count = 0; complete_tx = true;
@@ -315,13 +370,15 @@ int main(void)
     disable_result = 0; finish_result = -EIO;
     assert(receiver_handle_disarm() == -EIO && !receiver_disarm_handled && probe_sent);
     assert(!probe_discovery_allowed());
+    command = 'p'; poll_probe_arm();
+    assert(receiver_disarm_requested && !receiver_disarm_handled && ack_count == count_before_stop);
     finish_result = 0;
     assert(receiver_handle_disarm() == 0 && receiver_disarm_handled && !probe_sent);
     finish_before_stop = finish_calls;
     assert(receiver_handle_disarm() == 0 && finish_calls == finish_before_stop);
     command = 'p'; poll_probe_arm();
-    assert(!probe_discovery_allowed() && ack_count == count_before_stop);
-    assert(send_probe() == -EACCES);
+    assert(probe_discovery_allowed() && ack_count == 0 && receiver_discoveries == 0);
+    assert(receiver_session_deadline == 0 && probe_arm_deadline == now + 30000);
     /* Simulate reboot: cancel before first arm must also prevent a later p. */
     receiver_disarm_requested = receiver_disarm_handled = false;
     probe_arm_deadline = receiver_session_deadline = 0;
@@ -348,6 +405,29 @@ int main(void)
     now++; receiver_poll_commands();
     assert(uart_polls == polls_before + 2 && receiver_disarm_requested);
     assert(receiver_handle_disarm() == 0);
+    /* Expired initial discovery arm also requires a completed neutral stop. */
+    command = 'p'; poll_probe_arm();
+    int64_t initial_arm_end = probe_arm_deadline;
+    now = initial_arm_end - 1;
+    command = 'p'; poll_probe_arm();
+    assert(probe_arm_deadline == initial_arm_end && !receiver_disarm_requested);
+    now = initial_arm_end;
+    receiver_poll_commands();
+    assert(receiver_disarm_requested && !receiver_disarm_handled && !probe_discovery_allowed());
+    command = 'p'; poll_probe_arm();
+    assert(probe_arm_deadline == initial_arm_end);
+    finish_result = -EIO;
+    assert(receiver_handle_disarm() == -EIO && !receiver_disarm_handled);
+    command = 'p'; poll_probe_arm();
+    assert(!probe_discovery_allowed());
+    finish_result = 0;
+    assert(receiver_handle_disarm() == 0 && !probe_discovery_allowed());
+    session_ready = false;
+    command = 'p'; poll_probe_arm();
+    assert(!probe_discovery_allowed());
+    session_ready = true;
+    command = 'p'; poll_probe_arm();
+    assert(probe_discovery_allowed() && probe_arm_deadline == now + 30000);
 #else
     command = 'x'; poll_probe_arm(); /* Non-HID probe command behavior unchanged. */
 #endif

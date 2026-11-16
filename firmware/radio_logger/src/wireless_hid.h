@@ -89,6 +89,17 @@ static void wireless_hid_new_link(void)
     wireless_hid_has_sequence = false;
 }
 
+static bool wireless_hid_new_session(void)
+{
+    if (!atomic_get(&wireless_hid_online) || atomic_get(&wireless_hid_failed) ||
+        atomic_get(&wireless_hid_restart)) {
+        return false;
+    }
+    wireless_hid_new_link();
+    wireless_hid_reports = wireless_hid_retries = wireless_hid_busy = 0;
+    return true;
+}
+
 static int wireless_hid_forward(const uint8_t *p)
 {
     if (!atomic_get(&wireless_hid_online)) {

@@ -22,6 +22,24 @@ static int64_t ack_deadline;
 static uint8_t probe_reply[] __aligned(4) = {3, 0, 0xf4, 1};
 static uint8_t ack_reply[3] __aligned(4);
 
+static bool probe_ack_budget_remaining(void)
+{
+#ifdef NORMAL_DONGLE
+    return true;
+#else
+    return ack_count < PROBE_ACK_LIMIT;
+#endif
+}
+
+static bool probe_ack_window_open(void)
+{
+    return probe_sent && ack_deadline != 0
+#ifndef NORMAL_DONGLE
+           && k_uptime_get() < ack_deadline
+#endif
+           ;
+}
+
 static bool probe_discovery_allowed(void)
 {
     if (probe_sent || probe_arm_deadline == 0) {
@@ -31,12 +49,16 @@ static bool probe_discovery_allowed(void)
     if (receiver_disarm_requested) {
         return false;
     }
+#ifdef NORMAL_DONGLE
+    return true;
+#else
     if (receiver_discoveries >= RECEIVER_DISCOVERY_LIMIT || ack_count >= PROBE_ACK_LIMIT) {
         return false;
     }
     if (receiver_session_deadline) {
         return k_uptime_get() < receiver_session_deadline;
     }
+#endif
 #endif
     return k_uptime_get() < probe_arm_deadline;
 }
@@ -53,8 +75,45 @@ static bool receiver_diagnostics_due(void)
 
 static bool receiver_link_should_stop(void)
 {
-    return probe_sent && (receiver_disarm_requested || ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
+    return probe_sent && (receiver_disarm_requested ||
+#ifndef NORMAL_DONGLE
+           ack_count >= PROBE_ACK_LIMIT || k_uptime_get() >= ack_deadline ||
+#endif
            k_uptime_get() - receiver_last_ack_ms >= RECEIVER_LINK_GAP_MS);
+}
+
+static bool receiver_session_exhausted(void)
+{
+#ifdef NORMAL_DONGLE
+    return false;
+#else
+    return ack_count >= PROBE_ACK_LIMIT || receiver_discoveries >= RECEIVER_DISCOVERY_LIMIT ||
+           (receiver_session_deadline && k_uptime_get() >= receiver_session_deadline) ||
+           (!receiver_session_deadline && probe_arm_deadline && k_uptime_get() >= probe_arm_deadline);
+#endif
+}
+
+static bool receiver_start_session(void)
+{
+    if (!wireless_hid_new_session()) {
+        return false;
+    }
+    ack_count = receiver_discoveries = 0;
+    receiver_idle_acks = receiver_status_acks = receiver_type1_acks = 0;
+    receiver_session_deadline = receiver_last_ack_ms = receiver_next_stats_ms = 0;
+    ack_deadline = 0;
+    receiver_trace_next_ack = false;
+    receiver_disarm_requested = receiver_disarm_handled = false;
+    probe_arm_deadline = k_uptime_get() + 30000;
+    return true;
+}
+
+static void receiver_mark_disarmed(void)
+{
+    if (!receiver_disarm_handled) {
+        receiver_disarm_requested = receiver_disarm_handled = true;
+        printk("RECEIVER disarmed: neutral complete; explicit p required\n");
+    }
 }
 
 /* Caller disables radio before neutralization; failure must prevent rediscovery. */
@@ -70,6 +129,9 @@ static int receiver_end_link(void)
            wireless_hid_reports, wireless_hid_retries, wireless_hid_busy);
     probe_sent = false;
     ack_deadline = 0;
+    if (receiver_disarm_requested || receiver_session_exhausted()) {
+        receiver_mark_disarmed();
+    }
     return 0;
 }
 
@@ -86,8 +148,7 @@ static int receiver_handle_disarm(void)
     if (err) {
         return err;
     }
-    receiver_disarm_handled = true;
-    printk("RECEIVER disarmed: neutral complete; reboot required\n");
+    receiver_mark_disarmed();
     return 0;
 }
 #endif
@@ -104,8 +165,15 @@ static void poll_probe_arm(void)
         receiver_disarm_requested = true;
         return;
     }
-    if (receiver_disarm_requested) {
+    if (receiver_disarm_requested && !receiver_disarm_handled) {
         return;
+    }
+    if (command == 'p' && !probe_sent && (probe_arm_deadline == 0 || receiver_disarm_handled)) {
+        if (!receiver_start_session()) {
+            return;
+        }
+        /* The common arm response below is also used by bounded diagnostics. */
+        probe_arm_deadline = 0;
     }
 #endif
     if (command == 'p' && !probe_sent && probe_arm_deadline == 0) {
@@ -124,6 +192,9 @@ static void poll_probe_arm(void)
 static void receiver_poll_commands(void)
 {
     int64_t now = k_uptime_get();
+    if (!probe_sent && probe_arm_deadline && !receiver_disarm_requested && receiver_session_exhausted()) {
+        receiver_disarm_requested = true;
+    }
     if (now >= receiver_next_command_ms) {
         receiver_next_command_ms = now + 10;
         poll_probe_arm();
@@ -217,10 +288,14 @@ static int send_probe(void)
     int err = transmit_probe_packet(probe_reply, 250);
     if (!err) {
 #ifdef WIRELESS_HID
+#ifdef NORMAL_DONGLE
+        ack_deadline = 1; /* Established-link marker; normal mode has no time cap. */
+#else
         if (!receiver_session_deadline) {
             receiver_session_deadline = k_uptime_get() + PROBE_DATA_WINDOW_MS;
         }
         ack_deadline = receiver_session_deadline;
+#endif
         receiver_last_ack_ms = k_uptime_get();
         receiver_trace_next_ack = true;
         wireless_hid_new_link();
@@ -241,10 +316,10 @@ static bool is_ack_candidate(const uint8_t *p, uint8_t channel, bool pairing_add
 
 static int send_report_ack(const uint8_t *p)
 {
-    if (ack_count >= PROBE_ACK_LIMIT) {
+    if (!probe_ack_budget_remaining()) {
         return -EALREADY;
     }
-    if (!probe_sent || ack_deadline == 0 || k_uptime_get() >= ack_deadline) {
+    if (!probe_ack_window_open()) {
         return -EACCES;
     }
 #ifdef WIRELESS_HID
@@ -269,6 +344,9 @@ static int send_report_ack(const uint8_t *p)
     int err = transmit_probe_packet(ack_reply, 0);
     if (err) {
         ack_count = PROBE_ACK_LIMIT;
+#ifdef WIRELESS_HID
+        receiver_disarm_requested = true;
+#endif
     }
 #ifdef WIRELESS_HID
     else {

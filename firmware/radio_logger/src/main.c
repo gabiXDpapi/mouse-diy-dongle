@@ -79,7 +79,11 @@ static int listen(uint8_t channel, bool pairing_address)
     NRF_RADIO->FREQUENCY = channel;
     start_rx();
     int64_t deadline = k_uptime_get() + 40;
-    while (k_uptime_get() < deadline) {
+    while (
+#ifdef NORMAL_DONGLE
+           probe_sent ||
+#endif
+           k_uptime_get() < deadline) {
 #ifdef WIRELESS_HID
         receiver_poll_commands();
         if (receiver_disarm_requested && !receiver_disarm_handled) {
@@ -131,7 +135,7 @@ static int listen(uint8_t channel, bool pairing_address)
                     start_rx();
                     continue;
                 }
-                if (ack_count < PROBE_ACK_LIMIT && k_uptime_get() < ack_deadline &&
+                if (probe_ack_budget_remaining() && probe_ack_window_open() &&
                     is_ack_candidate(packet, channel, pairing_address, NRF_RADIO->RXMATCH)) {
                     err = send_report_ack(packet);
 #ifdef WIRELESS_HID
@@ -212,6 +216,15 @@ int main(void)
     if (err) {
         return err;
     }
+#ifdef NORMAL_DONGLE
+    while (!atomic_get(&wireless_hid_online)) {
+        wireless_hid_restart_if_needed();
+        if (atomic_get(&wireless_hid_failed)) {
+            return -ENODEV;
+        }
+        k_sleep(K_MSEC(100));
+    }
+#else
     uint32_t dtr = 0;
     do {
 #ifdef WIRELESS_HID
@@ -223,10 +236,11 @@ int main(void)
         }
         k_sleep(K_MSEC(100));
     } while (!dtr);
+#endif
 #ifdef DISCOVERY_PROBE
     probe_self_test();
 #ifdef WIRELESS_HID
-    printk("DIY Mouse Wireless HID Probe v13: bounded fifteen minutes; passive USB restart; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
+    printk("DIY Mouse Wireless HID Probe v14: explicit rearm; bounded fifteen minutes; passive USB restart; explicit x stop; quiet active; idle sequence hold; passive until 'p'; %u discoveries + %u ACKs total in %u ms; release/recover after %u ms gap\n",
            RECEIVER_DISCOVERY_LIMIT, PROBE_ACK_LIMIT, PROBE_DATA_WINDOW_MS, RECEIVER_LINK_GAP_MS);
 #else
     printk("DIY Mouse Discovery Probe v9: idle/status/report ACKs; passive until 'p'; ONE discovery + %u ACKs maximum in %u ms; no HID\n",
@@ -293,6 +307,12 @@ int main(void)
            NRF_RADIO->MODE, NRF_RADIO->PCNF0, NRF_RADIO->PCNF1, NRF_RADIO->CRCPOLY,
            (unsigned int)ARRAY_SIZE(channels));
     bool pairing_address = false;
+#ifdef NORMAL_DONGLE
+    if (!receiver_start_session()) {
+        wireless_hid_restart_if_needed();
+        return -ENODEV;
+    }
+#endif
     while (true) {
         for (size_t i = 0; i < ARRAY_SIZE(channels); i++) {
             err = listen(channels[i], pairing_address);

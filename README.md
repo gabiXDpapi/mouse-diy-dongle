@@ -5,6 +5,29 @@ Bounded wireless Windows pointer control is user-confirmed. Continuous operation
 and gaming performance remain under development; the default build is still the
 original USB HID demo.
 
+## Plug-and-play candidate
+
+The new `dongle` build (v14) starts automatically after USB configuration and
+runs without a serial reader or manual arm. It has no fifteen-minute or packet
+budget stop. A mouse link gap releases buttons and returns to discovery. USB
+reconnect starts normal operation again. Optional CDC `x` stops output until
+explicit `p` or reboot; errors fail closed.
+
+```powershell
+& ./firmware/build.ps1 -App dongle
+```
+
+This candidate passes native checks, build/config/source and UF2 validation;
+**it has not yet been flashed or hardware-tested**. Installed v13 remains the
+validated rollback. Normal mode disables serial-console diagnostics and the
+boot banner to work independently of DTR. Keep the mouse wired/OFF before flash.
+The existing v13 serial capture controller is for the bounded diagnostic image,
+and must not be used with the silent normal build.
+
+`-App receiver` retains finite diagnostic sessions and adds explicit rearming
+only after a completed neutral stop. Both variants share RF/HID behavior.
+The sections below describe the validated v13 diagnostic baseline and history.
+
 ## Project stack
 
 V13 is the current software candidate for a finite fifteen-minute session:
