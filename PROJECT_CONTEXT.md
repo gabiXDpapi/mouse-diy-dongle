@@ -319,6 +319,28 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V14 NORMAL FLASHED / USB ENUMERATION PASS - 2026-11-17 01:24 Manila:
+PhysicalreadyGloriouswired/OFF. VerifieduniqueNICENANOnRF52840-nicenano/S1406.1.1
+andnormalUF293eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+beforecopy. USBrootproductreadback DIY Mouse Dongle v14,oneHID+oneCDC,statusOK.
+Private dongle-v14-flash-validation.json saved. NO serial reader opened,NO DTR/
+armcommand. InstalledhardwareNOWNORMALv14;automaticreceiverlisteningexpected,
+actualRFinput NOTyettested. Notunarmed/passive/expired. V13rollbackpreserved.
+No live build/serial/raw/helper/UAC. Branchfeature/receiver-plug-and-play,software
+3f5934cpushed. Deadline02:00AMManilaNov17 (UTCNov16T18:00Z).
+NEXT separateinputreadinessfor18minnormaltrial:harmlessscrollabledoc/otherpointer,
+GloriousOFF/USBunplugged,unchangedDPI/settings. Receiverleaveconnected. Raw-only
+capture1160s(hidden,mousereadonly,NOCDC/arm). CueONthenallfivebuttons/wheel/motion.
+At~1min RELEASEallbuttons thenunplug/replugONLYreceivernormally(no double reset),
+mouseON;verifyautomaticcontrolrecoverywithoutserial. Mouse-onlyOFF3s/ONat5/10min.
+Checkcontrolsagainat16and18min,thus>15minafterreceiverreplug. At18minmouseOFFand
+reconnectUSB;normaldongledoesNOTautostopwhencaptureends. NoheldUSBunplugtrial.
+Needstartby01:37tofit1160s+wrapby02:00;otherwisepausewithoutnewtrial. Usemanual18min
+timer;oldfive-minuteHTMLtimerunsuitable. Collectusercontrols/automaticstartup/
+USBreplug/bothmousecycles/continuedactivityafteroldlimit/nounexpectedstops.
+Rawcapturefilehostcountsarenotphysicalpolling/latencycertification;normalmodehas
+noserialdiagnosticsbydesign. Do not useboundedv13serialcontrolleronthisimage.
+
 V14 PLUG-AND-PLAY SOFTWARE READY / FLASH NEXT - 2026-11-17 01:15 Manila:
 User explicitly requests normal dongle operation: USB plug automatically activates
 until unplug. This supersedes previous finite-only/manual-start and passive USB
