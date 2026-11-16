@@ -1,5 +1,25 @@
 # First radio capture experiment
 
+## V12 startup neutral did not clear PnP held state
+
+V12 ACTIVE PNP-RESET HELD-RELEASE FAILURE 2026-11-16:
+Job v12-activeusb-20261116-162436-bb444906 finished transport capture:2353 raw
+receiver records,0 read errors,one arm/targeted restart,fresh passive v12 boot
+and startup-neutral-complete marker,no second arm. Host LEFT probe True before
+AND after reset. User waited/checks confirmed selection still followed OTHER
+pointer. Startup-zero hypothesis FAILED for this Windows PnP restart case.
+User cleared via Esc/releases/receiver unplug and confirms other pointer normal.
+All serial/raw/helper processes finished;receiver PHYSICALLY UNPLUGGED,installed
+v12. No Windows settings/input injection changed. Do not claim overall PASS.
+NEXT DIAGNOSTIC: distinguish PHYSICAL USB removal from host PnP restart,using
+unchanged installed v12. No more guessed firmware release behavior or synthetic
+press. Prepare bounded one-arm/raw capture for user physically unplugging only
+receiver while holding Glorious LEFT;probe host LEFT before/after removal,then
+observe selection before clearing. If physical removal clears it,scope remaining
+problem to PnP scenario;otherwise investigate host/class behavior further. No
+new rebuild/flash or automatic rearm needed. Separate physical readiness required.
+
+
 ## V12 flashed and startup-neutral completion observed
 
 V12 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user reconnected receiver

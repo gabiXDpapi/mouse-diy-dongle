@@ -319,6 +319,33 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V12 ACTIVE PNP-RESET HELD-RELEASE FAILURE 2026-11-16:
+Job v12-activeusb-20261116-162436-bb444906 finished transport capture:2353 raw
+receiver records,0 read errors,one arm/targeted restart,fresh passive v12 boot
+and startup-neutral-complete marker,no second arm. Host LEFT probe True before
+AND after reset. User waited/checks confirmed selection still followed OTHER
+pointer. Startup-zero hypothesis FAILED for this Windows PnP restart case.
+User cleared via Esc/releases/receiver unplug and confirms other pointer normal.
+All serial/raw/helper processes finished;receiver PHYSICALLY UNPLUGGED,installed
+v12. No Windows settings/input injection changed. Do not claim overall PASS.
+NEXT DIAGNOSTIC: distinguish PHYSICAL USB removal from host PnP restart,using
+unchanged installed v12. No more guessed firmware release behavior or synthetic
+press. Prepare bounded one-arm/raw capture for user physically unplugging only
+receiver while holding Glorious LEFT;probe host LEFT before/after removal,then
+observe selection before clearing. If physical removal clears it,scope remaining
+problem to PnP scenario;otherwise investigate host/class behavior further. No
+new rebuild/flash or automatic rearm needed. Separate physical readiness required.
+
+V12 DEFERRED HELPER PREPARED 2026-11-16: user approved UAC with Glorious
+wired/OFF. Job v12-activeusb-20261116-162436-bb444906 ready;expires
+2026-11-16T08:27:41Z (16:27:41 Manila). NO restart/arm/capture yet. Separate
+normal receiver reboot/OFF-unplugged/text/other-pointer popup pending. Capture
+requires75s remaining plus prearm checks;refuse/cancel if late. On confirmed
+readiness run controller -Mode Capture -RunName v12-activeusb-20261116-162436-bb444906.
+To cancel write exact private job.cancel;helper expires without action. Never
+reuse v11 jobs. Arm cue must precede mouse ON;hold through real reset before
+selection check. Old v11 host-held failure now cleared,not assumed fixed by v12.
+
 V12 FLASH/PASSIVE CHECKPOINT COMPLETE 2026-11-16: user reconnected receiver
 and confirmed NICENANO/Glorious wired-OFF. Bootloader0.6.0/nRF52840-nicenano/
 S1406.1.1 verified;exact v12 hash1e543890474b81006de813ed4347fe171e26ca131ac3c02a0a5d517a1f75cf30;

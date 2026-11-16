@@ -40,8 +40,9 @@ next isolated experiment; v11 is not validated for abrupt active USB loss.
 
 V12 is a flashed startup-neutral experiment with passive startup completion verified for that failure. It sends
 one all-zero HID report after USB configuration and waits for completion before
-allowing RF input. It adds no button press or motion. Whether Windows clears
-its retained state remains unproven;repeat hardware validation is required.
+allowing RF input. It adds no button press or motion. The active PnP-reset retest still left Windows LEFT held (host probes and user
+confirmed). The host was cleared by Esc/releases/receiver unplug. This did not
+fix the PnP case;physical USB removal is the next separate diagnostic.
 
 ## Active USB-reset capture tools
 
