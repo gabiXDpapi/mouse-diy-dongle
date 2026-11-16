@@ -319,6 +319,17 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+RESTORED NORMAL V14 WIRELESS CHECK PASS - 2026-11-17, final break checkpoint:
+User confirms restored wireless operation works normally after USBunplug/mouseON,
+movement/click on harmless document,without arm command. This resolves the prior
+pending restoration-check popup. Installedtestednormalv14 (93eb987a fullhash in
+following checkpoint) remains automatic/independent;user may keepusing wirelessly.
+No live capture/serial/build/helper/UAC and no further tests tonight. Timingv15/v16
+remain saved diagnostic candidates,NOTinstalled;fastpollnotpromoted. All results/
+copy-pastehandoffsaved;pausebefore03:00AMManilaNov17. Refresh workwindow onresume.
+Next:repeatability/soak/gamingqualification,appafteroptimizations. Currentstate
+supersedesolderpendingrestorationconfirmation/history.
+
 NORMAL V14 RESTORED / READY FOR 03:00 BREAK - 2026-11-17 02:54 Manila:
 Exact hardware-tested normalv14 image restored at02:50 after fresh userNICENANO
 readiness (Gloriouswired/OFF),board/S140/hash/UF2checks. USBproductDIY Mouse Dongle

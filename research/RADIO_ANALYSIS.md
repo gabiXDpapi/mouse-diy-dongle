@@ -1,5 +1,17 @@
 # First radio capture experiment
 
+RESTORED NORMAL V14 WIRELESS CHECK PASS - 2026-11-17, final break checkpoint:
+User confirms restored wireless operation works normally after USBunplug/mouseON,
+movement/click on harmless document,without arm command. This resolves the prior
+pending restoration-check popup. Installedtestednormalv14 (93eb987a fullhash in
+following checkpoint) remains automatic/independent;user may keepusing wirelessly.
+No live capture/serial/build/helper/UAC and no further tests tonight. Timingv15/v16
+remain saved diagnostic candidates,NOTinstalled;fastpollnotpromoted. All results/
+copy-pastehandoffsaved;pausebefore03:00AMManilaNov17. Refresh workwindow onresume.
+Next:repeatability/soak/gamingqualification,appafteroptimizations. Currentstate
+supersedesolderpendingrestorationconfirmation/history.
+
+
 ## Normal image restored after timing comparison
 
 NORMAL V14 RESTORED / READY FOR 03:00 BREAK - 2026-11-17 02:54 Manila:

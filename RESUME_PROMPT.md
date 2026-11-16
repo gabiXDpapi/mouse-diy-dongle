@@ -1,3 +1,14 @@
+RESTORED NORMAL V14 WIRELESS CHECK PASS - 2026-11-17, final break checkpoint:
+User confirms restored wireless operation works normally after USBunplug/mouseON,
+movement/click on harmless document,without arm command. This resolves the prior
+pending restoration-check popup. Installedtestednormalv14 (93eb987a fullhash in
+following checkpoint) remains automatic/independent;user may keepusing wirelessly.
+No live capture/serial/build/helper/UAC and no further tests tonight. Timingv15/v16
+remain saved diagnostic candidates,NOTinstalled;fastpollnotpromoted. All results/
+copy-pastehandoffsaved;pausebefore03:00AMManilaNov17. Refresh workwindow onresume.
+Next:repeatability/soak/gamingqualification,appafteroptimizations. Currentstate
+supersedesolderpendingrestorationconfirmation/history.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
@@ -15,8 +26,8 @@ readiness (Gloriouswired/OFF),board/S140/hash/UF2checks. USBproductDIY Mouse Don
 v14,HID/CDCverified WITHOUTserial/arm. Private normal-v14-restored-after-timing.json.
 InstallednormalSHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
 normalautomaticoperationuntilunplug. NOTdiagnostic/disarmed/passive/expired.
-Brief ordinary-use restoration-check popup remains pending;USB restore verification
-passed,mouse's current cable/power not independently verified. No need reflash or
+User subsequently confirmed restored automatic wireless movement/click works;
+restoration check is PASS. No need reflash or
 repeatlongbaseline. User may keep using normalwireless operation after projectpause.
 No live serial/raw/build/UAC/helper sessions. Untracked.vscode/INFO_UF2.TXTuntouched.
 
