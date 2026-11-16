@@ -1,3 +1,26 @@
+RESUMED UNTIL03:30 / REVERSE-ORDER REPLICATION NEXT - 2026-11-17 02:57 Manila:
+User extends sessionto03:30AMManilaNov17 (UTCNov16T19:30Z),superseding03:00pause.
+Installednormalv14restoredanduserwirelessconfirmationPASS(dfca95f). No live serial/
+raw/build/helper/UAC. Gitcleanexceptunrelated.vscode/INFO_UF2.TXT. Branch
+feature/receiver-fast-poll-latency. Exactpreservedv16/v15/normalhashesreverified.
+NEXT reuse SAME frozen diagnostic images in reverseorder:v16(10us) secondrun,
+thenv15(50us)secondrun,samesurface/DPI/foregroundmotion/100scapture. Reason:
+replicatefirstA/B andcheckorder/USB-phasevariation;notunnecessaryfunctionalbaseline.
+No newcode/build needed. Eachflash requiresfreshNICENANOreadyGloriouswired/OFF;
+image/board/USBproductverify. Eachinputtrial separateOFF USBunpluggedreadiness,
+oneCDCreader/noarm,cueON,activewindowsame45smotion,x70s/poststopd. Analyzecounts/
+timecomponents;capturemetadata+userfeel separately. ExpectedProductv16thenv15.
+FinishBeforeUtc2026-11-16T19:30Z;controller8minmargin meansnostartat/after03:22.
+Conservativelystopnewdiagnosticflashesat03:15ifdelayed;restoretestednormal93eb
+instead. MUSTrestoreexacttestednormalv14afterreplicationbefore03:30break;no
+normalfastpromotionyet. ComparePER-RUNmetrics/ranges ratherthan treatingthousands
+ofpacketsasindependentboottrials. Two runsperconditionstillnotlong-runproof.
+V16image55a371eacf874e9d2aa8bb47bdedc586ca67d4ae08128bf229bf51e75b828951;
+v15d751601753a9be286dc806ecee902f0a3d4a1170b9891cc56680f37519dd06b7;
+normal93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+Preservedfilenamesandbaselinecapturepathsinfollowingcheckpoint. Appdeferreduntil
+AFTERgamingoptimization. Keepcontext/resumecurrentandpushtestedmilestones.
+
 RESTORED NORMAL V14 WIRELESS CHECK PASS - 2026-11-17, final break checkpoint:
 User confirms restored wireless operation works normally after USBunplug/mouseON,
 movement/click on harmless document,without arm command. This resolves the prior
