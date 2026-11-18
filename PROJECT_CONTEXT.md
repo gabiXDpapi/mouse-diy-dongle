@@ -319,6 +319,37 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+LIVE USB1ms CONFIGURATION VERIFIED / SUSTAINED HOST MEASUREMENT NEXT - 2026-11-18 18:34 Manila:
+Normalv14exact93eb installed/autoactive/userconfirmed; no livecapture/serial/build.
+ReadonlynativeUSBinspector builtwithinstalledMSVC/SDK, /W4/WX compileandhardwarefree
+selftestPASS. ActualreadPASS:fullspeed,HIDinterface2,interruptIN0x83,maxpacket16,
+bInterval1,activepipe matches; both2presenthubsreadable,exact1localtarget. No
+serial/reset/SET/vendor/driver/setting/firmwarechanges. Privateusb-endpoint-
+verification.json source/binaryhashes+normal-v14-usb-endpoint.json. Tooldeliberately
+verifiesonlyfullspeedinterval1; rejectsothersinsteadofguessingWindowsmapping.
+This confirmsconfigured1ms/target1000Hz, NOTmeasuredfreshreportfrequency orphysical
+latency. NativeparserstubfailedfirstthenvalidationPASS; source/buildhelper/plan
+newonfeature/usb-endpoint-polling-verification. Needpushmilestonebeforefuturework.
+NEXT scopednormalv14foregroundsustained-motion measurement withpredefinedtimed
+activeepoch; currentmixedcontroltrials cannotqualifysustainedpolling. Inspect/reuse
+existingrawlogger/analyzers, retain CSVcompatibility and1200scap, noinputinjection.
+Thenuserphysicalreadinesspopup. No firmwareflashneeded; no moreABBArepeats.
+UserUNTILTHEYSAYSTOP. Companionapp/DPIwritesdeferred; longgamingsoakstillpending.
+
+READ-ONLY USB ENDPOINT INSPECTOR BUILT/SELFTESTED - 2026-11-18 18:30 Manila:
+Fourrunphasecomparison+normalrestore milestone0a7c14e pushed. Branchfeature/usb-
+endpoint-polling-verification. Normalv14 userconfirmedinstalled, no livecaptures/
+serial/build. Newresearch/inspect_usb_endpoint.c withbuild_usb_endpoint.ps1 uses
+installedMSVC/WindowsSDK; onlySetupAPI+hubGET_NODE_INFORMATION/GET_CONNECTION_EX/
+GET_DESCRIPTOR, noreset/SET/vendor/serial/injection. No newdependencies orflash.
+Parserstub failedvalidfixture, thenfullselftestPASS; MSVC/W4/WXcompilePASS.
+Validatesbounds/fullspeed/currentconfig/uniqueHIDalt0interruptIN/activepipematch,
+rejectsambiguity/truncation/zero fields. JSONonlypublicendpointfields,nohubpaths/
+serials/RFaddresses. Toolbinary/obj privateignored. NEXT readonlylivechecknormal
+USBproduct, runinspector andsaveJSON; ifsuccessdocumentactualinterval/speed, NOT
+measuredfreshreportfrequency/gaminglatency. No newphysicalreadiness neededforread.
+Useruntilsaystop. Needcontext/resumeconsolidationandtestedmilestonepushaftercheck.
+
 PHASE ABBA COMPLETE / NORMAL CONFIRMED / USB POLLING VERIFY NEXT - 2026-11-18 18:23 Manila:
 Userconfirmed restorednormalwirelessworks. InstalledEXACTnormalv14 93eb987a,
 autoactive/noarm/notimedstop. No livecapture/reader/build/helper. Fourruntables

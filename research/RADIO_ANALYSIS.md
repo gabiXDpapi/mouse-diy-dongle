@@ -2700,3 +2700,36 @@ All images/captures and phase-comparison-abba-20261118.json remain private/ignor
 Next directly verify live USB endpoint interval/speed, then define sustained-motion
 and longer ordinary-use/gaming checks. Companion app and mouse setting writes
 remain deferred. No further baseline repetition is needed for this comparison.
+
+
+### Live USB polling configuration verified (November 18)
+
+A read-only Windows hub/descriptor check on restored normal v14 verified:
+
+| Field | Live value |
+|---|---|
+| Link speed | Full speed |
+| HID interface | 2 |
+| Interrupt IN endpoint | 0x83 |
+| Maximum packet | 16 bytes |
+| bInterval | 1 |
+| Active pipe | Matches configuration descriptor |
+
+For this full-speed endpoint, bInterval1 requests a1ms interrupt period (1000Hz).
+This verifies the live USB configuration, not actual bus cadence, sustained fresh
+sensor reports, host delivery timing or physical gaming latency. The read touched
+no serial connection and made no reset/SET/vendor requests, input injection,
+firmware flash, setting or driver changes. Both present hubs were readable and
+exactly one matching local receiver was found. Normal v14 remains active.
+
+Tool: research/inspect_usb_endpoint.c. Build and hardware-free self-test:
+`& research/build_usb_endpoint.ps1` (installed MSVC/Windows SDK). Run the built
+private `build-pairing-analysis/inspect_usb_endpoint.exe` for the read-only check.
+The parser rejects truncated/malformed/ambiguous descriptors and checks active
+pipe correspondence. This version deliberately refuses full-speed intervals
+other than1; it does not generalize Windows interval mapping by dividing1000 by
+arbitrary bInterval. Logs/binary/object remain ignored. Private verification JSON
+records exact source/binary hashes and result.
+
+Primary interval reference:
+https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usbspec/ns-usbspec-_usb_endpoint_descriptor
