@@ -597,3 +597,5 @@ sensor sampling, RF loss or end-to-end gaming latency. Queueing/coalescing and
 actual hand motion remain confounders. Live1ms descriptor evidence is separate.
 
 The first guided normal-wireless trial completed, but an initial event gap conflicts with the user’s report of smooth continuous motion. A matching wired capture is next to check the host/capture path. No sustained1kHz claim is made; the live1ms USB configuration is separately verified.
+
+A guided larger-motion run on normal v14 now supports near1,000Hz foreground host delivery:964.9movement events/s over the entire predefined20seconds,916–993each second, median1ms; the user confirmed smooth continuous motion. This is not physical bus/sensor latency certification, and occasional host gaps remain. Normal v14 stays installed; real gameplay and longer reliability checks are next.

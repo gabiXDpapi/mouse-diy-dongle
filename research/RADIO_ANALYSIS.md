@@ -2801,3 +2801,39 @@ target mouse itself activating the window; no DPI/Windows/firmware changes. This
 is a defined movement-size/source check, not another firmware baseline repetition.
 Keep all fixed-epoch results; do not trim/select the best seconds or call event
 gaps RF loss. No sustained fresh1000Hz or physical token cadence claim yet.
+
+
+### Larger-motion wired/wireless delivery check
+
+Both larger-circle trials completed the same guided phases and predefined central
+20seconds, with no focus loss, raw errors, clicks/wheel or stationary records in
+the analyzed epoch. The user confirmed continuous smooth motion on the surface,
+without lifts/issues. No DPI, Windows setting or firmware change was made.
+
+| Trial | Movement events/s (fixed20s) | Per-second min–max | Median gap(us) | p99 gap(us) | Maximum gap(us) |
+|---|---:|---:|---:|---:|---:|
+| Wireless first | 553.90 | 0–809 | 1028 | 4187 | 98262 |
+| Wired small | 623.45 | 328–879 | 1024.0 | 5063 | 184256 |
+| Wired larger | 842.85 | 760–923 | 1007.0 | 2210 | 6271 |
+| Wireless larger | 964.90 | 916–993 | 1000 | 2047 | 15279 |
+
+The larger wireless trial delivered19,298 nonzero movement updates, with every
+measured second916–993events and a1.000ms median gap. It supports near1000Hz
+foreground host delivery in this run, alongside independently verified live1ms
+USB configuration. The initial zero-event period from the first wireless trial did
+not recur when using target-mouse activation and larger continuous motion. Its
+original cause remains unexplained; preserve the original smooth/continuous user
+report rather than retroactively labeling it a late start.
+
+Do not infer wireless superiority over wired: hand trajectories/speeds and possible
+mode-dependent DPI behavior are not independently controlled, and WM_INPUTqueueing/
+coalescing/zero-motion behavior affect event rates. This is not USBtoken or sensor
+freshness timing, physical gaming latency or a guarantee of every1ms report.
+The larger wireless maximum host gap was15.279ms, with406gaps>2ms; their causes
+are unknown and remain relevant to later gaming/jitter checks. Keep all20seconds;
+no posthoc favorable interval was selected.
+
+Normal v14 remains installed and working wirelessly. No more firmware baseline
+repeats are needed now. Next: a preliminary real gameplay/reliability trial, then
+longer ordinary use, preserving exact normal93eb as the tested firmware. No faster
+polling promotion or new companion app/DPI/lighting writes follows from this result.

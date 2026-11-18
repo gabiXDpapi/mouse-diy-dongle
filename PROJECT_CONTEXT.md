@@ -319,6 +319,46 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+LARGER WIRELESS HOST DELIVERY PASS / GAMEPLAY READINESS NEXT - 2026-11-18 19:26 Manila:
+Session57635exit0,allguidedphases/focus/closedCSVchecksPASS. Privatev14-timed-motion-
+20261118-192310-503bc56c.summary.json: fixed20s19298nonzeroupdates/964.9Hz,
+persecond916..993,median1000us,p95=1392,p99=2047,max15279us,gaps>2ms406.
+UsercontinuousSMOOTH/no lifts/issues. Wiredlarge842.85Hz/median1007us/noissues.
+All4guidedresults retained privateguided-motion-comparison-20261118.json +tables.
+Initialwireless3zeroeventsecondsdidNOTrecurwithtargetactivation/largermotion;
+originalcausestillunknown, no retroactivelate-startorRFfaultclaim. Supportsnear1k
+HOSTdeliveryinthisrun, notsensorfreshness/USBtoken/end-to-endlatency/perfectjitter.
+Rare15.279mshostgapremainsunexplained. ActualUSBfullspeed1msactivepipeverified.
+Normalv14exact93eb installed/automatic, GloriouswirelessONUSBunplugged; no live
+capture/serial/build/helper. No newfirmware/settingschange. Useruntilsaystop.
+NEXT pushlarger-motionmilestone thenphysicalgameplayreadiness: useropenfamiliar
+practice/offlinegamemode, normalwireless+otherpointer. Plan docs/plans/2026-11-18-
+gameplay-qualification.md; proposed30min manualdiary, NO capture/gameautomation/
+inputinjection/continuoushealthmonitor implied. Onlystartafterready; earlystop
+actualdurationrecorded.30minnotlongsoakqualification. App/DPIwritesdeferred.
+
+WIRED LARGER MOTION PASS / MATCHED WIRELESS CAPTURE RUNNING - 2026-11-18 19:24 Manila:
+Wiredsession59703finishedexit0:privatewired-timed-motion-20261118-192030-00e9c914.
+Fixed20s16857events/842.85Hz,760..923/s,median1007us,p95=2044,p99=2210,max6271,
+gaps>2ms1866. UsercontinuousSMOOTH/no lifts/largercircles. Thisrosefromsmallwired
+623.45Hz; motionmethodaffectseventrate, notphysicalpollfrequencyproof.
+UsermatchingwirelessONUSBunpluggedsameDPI/surface/largercirclesready. Session57635
+basebuild-pairing-analysis/v14-timed-motion-20261118-192310-503bc56c nowrunning.
+No serial/flash/settingschange; normalv14exact93ebactive. PopupactivatewithGlorious
+itself/countdown5/MOVE30largecontinuous/STOP5 sent. Samevalidatedbinary06f74472,
+controller-Source receiver. NEXTpoll57635 closedcompleteanalysis/userobservation;
+comparesamefixed20s withwiredlarge. Thenifbothhostratesbelow1k, inspectlower-level
+USB/hostcapturepathbeforeRFclaims (don'tequateeventHzwithUSBpollHz). Useruntilstop.
+
+WIRED LARGER-MOTION GUIDED CAPTURE RUNNING - 2026-11-18 19:21 Manila:
+Userwired/roomforlargercircles/samesetupready. Session59703 base
+build-pairing-analysis/wired-timed-motion-20261118-192030-00e9c914. Samevalidated
+binary06f74472 andcontroller-Sourcewired. Windowready180shardlimit,popupactivate
+withGloriousitself/5scountdown/comfortable3–5cmcontinuouscirclesMOVE30s/STOP sent.
+No firmware/settings/serialchanges; normalv14receiverunchanged. NEXTpoll59703,
+closedcompletefixedcentral20sanalysis, collectcontinuity/smoothness/surfacecontact
+observation; thenmatchedwirelessmotionifuseful. Useruntilsaystop. No1kclaimyet.
+
 WIRED SMALL-CIRCLE REFERENCE USER-CONFIRMED / LARGER-MOTION CHECK NEXT - 2026-11-18 19:06 Manila:
 UserwiredcontinuousSMOOTH, mostlySMALL/CONTROLLEDcircles. Privatewired-timed-motion-
 20261118-190223-853da817.summary.json updated. Fixed20s12469wiredmoveevents/

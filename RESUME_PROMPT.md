@@ -1,41 +1,42 @@
 Continue the DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-timed-host-motion.md.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-gameplay-qualification.md.
 
-WIRED SMALL-CIRCLE REFERENCE USER-CONFIRMED / LARGER-MOTION CHECK NEXT - 2026-11-18 19:06 Manila:
-UserwiredcontinuousSMOOTH, mostlySMALL/CONTROLLEDcircles. Privatewired-timed-motion-
-20261118-190223-853da817.summary.json updated. Fixed20s12469wiredmoveevents/
-623.45Hz,328..879/s,nozeroseconds,median1024us,p95=3031,p99=5063. All18103raw
-rowswiredonly, noerrors/focusloss. Firstwireless553.9Hz/3initialzeroseconds with
-usercontinuoussmoothreport stillunexplained. Lowmeanmovementeventsalsoonwired;
-notRFfaultproof. NEXT scopedlargersteadycircle WIREDtrial (alreadywired): target
-activateswindowitself,keepmouseinhand, comfortable~3–5cmcirclesifroom/sensoronpad,
-no pauses/lifts/clicks/wheel,DPIunchanged. Same5/30/5window/fixed20sanalyzer. Then
-matchmotionwirelessly tocheckwhetheroriginalgap/ratepersists. No firmwareflash/
-settingschange/newcode/build. Normalv14receiverunchanged, no livecapture/serial.
-Useruntilsaystop; physicalreadinesspopupbeforecapture. Save/pushwiredreference.
+LARGER WIRELESS HOST DELIVERY PASS / GAMEPLAY READINESS NEXT - 2026-11-18 19:26 Manila:
+Session57635exit0,allguidedphases/focus/closedCSVchecksPASS. Privatev14-timed-motion-
+20261118-192310-503bc56c.summary.json: fixed20s19298nonzeroupdates/964.9Hz,
+persecond916..993,median1000us,p95=1392,p99=2047,max15279us,gaps>2ms406.
+UsercontinuousSMOOTH/no lifts/issues. Wiredlarge842.85Hz/median1007us/noissues.
+All4guidedresults retained privateguided-motion-comparison-20261118.json +tables.
+Initialwireless3zeroeventsecondsdidNOTrecurwithtargetactivation/largermotion;
+originalcausestillunknown, no retroactivelate-startorRFfaultclaim. Supportsnear1k
+HOSTdeliveryinthisrun, notsensorfreshness/USBtoken/end-to-endlatency/perfectjitter.
+Rare15.279mshostgapremainsunexplained. ActualUSBfullspeed1msactivepipeverified.
+Normalv14exact93eb installed/automatic, GloriouswirelessONUSBunplugged; no live
+capture/serial/build/helper. No newfirmware/settingschange. Useruntilsaystop.
+NEXT pushlarger-motionmilestone thenphysicalgameplayreadiness: useropenfamiliar
+practice/offlinegamemode, normalwireless+otherpointer. Plan docs/plans/2026-11-18-
+gameplay-qualification.md; proposed30min manualdiary, NO capture/gameautomation/
+inputinjection/continuoushealthmonitor implied. Onlystartafterready; earlystop
+actualdurationrecorded.30minnotlongsoakqualification. App/DPIwritesdeferred.
 
-Currentbranchfeature/timed-host-polling-measurement. Software8de3dac/wiredsupport
-24c8bc5 pushed; wiredreferencecheckpointfollows. Useruntilsaystop,nofixeddeadline.
-Installednormalv14exact93eb autoactive,GloriouscurrentlyWIRED; no activeprocesses.
-Normalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2
+Currentbranchfeature/timed-host-polling-measurement; software8de3dac,wiredsupport
+24c8bc5,wiredsmall1e18ce8 pushed; larger-motioncheckpointfollows. No morefirmware
+orbaseline builds/flashes needed now. Exactinstallednormalimage:
+build-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-No restorationneeded; no newflashes/builds forcurrentmotioncheck.
+No restorationneeded. Useruntilsaystop; olddeadlinesrevoked.
 
-Controllerresearch/capture_timed_motion.ps1 -Source wired (orreceiver default).
-Noarm/serial/x/injection. Visible180shardlimit waitsfocus->5scountdown/30sMOVE/
-5sSTOPautoclose, normalinputcontinues. AnalyzeclosedcompleteCSV central20s only;
-18analysischecks/controllergates/syntaxPASS. Samevalidatedtimedbinary06f74472;
-source/headerhashesprivatevalidationJSON; originalrawbinary09d2unchanged.
-Firstwirelessprivatev14-timed-motion-20261118-184803-b718bd7e; wiredsmallreference
-wired-timed-motion-20261118-190223-853da817. Preserveuserevidenceandfixedepochs.
+LiveUSBverification7e23c76 fullspeedHID2/IN0x83/max16/bInterval1/activepipematch.
+Guidedwirelesslargeprivatev14-timed-motion-20261118-192310-503bc56c; wiredlarge
+wired-timed-motion-20261118-192030-00e9c914. All summaries fixedcentral20s, no
+trimming/bestepoch. Receiver50usCPUradio-checkwait separatefromUSB1ms/target1kHz.
+EarlierphaseABBA0a7c14e showed~18usRFstagegain with10uschecks butoverallgaming
+gainunproven; no normalfastpromotion. HistoricalA2tworecordcauseunknown.
 
-LiveUSBcheck7e23c76 fullspeedHID2/IN0x83/max16/bInterval1/activepipematch confirms
-configurationtarget1k, notactualfreshreport/sensor/buscadence. PhaseABBA0a7c14e
-showedrepeatable~18usRFstagegain buttotalgamingbenefitunproven; normalkept50usCPU
-wait(separatefromUSB1ms). No moreABBArepeatsneeded. No companionapp/DPIwrites.
-Keepcontext/resumecurrenteachstep;pushmilestones;pausewithquestionpopupsforphysical
-intervention. Privatecaptures/addresses/binariesignored; unrelatedfilesalone.
-Longsoak/repeatedsuspend/hibernate/physicalend-to-endlatency/sustainedfresh1kstill
-unqualified. OneS3/5mininactivityrecoverypassed. No user-settingchanges.
+Keepcontext/copy-pastehandoffcurrenteachmeaningfulstep;pushmilestonesfeaturebranches;
+pausewithquestionpopupsforphysicalintervention. Privatecaptures/addresses/binaries
+ignored; unrelated.vscode/INFO_UF2.TXTalone. No app/settingswrites. Long4h/8h/multiday
+soak/repeatedsuspend/hibernate/physicalsensor-to-screenlatency/sustainedfresh1kHz
+stillunqualified; oneS3/5mininactivitypassed. No activeprocesses now.
