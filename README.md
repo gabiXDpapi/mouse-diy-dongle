@@ -496,3 +496,5 @@ Normal v14 remains installed. The opt-in `input` build (USB product `DIY Mouse I
 V17 hardware accounting also passed one foreground trial: 9,585 device/host reports and movement, wheel and five-button totals matched; the user confirmed smooth operation and clean stopping. The earlier count difference remains unexplained. See `research/RADIO_ANALYSIS.md` for scope and limitations.
 
 Normal v14 also recovered smoothly after a user-confirmed five-minute inactivity interval without reconnecting. Deep sleep and Windows sleep/resume remain unqualified; see the research notes for recording coverage.
+
+One Windows S3 sleep/resume trial also passed on normal v14 with released buttons: the user reported automatic smooth recovery of all controls, and Windows events plus post-wake receiver presence were verified. Repeated sleep, hibernation and long endurance remain pending.

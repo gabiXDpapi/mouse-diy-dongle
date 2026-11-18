@@ -319,6 +319,52 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NORMAL V14 WINDOWS S3 RECOVERY PASS / SESSION CHECKPOINT - 2026-11-18 14:54 Manila:
+User-operated Windows sleep/resume with ALL buttons released completed. User
+reported ALL controls recovered automatically/smoothly, no issues/reconnect/reset/
+mousepowercycle. Power-Troubleshooter1 TargetState/EffectiveState4=S3, SleepTime
+06:47:25.3535Z/WakeTime06:50:30.6608Z (~185.307s); KernelPower42/107 also present.
+Do not interpret event header107 time as actualwake or SleepDuration3189 as total
+sleepseconds. Receiver unique normalv14 USB identity OK afterwake withoutserial.
+Passive300s raw session4802 finished1776receiverrecords,read_errors0/failed0;
+observed movement,left15/right2/middle2 balancedpairs,wheel. Thumbedges0: all5
+postresume success is USER-REPORTED, not independently captured. Background counts
+are not polling/latency qualification. Private v14-sleep-20261118-144655.summary.json.
+Installed tested normalv14 93eb987a automatic untilunplug; user can keepusing it.
+NO live serial/capture/build/helper. No diagnostic timing image remains installed.
+Milestones: v17acceptedcontent/count9585 exactmatch and five-minute inactivity
+recovery passed earlier today; normalrestoration confirmed. Historical A2two-record
+cause unresolved; no fastpollpromotion/end-to-endlatency/sustained1kHz claim.
+NEXT on resume: refreshworkwindow (today's15:00Manila cutoff expires afterthisday),
+implement isolated USBframehardwaretimestamp candidate per
+ docs/plans/2026-11-18-usb-frame-timing-review.md on feature-basedbranch. SOFTWARE
+REVIEW ONLY sofar; TIMER2all4CCoccupied; queuedSOF/INcallbacksinclude dispatchdelay.
+Preserve exactnormalv14; no repeatedbaselines/builds/flashes withoutclearquestion.
+Long4h/8h/multiday soak,repeated sleep/hibernate,mouse deep-sleep,broaderRF checks
+remain. Companionapp/DPI/lightingwritesdeferreduntilgamingoptimization. Captures,
+addresses,binariesignored; .vscode/ andINFO_UF2.TXT unrelated/untouched.
+
+WINDOWS SLEEP/RESUME CAPTURE RUNNING - 2026-11-18 14:47 Manila:
+User ready/worksaved/GloriousON USBunplugged/keyboard confirmed. Unique normalv14
+USB product and rawlogger hash verified. Passive300s raw session4802, base
+build-pairing-analysis/v14-sleep-20261118-144655; no serial/arm/reset. Sleep cue
+popup sent: releaseallbuttons, userStart/Power/Sleep30s, keyboardwake/signin, then
+movement/all5buttons/wheel without reconnect. Parent waits max300s (sleep may
+consume walltime); expected14:51:56 end. Need poll4802, collect useractualrecovery,
+query recent System42/107/1 evidence and current USB identity. No tool-initiated
+sleep/UAC/driverchange. Normalv14 remains active. Deadline15:00Manila today.
+
+PAUSED FOR WINDOWS SLEEP/RESUME READINESS - 2026-11-18 14:45 Manila:
+Idle milestone7710247 pushed. Readonly powercfg /a reports StandbyS3 andHibernate
+available, S0lowpoweridle unavailable. Physical readiness popup pending: savework,
+normalv14receiverconnected,GloriousON USBunplugged/allbuttonsreleased,keyboardwake.
+No sleep/capture triggered yet. Ifready with enough margin before15:00, start a
+bounded~300s passive raw capture, cue Start/Power/Sleep30s, keyboardwake/signin,
+then movement/clicks/wheel without receiverreconnect. Verify actual sleep/resume
+via recent Kernel-Power42/107 and Power-Troubleshooter1 ifavailable; record exact
+observed evidence, not assumptions. No forcedsystemsleep/tool, UAC or driverchange.
+Ifreplydelayed/insufficienttime, pause and leave testednormalv14 installed.
+
 NORMAL V14 FIVE-MINUTE IDLE RECOVERY PASS - 2026-11-18 14:45 Manila:
 User confirmed recovered promptly, controls smooth, no reconnect/powercycle. Idle
 explicitstart14:36:35; wake cue AFTER14:41:35 threshold. Segmented passive captures

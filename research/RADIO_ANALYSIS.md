@@ -2529,3 +2529,24 @@ is a user-confirmed inactivity-recovery check, not proof of mouse deep sleep,
 Windows suspend recovery, overnight endurance or sustained polling performance.
 No firmware change, serial command or setting change was involved. Normal v14
 remains installed for everyday operation.
+
+
+### November 18: normal v14 Windows S3 recovery passed
+
+The user put Windows to sleep with all mouse buttons released, kept the receiver
+connected and mouse ON/USB unplugged, then resumed using the keyboard. Windows
+power events confirm one S3 cycle: target/effective state 4, with reported sleep
+and wake times about 185.307 seconds apart. The receiver was present afterward
+as normal v14, without opening serial or reconnecting it. The user confirmed
+movement, all five buttons and wheel recovered automatically and smoothly.
+
+The passive 300-second recording finished with 1,776 receiver records and no read
+errors. It captured post-resume motion, balanced left/right/middle clicks and
+scrolling. Thumb events were not captured; all-five-button recovery is the user's
+observation, rather than independently verified by this recording. This single
+released-button trial does not qualify repeated sleep, hibernation, held-button
+suspend behavior, sleep-transition latency or long-term endurance. Normal v14
+remains installed and active; no firmware or Windows setting was changed.
+
+Windows state mapping reference:
+https://learn.microsoft.com/en-us/windows/win32/api/winnt/ne-winnt-system_power_state
