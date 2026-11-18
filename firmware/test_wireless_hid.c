@@ -70,6 +70,10 @@ static uint32_t fake_us;
 static unsigned int irq_lock(void) { return 0; }
 static void irq_unlock(unsigned int key) { assert(key == 0); }
 static uint32_t latency_clock_us(void) { return fake_us; }
+#ifdef USB_PHASE_DIAGNOSTICS
+static bool usb_phase_calibrated = true;
+static uint32_t latency_sof_us(void) { return 0; }
+#endif
 #ifdef INPUT_CONSERVATION
 #include "radio_logger/src/input_totals.h"
 #endif

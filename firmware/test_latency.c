@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <errno.h>
 #ifndef ENOTCONN
 #define ENOTCONN 107
@@ -18,6 +19,11 @@ static unsigned int locked;
 static unsigned int irq_lock(void) { assert(!locked); locked = 1; return 0; }
 static void irq_unlock(unsigned int key) { assert(key == 0 && locked); locked = 0; }
 static uint32_t latency_clock_us(void) { assert(locked); return fake_us; }
+#ifdef USB_PHASE_DIAGNOSTICS
+static bool usb_phase_calibrated = true;
+static uint32_t fake_sof;
+static uint32_t latency_sof_us(void) { assert(locked); return fake_sof; }
+#endif
 #ifdef INPUT_CONSERVATION
 #include "radio_logger/src/input_totals.h"
 #endif
@@ -124,6 +130,37 @@ int main(void)
     assert(strstr(output,"INPUT_V1 reports=3 unchanged=1 buttons=0 neutral=1"));
     assert(strstr(output,"dx=fffffffffffffffc dy=0000000000000006 wheel=fffffffffffffffe"));
     assert(strstr(output,"neutral_up=1,0,0,0,0") && strstr(output,"INPUT_END capped=0"));
+#endif
+#ifdef USB_PHASE_DIAGNOSTICS
+    assert(latency_phase_bucket(1000, 1999, 1000) == 9);
+    assert(latency_phase_bucket(1000, 2000, 1000) == 10);
+    assert(latency_phase_bucket(1000, 1999, 2000) == 10);
+    assert(latency_phase_bucket(0xfffffff0u, 20, 0xfffffff0u) == 0);
+    usb_phase_calibrated = false;
+    assert(latency_phase_bucket(1000, 1100, 1000) == 10);
+    usb_phase_calibrated = true;
+    assert(latency_reset()); fake_sof = 1000; fake_us = 1234;
+    latency_observe_rx(1200); assert(latency_submit_begin());
+    fake_us = 1800; latency_usb_complete(); latency_submit_result(true, true);
+    assert(phase_metrics[2].count == 1 && phase_metrics[2].sum == 600 && phase_rf_submit[2] == 34);
+    fake_us = 2200; latency_observe_rx(2190); assert(latency_submit_begin());
+    latency_submit_result(true, false); latency_usb_complete();
+    assert(phase_metrics[10].count == 0);
+    assert(latency_submit_begin()); latency_submit_result(true, true);
+    fake_us = 2500; latency_usb_complete();
+    assert(phase_metrics[10].count == 1 && phase_metrics[10].sum == 310);
+    latency_stop(); output_size = 0; output[0] = 0;
+    assert(latency_dump(NULL, 2, 0, 0) == 0);
+    assert(strstr(output,"PHASE_V1 width_us=100 bins=10 calibrated=1"));
+    assert(strstr(output,"PHASE bin=2 count=1 rf_submit_hex=0000000000000022 rf_usb_hex=0000000000000258"));
+    assert(strstr(output,"PHASE_END reports=2 invalid=1"));
+    assert(latency_reset() && !phase_metrics[2].count && !phase_metrics[10].count && !phase_rf_submit[2]);
+    fake_sof = 0; fake_us = 50; latency_observe_rx(0); latency_ack(0, 200, 250);
+    fake_us = 100; assert(latency_submit_begin()); latency_submit_result(true, true);
+    const uint8_t coherent[] = {0,7,0,0xfd,0xff,1}; input_totals_record(coherent);
+    fake_us = 750; latency_usb_complete(); latency_stop(); output_size = 0; output[0] = 0;
+    assert(latency_dump(NULL, 1, 0, 0) == 0);
+    fputs(output, stdout); /* Cross-language schema validation uses this actual frame. */
 #endif
     assert(!locked);
     return 0;

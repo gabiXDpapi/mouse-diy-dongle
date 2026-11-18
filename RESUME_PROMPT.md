@@ -1,54 +1,52 @@
 Continue the DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md, docs/plans/2026-11-17-gaming-qualification.md and
-docs/plans/2026-11-18-usb-frame-timing-review.md.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-usb-frame-phase-implementation.md.
 
-NORMAL V14 WINDOWS S3 RECOVERY PASS / SESSION CHECKPOINT - 2026-11-18 14:54 Manila:
-User-operated Windows sleep/resume with ALL buttons released completed. User
-reported ALL controls recovered automatically/smoothly, no issues/reconnect/reset/
-mousepowercycle. Power-Troubleshooter1 TargetState/EffectiveState4=S3, SleepTime
-06:47:25.3535Z/WakeTime06:50:30.6608Z (~185.307s); KernelPower42/107 also present.
-Do not interpret event header107 time as actualwake or SleepDuration3189 as total
-sleepseconds. Receiver unique normalv14 USB identity OK afterwake withoutserial.
-Passive300s raw session4802 finished1776receiverrecords,read_errors0/failed0;
-observed movement,left15/right2/middle2 balancedpairs,wheel. Thumbedges0: all5
-postresume success is USER-REPORTED, not independently captured. Background counts
-are not polling/latency qualification. Private v14-sleep-20261118-144655.summary.json.
-Installed tested normalv14 93eb987a automatic untilunplug; user can keepusing it.
-NO live serial/capture/build/helper. No diagnostic timing image remains installed.
-Milestones: v17acceptedcontent/count9585 exactmatch and five-minute inactivity
-recovery passed earlier today; normalrestoration confirmed. Historical A2two-record
-cause unresolved; no fastpollpromotion/end-to-endlatency/sustained1kHz claim.
-NEXT on resume: refreshworkwindow (today's15:00Manila cutoff expires afterthisday),
-implement isolated USBframehardwaretimestamp candidate per
- docs/plans/2026-11-18-usb-frame-timing-review.md on feature-basedbranch. SOFTWARE
-REVIEW ONLY sofar; TIMER2all4CCoccupied; queuedSOF/INcallbacksinclude dispatchdelay.
-Preserve exactnormalv14; no repeatedbaselines/builds/flashes withoutclearquestion.
-Long4h/8h/multiday soak,repeated sleep/hibernate,mouse deep-sleep,broaderRF checks
-remain. Companionapp/DPI/lightingwritesdeferreduntilgamingoptimization. Captures,
-addresses,binariesignored; .vscode/ andINFO_UF2.TXT unrelated/untouched.
+V18 SOFTWARE BUILT/VERIFIED / PHYSICAL FLASH NEXT - 2026-11-18 17:32 Manila:
+Branch feature/usb-frame-phase-diagnostics. User says continue UNTIL THEY SAY STOP;
+no fixed cutoff. Normalv14 93eb987a STILL INSTALLED/automatic, nohardware/serial/
+capture/build session now. Build40533 completedphase+normalcontrol successfully.
+V18 private phase-v18-05eaf02a.uf2 SHA256
+05eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd,
+199blocks0x26000..0x32700exclusive,50792flash/17280RAM. Appphase productDIY Mouse
+Phase v18, LATENCY/INPUT/USB_PHASE ON,FASTOFF; quiet1msUSB. Stagedsourcesmatch,
+TIMER3DTdisabled/6CC andNRFXdriverOFF,SOFIRQOFF verified. Normalcontrol diagnostics
+OFF,46188flash/16064RAM,hashcb8bbb60; NOThardwarequalifiedrollback. Exacttested
+normal93eb hash verified. Private v18-software-validation.json, imageignored.
+All11native +11research testsPASS; controllerSelfTest/syntaxPASS; actual Coutput
+cross-parses/reconciles withPython. Calib3consecutive950..1050usSOF intervals,
+bounded300x50uspollstepsplusIRQoverhead. Phase0..9 +invalid10; acceptedcompletion
+counts/hist/sums reconcileglobal; inputtotalsretained; no activeoutput/perfchange.
+V18 NOTFLASHED/HARDWAREUNPROVEN. NEXT pushsoftware thenphysicalpopup Glorious
+wired/OFF,receiverNICENANO; verifyboard+exactimage,flash,USBidentity. SeparateOFF/
+USBunplugged readiness then100sforegroundcapture ExpectedProductDIY Mouse Phase
+v18. Noarm;d50silence/x70/stoppedthreeframes. Use internalnow+30min finishguard
+for open-endeduserwindow; notusercutoff. Trialcontrolsfirstthensteadycircles.
+Analyzephase/input/timing, collectfeel/stop, restoreEXACTtestednormal93eb viafresh
+physicalreadiness andbriefautomaticwirelesscheck. No fastpollpromotion orphysical
+latencyclaim. HistoricalA2tworecordcauseunresolved. App/DPI/lightingwritesdeferred.
 
-Current branch: feature/input-conservation-diagnostics.
-Exact hardware-tested normal image (installed and user-confirmed):
+Keep context and this copy-paste handoff current after every meaningful step.
+Commit/push tested milestones on feature branches. Pause with question popups
+for physical intervention. Private captures/addresses/binaries stay ignored;
+leave unrelated .vscode/ and INFO_UF2.TXT untouched. No live sessions remain.
+
+Installed + exact restore image:
 build-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
-Product DIY Mouse Dongle v14. Automatic plug-and-play; no DTR/arm/time limit.
-No additional restoration is needed. Do not confuse the newly built normal
-control dd74b533 with the hardware-tested 93eb987a image.
+Product DIY Mouse Dongle v14, automatic/no DTR/arm/time limit. Restore this exact
+hardware-tested image after the diagnostic, not newly built control cb8bbb60.
 
-Today's completed work: v17 software9ecc2bf, hardware/restoration4b99ed2,
-restorationconfirmation/timingreview d8fc777, inactivity7710247; final S3 result
-commit follows. Private v17-latency-20261118-142055-af9a2982, idle
-v14-idle-20261118-143124 and sleep v14-sleep-20261118-144655 summaries saved.
-V17 device9585=host9585; aggregate X/Y/wheel and each5buttons3down/3up match.
-Aggregate equality does not prove individual-event preservation/order or explain
-historical A2device27594/host27592. V15/v16 ABBA had faster RF reaction but no
-consistent total-latency gain; no fast-poll promotion. True sensor/click-to-screen
-latency and sustained fresh1000Hz remain unqualified.
+Prior milestones: v17 accepted9585=host9585 and aggregate movement/wheel/all5
+button3down/up pairs matched; normal v14 five-minute inactivity recovery and one
+WindowsS3 recovery passed. User ordinary wireless use no issues/durationunknown.
+S3 allfivecontrols userconfirmed; rawcapture thumb events absent. No long4h/8h/
+multiday soak/repeatedsuspend/hibernate, true sensor-to-screenlatency or sustained
+fresh1000Hz qualification. V15/v16ABBA fasterRFreaction but no consistenttotal
+latencybenefit, so no fast-poll promotion. HistoricalA2device27594/host27592 cause
+unknown; aggregate equality cannot prove individualeventpreservation/order.
 
-Keep PROJECT_CONTEXT.md and this copy-paste handoff current after each meaningful
-step. Commit/push tested milestones on feature branches. Pause with question
-popups for physical intervention; keep mouse wired/OFF before diagnostic flash,
-separate readiness before input trials, and restore preserved normal afterward.
-Keep captures/addresses/binaries ignored; leave unrelated files untouched.
+Next after v18 hardwarequalification: use measured USBphase/timing evidence to
+choose controlled optimization comparisons; do not call one run an improvement.
+Companion app/DPI/lighting writes remain deferred until gaming optimization.

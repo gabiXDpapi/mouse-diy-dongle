@@ -12,10 +12,9 @@ struct latency_histogram {
 };
 static struct latency_histogram latency_metrics[LAT_METRIC_COUNT];
 static bool latency_capped;
-static void latency_add(enum latency_metric metric, uint32_t us)
+static void latency_histogram_add(struct latency_histogram *h, uint32_t us)
 {
     static const uint32_t upper[] = {50,100,250,500,1000,2000,4000,8000};
-    struct latency_histogram *h = &latency_metrics[metric];
     if (h->count == LATENCY_COUNT_CAP) {
         latency_capped = true;
         return;
@@ -28,11 +27,29 @@ static void latency_add(enum latency_metric metric, uint32_t us)
     h->bins[bin]++;
 }
 
+static void latency_add(enum latency_metric metric, uint32_t us)
+{
+    latency_histogram_add(&latency_metrics[metric], us);
+}
+
+#ifdef USB_PHASE_DIAGNOSTICS
+static struct latency_histogram phase_metrics[11];
+static uint64_t phase_rf_submit[11];
+static unsigned int latency_phase_bucket(uint32_t before, uint32_t submit, uint32_t after)
+{
+    uint32_t age = submit - before;
+    return usb_phase_calibrated && before == after && age < 1000 ? age / 100 : 10;
+}
+#endif
+
 static bool latency_collect, latency_rx_valid, latency_tracking_fault;
 static uint32_t latency_rx_us, latency_failed_submissions;
 static struct {
     bool active, accepted, completed;
     uint32_t rx_us, submit_us, complete_us;
+#ifdef USB_PHASE_DIAGNOSTICS
+    unsigned int phase;
+#endif
 } latency_pending;
 
 static bool latency_reset(void)
@@ -40,6 +57,10 @@ static bool latency_reset(void)
     unsigned int key = irq_lock();
     if (latency_pending.active) { irq_unlock(key); return false; }
     memset(latency_metrics, 0, sizeof(latency_metrics));
+#ifdef USB_PHASE_DIAGNOSTICS
+    memset(phase_metrics, 0, sizeof(phase_metrics));
+    memset(phase_rf_submit, 0, sizeof(phase_rf_submit));
+#endif
 #ifdef INPUT_CONSERVATION
     input_totals_reset();
 #endif
@@ -72,7 +93,13 @@ static bool latency_submit_begin(void)
         return false;
     }
     latency_pending.rx_us = latency_rx_us;
+#ifdef USB_PHASE_DIAGNOSTICS
+    uint32_t sof = latency_sof_us();
+#endif
     latency_pending.submit_us = latency_clock_us();
+#ifdef USB_PHASE_DIAGNOSTICS
+    latency_pending.phase = latency_phase_bucket(sof, latency_pending.submit_us, latency_sof_us());
+#endif
     latency_pending.accepted = latency_pending.completed = false;
     latency_pending.active = true;
     irq_unlock(key);
@@ -84,6 +111,11 @@ static void latency_finish_pending(void)
 {
     latency_add(LAT_SUBMIT_USB, latency_pending.complete_us - latency_pending.submit_us);
     latency_add(LAT_RF_USB, latency_pending.complete_us - latency_pending.rx_us);
+#ifdef USB_PHASE_DIAGNOSTICS
+    unsigned int phase = latency_pending.phase;
+    latency_histogram_add(&phase_metrics[phase], latency_pending.complete_us - latency_pending.rx_us);
+    phase_rf_submit[phase] += latency_pending.submit_us - latency_pending.rx_us;
+#endif
     latency_pending.active = false;
 }
 

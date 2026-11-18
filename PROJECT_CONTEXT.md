@@ -319,6 +319,71 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V18 SOFTWARE BUILT/VERIFIED / PHYSICAL FLASH NEXT - 2026-11-18 17:32 Manila:
+Branch feature/usb-frame-phase-diagnostics. User says continue UNTIL THEY SAY STOP;
+no fixed cutoff. Normalv14 93eb987a STILL INSTALLED/automatic, nohardware/serial/
+capture/build session now. Build40533 completedphase+normalcontrol successfully.
+V18 private phase-v18-05eaf02a.uf2 SHA256
+05eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd,
+199blocks0x26000..0x32700exclusive,50792flash/17280RAM. Appphase productDIY Mouse
+Phase v18, LATENCY/INPUT/USB_PHASE ON,FASTOFF; quiet1msUSB. Stagedsourcesmatch,
+TIMER3DTdisabled/6CC andNRFXdriverOFF,SOFIRQOFF verified. Normalcontrol diagnostics
+OFF,46188flash/16064RAM,hashcb8bbb60; NOThardwarequalifiedrollback. Exacttested
+normal93eb hash verified. Private v18-software-validation.json, imageignored.
+All11native +11research testsPASS; controllerSelfTest/syntaxPASS; actual Coutput
+cross-parses/reconciles withPython. Calib3consecutive950..1050usSOF intervals,
+bounded300x50uspollstepsplusIRQoverhead. Phase0..9 +invalid10; acceptedcompletion
+counts/hist/sums reconcileglobal; inputtotalsretained; no activeoutput/perfchange.
+V18 NOTFLASHED/HARDWAREUNPROVEN. NEXT pushsoftware thenphysicalpopup Glorious
+wired/OFF,receiverNICENANO; verifyboard+exactimage,flash,USBidentity. SeparateOFF/
+USBunplugged readiness then100sforegroundcapture ExpectedProductDIY Mouse Phase
+v18. Noarm;d50silence/x70/stoppedthreeframes. Use internalnow+30min finishguard
+for open-endeduserwindow; notusercutoff. Trialcontrolsfirstthensteadycircles.
+Analyzephase/input/timing, collectfeel/stop, restoreEXACTtestednormal93eb viafresh
+physicalreadiness andbriefautomaticwirelesscheck. No fastpollpromotion orphysical
+latencyclaim. HistoricalA2tworecordcauseunresolved. App/DPI/lightingwritesdeferred.
+
+V18 BUILD RUNNING / OPEN-ENDED USER WINDOW - 2026-11-18 17:26 Manila:
+User explicitly says continue UNTIL THEY SAY SO; no fixed cutoff. Build session40533
+Appphase thenAppdonglecontrol. All11native checks pass; added actual C-frame->Python
+analyzer cross-check passes, all10research checks pass, controllergates/syntaxpass.
+Native tests cover TIMER3ownership/SOFIRQcompileguards, all9PPIalloc/assign/enable
+failurepoints, timerstall/missing/irregularSOF cleanup, phaseboundary/stale/wrap,
+earlycompletion/failedwrites, acceptedinput totals. No firmware edits since staged
+build; only test/host/docs work since. Normalv14 stillinstalled, nohardware/serial.
+Startup calibration bound is300x50us polling steps plusinterruptoverhead, observing
+threeconsecutive950..1050us intervals. Phaseframe11rows includesinvalidbin10.
+NEXT finishbuild40533 andconfig/source/UF2/hash verification; preserveimage,
+updateconcisehandoff andpushsoftwarebeforephysicalflashreadiness.
+
+V18 NATIVE/ANALYZER CHECKS PASS / BUILD NEXT - 2026-11-18 17:24 Manila:
+User updated workwindow: UNTIL THEY SAY STOP; old15:00cutoff expired/revoked.
+No new fixeddeadline. Normalv14 remains installed, no hardware/serial/capture.
+Branch feature/usb-frame-phase-diagnostics. Opt-in Appphase productDIY Mouse
+Phase v18, TIMER3unownedasserts, thirdPPIUSBD SOF->CC4, startup3consecutive950..
+1050usintervals within15ms; no queuedSOFIRQ. Failedresource/cadencefailclosed.
+11 native testsPASS (inclphasebridge/writer/resourcevariants);10 research tests
+PASS. ControllerSelfTest/syntaxPASS, v18requiresLATENCY+INPUT+PHASEfooters. Phase
+0..9 100usacceptedsubmissionbuckets +10invalid(stale/changing/uncalibrated), perbin
+RFUSBhist/RFsubmit sums reconcileaggregate. No normal fastpoll/performancechange.
+Native/resource/collector/analyzer testsfailedbeforeimplementationthenpassed.
+NEXT buildphase andnormalcontrol;verifystagedsources,flags/DT,UF2/hash/privatepreserve,
+exactnormal93ebrollback;pushsoftwarecheckpoint BEFOREphysicalflashreadiness.
+After readiness trial100s noarm/x70/dquiet50/stopped-onlydump, collectfeel and
+restoreexactnormalv14. For useropenendedsession use internal30minrollbackdeadline
+per100srun (operational guard, NOT a userrequestedstop time). Keepcontextcurrent.
+
+RESUMED / USB FRAME PHASE IMPLEMENTATION - 2026-11-18 17:18 Manila:
+User resumed; earlier15:00break revoked by explicitresume. New stop time popup
+pending; do software work whilewaiting and do not infer a hardware deadline.
+Installed normalv14 93eb987a unchanged, no serial/capture/build yet. Latest prior
+S3 milestone c8e1882 pushed. Newbranch feature/usb-frame-phase-diagnostics.
+Implement opt-in v18 hardwareSOF/TIMER3+PPI phase measurement retainingv17 input
+accounting and stopped-only guards. FAST remainsOFF. Plan docs/plans/2026-11-18-
+usb-frame-phase-implementation.md. No app/DPI/lightingwrites. Need native tests,
+analyzer/controllerchecks, builds/config/UF2 validation and software push BEFORE
+physicalflashreadiness. Restore exact normalv14 after any later trial.
+
 NORMAL V14 WINDOWS S3 RECOVERY PASS / SESSION CHECKPOINT - 2026-11-18 14:54 Manila:
 User-operated Windows sleep/resume with ALL buttons released completed. User
 reported ALL controls recovered automatically/smoothly, no issues/reconnect/reset/

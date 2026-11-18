@@ -2550,3 +2550,20 @@ remains installed and active; no firmware or Windows setting was changed.
 
 Windows state mapping reference:
 https://learn.microsoft.com/en-us/windows/win32/api/winnt/ne-winnt-system_power_state
+
+
+### USB frame-phase diagnostic v18: software preparation
+
+The opt-in `phase` build retains baseline 50us polling and v17 input accounting.
+It uses an otherwise disabled TIMER3 and a hardware PPI SOF capture, checks the
+startup frame cadence, and separates accepted USB submissions into ten 100us phase
+buckets plus an explicit invalid bucket. Stale or changing references are not
+counted as valid phases. Per-bucket counts, timing sums and latency histograms must
+reconcile with the complete stopped timing frame. No queued SOF callback is added.
+
+Normal v14 remains installed while software is prepared; v18 hardware validation
+is pending. This instrumented submission-phase measurement includes USB callback
+dispatch delay and is not physical end-to-end latency or evidence for promoting
+faster polling. The phase controller requires complete timing, input and phase
+footers; native output is cross-checked with the host analyzer. See the phase
+implementation plan and latest PROJECT_CONTEXT handoff for exact image/state.

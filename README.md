@@ -498,3 +498,20 @@ V17 hardware accounting also passed one foreground trial: 9,585 device/host repo
 Normal v14 also recovered smoothly after a user-confirmed five-minute inactivity interval without reconnecting. Deep sleep and Windows sleep/resume remain unqualified; see the research notes for recording coverage.
 
 One Windows S3 sleep/resume trial also passed on normal v14 with released buttons: the user reported automatic smooth recovery of all controls, and Windows events plus post-wake receiver presence were verified. Repeated sleep, hibernation and long endurance remain pending.
+
+
+### USB frame-phase diagnostic v18: software preparation
+
+The opt-in `phase` build retains baseline 50us polling and v17 input accounting.
+It uses an otherwise disabled TIMER3 and a hardware PPI SOF capture, checks the
+startup frame cadence, and separates accepted USB submissions into ten 100us phase
+buckets plus an explicit invalid bucket. Stale or changing references are not
+counted as valid phases. Per-bucket counts, timing sums and latency histograms must
+reconcile with the complete stopped timing frame. No queued SOF callback is added.
+
+Normal v14 remains installed while software is prepared; v18 hardware validation
+is pending. This instrumented submission-phase measurement includes USB callback
+dispatch delay and is not physical end-to-end latency or evidence for promoting
+faster polling. The phase controller requires complete timing, input and phase
+footers; native output is cross-checked with the host analyzer. See the phase
+implementation plan and latest PROJECT_CONTEXT handoff for exact image/state.

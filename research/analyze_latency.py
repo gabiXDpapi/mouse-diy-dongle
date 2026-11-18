@@ -9,6 +9,30 @@ UPPER = [50, 100, 250, 500, 1000, 2000, 4000, 8000]
 NAMES = {"candidate_age", "rf_submit", "submit_usb", "rf_usb", "ack_ready", "ack_end"}
 
 
+def analyze_histogram(count, total, maximum, bins):
+    if len(bins) != 9 or sum(bins) != count or not 0 < count <= 1000000:
+        raise ValueError("Invalid histogram coverage")
+    if not 0 <= maximum <= 0xffffffff or total > count * maximum:
+        raise ValueError("Invalid maximum or sum")
+    last_bin = next((i for i, upper in enumerate(UPPER) if maximum <= upper), 8)
+    if last_bin != max(i for i, n in enumerate(bins) if n):
+        raise ValueError("Maximum contradicts histogram")
+    lower = [0] + [x + 1 for x in UPPER]
+    if total < sum(n * lo for n, lo in zip(bins, lower)):
+        raise ValueError("Sum below histogram minimum")
+    if total > sum(n * hi for n, hi in zip(bins, UPPER + [maximum])):
+        raise ValueError("Sum above histogram maximum")
+    result = dict(count=count, sum_us=total, mean_us=total / count, max_us=maximum, bins=bins)
+    for label, p in [('p50_upper_us', .50), ('p95_upper_us', .95), ('p99_upper_us', .99)]:
+        rank, cumulative = math.ceil(count * p), 0
+        for i, n in enumerate(bins):
+            cumulative += n
+            if cumulative >= rank:
+                result[label] = min((UPPER + [maximum])[i], maximum)
+                break
+    return result
+
+
 def analyze(text):
     frames = re.findall(r"LATENCY_V1 [^\n]+\n.*?LATENCY_END [^\n]+", text, re.S)
     if not frames:
@@ -30,24 +54,7 @@ def analyze(text):
         bins = list(map(int, bins.split(',')))
         if name not in NAMES or name in metrics or len(bins) != 9 or sum(bins) != count or not 0 < count <= 1000000:
             raise ValueError("Missing, duplicate, empty or inconsistent metric")
-        if not 0 <= maximum <= 0xffffffff or total > count * maximum:
-            raise ValueError("Invalid maximum or sum")
-        last_bin = next((i for i, upper in enumerate(UPPER) if maximum <= upper), 8)
-        if last_bin != max(i for i, n in enumerate(bins) if n):
-            raise ValueError("Maximum contradicts histogram")
-        lower = [0] + [x + 1 for x in UPPER]
-        if total < sum(n * lo for n, lo in zip(bins, lower)):
-            raise ValueError("Sum below histogram minimum")
-        if total > sum(n * hi for n, hi in zip(bins, UPPER + [maximum])):
-            raise ValueError("Sum above histogram maximum")
-        result = dict(count=count, sum_us=total, mean_us=total / count, max_us=maximum, bins=bins)
-        for label, p in [('p50_upper_us', .50), ('p95_upper_us', .95), ('p99_upper_us', .99)]:
-            rank, cumulative = math.ceil(count * p), 0
-            for i, n in enumerate(bins):
-                cumulative += n
-                if cumulative >= rank:
-                    result[label] = min((UPPER + [maximum])[i], maximum)
-                    break
+        result = analyze_histogram(count, total, maximum, bins)
         metrics[name] = result
     if set(metrics) != NAMES:
         raise ValueError("Incomplete metric set")

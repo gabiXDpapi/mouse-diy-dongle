@@ -45,6 +45,32 @@ static int input_totals_dump(const struct device *console, int64_t deadline)
 }
 #endif
 
+#ifdef USB_PHASE_DIAGNOSTICS
+static int phase_dump(const struct device *console, unsigned int reports, int64_t deadline)
+{
+    char line[240];
+    int length = snprintk(line, sizeof(line), "PHASE_V1 width_us=100 bins=10 calibrated=%u\n", usb_phase_calibrated);
+    if (length < 0 || length >= (int)sizeof(line)) return -EOVERFLOW;
+    int err = latency_write_line(console, line, deadline);
+    if (err) return err;
+    for (unsigned int i = 0; i < 11; i++) {
+        const struct latency_histogram *h = &phase_metrics[i];
+        uint64_t submit = phase_rf_submit[i];
+        length = snprintk(line, sizeof(line),
+            "PHASE bin=%u count=%u rf_submit_hex=%08x%08x rf_usb_hex=%08x%08x max_us=%u hist=%u,%u,%u,%u,%u,%u,%u,%u,%u\n",
+            i, h->count, (uint32_t)(submit >> 32), (uint32_t)submit,
+            (uint32_t)(h->sum >> 32), (uint32_t)h->sum, h->maximum,
+            h->bins[0], h->bins[1], h->bins[2], h->bins[3], h->bins[4], h->bins[5], h->bins[6], h->bins[7], h->bins[8]);
+        if (length < 0 || length >= (int)sizeof(line)) return -EOVERFLOW;
+        err = latency_write_line(console, line, deadline);
+        if (err) return err;
+    }
+    length = snprintk(line, sizeof(line), "PHASE_END reports=%u invalid=%u\n", reports, phase_metrics[10].count);
+    if (length < 0 || length >= (int)sizeof(line)) return -EOVERFLOW;
+    return latency_write_line(console, line, deadline);
+}
+#endif
+
 static int latency_dump(const struct device *console, unsigned int reports,
                         unsigned int retries, unsigned int busy)
 {
@@ -74,6 +100,9 @@ static int latency_dump(const struct device *console, unsigned int reports,
     err = latency_write_line(console, line, deadline);
 #ifdef INPUT_CONSERVATION
     if (!err) err = input_totals_dump(console, deadline);
+#endif
+#ifdef USB_PHASE_DIAGNOSTICS
+    if (!err) err = phase_dump(console, reports, deadline);
 #endif
     return err;
 }
