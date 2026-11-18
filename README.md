@@ -535,3 +535,5 @@ promotion is assumed. Coarse100us phase buckets and manual workload limit any
 causal interpretation of a small difference; compare independent runs explicitly.
 
 V19’s first phase-aware hardware run passed input accounting and user control checks. Faster polling reduced measured RF reaction, while total callback timing remained sensitive to USB phase mix; the small phase-weighted difference does not establish a reliable overall gain. Normal v14 remains the everyday baseline; repeatability is pending.
+
+The completed phase-aware four-run comparison shows a repeatable~18us RF-to-submit reduction with10us software radio checking. It does not establish a reliable whole-system gaming-latency gain, so exact tested normal v14 (50us software wait, configured1ms USB interval) is restored and user-confirmed. Next: live USB endpoint/polling verification and sustained reliability checks.

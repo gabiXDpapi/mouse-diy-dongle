@@ -74,3 +74,41 @@ independent reverse-order/repeated-boot check if practical. Restore exact tested
 normalv14 after this diagnostic and consult PROJECT_CONTEXT for installed state.
 
 Replication batch: after the user-confirmed normal restoration following B1, reuse exactsaved v19 for B2 then exactsaved v18 for A2, with separate physical flash/input readiness and stopped diagnostics between them. Restore exact normal v14 after both runs or immediately if the batch is abandoned. No intermediate normal flash or new build is needed.
+
+
+### Phase-aware A1/B1/B2/A2 comparison complete
+
+All four independently booted100-second trials passed input accounting, frozen
+frame validation and user-reported smooth controls/clean stop. Device/host counts
+and aggregate motion/wheel/five-button edges matched in every run. B1 had one
+explicit invalid phase reference; the other runs had none. No raw read errors.
+
+| Run | Wait(us) | Reports matched | RF to submit mean(us) | RF to callback mean(us) | A1-phase-weighted callback mean(us) | Callback p99 upper bound(us) | Busy(%) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A1 | 50 | 21818 | 50.774 | 565.837 | 565.837 | 1000 | 0.592 |
+| B1 | 10 | 19376 | 33.196 | 427.624 | 553.031 | 1119 | 1.134 |
+| B2 | 10 | 22994 | 33.192 | 427.069 | 542.093 | 1113 | 0.293 |
+| A2 | 50 | 29967 | 52.084 | 505.845 | 578.692 | 1000 | 2.943 |
+
+The two50us runs averaged51.429us RF-to-submit, versus33.194us in the two10us
+runs: a repeatable18.235us receiver-stage reduction in these measurements. Global
+callback means differ more, but the phase mix also differs. Using A1's fixed valid
+phase-bin weights, boot-mean callback timings are572.265us and547.562us, a24.703us
+descriptive difference. All ten bins have support and no A1 reference mass is
+excluded; B1's one invalid reference is excluded from phase weighting. Weighted
+means do not resolve100us within-bin skew or manual-motion/host-load confounding.
+Two independent boots per condition do not support packet-level confidence claims.
+The callback tail bounds/backpressure do not show uniform improvement.
+
+Conclusion: faster software radio checking improves the measured receiver stage;
+a reliable physical or whole-system gaming-latency gain is not established. Keep
+normal v14 at its tested50us wait. USB endpoint polling remains configured1ms in
+both conditions:50/10us is a CPU wait between radio checks, not USB polling rate
+or total latency. Do not equate these numbers with fresh1000Hz sensor reports.
+
+Normal v14 exact93eb987a has now been restored, USB-verified without serial and
+user-confirmed working automatically. No reader/capture/build/helper remains.
+All images/captures and phase-comparison-abba-20261118.json remain private/ignored.
+Next directly verify live USB endpoint interval/speed, then define sustained-motion
+and longer ordinary-use/gaming checks. Companion app and mouse setting writes
+remain deferred. No further baseline repetition is needed for this comparison.
