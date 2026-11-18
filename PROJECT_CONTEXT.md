@@ -319,6 +319,35 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+TIMED HOST MOTION SOFTWARE READY / PHYSICAL READINESS NEXT - 2026-11-18 18:46 Manila:
+Branchfeature/timed-host-polling-measurement. Normalv14exact93eb stillinstalled/
+autoactive/userconfirmed; no livecapture/serial/build. Guided --timed-motion Cmode
+waitsfocus->5scountdown->30sMOVE->5sSTOPautoclose, immediatefocuslossabort, native
+phase/oldrawselftestsPASS. Newprivatecapture_raw_mouse_timed.exe SHA256
+06f74472976c207f4565991d8c1cc309fdc2aa3e9d211749ea716282896bd982.
+Source/header/binaryhashvalidationJSON saved; legacycapture_raw_mouse.exe09d2
+UNCHANGED. CSV/legacyCLI/1200scap preserved.17analysis testsPASS incl6motioncases;
+controllerSelfTest/syntaxPASS. Analyzerfixedcentral20s all20secondcounts+gapstats,
+refusespartial/error/background/absolute/controls, no peakcherry-picking/freshsensor
+orphysicalbusclaim. Controlleronlynormalv14, hashchecks,180shardcapture limit,
+waitscompleteclosurethenanalyzes. User untilsaystop; no morefirmwareflashesneeded.
+NEXT pushsoftware, physicalpopupnormalreceiverconnected/GloriousONUSBunplugged,
+sameDPI/surface/otherpointer; startvisibleguidedcapture thenpopupactivatewindowand
+followitscountdown/MOVE/STOP, keepfocus/no clicks/wheel. No power-oncue/arm/xstop;
+normalinputkeepsworkingafterrecording. Validateusercontinuousmotion/focus andsave
+result. GUI/liveepoch hardwareunprovenuntiltrial. Privatecaptures/binariesignored.
+
+TIMED HOST MOTION MEASUREMENT SOFTWARE PREPARATION - 2026-11-18 18:38 Manila:
+USBdescriptor/activepipe1ms verification7e23c76 pushed. Newbranchfeature/timed-host-
+polling-measurement; normalv14exact93eb remainsactive/userconfirmed. No live
+capture/serial/build. Addguided --timed-motion toexistingrawsource, legacyCLI/CSV/
+1200scapunchanged. Separatetimedbinarypreservesoriginal09d2 foroldcontrollers.
+Waitfocus->5scountdown->30sMOVE->5sSTOPautoclose, timestampmarkers/focuslossguard.
+Analyzerpredefinescentral20s, all20per-secondcounts+gapdistribution, no bestepoch
+selection/freshsensor/physicalbusclaims. Plan docs/plans/2026-11-18-timed-host-motion.md.
+Needstate/parser behavioralselfchecks, sourcebuild/nativeoldselfchecks, software
+pushBEFOREphysicalmotionreadinesspopup. No firmwareflash/settingschanges.
+
 LIVE USB1ms CONFIGURATION VERIFIED / SUSTAINED HOST MEASUREMENT NEXT - 2026-11-18 18:34 Manila:
 Normalv14exact93eb installed/autoactive/userconfirmed; no livecapture/serial/build.
 ReadonlynativeUSBinspector builtwithinstalledMSVC/SDK, /W4/WX compileandhardwarefree

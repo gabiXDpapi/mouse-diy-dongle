@@ -12,6 +12,7 @@
 #include <ctype.h>
 #include <io.h>
 #include <fcntl.h>
+#include "motion_epoch.h"
 /* Legacy MinGW headers omit these documented Vista+ notification constants. */
 #ifndef WM_INPUT_DEVICE_CHANGE
 #define WM_INPUT_DEVICE_CHANGE 0x00FE
@@ -27,7 +28,10 @@ static FILE *output;
 static LARGE_INTEGER frequency, start;
 static unsigned long long records;
 static unsigned int read_errors;
-static int failed;
+static int failed, timed_motion;
+static HWND cue_label;
+static struct motion_epoch motion;
+static int cue_second = -1;
 static struct { HANDLE handle; const char *label; } cache[32];
 static unsigned int cache_count;
 
@@ -82,6 +86,39 @@ static int write_mouse(FILE *file, const RAWINPUT *raw, UINT bytes,
                    (unsigned int)m->usButtonData, (unsigned int)m->usFlags, input_code) < 0 ? -1 : 1;
 }
 
+static void update_motion_window(HWND window, int foreground)
+{
+    LARGE_INTEGER stamp; QueryPerformanceCounter(&stamp);
+    long long now = (stamp.QuadPart-start.QuadPart)*1000000/frequency.QuadPart;
+    enum motion_phase before = motion.phase;
+    motion_tick(&motion, now, foreground);
+    if(motion.phase != before) {
+        static const char *names[] = {"WAIT","COUNTDOWN","START","STOP","DONE","ABORT"};
+        printf("MOTION_%s time_us=%lld\n", names[motion.phase], now); fflush(stdout);
+        cue_second = -1;
+    }
+    int second = (int)(now/1000000);
+    if(second != cue_second) {
+        char text[256];
+        if(motion.phase == MOTION_COUNTDOWN) {
+            unsigned int left = (unsigned int)((5000000-(now-motion.since_us)+999999)/1000000);
+            snprintf(text,sizeof(text),"Get ready: %u seconds.\r\nKeep this window active. Same surface and DPI.",left);
+        } else if(motion.phase == MOTION_MOVE) {
+            unsigned int left = (unsigned int)((30000000-(now-motion.since_us)+999999)/1000000);
+            snprintf(text,sizeof(text),"MOVE steadily: %u seconds remaining.\r\nCircles or straight strokes; no clicks, wheel or DPI changes.\r\nKeep this window active until STOP appears.",left);
+        } else if(motion.phase == MOTION_REST || motion.phase == MOTION_DONE) {
+            snprintf(text,sizeof(text),"STOP moving.\r\nRecording is closing; normal mouse control stays enabled.");
+        } else if(motion.phase == MOTION_ABORT) {
+            snprintf(text,sizeof(text),"Focus lost: this trial is invalid.\r\nNormal mouse control stays enabled.");
+        } else {
+            snprintf(text,sizeof(text),"Click this window to start the 5-second countdown.\r\nThen follow MOVE for 30 seconds and STOP.\r\nSame DPI and surface; no clicks or scrolling during MOVE.");
+        }
+        if(!SetWindowTextA(cue_label,text))failed=1;
+        cue_second=second;
+    }
+    if(motion.phase == MOTION_DONE || motion.phase == MOTION_ABORT || failed)PostMessageA(window,WM_CLOSE,0,0);
+}
+
 static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM l)
 {
     if (message == WM_INPUT) {
@@ -103,7 +140,9 @@ static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM 
         return DefWindowProcA(window, message, w, l);
     }
     if (message == WM_INPUT_DEVICE_CHANGE) { cache_count = 0; return 0; }
-    if (message == WM_TIMER) return 0;
+    if (message == WM_TIMER) { if(timed_motion)update_motion_window(window,GetForegroundWindow() == window); return 0; }
+    if (message == WM_ACTIVATE && timed_motion && LOWORD(w) == WA_INACTIVE &&
+        (motion.phase == MOTION_COUNTDOWN || motion.phase == MOTION_MOVE))update_motion_window(window,0);
     if (message == WM_DESTROY) { PostQuitMessage(0); return 0; }
     return DefWindowProcA(window, message, w, l);
 }
@@ -111,6 +150,16 @@ static LRESULT CALLBACK window_proc(HWND window, UINT message, WPARAM w, LPARAM 
 #define CHECK(c) do { if (!(c)) { fprintf(stderr, "FAIL line %d: %s\n", __LINE__, #c); return 1; } } while (0)
 static int self_test(void)
 {
+    struct motion_epoch epoch = {0};
+    motion_tick(&epoch, 100, 0); CHECK(epoch.phase == MOTION_WAIT);
+    motion_tick(&epoch, 1000, 1); CHECK(epoch.phase == MOTION_COUNTDOWN);
+    motion_tick(&epoch, 5000999, 1); CHECK(epoch.phase == MOTION_COUNTDOWN);
+    motion_tick(&epoch, 5001000, 1); CHECK(epoch.phase == MOTION_MOVE && epoch.start_us == 5001000);
+    motion_tick(&epoch, 35000999, 1); CHECK(epoch.phase == MOTION_MOVE);
+    motion_tick(&epoch, 35001000, 1); CHECK(epoch.phase == MOTION_REST && epoch.stop_us == 35001000);
+    motion_tick(&epoch, 40001000, 0); CHECK(epoch.phase == MOTION_DONE);
+    epoch = (struct motion_epoch){0};motion_tick(&epoch, 0, 1);motion_tick(&epoch, 1, 0);CHECK(epoch.phase == MOTION_ABORT);
+    epoch = (struct motion_epoch){0};motion_tick(&epoch, 5000000000LL, 1);motion_tick(&epoch, 5005000000LL, 1);motion_tick(&epoch, 5005000001LL, 0);CHECK(epoch.phase == MOTION_ABORT);
     CHECK(GET_RAWINPUT_CODE_WPARAM(0x100) == RIM_INPUT);
     CHECK(GET_RAWINPUT_CODE_WPARAM(0x101) == RIM_INPUTSINK);
     CHECK(device_label(NULL) == NULL && read_errors == 0);
@@ -138,7 +187,7 @@ static int self_test(void)
     CHECK(strcmp(line, "11,receiver,-2147483648,2147483647,0,0,1,1\n") == 0);
     CHECK(fgets(line, sizeof(line), file) == NULL);
     CHECK(fclose(file) == 0);
-    puts("PASS: device filtering, packet bounds/type, signed motion, flags and delivery codes; no input registered");
+    puts("PASS: timed phases/focus, device filtering, packet bounds/type, signed motion, flags and delivery codes; no input registered");
     return 0;
 }
 
@@ -150,11 +199,12 @@ int main(void)
     if (argc == 2 && wcscmp(argv[1], L"--self-test") == 0) {
         LocalFree(argv); return self_test();
     }
-    int foreground = argc == 4 && wcscmp(argv[3], L"--foreground") == 0;
+    timed_motion = argc == 4 && wcscmp(argv[3], L"--timed-motion") == 0;
+    int foreground = timed_motion || (argc == 4 && wcscmp(argv[3], L"--foreground") == 0);
     wchar_t *end = NULL;
     long seconds = argc == 3 || foreground ? wcstol(argv[1], &end, 10) : 0;
-    if ((argc != 3 && !foreground) || !end || *end || seconds < 1 || seconds > 1200) {
-        fputs("Usage: capture_raw_mouse <1..1200 seconds> <new CSV path> [--foreground] | --self-test\n", stderr);
+    if ((argc != 3 && !foreground) || !end || *end || seconds < 1 || seconds > 1200 || (timed_motion && seconds < 45)) {
+        fputs("Usage: capture_raw_mouse <1..1200 seconds> <new CSV path> [--foreground | --timed-motion (45..1200s)] | --self-test\n", stderr);
         LocalFree(argv); return 2;
     }
     HANDLE file = CreateFileW(argv[2], GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_NEW,
@@ -180,11 +230,14 @@ int main(void)
         foreground ? CW_USEDEFAULT : 0, foreground ? CW_USEDEFAULT : 0, 640, 240,
         foreground ? NULL : HWND_MESSAGE, NULL, instance, NULL) : NULL;
     if (window && foreground) {
-        if (!CreateWindowExA(0, "STATIC",
+        const char *instructions = timed_motion ?
+            "Click this window to start the 5-second countdown.\r\nThen follow MOVE for 30 seconds and STOP.\r\nKeep this window active; no clicks or scrolling during MOVE." :
             "Click this window, then keep it active during movement.\r\n"
             "Use the same surface and DPI; move circles and straight strokes.\r\n"
-            "No clicks or scrolling during motion. Capture closes automatically.",
-            WS_CHILD | WS_VISIBLE | SS_CENTER, 15, 30, 590, 130, window, NULL, instance, NULL)) failed = 1;
+            "No clicks or scrolling during motion. Capture closes automatically.";
+        cue_label = CreateWindowExA(0, "STATIC", instructions,
+            WS_CHILD | WS_VISIBLE | SS_CENTER, 15, 30, 590, 130, window, NULL, instance, NULL);
+        if(!cue_label)failed=1;
         ShowWindow(window, SW_SHOWNOACTIVATE);
     }
     RAWINPUTDEVICE device = {1, 2, RIDEV_INPUTSINK | RIDEV_DEVNOTIFY, window};
@@ -202,6 +255,7 @@ int main(void)
                (unsigned int)utc.wMilliseconds);
         fflush(stdout);
         if (foreground) { puts("FOREGROUND_WINDOW_SHOWN: click capture window and keep it active; input_code=0 identifies foreground delivery"); fflush(stdout); }
+        if(timed_motion){puts("TIMED_MOTION_READY countdown_s=5 move_s=30 rest_s=5");fflush(stdout);}
         MSG message;
         int result;
         while ((result = GetMessageA(&message, NULL, 0, 0)) > 0) {
@@ -210,6 +264,7 @@ int main(void)
         }
         if (result < 0) failed = 1;
     } else fprintf(stderr, "Raw input startup failed; Windows error %lu\n", GetLastError());
+    if(timed_motion && motion.phase != MOTION_DONE)failed=1;
     if (registered) {
         device.dwFlags = RIDEV_REMOVE; device.hwndTarget = NULL;
         if (!RegisterRawInputDevices(&device, 1, sizeof(device))) failed = 1;

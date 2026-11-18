@@ -1,43 +1,43 @@
 Continue the DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-usb-endpoint-verification.md.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-timed-host-motion.md.
 
-LIVE USB1ms CONFIGURATION VERIFIED / SUSTAINED HOST MEASUREMENT NEXT - 2026-11-18 18:34 Manila:
-Normalv14exact93eb installed/autoactive/userconfirmed; no livecapture/serial/build.
-ReadonlynativeUSBinspector builtwithinstalledMSVC/SDK, /W4/WX compileandhardwarefree
-selftestPASS. ActualreadPASS:fullspeed,HIDinterface2,interruptIN0x83,maxpacket16,
-bInterval1,activepipe matches; both2presenthubsreadable,exact1localtarget. No
-serial/reset/SET/vendor/driver/setting/firmwarechanges. Privateusb-endpoint-
-verification.json source/binaryhashes+normal-v14-usb-endpoint.json. Tooldeliberately
-verifiesonlyfullspeedinterval1; rejectsothersinsteadofguessingWindowsmapping.
-This confirmsconfigured1ms/target1000Hz, NOTmeasuredfreshreportfrequency orphysical
-latency. NativeparserstubfailedfirstthenvalidationPASS; source/buildhelper/plan
-newonfeature/usb-endpoint-polling-verification. Needpushmilestonebeforefuturework.
-NEXT scopednormalv14foregroundsustained-motion measurement withpredefinedtimed
-activeepoch; currentmixedcontroltrials cannotqualifysustainedpolling. Inspect/reuse
-existingrawlogger/analyzers, retain CSVcompatibility and1200scap, noinputinjection.
-Thenuserphysicalreadinesspopup. No firmwareflashneeded; no moreABBArepeats.
-UserUNTILTHEYSAYSTOP. Companionapp/DPIwritesdeferred; longgamingsoakstillpending.
+TIMED HOST MOTION SOFTWARE READY / PHYSICAL READINESS NEXT - 2026-11-18 18:46 Manila:
+Branchfeature/timed-host-polling-measurement. Normalv14exact93eb stillinstalled/
+autoactive/userconfirmed; no livecapture/serial/build. Guided --timed-motion Cmode
+waitsfocus->5scountdown->30sMOVE->5sSTOPautoclose, immediatefocuslossabort, native
+phase/oldrawselftestsPASS. Newprivatecapture_raw_mouse_timed.exe SHA256
+06f74472976c207f4565991d8c1cc309fdc2aa3e9d211749ea716282896bd982.
+Source/header/binaryhashvalidationJSON saved; legacycapture_raw_mouse.exe09d2
+UNCHANGED. CSV/legacyCLI/1200scap preserved.17analysis testsPASS incl6motioncases;
+controllerSelfTest/syntaxPASS. Analyzerfixedcentral20s all20secondcounts+gapstats,
+refusespartial/error/background/absolute/controls, no peakcherry-picking/freshsensor
+orphysicalbusclaim. Controlleronlynormalv14, hashchecks,180shardcapture limit,
+waitscompleteclosurethenanalyzes. User untilsaystop; no morefirmwareflashesneeded.
+NEXT pushsoftware, physicalpopupnormalreceiverconnected/GloriousONUSBunplugged,
+sameDPI/surface/otherpointer; startvisibleguidedcapture thenpopupactivatewindowand
+followitscountdown/MOVE/STOP, keepfocus/no clicks/wheel. No power-oncue/arm/xstop;
+normalinputkeepsworkingafterrecording. Validateusercontinuousmotion/focus andsave
+result. GUI/liveepoch hardwareunprovenuntiltrial. Privatecaptures/binariesignored.
 
-Currentbranchfeature/usb-endpoint-polling-verification. PhaseABBA0a7c14e pushed;
-USBinspector milestonefollows. Useruntilsaystop; olddeadlinesrevoked. No active
-serial/capture/build/helper and no diagnosticimageinstalled. Exacttestednormal:
-build-pairing-analysis/dongle-v14-93eb987a.uf2
+Installedtestednormalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-Do NOT restore softwarecontrolcb8bbb60 or diagnosticimagesbydefault.
+DoNOTrestore softwarecontrolcb8bbb60 ordiagnosticimagesbydefault. No restoration
+needed. No activeprocesses. UsercontinueUNTILTHEYSAYSTOP,olddeadlinesrevoked.
 
-Completedfourphase-awareABBA runs all exactinputcounts/contentmatch,userall smooth/
-cleanstopped. Faster10usCPUradio-checkwaitreducedRF-to-submit~18.235us, butcoarse
-100usbuckets/manualworkload/two-bootconditions/tailvariance do notestablishreliable
-wholegaminggain. Keepnormal50usradio-checkwait. USBpollinterval1ms isseparatefrom
-50/10usCPUwait andtotalend-to-endlatency. Privatephase-comparison-abba-20261118.json
-andcapturedetailssaved. HistoricalA2tworecordcauseunknown; aggregateequalitycannot
-proveindividualeventpreservation/order. No normalfastpollpromotion.
+CompletedliveUSBcheck7e23c76: fullspeed/HIDinterface2/interruptIN0x83/maxpacket16/
+bInterval1/activepipe match/2hubsreadable/uniqueprototype. This verifies1ms polling
+configuration, not actualfresh1000Hz delivery. Read-onlyinspector/selftestsSDKbuilt.
+Fourphase-awareABBAcompleted0a7c14e: allinputcounts/contentmatch; 10usCPUwait
+improvedRF-to-submit~18.235us, but100usbins/manual/tailvariance prevent reliable
+wholegaminggainclaim. Normalv14kept50usCPUradio-checkwait; USB1ms isseparate.
+HistoricalA2tworecordcauseunknown. No furtherABBArepeatsneeded now.
 
-KeepPROJECT_CONTEXT andthiscopy-pastehandoffcurrent eachmeaningfulstep;push tested
-milestones onfeaturebranches;pausewithquestionpopups forphysicalintervention.
-Keepprivatecaptures/addresses/binaries ignored; unrelated.vscode/INFO_UF2.TXTalone.
-No newdependencies/subagents. Gaming/longreliability unfinished: no4h/8h/multiday
-soak/repeatedsuspend/hibernate/physicalsensor-to-screenlatency/sustainedfresh1kHz.
-OneS3 and5mininactivityrecoverypassed. No companionapp/settingswritesyet.
+Keepcontext/resume currenteachmeaningfulstep;pushtestedmilestonesonfeaturebranches.
+Pausewithquestionpopupsforphysicalintervention;newguidedtrialrequiresmouseONUSB
+unpluggedandcapturewindowfocus, noflashing/powercycling. Rawcapturenotmousecontrol
+stopsaftertrial. Privatecaptures/addresses/binariesignored;unrelated.vscode/INFO_UF2
+alone. No app/DPI/lightingwritesuntilgamingoptimization. Long4h/8h/multidaysoak,
+repeatedsuspend/hibernate,physicalsensor-to-screenlatency/sustainedfresh1kHz still
+unqualified; oneS3/5mininactivitypassed. Companion app deferred.

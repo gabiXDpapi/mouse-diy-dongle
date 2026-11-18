@@ -2733,3 +2733,28 @@ records exact source/binary hashes and result.
 
 Primary interval reference:
 https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/usbspec/ns-usbspec-_usb_endpoint_descriptor
+
+
+### Guided normal-receiver movement delivery measurement
+
+The new `--timed-motion` mode waits for capture-window activation, shows a5-second
+countdown, cues30seconds of movement, then5seconds STOP and closes automatically.
+Focus loss during countdown/MOVE invalidates the trial. Normal mouse input stays
+enabled; no firmware, serial, input injection or settings changes. Existing
+background/foreground modes and CSV fields remain compatible, with the1200-second
+hard cap retained. The old capture executable is preserved separately.
+
+Build/self-test: `& research/build_timed_raw_mouse.ps1` creates the private
+`capture_raw_mouse_timed.exe`. Native checks cover phase boundaries/focus loss and
+existing raw filtering/bounds/format. Seventeen analyzer tests and the controller
+completion/error/abort self-check pass. Live guided-window qualification is pending.
+Controller: `research/capture_timed_motion.ps1` verifies current source/header/binary
+hashes and normal v14 identity, then runs a bounded180-second recording that closes
+early after the guided motion. It analyzes only after successful process closure.
+
+`research/analyze_motion_delivery.py` uses the predefined central20seconds, reports
+all20 one-second movement-event counts and gap distribution, and rejects invalid
+markers, background/absolute/control input or incomplete CSV. These are host
+WM_INPUT movement-delivery statistics, not measured physical USB tokens, fresh
+sensor sampling, RF loss or end-to-end gaming latency. Queueing/coalescing and
+actual hand motion remain confounders. Live1ms descriptor evidence is separate.
