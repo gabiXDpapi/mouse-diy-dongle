@@ -515,3 +515,5 @@ dispatch delay and is not physical end-to-end latency or evidence for promoting
 faster polling. The phase controller requires complete timing, input and phase
 footers; native output is cross-checked with the host analyzer. See the phase
 implementation plan and latest PROJECT_CONTEXT handoff for exact image/state.
+
+V18’s first hardware trial passed SOF calibration, complete phase accounting and exact device/host input totals (21,818 reports). The user confirmed smooth controls and clean stop. Callback latency was strongly associated with USB frame phase in this run; this does not prove an optimization gain. See the research table for counts, stage timings and limits.

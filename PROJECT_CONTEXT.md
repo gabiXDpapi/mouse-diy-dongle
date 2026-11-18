@@ -319,6 +319,70 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V18 QUALIFIED / NORMAL RESTORATION CONFIRMED - 2026-11-18 17:52 Manila:
+User confirmed restored normal wireless works. Installed normalv14exact93eb987a,
+autoactive/no serial/arm/limit; no livecapture/reader/build/helper. Privateafterv18
+restoreJSON updated. V18calibrated1/invalid0, all21818foregroundreports+inputtotals
+match, all5buttons3down/up, user smooth/cleanstopped. Perphase table savedresearch.
+Withinthisrun RFcallbackphasebinsmean1.058ms(n28 early) down0.207ms(late), global
+0.566ms/max1.150ms; RFsubmit~36..59us. ObservationalUSBphaseassociation, notgain.
+Wholemixedactivityhostgapsmedian1010us/p95=2147us/p99=5797us include deliberate
+controlpauses/zeromotion; NOTsustainedpolling orRFloss qualification. Busy309/52184
+candidates,retries34; no inferredend-to-endloss. HistoricalA2causeunresolved.
+NEXT isolatedfastpollcomparison usingSAMEphaseinstrumentation asv18: addphase-fast
+v19 product/config (10us vs50us), nootherC/runtimechange. Build/test/verify/preserve
+andpush BEFOREphysicalreadiness. V18A1 preserved; compareB1/B2/A2onlyifappropriate,
+phase-aware/repeatedboots/manualmotionlimits; noautomaticpromotion. Restoretested
+normalaftereachdiagnostic. Userwindowuntilsaystop, oldcutoffsrevoked. Companionapp
+andDPIwritesdeferred. Keepprivatecaptures/addresses/binariesignored.
+
+NORMAL V14 RESTORED AFTER V18 / USB VERIFIED - 2026-11-18 17:50 Manila:
+UserNICENANOreadywired/OFF. BoardID/S140 and exacttestednormal93eb hash/181block
+UF2verifiedbeforeflash. ProductDIY Mouse Dongle v14, uniqueUSB/CDC/HID verified
+WITHOUTserial. Private normal-v14-restored-after-v18.json. InstalledNOWnormalv14
+automatic/noarm/unboundeduntilunplug; NOTv18/stopped. No livecapture/serial/build.
+NEXT briefautomaticwireless usercheck, thenpushv18hardwarephase/input result and
+restorationhandoff. V18passcalibrated1,invalid0,21818exactcount/contentmatch,user
+smooth/cleanstopped; allphasebucketsreconcile. No fastpollpromotion orphysical
+latencyclaim. Userwindowuntiltheysaystop. Timingcandidatefuturecomparisonsmust
+conditiononUSBphase/repeatboots; diagnosticshaveobserveroverhead.
+
+V18 HARDWARE PHASE/INPUT PASS / RESTORE NEXT - 2026-11-18 17:48 Manila:
+Session96530 completed100s, read_errors0/failed0; xonce/active d silent/all3frames
+complete. Startuphardwarecalibrated1, invalidphase0; everyphasecount/sum/hist
+reconcilesglobal accepted21818=host21818 ALLforeground. Inputdx=-94,dy=-82,
+wheelnet1/120Windowsunits, eachfivebuttonsdown3/up3; allaggregatedifferences0.
+User allworked smoothly/stoppedcleanly. Privatev18-latency-20261118-174506-f45a9f45
+.summary.json. RF->USBcallbackmean565.837us,max1150us,p99histupper1ms. Phasebin
+meansrange1058.250us(0..99us,n28) to206.744us(900..999us,n2765); RFsubmitmeans
+~36..59us. Strongphaseassociation inONEinstrumentedrun, notoptimizationproof or
+physicalend-to-endlatency. HistoricalA2causeunknown; nofastpollpromotion.
+Installedv18 STOPPEDbyx; no reader/capture/build live. NEXT physicalNICENANO
+readinessmousewired/OFF,restoreEXACTtestednormalv14 93eb987a, USBidentityverify
+withoutserial thenbriefautomaticwirelessusercheck. Save/pushhardwaremilestone.
+Userwindowopenuntiltheysaystop; noolddeadline. Keepnormalrollbacknotcontrolcb8bbb.
+
+V18 FOREGROUND CAPTURE RUNNING - 2026-11-18 17:45 Manila:
+UserOFF/unplugged/otherpointer readiness confirmed. Session96530 base
+build-pairing-analysis/v18-latency-20261118-174506-f45a9f45, oneCDCreader +100s
+foregroundraw. Autoactive,noarm. Capture-running ON/activatewindow/controlsmotion
+cuepopup sent. d50mustsilent,x70once,requireLATENCY/INPUT/PHASEfrozenfooters.
+Expectedfinish~17:46:50. Operational30minfinishguard,useruntilsaystop. Abortpath
+base.stop-request. NEXTpoll96530, analyzeallframes+CSV, collectuserfeel/stop then
+restoreexactnormal93eb viafreshNICENANOreadiness. Installedv18;hardwarecalibpending.
+
+V18 FLASHED / USB VERIFIED - 2026-11-18 17:36 Manila:
+User NICENANO wired/OFF readiness confirmed. Unique bootloaderBoardID/S140 and
+exact05eaf02a SHA/199-block application verified thenflashed. ProductDIY Mouse
+Phase v18 uniqueUSB/CDC/HID verified WITHOUTserial. Privatev18-flash-verification.
+Installed NOWv18 automatic/listening, NOTnormalv14. Calibration notyetverified by
+frozenframe/hardwaretrial; no capture/serial/build session. Software681183d pushed.
+NEXT separateinputreadinessOFF USBunplugged, sameDPI/surface/otherpointer. Then
+100sforeground trial expectedv18, operationalnow+30minfinishguard (useruntilstop).
+Prioritizeeach5buttons3pairs+wheelUP5DOWN3 thensteadymotionuntilx70. Requireall3
+frames andphasecalibration/coverage/inputmatch; collectuserfeel/stop and restore
+exactnormalv14 viafreshphysicalreadiness. No fastpollpromotion.
+
 V18 SOFTWARE BUILT/VERIFIED / PHYSICAL FLASH NEXT - 2026-11-18 17:32 Manila:
 Branch feature/usb-frame-phase-diagnostics. User says continue UNTIL THEY SAY STOP;
 no fixed cutoff. Normalv14 93eb987a STILL INSTALLED/automatic, nohardware/serial/

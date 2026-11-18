@@ -2567,3 +2567,47 @@ dispatch delay and is not physical end-to-end latency or evidence for promoting
 faster polling. The phase controller requires complete timing, input and phase
 footers; native output is cross-checked with the host analyzer. See the phase
 implementation plan and latest PROJECT_CONTEXT handoff for exact image/state.
+
+
+### November 18: v18 hardware USB frame-phase check passed
+
+One 100-second foreground trial passed hardware SOF cadence calibration and
+recorded zero invalid phase samples. All 21,818 accepted reports matched Windows
+Raw Input counts; aggregate movement, wheel and all five button edges matched.
+Every button had three down/up pairs. The active dump probe stayed silent, and
+timing/input/phase frames arrived only after the explicit neutral stop. No failed,
+capped or tracking-fault flag was set. The user reported smooth controls and a
+clean stop. V18 kept 50us polling; no optimization was introduced.
+
+| Submission phase after SOF (us) | Reports | Mean RF to submit (us) | Mean submit to callback (us) | Mean RF to callback (us) |
+|---|---:|---:|---:|---:|
+| 0–99 | 28 | 43.821 | 1014.429 | 1058.250 |
+| 100–199 | 2536 | 43.239 | 893.684 | 936.923 |
+| 200–299 | 5114 | 52.771 | 820.116 | 872.886 |
+| 300–399 | 2217 | 57.739 | 735.489 | 793.229 |
+| 400–499 | 848 | 49.184 | 621.952 | 671.136 |
+| 500–599 | 150 | 58.733 | 539.627 | 598.360 |
+| 600–699 | 151 | 35.980 | 397.960 | 433.940 |
+| 700–799 | 2371 | 42.868 | 315.592 | 358.461 |
+| 800–899 | 5638 | 49.136 | 229.560 | 278.696 |
+| 900–999 | 2765 | 59.464 | 147.280 | 206.744 |
+
+The overall RF-to-USB completion-callback mean was 565.837us, maximum 1,150us,
+and p99 histogram upper bound 1ms. The phase-associated difference is much larger
+than the RF-to-submit stage in this run. This supports treating USB frame position
+as a major source of variation when interpreting earlier polling comparisons.
+It does not establish causality for the historical two-record gap or a performance
+improvement. The 0–99us bucket has only 28 reports, and later buckets still contain
+outliers; phase alone does not explain every delay.
+
+These are accepted-input receiver-stage timings, including driver work-queue
+callback dispatch and instrumentation overhead. They exclude sensor, prior RF
+queue/retry delay, Windows/game/display latency. SOF phase is sampled at software
+submission, rather than at the physical USB transaction. Aggregate equality is
+not proof of individual-event preservation/order. Further optimization comparisons
+need repeated independently started, comparable workloads and phase-aware analysis.
+
+Image SHA256:
+`05eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd`.
+Private captures and image remain ignored. Restore exact tested normal v14 after
+this diagnostic; latest installed state is in PROJECT_CONTEXT.md.
