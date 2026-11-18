@@ -319,6 +319,34 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+PAUSED AT USER REQUEST — 2026-11-18 19:37 Manila
+
+The user selected “Pause here — gameplay check later.” This supersedes the earlier
+open-ended work window. Stop project work after saving this handoff; resume only
+when the user asks. No gameplay trial, timer, capture or soak has started.
+
+Installed firmware remains exact tested normal v14 (93eb987a), automatic wireless
+operation without serial, arming or a timed limit. It is user-confirmed working.
+No live serial reader, recording, build, UAC helper or background monitor remains.
+The receiver may continue ordinary use; no restoration or reflash is needed.
+
+Latest tested milestone e3ffb03 is pushed on feature/timed-host-polling-measurement:
+normal-wireless larger-motion delivery averaged 964.9 movement events/s across the
+entire predefined 20 seconds, 916–993 each second, median gap 1.000ms. User confirmed
+continuous, smooth motion with no lifts/issues. Live full-speed HID interval 1ms
+and active-pipe matching were independently verified. These support near-1kHz HOST
+movement delivery in this test, not sensor freshness, physical bus cadence or
+end-to-end gaming latency. Rare 15.279ms host gap remains unexplained.
+
+NEXT ON EXPLICIT RESUME: read docs/plans/2026-11-18-gameplay-qualification.md and
+ask readiness/available time for a preliminary 30-minute familiar practice/offline
+game session on unchanged normal v14. Only then record start time/manual diary;
+no game automation, raw recording, setting changes or continuous health monitor
+is implied. Record actual duration/controls/issues; an early stop is not a full
+pass. No further firmware baselines, builds or flashes are needed for this step.
+Longer 4h/8h/multiday reliability and physical latency checks remain unfinished.
+Companion app, DPI and lighting writes remain deferred until gaming optimization.
+
 LARGER WIRELESS HOST DELIVERY PASS / GAMEPLAY READINESS NEXT - 2026-11-18 19:26 Manila:
 Session57635exit0,allguidedphases/focus/closedCSVchecksPASS. Privatev14-timed-motion-
 20261118-192310-503bc56c.summary.json: fixed20s19298nonzeroupdates/964.9Hz,

@@ -27,3 +27,5 @@ trial; investigate lower-level timing if reproducible gameplay issues occur.
 Keepcontext/resume updated when readiness/start/result changes. User sayscontinue
 untiltheysaystop; pause at physical readiness/results popups. No fixedcutoff and no
 claim that prior mixed wired/diagnostic time constitutes a continuous wireless soak.
+
+User chose to pause before gameplay on November18 at19:37Manila. No gameplay timer or session started. Resume requires fresh readiness and available time; normal v14 remains installed and usable.
