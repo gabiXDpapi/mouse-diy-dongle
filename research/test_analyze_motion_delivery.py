@@ -51,3 +51,10 @@ class MotionDeliveryTests(unittest.TestCase):
         result=analyze_motion(markers(3),rows)
         self.assertEqual(result['gaps_us']['zero'],1)
         self.assertEqual(result['no_coalesce_records'],1)
+
+    def test_wired_target_does_not_mix_receiver_events(self):
+        rows=[row(10000000,source='wired'),row(10000000),row(10001000,source='wired'),row(10001000),row(10002000,source='wired')]
+        result=analyze_motion(markers(len(rows)),rows,'wired')
+        self.assertEqual(result['source'],'wired')
+        self.assertEqual(result['movement_records'],3)
+        self.assertEqual(result['movement_hz'],.15)

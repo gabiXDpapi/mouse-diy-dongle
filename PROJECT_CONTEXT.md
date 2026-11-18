@@ -319,6 +319,49 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+FIRST GUIDED WIRELESS RESULT UNRESOLVED / WIRED READINESS NEXT - 2026-11-18 18:59 Manila:
+UseransweredcontinuousfromMOVEstart,motionfeltSMOOTH. DoNOTassumelate/pause.
+Privatev14-timed-motion-20261118-184803-b718bd7e passedphases/focus/closedCSV:
+fixed20s11078events/553.9Hz, first3secondszero, later286..809/s, median1028us,
+p95=2972,p99=4187. Recheckedall13930rawrows receiverONLY, wired0; absoluteRF
+rows5..7s(beforefocus)then24..47s; MOVEstart16.108s. No rawerrors/focusabort.
+Thisdoesnotalignwithusercontinuoussmoothreport; preserveboth, nocausalRFclaim,
+no trimming/bestepoch. Normalv14exact93eb STILLinstalled/automatic; no live
+capture/serial/build. Controllernow-Source receiver(default) orwired; unique258A:
+2018root forwired,normalproductguardforreceiver; sourcepassedtoanalyzer.18analysis
+checks/controllerSelfTest/syntaxPASS. SAMEtimedbinary06f74472, C/headerunchanged,
+legacy09d2preserved. Needpushresult/softwarethenphysicalwiredreadinesspopup.
+NEXT GloriousUSBwiredmode,sameDPI/surface/Windowssettings; receiverunchanged;
+startguided -Source wired. UseractivateswindowwithGLORIOUSITSELF (pre-epochclick),
+keepsitinhandthrough5scountdown,30sMOVE/5sSTOP, no clicks/wheelinsideMOVE. This
+reducespointerhandoffambiguity; comparehostpathwithoutfirmwarechange. No sustained
+fresh1kHz/physicalbuslatencyclaim. Useruntilsaystop; nofixedcutoff.
+
+GUIDED CAPTURE COMPLETE / USER MOTION CONTINUITY QUESTION PENDING - 2026-11-18 18:50 Manila:
+Session80325completedexit0; allnativephases/focus/RAWDONE/closedCSVanalysisPASS.
+Privatev14-timed-motion-20261118-184803-b718bd7e.summary.json. Fixedcentral20s:
+11078movementevents/553.9Hz, persecond[0,0,0,286,626,683,713,696,678,701,747,652,
+809,748,676,716,752,510,577,508], median1028us,p95=2972,p99=4187,max98262,
+2378gaps>2ms,no_coalesceflag0,stationaryrows0. DO NOTcallthissustainedrateproof:
+threeinitialseconds noevents; useransweredfollowedwindow,butcontinuity/timing
+popupnowpending (late/pause/lift vscontinuous smooth vsfreezes). Needuseranswer
+beforeinterpretation/retry. No posthocbestepochselection. Userwindowuntilsaystop.
+Normalv14exact93eb unchanged/active; no serial/capture/buildlive, noflashneeded.
+NEXT iflate/pause confirms, recordlimitedtrialandfreshguidedretryphysicalreadiness;
+ifcontinuous, scopedwiredcomparison toseparatehost/motion/toolvswirelessissue.
+HardwareGUIguidedtimingqualified; sustainedfresh1kHz/physicalbuslatencyNOTqualified.
+
+GUIDED NORMAL V14 MOTION CAPTURE RUNNING - 2026-11-18 18:48 Manila:
+UserGloriousONUSBunplugged/samesetupreadiness. Session80325, base
+build-pairing-analysis/v14-timed-motion-20261118-184803-b718bd7e. Normalv14product/
+validatedtimedbinary/source/headerchecked. Visiblewindowready180shardlimit; no
+serial/arm/flash/powercycle/x. Popupactivatewindowfollow5scountdown/30sMOVE/5sSTOP
+sent. Windowwaitsactivation; focuslossinvalidates; automaticallyclosesafterguided
+phase. Normalmouseinputcontinuesafterrecording. NEXTpoll80325; controlleranalyzes
+ONLYclosedcompletecapture, private20sfixedepochsummary; collectusercontinuous
+motion/focus/pauses/feel thenreportlimitedhostdeliveryevidence. No1kHzclaimyet.
+Abortbyclosingcapturewindow (resultinvalid); no automaticretry. Normal93eb remains.
+
 TIMED HOST MOTION SOFTWARE READY / PHYSICAL READINESS NEXT - 2026-11-18 18:46 Manila:
 Branchfeature/timed-host-polling-measurement. Normalv14exact93eb stillinstalled/
 autoactive/userconfirmed; no livecapture/serial/build. Guided --timed-motion Cmode

@@ -2758,3 +2758,28 @@ markers, background/absolute/control input or incomplete CSV. These are host
 WM_INPUT movement-delivery statistics, not measured physical USB tokens, fresh
 sensor sampling, RF loss or end-to-end gaming latency. Queueing/coalescing and
 actual hand motion remain confounders. Live1ms descriptor evidence is separate.
+
+
+### First guided normal-wireless delivery trial: discrepancy unresolved
+
+The guided window completed its countdown/MOVE/STOP phases without focus loss,
+raw read errors or capture failure. The predefined central20seconds contained
+11,078 receiver movement events (553.9events/s), including three initial seconds
+with zero receiver events. Later seconds contained286–809events/s. Median host
+arrival gap was1028us,p95 2972us,p99 4187us; these statistics are not USBtoken or
+sensor timestamps. All logged sources were receiver, with no wired records.
+
+The user explicitly reports moving continuously from the MOVE cue and feeling
+smooth motion. Preserve that report alongside the discrepancy; do not assume a
+late start, trim away the zero seconds or diagnose RF loss from this capture.
+The timed markers/source filtering were rechecked. Next: same guided wired
+comparison to test the common host/capture path, then reassess wireless evidence.
+Use Glorious itself to activate the window and keep it in hand during countdown,
+reducing pointer-handoff ambiguity. No firmware or setting change is involved.
+
+The controller now accepts `-Source wired` and verifies a unique258A:2018 root;
+receiver mode continues to require normalv14. Analyzer source isolation and
+controller identity/error gates pass18analysis tests andSelfTest/syntax checks.
+The same timed native executable is reused, without a rebuild or altered timing.
+Private run:v14-timed-motion-20261118-184803-b718bd7e. Sustained1kHz remains
+unqualified despite separately verified live1ms descriptor/active-pipe configuration.

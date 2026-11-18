@@ -595,3 +595,5 @@ markers, background/absolute/control input or incomplete CSV. These are host
 WM_INPUT movement-delivery statistics, not measured physical USB tokens, fresh
 sensor sampling, RF loss or end-to-end gaming latency. Queueing/coalescing and
 actual hand motion remain confounders. Live1ms descriptor evidence is separate.
+
+The first guided normal-wireless trial completed, but an initial event gap conflicts with the user’s report of smooth continuous motion. A matching wired capture is next to check the host/capture path. No sustained1kHz claim is made; the live1ms USB configuration is separately verified.
