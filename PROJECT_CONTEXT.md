@@ -319,6 +319,43 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+WIRED SMALL-CIRCLE REFERENCE USER-CONFIRMED / LARGER-MOTION CHECK NEXT - 2026-11-18 19:06 Manila:
+UserwiredcontinuousSMOOTH, mostlySMALL/CONTROLLEDcircles. Privatewired-timed-motion-
+20261118-190223-853da817.summary.json updated. Fixed20s12469wiredmoveevents/
+623.45Hz,328..879/s,nozeroseconds,median1024us,p95=3031,p99=5063. All18103raw
+rowswiredonly, noerrors/focusloss. Firstwireless553.9Hz/3initialzeroseconds with
+usercontinuoussmoothreport stillunexplained. Lowmeanmovementeventsalsoonwired;
+notRFfaultproof. NEXT scopedlargersteadycircle WIREDtrial (alreadywired): target
+activateswindowitself,keepmouseinhand, comfortable~3–5cmcirclesifroom/sensoronpad,
+no pauses/lifts/clicks/wheel,DPIunchanged. Same5/30/5window/fixed20sanalyzer. Then
+matchmotionwirelessly tocheckwhetheroriginalgap/ratepersists. No firmwareflash/
+settingschange/newcode/build. Normalv14receiverunchanged, no livecapture/serial.
+Useruntilsaystop; physicalreadinesspopupbeforecapture. Save/pushwiredreference.
+
+WIRED GUIDED REFERENCE COMPLETE / MOTION DETAIL PENDING - 2026-11-18 19:04 Manila:
+Session68661exit0, nativephases/focus/closedCSVguardPASS. Privatewired-timed-motion-
+20261118-190223-853da817.summary.json. Fixedcentral20s12469movementevents/623.45Hz,
+counts[830,764,879,751,841,821,707,685,635,633,565,530,599,520,471,665,328,434,373,438],
+nozeroseconds;median1024us,p95=3031,p99=5063,max184256,gaps>2ms2708,nocoalesce0.
+Wiredalso below1kmovement-eventavg: averagealonecannotdiagnosewirelessRFfault.
+UserfollowedwiredGUI; popupnowpendingcontinuoussmooth+small/slowvslarger/brisk/
+pause-lift details. Needreportbeforeinterpretation. Normalv14receiverunchanged,
+Gloriouswirednow;no livecapture/serial/build. NEXT likelynormalwirelessretryusing
+GLORIOUSITSELFactivation (nohandoff) andcontinuouscomfortablelargercircles sensor
+onsurface, tocheckoriginalinitialgapunder matchedprep. Ifcurrentwiredtinycircles,
+nonzeromotion cadence/hand/hostcoalescingconfounds1kclaim. No trimming/causalRF
+lossclaim/firmwaretweak. Useruntilsaystop. Save/pushresultwhenobservationarrives.
+
+GUIDED WIRED REFERENCE RUNNING - 2026-11-18 19:02 Manila:
+Userwired/samesetupreadinessconfirmed. Session68661 base
+build-pairing-analysis/wired-timed-motion-20261118-190223-853da817. Controller-Source
+wired verifiesunique258A:2018root/sourcehashes; noserial/receiverchange. Visible
+windowready180shardlimit; popupactivateusingGLORIOUSITSELF,releaseclick,keepitinhand
+through5scountdown/30sMOVE/5sSTOP sent. Normalv14 receiverunchanged, noflash.
+NEXTpoll68661; controllerwaitsclosedcompletecapture thenfixedcentral20sanalysis.
+Collectusercontinuous/focus/feelobservation andcomparewithwirelessfirsttrial;
+no posthoctrimming/nofreshsensor/physicalbusclaim. Useruntilsaystop.
+
 FIRST GUIDED WIRELESS RESULT UNRESOLVED / WIRED READINESS NEXT - 2026-11-18 18:59 Manila:
 UseransweredcontinuousfromMOVEstart,motionfeltSMOOTH. DoNOTassumelate/pause.
 Privatev14-timed-motion-20261118-184803-b718bd7e passedphases/focus/closedCSV:

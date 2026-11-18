@@ -3,43 +3,39 @@ C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-timed-host-motion.md.
 
-FIRST GUIDED WIRELESS RESULT UNRESOLVED / WIRED READINESS NEXT - 2026-11-18 18:59 Manila:
-UseransweredcontinuousfromMOVEstart,motionfeltSMOOTH. DoNOTassumelate/pause.
-Privatev14-timed-motion-20261118-184803-b718bd7e passedphases/focus/closedCSV:
-fixed20s11078events/553.9Hz, first3secondszero, later286..809/s, median1028us,
-p95=2972,p99=4187. Recheckedall13930rawrows receiverONLY, wired0; absoluteRF
-rows5..7s(beforefocus)then24..47s; MOVEstart16.108s. No rawerrors/focusabort.
-Thisdoesnotalignwithusercontinuoussmoothreport; preserveboth, nocausalRFclaim,
-no trimming/bestepoch. Normalv14exact93eb STILLinstalled/automatic; no live
-capture/serial/build. Controllernow-Source receiver(default) orwired; unique258A:
-2018root forwired,normalproductguardforreceiver; sourcepassedtoanalyzer.18analysis
-checks/controllerSelfTest/syntaxPASS. SAMEtimedbinary06f74472, C/headerunchanged,
-legacy09d2preserved. Needpushresult/softwarethenphysicalwiredreadinesspopup.
-NEXT GloriousUSBwiredmode,sameDPI/surface/Windowssettings; receiverunchanged;
-startguided -Source wired. UseractivateswindowwithGLORIOUSITSELF (pre-epochclick),
-keepsitinhandthrough5scountdown,30sMOVE/5sSTOP, no clicks/wheelinsideMOVE. This
-reducespointerhandoffambiguity; comparehostpathwithoutfirmwarechange. No sustained
-fresh1kHz/physicalbuslatencyclaim. Useruntilsaystop; nofixedcutoff.
+WIRED SMALL-CIRCLE REFERENCE USER-CONFIRMED / LARGER-MOTION CHECK NEXT - 2026-11-18 19:06 Manila:
+UserwiredcontinuousSMOOTH, mostlySMALL/CONTROLLEDcircles. Privatewired-timed-motion-
+20261118-190223-853da817.summary.json updated. Fixed20s12469wiredmoveevents/
+623.45Hz,328..879/s,nozeroseconds,median1024us,p95=3031,p99=5063. All18103raw
+rowswiredonly, noerrors/focusloss. Firstwireless553.9Hz/3initialzeroseconds with
+usercontinuoussmoothreport stillunexplained. Lowmeanmovementeventsalsoonwired;
+notRFfaultproof. NEXT scopedlargersteadycircle WIREDtrial (alreadywired): target
+activateswindowitself,keepmouseinhand, comfortable~3–5cmcirclesifroom/sensoronpad,
+no pauses/lifts/clicks/wheel,DPIunchanged. Same5/30/5window/fixed20sanalyzer. Then
+matchmotionwirelessly tocheckwhetheroriginalgap/ratepersists. No firmwareflash/
+settingschange/newcode/build. Normalv14receiverunchanged, no livecapture/serial.
+Useruntilsaystop; physicalreadinesspopupbeforecapture. Save/pushwiredreference.
 
-Currentbranchfeature/timed-host-polling-measurement; software8de3dac pushed,
-firstresult/wiredsupportmilestonefollows. No firmwareflash orrestoration needed.
-Installednormalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2
+Currentbranchfeature/timed-host-polling-measurement. Software8de3dac/wiredsupport
+24c8bc5 pushed; wiredreferencecheckpointfollows. Useruntilsaystop,nofixeddeadline.
+Installednormalv14exact93eb autoactive,GloriouscurrentlyWIRED; no activeprocesses.
+Normalimagebuild-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-DoNOTsubstitute softwarecontrolcb8bbb60 ordiagnosticimages.
+No restorationneeded; no newflashes/builds forcurrentmotioncheck.
 
-UsercontinueUNTILTHEYSAYSTOP. Controllerresearch/capture_timed_motion.ps1 -Source
-wired (afterphysicalready) ordefaultreceiver. No serial/arm/x/injection; visible
-180shardlimit waitsactivation then5/30/5sautoclose; fixedcentral20sanalysis;
-focuslossinvalidates; gateanalysisonclosedcompleteprocess. Outputprivatewith
-GUIDfilename. Nativebuildresearch/build_timed_raw_mouse.ps1 ifsourcechanges;
-currentsource/header/binaryhashesvalidated. Keeporiginalcapture_raw_mouse.exe09d2
-forhistoricalcontrollers; newbinarycapture_raw_mouse_timed.exe06f74472.
+Controllerresearch/capture_timed_motion.ps1 -Source wired (orreceiver default).
+Noarm/serial/x/injection. Visible180shardlimit waitsfocus->5scountdown/30sMOVE/
+5sSTOPautoclose, normalinputcontinues. AnalyzeclosedcompleteCSV central20s only;
+18analysischecks/controllergates/syntaxPASS. Samevalidatedtimedbinary06f74472;
+source/headerhashesprivatevalidationJSON; originalrawbinary09d2unchanged.
+Firstwirelessprivatev14-timed-motion-20261118-184803-b718bd7e; wiredsmallreference
+wired-timed-motion-20261118-190223-853da817. Preserveuserevidenceandfixedepochs.
 
-LiveUSBcheck7e23c76:fullspeed/HID2/IN0x83/maxpacket16/bInterval1/activepipe match.
-Onlyconfigurationevidence,notfresh1kHz. CompletedphaseABBA0a7c14e:radio10uswait
-improvedRF-to-submit~18us buttotalgaminggainunproven;normalkept50usCPUcheckwait.
-50/10usCPUwaitisNOTUSB1msinterval. No furtherABBArepeatsneedednow.
-Keepcontext/resume currenteachstep;pushmilestones onfeaturebranches; pausewith
-questionpopups forphysicalinterventions. Privatecaptures/addresses/binariesignored,
-unrelated.vscode/INFO_UF2.TXTalone. App/DPI/lightingwritesdeferred. Longsoak/repeated
-suspend/hibernate/physicalsensor-to-screenlatency/sustainedfresh1kHz stillunqualified.
+LiveUSBcheck7e23c76 fullspeedHID2/IN0x83/max16/bInterval1/activepipematch confirms
+configurationtarget1k, notactualfreshreport/sensor/buscadence. PhaseABBA0a7c14e
+showedrepeatable~18usRFstagegain buttotalgamingbenefitunproven; normalkept50usCPU
+wait(separatefromUSB1ms). No moreABBArepeatsneeded. No companionapp/DPIwrites.
+Keepcontext/resumecurrenteachstep;pushmilestones;pausewithquestionpopupsforphysical
+intervention. Privatecaptures/addresses/binariesignored; unrelatedfilesalone.
+Longsoak/repeatedsuspend/hibernate/physicalend-to-endlatency/sustainedfresh1kstill
+unqualified. OneS3/5mininactivityrecoverypassed. No user-settingchanges.

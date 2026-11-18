@@ -64,3 +64,21 @@ controller identity/error gates pass18analysis tests andSelfTest/syntax checks.
 The same timed native executable is reused, without a rebuild or altered timing.
 Private run:v14-timed-motion-20261118-184803-b718bd7e. Sustained1kHz remains
 unqualified despite separately verified live1ms descriptor/active-pipe configuration.
+
+
+### Guided wired small-circle reference
+
+The same timed native binary and fixed central20seconds captured12,469 wired
+movement events (623.45events/s), ranging328–879persecond with nozero seconds.
+Median host gap1024us,p95 3031us,p99 5063us. All18,103 raw records were wired;
+no receiver-source mixing. Phase/focus/completion checks passed without raw errors.
+The user confirmed continuous smooth movement, mostly small/controlled circles.
+
+This reference also falls below1000nonzero movementevents/s. It therefore does
+not establish the wireless receiver as the cause of the low movement-event count.
+Movement size/speed and host delivery still need controlling. Next use comfortable
+larger steady circles in wired mode, then match that motion wirelessly with the
+target mouse itself activating the window; no DPI/Windows/firmware changes. This
+is a defined movement-size/source check, not another firmware baseline repetition.
+Keep all fixed-epoch results; do not trim/select the best seconds or call event
+gaps RF loss. No sustained fresh1000Hz or physical token cadence claim yet.
