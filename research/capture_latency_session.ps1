@@ -1,4 +1,4 @@
-param([DateTimeOffset]$FinishBeforeUtc,[ValidateSet('DIY Mouse Timing v15','DIY Mouse Timing v16','DIY Mouse Input v17','DIY Mouse Phase v18')][string]$ExpectedProduct='DIY Mouse Timing v15',[switch]$SelfTest)
+param([DateTimeOffset]$FinishBeforeUtc,[ValidateSet('DIY Mouse Timing v15','DIY Mouse Timing v16','DIY Mouse Input v17','DIY Mouse Phase v18','DIY Mouse Phase Fast v19')][string]$ExpectedProduct='DIY Mouse Timing v15',[switch]$SelfTest)
 $ErrorActionPreference='Stop'
 function Assert-LatencyTime([DateTimeOffset]$Now,[DateTimeOffset]$Finish){
     if($Now -ge $Finish.AddMinutes(-8)){throw 'Too little time for capture and physical rollback;no capture'}
@@ -21,8 +21,8 @@ if(!$PSBoundParameters.ContainsKey('FinishBeforeUtc')){throw 'Current user finis
 Assert-LatencyTime ([DateTimeOffset]::UtcNow) $FinishBeforeUtc
 $root=Join-Path (Split-Path $PSScriptRoot -Parent) 'build-pairing-analysis'
 $version=[regex]::Match($ExpectedProduct,'v\d+$').Value
-$needInput=$ExpectedProduct -in @('DIY Mouse Input v17','DIY Mouse Phase v18')
-$needPhase=$ExpectedProduct -eq 'DIY Mouse Phase v18'
+$needInput=$ExpectedProduct -in @('DIY Mouse Input v17','DIY Mouse Phase v18','DIY Mouse Phase Fast v19')
+$needPhase=$ExpectedProduct -in @('DIY Mouse Phase v18','DIY Mouse Phase Fast v19')
 $job=Join-Path $root ($version+'-latency-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
 $clock=[Diagnostics.Stopwatch]::StartNew();$log=[IO.StreamWriter]::new("$job.txt",$false);$journal=[IO.StreamWriter]::new("$job.host.jsonl",$false)
 $port=$null;$raw=$null;$allText='';$xSent=$false;$dumpSeen=$false

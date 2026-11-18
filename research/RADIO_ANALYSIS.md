@@ -2611,3 +2611,19 @@ Image SHA256:
 `05eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd`.
 Private captures and image remain ignored. Restore exact tested normal v14 after
 this diagnostic; latest installed state is in PROJECT_CONTEXT.md.
+
+
+### Phase-aware fast-poll comparison v19 (software ready)
+
+`-App phase-fast` builds `DIY Mouse Phase Fast v19`. It reuses the exact C source
+and private radio parameters of the hardware-qualified v18 phase image. The
+existing fast-poll flag is ON (10us instead of 50us); the Zephyr configuration
+differs only in USB product name. Native/research checks, controller gates, build,
+source/config and UF2 verification passed. Hardware behavior and benefit remain
+unproven; normal v14 stays installed until physical readiness.
+
+Preserved image hash:
+`8ad6dd031a595b4558112c47f915f52b4dc5ebd0754213cd89ff46b0aff9b17e`.
+Comparison plan: `docs/plans/2026-11-18-phase-poll-comparison.md`. No optimization
+promotion is assumed. Coarse100us phase buckets and manual workload limit any
+causal interpretation of a small difference; compare independent runs explicitly.

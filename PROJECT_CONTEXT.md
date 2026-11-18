@@ -319,6 +319,48 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V19 SOFTWARE VERIFIED / FLASH READINESS NEXT - 2026-11-18 17:56 Manila:
+Branchfeature/usb-phase-poll-comparison. UsercontinueUNTILTHEYSAYSTOP,no fixedcutoff.
+Normalv14 93eb987a installed/automatic/userconfirmed; nohardware/serial/capture/
+buildsession. Build57412 Appphase-fast completed. Privatephase-fast-v19-8ad6dd03.uf2
+SHA2568ad6dd031a595b4558112c47f915f52b4dc5ebd0754213cd89ff46b0aff9b17e,
+199blocks0x26000..0x32700exclusive,50812flash/17280RAM. ProductDIY Mouse Phase Fast
+v19. ALLdiagflagsON includingFAST; SAMECsource/privateRFparameters asqualifiedv18.
+.configdiffONLYUSBproduct; TIMER3disabled/6CC/SOFIRQOFF/quiet1ms config retained.
+All11native/11researchtests +controllerSelfTest/syntaxPASS. Exactv18baseline05eaf
+andtestednormal93eb hashesverified. Privatev19-software-validation.json.
+V19 NOTflashed/hardwareunproven. NEXT pushsoftware thenphysicalNICENANOready
+mousewired/OFF;verifyboard/exactimageflash+USBproduct. SeparateinputreadyOFFUSB
+unplugged,sameDPI/surface/otherpointer. Trial100s noarm,d50silent/x70/stopped3frames,
+ExpectedProductDIY Mouse Phase Fast v19, internalnow+30minfinishguard. Controls
+first(each5buttons3pairs,wheelup5/down3),thensteadymotion. Validatephase/input/
+timing+userfeel/stop. RestoreEXACTtestednormalv14 viafreshphysicalreadiness after
+trial;verifyUSB/usernormaloperation. Preserveallruns; potentialB1/B2/A2comparison
+withv18A1 alreadyrecorded ifpractical, no assumedpromotion/physicalgain.
+100usbuckets/manualmotion/workload/lowearlyphaseNlimitcausal20usinferences.
+V18baselinehardwared249645 pushed; A1calibrated1/invalid0/exact21818match,user
+smooth/cleanstopped; tableinresearch. Companionapp/settingswritesdeferred.
+
+V19 COMPARISON BUILD RUNNING - 2026-11-18 17:57 Manila:
+Session57412 Appphase-fast only; no repeatedv18/normalbuild needed becauseCcode
+unchanged. ControllerExpectedProductv19 andthreefootergatesSelfTest/syntaxPASS,
+11researchanalysischecksPASS. Need native/buildfinish/config/source/UF2/hash
+verification,preserveimage andpushsoftwarecheckpoint. NewconfigproductDIY Mouse
+Phase Fast v19,onlyexistingFASTflagON; SAMECfilesasqualifiedv18. No hardware/
+serial/capture. Installed normalv14,userconfirmed. Useruntilsaystop; nofixedcutoff.
+Planphase-poll-comparison.md predeclaresphase-awarecomparisonlimitations incl
+100usbucketresolution vs~20usreactionchange. No causal/promotionclaim assumed.
+
+PHASE-AWARE FAST POLL COMPARISON SOFTWARE - 2026-11-18 17:55 Manila:
+V18hardware/restorationd249645 pushed,usernormaloperationconfirmed. Newbranch
+feature/usb-phase-poll-comparison. PrepareAppphase-fast v19productDIY Mouse Phase
+Fast v19, SAME Ccode/instrumentation asqualifiedv18, onlyFASTflagON (10vs50us).
+Build/config/controllerproduct changesonly. Need native/build/config/stagedsources/
+UF2/hash checks,preservev19 andpushBEFOREphysicalpopup. Normalv14remainsinstalled;
+nohardware/serial/capture/buildyet. Planphase-poll-comparison.md. Useruntilstop.
+Proposed A1(v18qualified)/B1/B2/A2 independentboots ifuseful; coarse100usbins,
+manualmotion/workloadlimits; no assumednormalpromotion orpacket-levelCIs.
+
 V18 QUALIFIED / NORMAL RESTORATION CONFIRMED - 2026-11-18 17:52 Manila:
 User confirmed restored normal wireless works. Installed normalv14exact93eb987a,
 autoactive/no serial/arm/limit; no livecapture/reader/build/helper. Privateafterv18

@@ -1,4 +1,4 @@
-param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase')][string]$App = 'hid')
+param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast')][string]$App = 'hid')
 
 $ErrorActionPreference = 'Stop'
 $workspace = Join-Path $env:USERPROFILE 'zephyrproject'
@@ -27,7 +27,7 @@ if ($App -ne 'hid') {
     Copy-Item -LiteralPath "$source\receiver.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\dongle.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\latency.conf" -Destination $stage
-    Copy-Item -LiteralPath "$source\latency-fast.conf", "$source\input.conf", "$source\phase.conf" -Destination $stage
+    Copy-Item -LiteralPath "$source\latency-fast.conf", "$source\input.conf", "$source\phase.conf", "$source\phase-fast.conf" -Destination $stage
     python "$PSScriptRoot\generate_radio_header.py" "$PSScriptRoot\..\build-pairing-analysis" "$stage\src\radio_parameters.h"
     if ($LASTEXITCODE -ne 0) { throw 'Radio evidence validation failed.' }
 }
@@ -37,17 +37,18 @@ try {
     if ($App -eq 'hid') {
         west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage
     } else {
-        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase')) { 'ON' } else { 'OFF' }
-        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase')) { 'ON' } else { 'OFF' }
-        $normal = if ($App -in @('dongle', 'latency', 'latency-fast', 'input', 'phase')) { 'ON' } else { 'OFF' }
-        $timing = if ($App -in @('latency', 'latency-fast', 'input', 'phase')) { 'ON' } else { 'OFF' }
-        $conservation = if ($App -in @('input', 'phase')) { 'ON' } else { 'OFF' }
-        $phase = if ($App -eq 'phase') { 'ON' } else { 'OFF' }
-        $fast = if ($App -eq 'latency-fast') { 'ON' } else { 'OFF' }
-        $extraConf = if ($App -in @('latency', 'latency-fast', 'input', 'phase')) { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -eq 'dongle') { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
+        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $normal = if ($App -in @('dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $timing = if ($App -in @('latency', 'latency-fast', 'input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $conservation = if ($App -in @('input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $phase = if ($App -in @('phase', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $fast = if ($App -in @('latency-fast', 'phase-fast')) { 'ON' } else { 'OFF' }
+        $extraConf = if ($App -in @('latency', 'latency-fast', 'input', 'phase', 'phase-fast')) { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -eq 'dongle') { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
         if ($App -eq 'latency-fast') { $extraConf += ';latency-fast.conf' }
-        if ($App -in @('input', 'phase')) { $extraConf += ';input.conf' }
-        if ($App -eq 'phase') { $extraConf += ';phase.conf' }
+        if ($App -in @('input', 'phase', 'phase-fast')) { $extraConf += ';input.conf' }
+        if ($App -in @('phase', 'phase-fast')) { $extraConf += ';phase.conf' }
+        if ($App -eq 'phase-fast') { $extraConf += ';phase-fast.conf' }
         west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DNORMAL_DONGLE=$normal" "-DLATENCY_DIAGNOSTICS=$timing" "-DFAST_POLL_DIAGNOSTICS=$fast" "-DINPUT_CONSERVATION=$conservation" "-DUSB_PHASE_DIAGNOSTICS=$phase" "-DEXTRA_CONF_FILE=$extraConf"
     }
     if ($LASTEXITCODE -ne 0) { throw 'Firmware build failed; do not flash an old UF2.' }

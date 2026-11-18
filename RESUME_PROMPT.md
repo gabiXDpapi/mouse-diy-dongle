@@ -1,44 +1,48 @@
 Continue the DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-usb-frame-phase-implementation.md.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-phase-poll-comparison.md.
 
-V18 QUALIFIED / NORMAL RESTORATION CONFIRMED - 2026-11-18 17:52 Manila:
-User confirmed restored normal wireless works. Installed normalv14exact93eb987a,
-autoactive/no serial/arm/limit; no livecapture/reader/build/helper. Privateafterv18
-restoreJSON updated. V18calibrated1/invalid0, all21818foregroundreports+inputtotals
-match, all5buttons3down/up, user smooth/cleanstopped. Perphase table savedresearch.
-Withinthisrun RFcallbackphasebinsmean1.058ms(n28 early) down0.207ms(late), global
-0.566ms/max1.150ms; RFsubmit~36..59us. ObservationalUSBphaseassociation, notgain.
-Wholemixedactivityhostgapsmedian1010us/p95=2147us/p99=5797us include deliberate
-controlpauses/zeromotion; NOTsustainedpolling orRFloss qualification. Busy309/52184
-candidates,retries34; no inferredend-to-endloss. HistoricalA2causeunresolved.
-NEXT isolatedfastpollcomparison usingSAMEphaseinstrumentation asv18: addphase-fast
-v19 product/config (10us vs50us), nootherC/runtimechange. Build/test/verify/preserve
-andpush BEFOREphysicalreadiness. V18A1 preserved; compareB1/B2/A2onlyifappropriate,
-phase-aware/repeatedboots/manualmotionlimits; noautomaticpromotion. Restoretested
-normalaftereachdiagnostic. Userwindowuntilsaystop, oldcutoffsrevoked. Companionapp
-andDPIwritesdeferred. Keepprivatecaptures/addresses/binariesignored.
+V19 SOFTWARE VERIFIED / FLASH READINESS NEXT - 2026-11-18 17:56 Manila:
+Branchfeature/usb-phase-poll-comparison. UsercontinueUNTILTHEYSAYSTOP,no fixedcutoff.
+Normalv14 93eb987a installed/automatic/userconfirmed; nohardware/serial/capture/
+buildsession. Build57412 Appphase-fast completed. Privatephase-fast-v19-8ad6dd03.uf2
+SHA2568ad6dd031a595b4558112c47f915f52b4dc5ebd0754213cd89ff46b0aff9b17e,
+199blocks0x26000..0x32700exclusive,50812flash/17280RAM. ProductDIY Mouse Phase Fast
+v19. ALLdiagflagsON includingFAST; SAMECsource/privateRFparameters asqualifiedv18.
+.configdiffONLYUSBproduct; TIMER3disabled/6CC/SOFIRQOFF/quiet1ms config retained.
+All11native/11researchtests +controllerSelfTest/syntaxPASS. Exactv18baseline05eaf
+andtestednormal93eb hashesverified. Privatev19-software-validation.json.
+V19 NOTflashed/hardwareunproven. NEXT pushsoftware thenphysicalNICENANOready
+mousewired/OFF;verifyboard/exactimageflash+USBproduct. SeparateinputreadyOFFUSB
+unplugged,sameDPI/surface/otherpointer. Trial100s noarm,d50silent/x70/stopped3frames,
+ExpectedProductDIY Mouse Phase Fast v19, internalnow+30minfinishguard. Controls
+first(each5buttons3pairs,wheelup5/down3),thensteadymotion. Validatephase/input/
+timing+userfeel/stop. RestoreEXACTtestednormalv14 viafreshphysicalreadiness after
+trial;verifyUSB/usernormaloperation. Preserveallruns; potentialB1/B2/A2comparison
+withv18A1 alreadyrecorded ifpractical, no assumedpromotion/physicalgain.
+100usbuckets/manualmotion/workload/lowearlyphaseNlimitcausal20usinferences.
+V18baselinehardwared249645 pushed; A1calibrated1/invalid0/exact21818match,user
+smooth/cleanstopped; tableinresearch. Companionapp/settingswritesdeferred.
 
-Current branch feature/usb-frame-phase-diagnostics; software681183d pushed,
-hardware/result/restoration milestone follows. No further restoration needed NOW.
-Normal image build-pairing-analysis/dongle-v14-93eb987a.uf2
-SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-Qualified phase baseline build-pairing-analysis/phase-v18-05eaf02a.uf2
-SHA256 05eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd.
-Private capture v18-latency-20261118-174506-f45a9f45.summary.json.
-Normalcontrolcb8bbb60 is software-only; do NOT substitute it for tested93eb image.
+Installed + exact tested restore image:
+build-pairing-analysis/dongle-v14-93eb987a.uf2
+SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+ProductDIY Mouse Dongle v14; normal autoactive/noarm/notimedstop. Do NOT restore
+softwarecontrolcb8bbb60 instead. No live sessions, no restoration needed NOW.
+Qualified phase baseline image:
+build-pairing-analysis/phase-v18-05eaf02a.uf2
+SHA25605eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd
+PrivateA1v18-latency-20261118-174506-f45a9f45.summary.json.
 
-Keep PROJECT_CONTEXT and this copy-paste prompt current after meaningful steps.
-Commit/push tested milestones on feature branches. Pause using question popups
-for physical interventions; separate flash and input readiness. Capture100s,
-noarm/d50silent/x70/frozen3frames; operationalnow+30minfinishguard during user
-open-endedwindow. Restoreexactnormalv14 andverifyUSB/useroperationafterdiagnostic.
-Privatecaptures/addresses/binariesignored; unrelated.vscode/INFO_UF2.TXT untouched.
+Keep context/resume current each meaningful step;push testedmilestones onfeature
+branches. Pause with questionpopups for physicalintervention; separateflash and
+inputreadiness. Keep privatecaptures/addresses/binaries ignored; unrelated.vscode/
+INFO_UF2.TXT untouched. No companionapp/DPI/lightingwritesuntilgamingoptimization.
 
-Gaming/longreliability remains unfinished. Exactaggregatecontent match does not
-prove individualeventpreservation/order or historicalA2two-recordcause. First
-WindowsS3 and5mininactivity recoverypassed, but no4h/8h/multiday soak, repeated
-suspend/hibernate/deepsleep ortruephysicalsensor-to-screenlatency qualification.
-Earlier v15/v16ABBA RFreactionfasterbuttotaladvantagenotconsistent; no normal
-fastpollpromotion. Companion app/settingswrites deferreduntilgamingoptimization.
+Longreliability/gaming stillunfinished. V17 andv18aggregateinput checks passed,
+5minmouseinactivity andoneWindowsS3 recovery passed. Userordinarywirelessnoissues,
+durationunknown. No4h/8h/multidaysoak/repeatedsuspend/hibernate/truephysical latency
+or sustainedfresh1000Hz qualification. Earlier v15/v16ABBA radiofaster buttotal
+benefitnotconsistent; no normalfastpollpromotion. HistoricalA2device27594/host27592
+causeunknown; aggregateequalitycannotproveindividualpreservation/order.
