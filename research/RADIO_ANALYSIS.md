@@ -2488,3 +2488,25 @@ validation complete;continuous link/recovery and gaming performance remain open.
 ### November 18: input-accounting diagnostic software ready
 
 Normal v14 remains installed. The opt-in `input` build (USB product `DIY Mouse Input v17`) adds quiet accepted movement/wheel/button totals with a stopped-only dump and a matching Raw Input analyzer. Software checks and both diagnostic/normal-control builds passed; hardware validation is pending. This preserves baseline polling and does not promote the faster experiment. Equal aggregate totals cannot prove individual-event preservation or explain the earlier two-record count difference. See [the diagnostic plan](../docs/plans/2026-11-18-input-conservation.md).
+
+
+### November 18: v17 hardware accounting check passed
+
+The 100-second foreground trial completed with no Raw Input read errors. Device
+and Windows both recorded 9,585 input reports. Aggregate X/Y movement, wheel
+(net two steps), and all five buttons matched exactly: each button had three
+presses and three releases. The user confirmed smooth operation and a clean
+explicit stop. No diagnostic cap, USB sample failure or tracking fault occurred.
+The active dump probe stayed silent; both summaries arrived only after stopping.
+
+This validates the new accounting path in one trial. Equal aggregate totals do
+not prove event ordering or individual-event preservation, and the earlier A2
+two-record difference remains unexplained. The instrumented RF-to-USB callback
+mean was 756.490 microseconds, maximum 1,155 microseconds; this excludes sensor,
+prior RF retries, Windows/game/display latency and is not a controlled performance
+comparison. No faster-polling promotion is justified by this run.
+
+Diagnostic UF2 SHA256:
+`aea67abc7c748d90c3fde1cc2931343d3e81fcf5b2492c741de82cebfb81b01d`.
+Private captures and image remain ignored. Restore tested normal v14 after the
+trial; consult PROJECT_CONTEXT.md for the latest installed-board state.

@@ -59,3 +59,25 @@ not a4h/8h soak qualification.
 Reference: Microsoft RAWMOUSE documents signedrelative motion,button transition
 flags,120-unitwheel delta and possible coalescing:
 https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-rawmouse
+
+
+### November 18: v17 hardware accounting check passed
+
+The 100-second foreground trial completed with no Raw Input read errors. Device
+and Windows both recorded 9,585 input reports. Aggregate X/Y movement, wheel
+(net two steps), and all five buttons matched exactly: each button had three
+presses and three releases. The user confirmed smooth operation and a clean
+explicit stop. No diagnostic cap, USB sample failure or tracking fault occurred.
+The active dump probe stayed silent; both summaries arrived only after stopping.
+
+This validates the new accounting path in one trial. Equal aggregate totals do
+not prove event ordering or individual-event preservation, and the earlier A2
+two-record difference remains unexplained. The instrumented RF-to-USB callback
+mean was 756.490 microseconds, maximum 1,155 microseconds; this excludes sensor,
+prior RF retries, Windows/game/display latency and is not a controlled performance
+comparison. No faster-polling promotion is justified by this run.
+
+Diagnostic UF2 SHA256:
+`aea67abc7c748d90c3fde1cc2931343d3e81fcf5b2492c741de82cebfb81b01d`.
+Private captures and image remain ignored. Restore tested normal v14 after the
+trial; consult PROJECT_CONTEXT.md for the latest installed-board state.
