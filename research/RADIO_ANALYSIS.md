@@ -2627,3 +2627,38 @@ Preserved image hash:
 Comparison plan: `docs/plans/2026-11-18-phase-poll-comparison.md`. No optimization
 promotion is assumed. Coarse100us phase buckets and manual workload limit any
 causal interpretation of a small difference; compare independent runs explicitly.
+
+
+### V19 phase-aware comparison: first hardware run
+
+V19 B1 passed startup calibration and the stopped timing/input/phase guards.
+All 19,376 accepted inputs matched foreground Windows record counts, aggregate
+X/Y/wheel and five-button edges (three down/up pairs each). One phase reference
+was classified invalid; its accepted timing sample remained in the explicit
+invalid bucket and all totals reconciled. The user reported smooth controls,
+clean stop and no issue. No failed/capped/tracking-fault flag or raw read error.
+
+| Receiver-stage measurement | V18 A1, 50us wait | V19 B1, 10us wait |
+|---|---:|---:|
+| Mean RF END to handler (us) | 41.672 | 22.830 |
+| Mean RF END to submit (us) | 50.774 | 33.196 |
+| Mean RF END to USB callback (us) | 565.837 | 427.624 |
+| Maximum RF END to USB callback (us) | 1150 | 1119 |
+| p99 histogram upper bound (us) | 1000 | 1119 |
+| Busy candidates (%) | 0.592 | 1.134 |
+| Invalid phase references | 0 | 1 |
+
+The unadjusted callback mean differs by138.214us. Using A1's report shares as
+fixed weights over the ten valid phase bins gives565.837us for A1 and553.031us
+for B1, a12.807us descriptive difference; B1's one invalid sample is excluded.
+All valid phase bins have support, but some have few reports. The much smaller
+phase-weighted difference shows this comparison is sensitive to phase mix.
+It is not a causal estimate:100us buckets leave within-bin variation, manual
+movement and CPU/USB workload are uncontrolled, and this is one boot per condition.
+The tail upper bound and backpressure did not both improve. Keep normal50us v14;
+no everyday fast-poll promotion or physical gaming-latency gain is established.
+
+Private B1 base:v19-latency-20261118-175953-8719f360; comparison summary and weights
+are in ignored phase-comparison-a1-b1.json. Preserve both exact images for an
+independent reverse-order/repeated-boot check if practical. Restore exact tested
+normalv14 after this diagnostic and consult PROJECT_CONTEXT for installed state.

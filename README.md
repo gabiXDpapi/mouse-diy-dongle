@@ -533,3 +533,5 @@ Preserved image hash:
 Comparison plan: `docs/plans/2026-11-18-phase-poll-comparison.md`. No optimization
 promotion is assumed. Coarse100us phase buckets and manual workload limit any
 causal interpretation of a small difference; compare independent runs explicitly.
+
+V19’s first phase-aware hardware run passed input accounting and user control checks. Faster polling reduced measured RF reaction, while total callback timing remained sensitive to USB phase mix; the small phase-weighted difference does not establish a reliable overall gain. Normal v14 remains the everyday baseline; repeatability is pending.

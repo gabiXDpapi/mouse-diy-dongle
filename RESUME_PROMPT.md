@@ -3,46 +3,43 @@ C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
 research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-phase-poll-comparison.md.
 
-V19 SOFTWARE VERIFIED / FLASH READINESS NEXT - 2026-11-18 17:56 Manila:
-Branchfeature/usb-phase-poll-comparison. UsercontinueUNTILTHEYSAYSTOP,no fixedcutoff.
-Normalv14 93eb987a installed/automatic/userconfirmed; nohardware/serial/capture/
-buildsession. Build57412 Appphase-fast completed. Privatephase-fast-v19-8ad6dd03.uf2
-SHA2568ad6dd031a595b4558112c47f915f52b4dc5ebd0754213cd89ff46b0aff9b17e,
-199blocks0x26000..0x32700exclusive,50812flash/17280RAM. ProductDIY Mouse Phase Fast
-v19. ALLdiagflagsON includingFAST; SAMECsource/privateRFparameters asqualifiedv18.
-.configdiffONLYUSBproduct; TIMER3disabled/6CC/SOFIRQOFF/quiet1ms config retained.
-All11native/11researchtests +controllerSelfTest/syntaxPASS. Exactv18baseline05eaf
-andtestednormal93eb hashesverified. Privatev19-software-validation.json.
-V19 NOTflashed/hardwareunproven. NEXT pushsoftware thenphysicalNICENANOready
-mousewired/OFF;verifyboard/exactimageflash+USBproduct. SeparateinputreadyOFFUSB
-unplugged,sameDPI/surface/otherpointer. Trial100s noarm,d50silent/x70/stopped3frames,
-ExpectedProductDIY Mouse Phase Fast v19, internalnow+30minfinishguard. Controls
-first(each5buttons3pairs,wheelup5/down3),thensteadymotion. Validatephase/input/
-timing+userfeel/stop. RestoreEXACTtestednormalv14 viafreshphysicalreadiness after
-trial;verifyUSB/usernormaloperation. Preserveallruns; potentialB1/B2/A2comparison
-withv18A1 alreadyrecorded ifpractical, no assumedpromotion/physicalgain.
-100usbuckets/manualmotion/workload/lowearlyphaseNlimitcausal20usinferences.
-V18baselinehardwared249645 pushed; A1calibrated1/invalid0/exact21818match,user
-smooth/cleanstopped; tableinresearch. Companionapp/settingswritesdeferred.
+B1 RESULT SAVED / NORMAL CONFIRMED / REVERSE REPEAT NEXT - 2026-11-18 18:07 Manila:
+Userconfirmed restorednormalwireless works. Installedexactnormalv14 93eb autoactive;
+no livecapture/reader/build/helper. V19B1pass19376exactcounts/content, calibrated1,
+invalid1inexplicitbucket, user smooth/cleanstopped. A1/B1radiohandler41.672/22.830us,
+RFsubmit50.774/33.196us, RFcallbackglobal565.837/427.624us butA1phaseweightsyield
+565.837/553.031us(only12.807us descriptive difference,coarse100usbins). Busy/tail
+notbothimproved; no reliabletotalgain/promotionclaim. PrivatecomparisonJSON+tables.
+NEXT reverseorderreplication usingEXACTSAVED v19B2 thenv18A2, no newbuilds/code.
+These are independentboots forrepeatability, notblindbaseline repeats. Two100s
+captures withseparateflash/inputreadiness, eachxstop/threefrozenframes. Keepmouse
+wired/OFFbetweenimages; leaveeachdiagstoppedpendingnextflash. RestoreEXACTnormal
+v14 ONCE afterbothruns (orimmediatelyifbatchaborted), verifyUSB/useroperation.
+Thisbatchavoidsunnecessaryintermediate normalflash; normalisinstalledNOW.
+Branchfeature/usb-phase-poll-comparison. Useruntilsaystop; nofixedcutoff.
+Physicalpopupnext v19B2 NICENANOreadywired/OFF; verifyexactimage/board beforecopy.
 
-Installed + exact tested restore image:
-build-pairing-analysis/dongle-v14-93eb987a.uf2
+Preserved exact images (ignored):
+Normalv14:build-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
-ProductDIY Mouse Dongle v14; normal autoactive/noarm/notimedstop. Do NOT restore
-softwarecontrolcb8bbb60 instead. No live sessions, no restoration needed NOW.
-Qualified phase baseline image:
-build-pairing-analysis/phase-v18-05eaf02a.uf2
+Baselinev18:build-pairing-analysis/phase-v18-05eaf02a.uf2
 SHA25605eaf02aebbbb49163a2a8f9b95c1e5914ae06afd73a4793eba43ab48e2549cd
-PrivateA1v18-latency-20261118-174506-f45a9f45.summary.json.
+Fastv19:build-pairing-analysis/phase-fast-v19-8ad6dd03.uf2
+SHA2568ad6dd031a595b4558112c47f915f52b4dc5ebd0754213cd89ff46b0aff9b17e
+Bothdiag199blocks0x26000..0x32700exclusive; normal181blocks..0x31500.
+Softwarecontrolcb8bbb60 is NOT the testedrollback; don'tflashit.
 
-Keep context/resume current each meaningful step;push testedmilestones onfeature
-branches. Pause with questionpopups for physicalintervention; separateflash and
-inputreadiness. Keep privatecaptures/addresses/binaries ignored; unrelated.vscode/
-INFO_UF2.TXT untouched. No companionapp/DPI/lightingwritesuntilgamingoptimization.
+A1private:v18-latency-20261118-174506-f45a9f45.summary.json (21818matches,invalid0).
+B1private:v19-latency-20261118-175953-8719f360.summary.json (19376matches,invalid1).
+Comparisonprivatephase-comparison-a1-b1.json. Bothuser smooth/cleanstopped.
+V18software681183d/hardwared249645, V19softwarebdf6322 pushed; B1milestonefollows.
 
-Longreliability/gaming stillunfinished. V17 andv18aggregateinput checks passed,
-5minmouseinactivity andoneWindowsS3 recovery passed. Userordinarywirelessnoissues,
-durationunknown. No4h/8h/multidaysoak/repeatedsuspend/hibernate/truephysical latency
-or sustainedfresh1000Hz qualification. Earlier v15/v16ABBA radiofaster buttotal
-benefitnotconsistent; no normalfastpollpromotion. HistoricalA2device27594/host27592
-causeunknown; aggregateequalitycannotproveindividualpreservation/order.
+Trialcontrollerresearch/capture_latency_session.ps1 ExpectedProduct exactv19/v18,
+FinishBeforeUtc internalUtcNow+30min duringuseropen-endedwindow. Noarm.100sforeground,
+d50silent/x70/threecompletefrozenframes. SameDPI/surface/windowssettings/otherpointer;
+prioritize5buttons3pairs+wheelUP5DOWN3thensteadycircles. Useanalyze_usb_phase.py.
+Keepcontext/copy-pastehandoffcurrent everymeaningfulstep;push testedmilestones on
+featurebranches. Pausewithquestionpopups forphysicalintervention. Privatecaptures/
+addresses/binariesignored; unrelated.vscode/INFO_UF2.TXT untouched. No app/settings
+writesuntilgamingoptimization. Longsoak, repeatedsuspend/hibernate, truephysical
+latency/sustainedfresh1000Hz remainunqualified; historicalA2tworecordcauseunknown.
