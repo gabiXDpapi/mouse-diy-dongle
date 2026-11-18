@@ -1,19 +1,25 @@
-param([DateTimeOffset]$FinishBeforeUtc,[ValidateSet('DIY Mouse Timing v15','DIY Mouse Timing v16')][string]$ExpectedProduct='DIY Mouse Timing v15',[switch]$SelfTest)
+param([DateTimeOffset]$FinishBeforeUtc,[ValidateSet('DIY Mouse Timing v15','DIY Mouse Timing v16','DIY Mouse Input v17')][string]$ExpectedProduct='DIY Mouse Timing v15',[switch]$SelfTest)
 $ErrorActionPreference='Stop'
 function Assert-LatencyTime([DateTimeOffset]$Now,[DateTimeOffset]$Finish){
     if($Now -ge $Finish.AddMinutes(-8)){throw 'Too little time for capture and physical rollback;no capture'}
 }
 function Test-SendLatencyStop([bool]$Requested,[bool]$Sent){return $Requested -and !$Sent}
+function Test-FrozenSummary([string]$Text,[bool]$NeedInput){
+    return ($Text -match 'LATENCY_END [^\r\n]+\r?\n') -and (!$NeedInput -or $Text -match 'INPUT_END capped=\d+\r?\n')
+}
 if($SelfTest){
     $now=[DateTimeOffset]::UtcNow;Assert-LatencyTime $now $now.AddMinutes(9)
     foreach($minutes in @(-1,7,8)){$refused=$false;try{Assert-LatencyTime $now $now.AddMinutes($minutes)}catch{$refused=$true};if(!$refused){throw 'Unsafe deadline accepted'}}
     if(!(Test-SendLatencyStop $true $false) -or (Test-SendLatencyStop $true $true) -or (Test-SendLatencyStop $false $false)){throw 'Stop gate failed'}
-    Write-Output 'PASS: deadline and single-stop gates;no hardware access';exit 0
+    $lat="LATENCY_END failed=0`n";$inputEnd="INPUT_END capped=0`n"
+    if(!(Test-FrozenSummary $lat $false) -or (Test-FrozenSummary $lat $true) -or !(Test-FrozenSummary ($lat+$inputEnd) $true) -or (Test-FrozenSummary ($lat+'INPUT_END capped=0') $true)){throw 'Frozen-summary completeness gate failed'}
+    Write-Output 'PASS: deadline, single-stop and frozen-summary gates;no hardware access';exit 0
 }
 if(!$PSBoundParameters.ContainsKey('FinishBeforeUtc')){throw 'Current user finish deadline required'}
 Assert-LatencyTime ([DateTimeOffset]::UtcNow) $FinishBeforeUtc
 $root=Join-Path (Split-Path $PSScriptRoot -Parent) 'build-pairing-analysis'
 $version=[regex]::Match($ExpectedProduct,'v\d+$').Value
+$needInput=$ExpectedProduct -eq 'DIY Mouse Input v17'
 $job=Join-Path $root ($version+'-latency-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
 $clock=[Diagnostics.Stopwatch]::StartNew();$log=[IO.StreamWriter]::new("$job.txt",$false);$journal=[IO.StreamWriter]::new("$job.host.jsonl",$false)
 $port=$null;$raw=$null;$allText='';$xSent=$false;$dumpSeen=$false
@@ -47,7 +53,7 @@ try{
             $port.Write('x');Record-Latency 'stop_command' 'x';$nextDump=$xAt+250;Write-Output 'X_STOP_SENT_ONCE'
         }
         if($xSent -and !$dumpSeen){
-            if($allText -match 'LATENCY_END [^\r\n]+\r?\n'){$dumpSeen=$true;Write-Output 'FROZEN_SUMMARY_RECEIVED: implies completed neutral stop'}
+            if(Test-FrozenSummary $allText $needInput){$dumpSeen=$true;Write-Output 'FROZEN_SUMMARY_RECEIVED: implies completed neutral stop'}
             elseif($dumps -lt 3 -and $clock.ElapsedMilliseconds -ge $nextDump){$port.Write('d');$dumps++;$result.d_count++;Record-Latency 'frozen_dump' 'd';$nextDump=$clock.ElapsedMilliseconds+500}
             elseif($dumps -eq 3 -and $clock.ElapsedMilliseconds -ge $nextDump+1500){throw 'Frozen summary incomplete;no retry/rearm'}
         }

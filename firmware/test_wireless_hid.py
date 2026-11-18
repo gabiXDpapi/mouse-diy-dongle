@@ -10,10 +10,11 @@ class WirelessHidTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('gcc'), 'Native GCC required for HID bridge harness')
     def test_usb_bridge(self):
         with tempfile.TemporaryDirectory() as directory:
-            for diagnostics in (False, True):
-                with self.subTest(diagnostics=diagnostics):
-                    executable = Path(directory) / f'hid-bridge-{diagnostics}.exe'
+            for diagnostics, conservation in ((False, False), (True, False), (True, True)):
+                with self.subTest(diagnostics=diagnostics, conservation=conservation):
+                    executable = Path(directory) / f'hid-bridge-{diagnostics}-{conservation}.exe'
                     flags = ['-DLATENCY_DIAGNOSTICS=1'] if diagnostics else []
+                    if conservation: flags += ['-DINPUT_CONSERVATION=1']
                     result = subprocess.run(['gcc', '-std=c11', '-Wall', '-Wextra', '-Werror',
                                              *flags, str(Path(__file__).with_suffix('.c')), '-o', str(executable)],
                                             capture_output=True, text=True)

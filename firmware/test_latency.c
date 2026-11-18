@@ -18,6 +18,9 @@ static unsigned int locked;
 static unsigned int irq_lock(void) { assert(!locked); locked = 1; return 0; }
 static void irq_unlock(unsigned int key) { assert(key == 0 && locked); locked = 0; }
 static uint32_t latency_clock_us(void) { assert(locked); return fake_us; }
+#ifdef INPUT_CONSERVATION
+#include "radio_logger/src/input_totals.h"
+#endif
 #include "radio_logger/src/latency_metrics.h"
 struct device { int unused; };
 static char output[4096];
@@ -110,6 +113,18 @@ int main(void)
     drop_dtr = false; fake_dtr = 1; output_size = 0; output[0] = 0;
     assert(latency_dump(NULL, 7, 2, 3) == 0 && strstr(output,"LATENCY metric=rf_usb count=1"));
     assert(strstr(output,"reports=7 retries=2 busy=3"));
+#ifdef INPUT_CONSERVATION
+    input_totals_reset();
+    const uint8_t input[] = {1,0xfe,0xff,3,0,0xff};
+    const uint8_t held[] = {1,0,0,0,0,0};
+    input_totals_record(input); input_totals_record(input); input_totals_record(held);
+    input_totals_neutral();
+    output_size = 0; output[0] = 0;
+    assert(latency_dump(NULL, 3, 0, 0) == 0);
+    assert(strstr(output,"INPUT_V1 reports=3 unchanged=1 buttons=0 neutral=1"));
+    assert(strstr(output,"dx=fffffffffffffffc dy=0000000000000006 wheel=fffffffffffffffe"));
+    assert(strstr(output,"neutral_up=1,0,0,0,0") && strstr(output,"INPUT_END capped=0"));
+#endif
     assert(!locked);
     return 0;
 }

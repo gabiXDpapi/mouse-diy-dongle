@@ -319,6 +319,57 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+V17 SOFTWARE VERIFIED / PHYSICAL FLASH READINESS NEXT - 2026-11-18 14:16 Manila:
+Branch feature/input-conservation-diagnostics. Pause today at 15:00 Manila
+(2026-11-18T07:00:00Z). Normal v14 remains installed and automatic; no hardware
+access, serial reader, capture or build session is running. User ordinary wireless
+use since last session: no issues noticed; duration unknown, not measured soak.
+App input v17 built successfully. Preserved private input-v17-aea67abc.uf2,
+SHA256 aea67abc7c748d90c3fde1cc2931343d3e81fcf5b2492c741de82cebfb81b01d.
+196 application blocks 0x26000..0x32400 exclusive. Staged sources, flags and quiet
+1ms USB configuration verified; normal control diagnostics OFF; tested rollback
+93eb987a verified. All 10 native checks, 7 research tests, controller SelfTest and
+syntax passed. Private v17-software-validation.json. V17 NOT flashed or hardware
+qualified. Adds stopped-only accepted dx/dy/wheel and five-button edge accounting;
+no performance change or normal fast-poll promotion. Aggregate equality cannot
+prove individual-event preservation/order or historical A2 two-record cause.
+NEXT physical popup: Glorious wired/OFF, receiver NICENANO. Verify board/exact
+image, flash, verify USB product DIY Mouse Input v17 without serial. Separate OFF/
+USB-unplugged readiness, then 100s foreground capture ExpectedProduct v17 with
+FinishBeforeUtc 2026-11-18T07:00:00Z. No arm command; automatic startup. Cue ON,
+activate capture with other pointer, each of five buttons 3 press/releases, wheel
+UP5/DOWN3, then controlled motion until x at ~70s. Collect user feel/stop; analyze
+both complete frames and all receiver rows. Restore EXACT tested normal v14
+93eb987a after trial via fresh physical readiness, verify ordinary operation.
+Prefer no diagnostic flash after 14:45; no capture at/after14:52. Companion app,
+DPI writes and USB frame-phase instrumentation deferred. Private captures/binaries
+ignored; unrelated .vscode/ and INFO_UF2.TXT untouched.
+
+V17 INPUT ACCOUNTING SOFTWARE / BUILD IN PROGRESS - 2026-11-18 14:10 Manila:
+Branchfeature/input-conservation-diagnostics. Userpause15:00Manila(UTC07:00today).
+Normalv14STILLinstalled/autoactive;no hardwareaccess/serial/capture yet thissession.
+Userordinarywirelessuse:usedit,noissuesnoticed;durationunknown,NOTmeasuredsoak.
+Newopt-inAppinputproductDIY Mouse Input v17;NORMAL/LATENCY/INPUT flagsON,FASTOFF.
+Main-threadaccepteduniqueUSBpayloadtotals(dx/dy/wheelsigned64,fivebuttonedges,
+unchangedreports),separateforcedneutralup,capflags/reset. No perpackettext ornormal
+behaviorchange. LATENCY_V1retained,INPUT_V1/SUM/EDGES/ENDappendedpoststoponly.
+ControllerExpectedProductv17+bothfootergatesSelfTest/syntaxPASS. Analyzerincludes
+allreceivercode0/1rows,wheel120conversion,excludeswired;validatesdevicecoverage/
+neutraledges/fields;reportsdifferences andlimitedaggregateequality,notlossless
+order/timingproof. Historical2recordcauseunresolved. Nativeinitialcounttestfailed
+beforeimplementation;ALL10nativecheckspass(withbridge/writerconservationmodes).
+Research7analysischeckspass. LIVEBUILDexec15840 Appinput thennormaldonglecontrol;
+firstfreshCMakeconfigured184s,compiling. Needpollandverifyfinalsource/config/UF2/
+hashpreserve,pushsoftwarecheckpointbeforephysicalflashpopup. No morefirmwareedits
+sincebuildstaging;hostparser/controllereditsdo notrequirefirmwarerebuild.
+Next physicalNICENANOreadywired/OFF,thenv17identityandseparateOFF USBunplugged
+inputreadiness. Existing100sCDC+foregroundcapture,noarm,dquiet50/x70/poststopdump.
+Prioritizeallfivebuttons3press/releases,UP5/DOWN3wheel,thenmotion;keepbuttons
+released. RestoreEXACTtestednormal93ebaftertestbefore15:00. Prefernoflashafter
+14:45;nostartat/after14:52(8minmargin). No SOFinstrumentation/app/DPIwritesnow.
+Plan docs/plans/2026-11-18-input-conservation.md. Copy-pastehandoffneedsfinal
+consolidationoncebuildready. No subagents or newdependencies.
+
 RESUMED NOVEMBER18 / RESTORATION CONFIRMATION RECONCILED:
 User's final Nov17 reply confirmed restored normal v14 wireless operation works
 normally. Prior pending restoration popup is resolved; no additional flash needed.

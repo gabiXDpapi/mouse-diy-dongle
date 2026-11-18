@@ -487,3 +487,8 @@ V3's earlier ten-second/1024-ACK sessions used45-second captures.
 This first HID bridge keeps USB text logging and radio polling; neither latency
 nor1000Hz operation is established. The original HID demo, passive logger and
 non-HID probe remain available. See PROJECT_CONTEXT.md for exact build/hardware state.
+
+
+### November 18: input-accounting diagnostic software ready
+
+Normal v14 remains installed. The opt-in `input` build (USB product `DIY Mouse Input v17`) adds quiet accepted movement/wheel/button totals with a stopped-only dump and a matching Raw Input analyzer. Software checks and both diagnostic/normal-control builds passed; hardware validation is pending. This preserves baseline polling and does not promote the faster experiment. Equal aggregate totals cannot prove individual-event preservation or explain the earlier two-record count difference. See [the diagnostic plan](docs/plans/2026-11-18-input-conservation.md).

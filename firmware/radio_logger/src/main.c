@@ -14,6 +14,9 @@
 #include <nrfx.h>
 #include "radio_parameters.h"
 #ifdef LATENCY_DIAGNOSTICS
+#ifdef INPUT_CONSERVATION
+#include "input_totals.h"
+#endif
 static uint32_t latency_clock_us(void)
 {
     NRF_TIMER2->TASKS_CAPTURE[3] = 1;

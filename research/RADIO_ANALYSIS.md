@@ -2483,3 +2483,8 @@ state/no release error validates forced neutral at normal active-window expiry.
 USB disconnect/reset/error release paths remain untested physically. Board v3
 expired/passive,one arm/discovery used,617 ACK attempts used. Bounded controls
 validation complete;continuous link/recovery and gaming performance remain open.
+
+
+### November 18: input-accounting diagnostic software ready
+
+Normal v14 remains installed. The opt-in `input` build (USB product `DIY Mouse Input v17`) adds quiet accepted movement/wheel/button totals with a stopped-only dump and a matching Raw Input analyzer. Software checks and both diagnostic/normal-control builds passed; hardware validation is pending. This preserves baseline polling and does not promote the faster experiment. Equal aggregate totals cannot prove individual-event preservation or explain the earlier two-record count difference. See [the diagnostic plan](../docs/plans/2026-11-18-input-conservation.md).

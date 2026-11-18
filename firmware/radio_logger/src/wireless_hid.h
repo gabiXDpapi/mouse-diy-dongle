@@ -140,6 +140,9 @@ static int wireless_hid_forward(const uint8_t *p)
         wireless_hid_busy++;
     }
     if (!err) {
+#ifdef INPUT_CONSERVATION
+        input_totals_record(report);
+#endif
         wireless_hid_reports++;
         wireless_hid_last_sequence = p[1];
         wireless_hid_has_sequence = true;
@@ -157,6 +160,9 @@ static int wireless_hid_finish(void)
     if (err) {
         return err;
     }
+#ifdef INPUT_CONSERVATION
+    input_totals_neutral();
+#endif
     if (k_sem_take(&wireless_hid_slot, K_MSEC(1000)) != 0) {
         return -ETIMEDOUT;
     }

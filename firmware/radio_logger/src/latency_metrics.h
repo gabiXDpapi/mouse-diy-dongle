@@ -40,6 +40,9 @@ static bool latency_reset(void)
     unsigned int key = irq_lock();
     if (latency_pending.active) { irq_unlock(key); return false; }
     memset(latency_metrics, 0, sizeof(latency_metrics));
+#ifdef INPUT_CONSERVATION
+    input_totals_reset();
+#endif
     latency_capped = latency_rx_valid = latency_tracking_fault = false;
     latency_failed_submissions = 0;
     latency_collect = true;

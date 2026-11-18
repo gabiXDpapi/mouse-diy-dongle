@@ -70,6 +70,9 @@ static uint32_t fake_us;
 static unsigned int irq_lock(void) { return 0; }
 static void irq_unlock(unsigned int key) { assert(key == 0); }
 static uint32_t latency_clock_us(void) { return fake_us; }
+#ifdef INPUT_CONSERVATION
+#include "radio_logger/src/input_totals.h"
+#endif
 #include "radio_logger/src/latency_metrics.h"
 #endif
 #include "radio_logger/src/wireless_hid.h"
@@ -95,10 +98,16 @@ int main(void)
     assert(!wireless_hid_has_sequence);
     assert(wireless_hid_forward(p) == 0 && writes == 1);
     assert(wireless_hid_reports == 1 && wireless_hid_retries == 0);
+#ifdef INPUT_CONSERVATION
+    assert(input_totals.reports == 1 && input_totals.dx == -32768 && input_totals.dy == 32767);
+#endif
     assert(wireless_hid_busy == 0);
     assert(memcmp(last_report, expected, sizeof(expected)) == 0);
     assert(wireless_hid_forward(p) == 0 && writes == 1); /* Retransmission. */
     assert(wireless_hid_reports == 1 && wireless_hid_retries == 1);
+#ifdef INPUT_CONSERVATION
+    assert(input_totals.reports == 1); /* RF retry is not repeated host input. */
+#endif
     assert(wireless_hid_forward(idle) == 0 && writes == 1);
     status_packet[1] = 1;
     assert(wireless_hid_forward(status_packet) == 0 && writes == 1);
@@ -214,6 +223,13 @@ int main(void)
     assert(wireless_hid_finish() == 0 && latency_metrics[LAT_RF_USB].count == neutral_count);
     latency_ack(100, 150, 200); latency_stop();
     assert(latency_dump_ready() && !latency_tracking_fault);
+#ifdef INPUT_CONSERVATION
+    assert(input_totals.reports == 2 && input_totals.reports == wireless_hid_reports);
+    assert(input_totals.neutral_reports == 1 && input_totals.buttons == 0);
+    for (unsigned int i = 0; i < 5; i++) {
+        assert(input_totals.down[i] == 1 && input_totals.up[i] == 0 && input_totals.neutral_up[i] == 1);
+    }
+#endif
 #endif
     return 0;
 }
