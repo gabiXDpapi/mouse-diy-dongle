@@ -319,6 +319,21 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NORMAL V14 RESTORATION USER-CONFIRMED / IDLE RECOVERY NEXT - 2026-11-18 14:32 Manila:
+User confirmed restored normal wireless movement/click works. Installed tested
+normal v14 93eb987a, automatic until unplug; no serial/capture/build running.
+V17 accounting milestone4b99ed2 pushed, exact9585report/content match, no issues.
+Reviewed SDK USB SOF path: usb_dc_nrfx.c queues USBD_EVT_SOF then delivers status
+in usbd_work_handler; callback timestamp is NOT hardware SOF time. TIMER2 already
+uses all4CC slots. Future phase instrumentation needs isolated diagnostic timer/
+PPI hardware capture and native resource/race/wrap tests; not implemented/flashed.
+Next useful unchanged-v14 reliability check: bounded five-minute mouse inactivity
+then movement/button/wheel recovery with no receiver reset or arm, followed by
+continued normal use. This only demonstrates chosen idle duration; not proof of
+mouse deep sleep, OS suspend or overnight endurance. Need physical readiness popup.
+Pause15:00Manila today; no long trial that overruns this deadline. User ordinary
+wireless use no issues, duration unknown. Companion app remains deferred.
+
 NORMAL V14 RESTORED AFTER V17 / USB VERIFIED - 2026-11-18 14:26 Manila:
 User NICENANO readiness wired/OFF confirmed. Unique bootloader board/S140 and
 exact tested normal93eb987a SHA/181-block application UF2 verified then restored.
