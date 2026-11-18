@@ -41,3 +41,13 @@ References:
 - Installed source: C:/Users/Gabriel/zephyrproject/zephyr/drivers/usb/device/usb_dc_nrfx.c
 - Nordic TIMER register counts: https://docs.nordicsemi.com/r/bundle/ps_nrf52840/page/timer.html
 - Nordic USBD SOF/PPI: https://docs.nordicsemi.com/r/bundle/ps_nrf52840/page/usbd.html
+
+Additional source verification during the idle check: nrf_usbd_common_start(false)
+removes SOF from the interrupt mask but leaves the USB peripheral operating. This
+supports testing event-to-PPI capture without enabling queued SOF callbacks, but
+the actual hardware cadence still needs a startup self-check. Endpoint IN success
+also becomes EP_EVT_WRITE_COMPLETE in the same USB work queue before DATA_IN and
+HID int_in_ready. Our existing RF-to-USB callback metric therefore includes that
+dispatch delay; it must not be relabeled USB wire completion or physical latency.
+The exact observed source chain is usb_dc_nrfx.c:usbd_event_transfer_data ->
+usbd_work_process_ep_events -> HID core.c:hid_int_in -> wireless_hid_ready.

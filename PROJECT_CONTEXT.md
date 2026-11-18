@@ -319,6 +319,58 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+NORMAL V14 FIVE-MINUTE IDLE RECOVERY PASS - 2026-11-18 14:45 Manila:
+User confirmed recovered promptly, controls smooth, no reconnect/powercycle. Idle
+explicitstart14:36:35; wake cue AFTER14:41:35 threshold. Segmented passive captures
+completed cleanly: pre2286/wake2381 receiver records, bothread_errors0/failed0.
+Wake raw contains movement,left1/right2/middle2 balancedpairs,wheelUP29/DOWN40;
+thumb edges0 and activity reaches capture end: do NOT claim post-idle thumb test.
+Pre/post recordedinputgap613.099s includes uncaptured idle; only conservative
+user-confirmed5min inactivity claimed, not uninterrupted10min/deep-sleep proof or
+measured wake latency. Private v14-idle-20261118-143124.summary.json. Journal cue
+UTC recorded after popup, not exact cue delivery. No continuous full-idle coverage.
+Installed normal v14 automatic and user-confirmed; no recording/serial/build live.
+NEXT released-button Windows sleep/resume reliability check on unchangedv14 if
+physical readiness/time permits, otherwise future USBphase diagnostic per review.
+Pause15:00Manila today. No further flash planned. No fast-poll promotion/appwrites.
+
+FIVE-MINUTE WAKE CUE SENT / RECOVERY RECORDING ACTIVE - 2026-11-18 14:42 Manila:
+Wake cue sent AFTER14:41:35 threshold; conservative idle5min completed. Separate
+100s passive wake capture session61676, base original-idle-base + -wake. User
+asked movement/all5buttons/wheel20s, no resets/powercycle. Normalv14 active; no
+serial/arm/flash. NEXT poll61676 (~14:43end), analyze pre/post CSV and user recovery
+reply. Explicit segmentation; no deep-sleep or true wake-latency measurement claim.
+
+IDLE INITIAL RECORDING COMPLETE / WAITING FOR WAKE EPOCH - 2026-11-18 14:39 Manila:
+Session45325 finished420s, raw2286records, read_errors0/failed0. Receiver input
+pre-summary2286, balanced observedbuttons: left12/right7/middle2 pairs,470wheel
+records. Last recorded movement~14:32:32; conservative explicit idle-start remains
+14:36:35. No live recording/serial/build now. Do NOT cue wake before14:41:35.
+Need start separate100s passive capture then popupcontrols (normal v14 unchanged).
+
+FIVE-MINUTE IDLE START CONFIRMED - 2026-11-18 14:36:35 Manila:
+User pre-idle controls tried; mouse ON and untouched. Idle start UTC06:36:34.9707,
+wake NO EARLIER THAN06:41:34.9707 (14:41:35Manila). Normalv14 autoactive unchanged.
+Private current-idle-base.txt identifies v14-idle-20261118-143124; .idle.json holds
+explicit epoch. Initial420s capture session45325 ends14:38:25 BEFORE wake because
+user initial reply was delayed. Do not claim continuous host coverage of full5min.
+NEXT atwake start separate bounded100s passive Raw Input capture (no serial),
+then popupmove/click/wheel. Analyze pre/post separately; idle observation/user
+inactivity can still span5min. Do not auto reset/arm or flash. Keep initialcapture
+until its existing limit; poll45325 completion. No mouse deep-sleep proof claimed.
+Pause15:00Manila today. Record segmentation transparently in final results.
+
+NORMAL V14 IDLE RECOVERY CAPTURE RUNNING - 2026-11-18 14:31 Manila:
+User readiness document/other pointer/Glorious OFF-unplugged confirmed. Unique
+normal v14 USB identity and known raw logger hash verified. No serial opened.
+Passive background Raw Input420s session45325 started; private base
+C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE\build-pairing-analysis\v14-idle-20261118-143124. Cue ON/controls15s then ON/untouched popup sent.
+NEXT await user's idle-start answer; record UTC, time5min, then popupwake/control
+cue. Capture hard duration420s from14:31:24 (~14:38:24 end); if user's initial
+answer is delayed >~60s, do not falsely claim5min fully captured; analyze what
+actually occurred. No firmware stop; normalv14 remains active after capture.
+Pause15:00Manila today. Background counts for recovery only, not rate qualification.
+
 NORMAL V14 RESTORATION USER-CONFIRMED / IDLE RECOVERY NEXT - 2026-11-18 14:32 Manila:
 User confirmed restored normal wireless movement/click works. Installed tested
 normal v14 93eb987a, automatic until unplug; no serial/capture/build running.

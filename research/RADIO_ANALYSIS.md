@@ -2510,3 +2510,22 @@ Diagnostic UF2 SHA256:
 `aea67abc7c748d90c3fde1cc2931343d3e81fcf5b2492c741de82cebfb81b01d`.
 Private captures and image remain ignored. Restore tested normal v14 after the
 trial; consult PROJECT_CONTEXT.md for the latest installed-board state.
+
+
+### November 18: normal v14 inactivity recovery
+
+On unchanged normal v14, the user left the wireless mouse ON and untouched for
+at least five minutes after an explicit idle-start confirmation, then reported
+prompt, smooth recovery with no receiver reset, mouse power cycle or reconnect.
+Separate pre-idle and wake background Raw Input recordings finished without read
+errors (2,286 and 2,381 receiver records). The wake recording contains movement,
+balanced left/right/middle clicks and wheel movement in both directions. Thumb
+button events were not captured in that short wake window; post-idle thumb-button
+coverage is not claimed.
+
+The recordings do not continuously cover the entire idle interval. The observed
+pre/post input gap is not a measured radio-silence or wake-latency interval. This
+is a user-confirmed inactivity-recovery check, not proof of mouse deep sleep,
+Windows suspend recovery, overnight endurance or sustained polling performance.
+No firmware change, serial command or setting change was involved. Normal v14
+remains installed for everyday operation.

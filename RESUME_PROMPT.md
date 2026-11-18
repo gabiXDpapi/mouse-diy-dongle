@@ -1,22 +1,22 @@
 Continue the DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-17-gaming-qualification.md.
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-usb-frame-timing-review.md.
 
-NORMAL V14 RESTORATION USER-CONFIRMED / IDLE RECOVERY NEXT - 2026-11-18 14:32 Manila:
-User confirmed restored normal wireless movement/click works. Installed tested
-normal v14 93eb987a, automatic until unplug; no serial/capture/build running.
-V17 accounting milestone4b99ed2 pushed, exact9585report/content match, no issues.
-Reviewed SDK USB SOF path: usb_dc_nrfx.c queues USBD_EVT_SOF then delivers status
-in usbd_work_handler; callback timestamp is NOT hardware SOF time. TIMER2 already
-uses all4CC slots. Future phase instrumentation needs isolated diagnostic timer/
-PPI hardware capture and native resource/race/wrap tests; not implemented/flashed.
-Next useful unchanged-v14 reliability check: bounded five-minute mouse inactivity
-then movement/button/wheel recovery with no receiver reset or arm, followed by
-continued normal use. This only demonstrates chosen idle duration; not proof of
-mouse deep sleep, OS suspend or overnight endurance. Need physical readiness popup.
-Pause15:00Manila today; no long trial that overruns this deadline. User ordinary
-wireless use no issues, duration unknown. Companion app remains deferred.
+NORMAL V14 FIVE-MINUTE IDLE RECOVERY PASS - 2026-11-18 14:45 Manila:
+User confirmed recovered promptly, controls smooth, no reconnect/powercycle. Idle
+explicitstart14:36:35; wake cue AFTER14:41:35 threshold. Segmented passive captures
+completed cleanly: pre2286/wake2381 receiver records, bothread_errors0/failed0.
+Wake raw contains movement,left1/right2/middle2 balancedpairs,wheelUP29/DOWN40;
+thumb edges0 and activity reaches capture end: do NOT claim post-idle thumb test.
+Pre/post recordedinputgap613.099s includes uncaptured idle; only conservative
+user-confirmed5min inactivity claimed, not uninterrupted10min/deep-sleep proof or
+measured wake latency. Private v14-idle-20261118-143124.summary.json. Journal cue
+UTC recorded after popup, not exact cue delivery. No continuous full-idle coverage.
+Installed normal v14 automatic and user-confirmed; no recording/serial/build live.
+NEXT released-button Windows sleep/resume reliability check on unchangedv14 if
+physical readiness/time permits, otherwise future USBphase diagnostic per review.
+Pause15:00Manila today. No further flash planned. No fast-poll promotion/appwrites.
 
 Current branch: feature/input-conservation-diagnostics.
 Normal v14 rollback: build-pairing-analysis/dongle-v14-93eb987a.uf2

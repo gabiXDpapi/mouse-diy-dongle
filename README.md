@@ -494,3 +494,5 @@ non-HID probe remain available. See PROJECT_CONTEXT.md for exact build/hardware 
 Normal v14 remains installed. The opt-in `input` build (USB product `DIY Mouse Input v17`) adds quiet accepted movement/wheel/button totals with a stopped-only dump and a matching Raw Input analyzer. Software checks and both diagnostic/normal-control builds passed; hardware validation is pending. This preserves baseline polling and does not promote the faster experiment. Equal aggregate totals cannot prove individual-event preservation or explain the earlier two-record count difference. See [the diagnostic plan](docs/plans/2026-11-18-input-conservation.md).
 
 V17 hardware accounting also passed one foreground trial: 9,585 device/host reports and movement, wheel and five-button totals matched; the user confirmed smooth operation and clean stopping. The earlier count difference remains unexplained. See `research/RADIO_ANALYSIS.md` for scope and limitations.
+
+Normal v14 also recovered smoothly after a user-confirmed five-minute inactivity interval without reconnecting. Deep sleep and Windows sleep/resume remain unqualified; see the research notes for recording coverage.
