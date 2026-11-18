@@ -319,6 +319,38 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+RESUMED NOVEMBER18 / RESTORATION CONFIRMATION RECONCILED:
+User's final Nov17 reply confirmed restored normal v14 wireless operation works
+normally. Prior pending restoration popup is resolved; no additional flash needed.
+Last verified installed image remains normal v14 SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052, automatic
+plug-and-play until unplug. No live reader/capture/build/helper from prior session.
+Today's work window: until15:00 (3PM) Manila November18,2026, UTC07:00. Old03:30
+Nov17 deadline expired. Physical connections/power not reverified since break.
+Next investigate the two host-record difference with opt-in diagnostic accepted
+motion/wheel/button-edge totals before further latency optimization. Preserve
+working v14 and frozen v15/v16 images. No normal fast-poll promotion. Companion app
+remains deferred until AFTER gaming optimization; no mouse setting writes.
+Current branch before new work feature/receiver-fast-poll-latency; prior restored
+state was local uncommitted context, now being saved. Only .vscode/INFO_UF2.TXT
+are unrelated untracked;keep them untouched. Continue until physical readiness is
+needed,then question popup/pause. Keep context and concise resume prompt current.
+
+NORMAL V14 RESTORED AFTER ABBA / USB VERIFIED - 2026-11-17 03:15 Manila:
+Userv15run2Smooth/cleanstopped/noissueandNICENANOreadywired/OFF. Board/S140/exact
+normal93eb987a hash/181blockUF2verifiedthenrestored. ProductDIY Mouse Dongle v14,
+HID/CDCverifiedWITHOUTserial. Private normal-v14-restored-after-replication.json.
+InstalledNOWnormalv14automatic/listening;NOTtiming/disarmed/passive/expired.
+No livecaptures/readers/builds/helpers/UAC. BothreplicationuserfeelreportsPASS.
+Fourruncomparison1b38571pushed;corefindingno consistenttotalreceiverlatencybenefit
+fromfastpolldespiterepeatedquickerRFhandling. Do notpromotefasttonormal.
+Briefrestorationwirelesschecknext;normalv14wasalreadyhardwaretestedandearlier
+restorecheckpassed. No morediagnosticruns/firmwarechanges. Deadline03:30AMNov17.
+NEXT savefinalhand-off/fourruntableandplanningforUSBframephase+acceptedinput
+motion/buttonconservationtoinvestigatetworecordhostdifference. No newinstrumentation
+implementedthissession. Refreshdeadlineonlaterresume;companionappdeferred.
+Currentstatesupersedesoldertiming-installed/pendingrestorehistory.
+
 V15 RUN2 CAPTURE VALID / ABBA CONCLUSION - 2026-11-17 03:10 Manila:
 exec27549complete100srawread_errors0. Internaldeviceframeall6hist/count/sum/ACK/
 busychecksPASS,failed/capped/trackingfault0. Deviceaccepted/completed27594;
