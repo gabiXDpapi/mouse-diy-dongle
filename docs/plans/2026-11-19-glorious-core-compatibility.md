@@ -50,3 +50,12 @@ Normal-mode isolation build PASS, diagnostic flag OFF. No image flashed.
 User requested pause before bootloader readiness. Resume with v20 flash popup,
 separate stationary mouse-on read-query capture, then restore tested v14.
 CORE vendor transport and setting writes remain unimplemented/unvalidated.
+
+
+## November20 first RF read-query PASS
+
+Exact v20 flashed after fresh bootloader readiness, USB product/COM12 verified.
+Stationary mouse trial returned version1.0.0.0 matching wired reference: eight
+fragment attempts, full64-byte query and16-byte reply, complete/no failure.
+Capture closed and x stopped receiver. Restore tested normalv14 before further
+implementation. CORE detection/settings writes and loss/retry stress remain open.

@@ -15,8 +15,9 @@ See [protocol findings](research/CORE_COMPATIBILITY.md).
 
 The opt-in `-App config-read` v20 diagnostic sends one fixed wireless firmware-
 version query, suppresses pointer output and emits its result only after CDC `x`
-then `d`. Native codec/integration checks and UF2 validation pass; it has not been
-flashed or hardware-tested. It does not yet expose CORE-compatible configuration.
+then `d`. Native codec/integration checks, UF2 validation and the first hardware
+read-query roundtrip pass: firmware 1.0.0.0 matches the wired reference, with
+eight fragment attempts and a complete 16-byte reply. It does not yet expose CORE-compatible configuration.
 Keep the mouse wired/OFF before flash; restore the exact preserved, tested normal
 v14 image afterward. No settings writes or mouse bootloader commands exist in
 this experiment. Do not use the diagnostic for ordinary mouse operation.
