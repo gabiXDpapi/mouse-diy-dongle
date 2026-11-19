@@ -319,6 +319,22 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+GAMEPLAY30min COMPLETION REPORTED / OBSERVATIONS PENDING - 2026-11-19 19:07 Manila
+
+User selected completed30minutes. Completion report received about11:07UTC,
+more than30minutes after recorded10:35:22UTC cue, consistent with the requested
+manual duration. Do not mark a pass until issue/continuity and controls reports
+arrive. Private diary current-gameplay-diary.txt points to gameplay-normal-v14-
+20261119-183522-482615bf.json, updated with actual report time/wall elapsed.
+
+Two observation questions pending: smooth/no stalls/disconnects/overshoot/stuck
+buttons or interruptions, and controls actually used. Game/mode optional. No
+input/health recording, serial, build or automated game interaction ran. Normal
+v14 remains the known installed automatic receiver; no firmware changes.
+NEXT collect observations, mark only tested controls/user-reported duration,
+save/push preliminary result and concise handoff.30min is not4h/8h soak or physical
+latency proof. No further physical trial starts without fresh readiness.
+
 GAMEPLAY START CUE / AWAITING USER PLAY AND REPORT - 2026-11-19 18:35:22 Manila
 
 User confirmed game loaded and30minutes available, GloriousON/USBunplugged with

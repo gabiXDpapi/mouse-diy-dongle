@@ -1,75 +1,54 @@
-GAMEPLAY START CUE / AWAITING USER PLAY AND REPORT - 2026-11-19 18:35:22 Manila
-
-User confirmed game loaded and30minutes available, GloriousON/USBunplugged with
-normal receiver and otherpointer ready. Unique USB productDIY Mouse Dongle v14
-verified without serial. Known installed tested image remains93eb987a.
-Private manual diary: build-pairing-analysis/gameplay-normal-v14-20261119-183522-482615bf.json
-Start cue recordedUTC 2026-11-19T10:35:22.181590+00:00; planned30min endUTC 2026-11-19T11:05:22.181590+00:00
-(about 19:05:22 Manila). User starts their own30min manual timer.
-This records the cue, not independently observed play. Actual duration/controls/
-issues must come from the user afterplay. No input recording, serial, automated
-gameplay, health monitor, build or timer service is running. Normal mouse operation
-continues indefinitely; diary ending does not stop the receiver.
-
-NEXT: send start/completed-or-stop popup; await actualuserplay. If returned early,
-record actualduration/reason; do not claim30min pass based only on selection.
-Collect game/mode optional, controls actually tried, stalls/disconnects/overshoot/
-stuckbuttons and interruptions. A30min pass is preliminary, not longsoak or physical
-latency qualification. Currentbranchfeature/timed-host-polling-measurement.
-Keepcontext/resume current and push milestone after actualresults. No firmware,
-settings, driver, game automation or companion app work is needed duringplay.
-
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read PROJECT_CONTEXT.md (especially LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md, and docs/plans/2026-11-18-gameplay-qualification.md.
+Read PROJECT_CONTEXT.md (LATEST HANDOFF / NEXT), README.md,
+research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-gameplay-qualification.md.
 
-The project resumed on November19,2026 after the November18 pause. Gameplay readiness is confirmed; a manual30-minute start cue is now being issued. See the diary state below.
-A manual gameplay trial is awaiting user play/report. No recording, build, serial reader, timer service or continuous monitor is running.
-Normal v14 remains installed and user-confirmed working automatically. Do not
-repeat extraction, builds, flashing, arming or completed baselines.
+PRELIMINARY30min GAMEPLAY PASS / FOUR-HOUR READINESS NEXT - 2026-11-19 19:09 Manila
+
+User confirmed30minutes completed, smooth movement/aim throughout, no issues or
+interruptions, and actual use of left/right clicks,wheel,middle,boththumbbuttons.
+Completion report arrived11:07UTC, more than30min after10:35:22UTC cue; manual
+user-reported duration30min. Game/mode unspecified. No input/health recording,
+serial, automated gameplay, driver/settings/firmware changes ran. Exact physical
+play start/end are not independently observed. Private current-gameplay-diary.txt
+points to gameplay-normal-v14-20261119-183522-482615bf.json, now user-reported PASS.
+
+Installed receiver remains exact tested normal v14 93eb987a, automatic/noarm/no
+limit. No active capture, reader, build, timer service or background monitor.
+NEXT push preliminary milestone then ask readiness/available time for a SEPARATE
+four-hour ordinary wireless-use window on unchanged firmware. No new flash/build
+or repeated baseline. Mix desktop/gaming/natural idle if desired; no requirement
+to game continuously. Record actual active use/breaks and all resets/reconnects/
+sleep/wired charging/issues. Keep normal power/settings policies. Only start diary
+after fresh readiness; early/interrupted window is not uninterrupted4h pass.
+
+The30min pass is preliminary, not4h/8h/multiday or physical-latency qualification.
+Guided near1kHz HOST delivery/configured1ms USB evidence stands with limitations;
+rare15.279ms host gap and historicalA2two-record discrepancy remain unexplained.
+Companion app/DPI/lighting writes deferred. Keepcontext/resume current, private
+captures/addresses/binaries ignored; unrelated.vscode/INFO_UF2.TXT untouched.
 
 Current branch: feature/timed-host-polling-measurement.
-Latest tested result e3ffb03 and pause checkpoint da2bcff are pushed.
-Exact installed/tested rollback image (private, ignored):
+Prior tested result e3ffb03, pause da2bcff and manual start0f239db are pushed;
+30-minute gameplay result milestone follows. No new physical trial has started.
+
+Known installed/tested normal image (no restoration needed):
 build-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA256: 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
-USB product: DIY Mouse Dongle v14. No serial/arm/time limit. No restoration needed.
-Do not substitute the software-only cb8bbb60 control or diagnostic images.
+USB product: DIY Mouse Dongle v14. No serial/arm/time limit.
+Do not substitute softwarecontrolcb8bbb60 or diagnostic images.
 
-Next: ask readiness and available time for the preliminary 30-minute gameplay
-check on unchanged normal v14. I will open a familiar practice/offline game with
-Glorious ON/USB unplugged and another pointer available. Start the manual diary
-only after readiness; record actual start/end, controls tried and any stalls,
-disconnects, overshoot or stuck buttons. No recording, game automation, keyboard/
-screen capture, settings changes or continuous health monitor is planned. An early
-stop must be recorded as such. This is preliminary gameplay, not long-term proof.
+Prior evidence: liveUSB7e23c76 verifies fullspeedHID2/IN0x83/max16/bInterval1/
+activepipe match. Guided larger wireless run averaged964.9movementevents/s over
+fixed20s,916-993each second, median1ms; user smooth/continuous. This is host-
+delivery evidence, not actual fresh sensor polling or physical end-to-end latency.
+PhaseABBA0a7c14e showed~18us RFstage reduction with10us radio checks but no reliable
+wholegaminggain; normal keeps50us CPUwait, separate from USB1ms polling. No more
+ABBA repeats needed. OneS3 and5mininactivity recovery passed; replug/powercycle/
+allfivebuttons/wheel passed earlier. Long4h/8h/multiday testing is still pending.
 
-Completed evidence:
-- Live USB check 7e23c76: full speed, HID interface2, IN0x83, max packet16,
-  bInterval1, matching active pipe: configured 1ms / target1000Hz.
-- Guided larger wireless run: fixed20s, 19,298 nonzero movement updates,
-  964.9/s overall, 916–993 each second, median gap1000us; user smooth/continuous.
-  Private: v14-timed-motion-20261118-192310-503bc56c.summary.json.
-- Larger wired reference: 842.85/s, median1007us; user smooth/continuous.
-  Private: wired-timed-motion-20261118-192030-00e9c914.summary.json.
-- First wireless zero-event interval did not recur after target-mouse activation
-  and larger motion; original cause remains unexplained. Preserve all fixed epochs.
-- Phase-aware ABBA 0a7c14e: 10us CPU radio-check wait reduced RF-to-submit~18us,
-  but overall gaming benefit remains unproven. Normal retains50us CPU wait.
-  That CPU wait is separate from USB1ms polling and total latency.
-- One WindowsS3 and five-minute inactivity recovery passed. All five buttons,
-  wheel, automatic replug and mouse power-cycle recovery passed earlier.
-
-Limits: these are host-delivery/configuration observations, not sustained fresh
-sensor1kHz, USBtoken or physical end-to-end latency certification. The guided
-wireless maximum host gap15.279ms is unexplained. Historical A2 two-record gap
-also remains unexplained. No 4h/8h/multiday soak or repeated sleep/hibernate pass.
-
-Keep PROJECT_CONTEXT.md and this copy-paste handoff current after meaningful
-steps. Commit/push tested milestones on feature branches. Pause with question
-popups for physical intervention. Refresh the work window after this break;
-previous deadlines/open-ended authorization do not start a new trial by themselves.
-Keep captures, private addresses and binaries ignored; leave unrelated .vscode/
-and INFO_UF2.TXT untouched. Companion app/DPI/lighting writes remain deferred.
+Keep context and this copy-paste handoff current after meaningful steps. Push
+tested milestones on feature branches. Pause with question popups for physical
+readiness/results. Do not start a new use window before readiness or imply any
+recording/continuous monitor. No recording or timer service is running now.

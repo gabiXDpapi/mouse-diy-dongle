@@ -2837,3 +2837,22 @@ Normal v14 remains installed and working wirelessly. No more firmware baseline
 repeats are needed now. Next: a preliminary real gameplay/reliability trial, then
 longer ordinary use, preserving exact normal93eb as the tested firmware. No faster
 polling promotion or new companion app/DPI/lighting writes follows from this result.
+
+
+### Preliminary30-minute gameplay check passed (November19)
+
+On exact tested normal v14, the user reported completing30minutes of gameplay,
+with smooth aim/movement throughout, no issues or interruptions, and actual use
+of left/right clicks, wheel, middle and both thumb buttons. The completion report
+arrived more than30minutes after the recorded start cue. Game/mode was not
+specified. This is a user-reported manual-timer result; no input recording,
+automated gameplay, continuous health monitor or objective latency measurement
+was running. Exact physical play start/end are not independently observed.
+
+Normal v14 remains the known installed automatic receiver, with no firmware,
+serial, driver or settings change during this check. This passes preliminary
+in-game functionality/reliability for the reported session. It does not establish
+4h/8h/multiday reliability, fresh sensor1kHz, perfect jitter or physical input-to-
+screen latency. The previously observed rare15.279ms host gap remains unexplained.
+Next: a separately started four-hour ordinary wireless-use window if practical,
+recording actual use and interruptions rather than counting earlier mixed trials.
