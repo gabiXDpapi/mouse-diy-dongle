@@ -184,3 +184,29 @@ Do NOT restore source-built normalcontrol6877579c. Verify USB product normalv14
 without serial; then separate user check that wireless automatic control works.
 After restoration continue CORE vendor transport work from this successful read
 reference. Four-hour trial remains deferred; app compatibility before soak.
+
+
+NOVEMBER20 EXACT NORMAL V14 RESTORED after successful v20 RF read.
+User confirmed NICENANO readiness/mouse wired-OFF. Verified board and exact
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052 frozen v14
+before copy; USB product DIY Mouse Dongle v14 verified afterward. No serial
+opened. Private record: core-v20-normal-restoration.json. Physical wireless
+movement/click restoration check PENDING popup; no recording running.
+No build/serial/helper/timer/capture remains. No settings writes occurred.
+V20 hardware read milestone pushed5bda374: firmware1.0.0.0 equals wired,8fragment
+attempts,16replybytes,complete/no failure. V20 is no longer installed.
+After restoration check, continue CORE-compatible vendor transport preparation
+on feature/glorious-core-compatibility; keep four-hour trial deferred. No need
+to repeat version baseline/build/flash. CORE detection/settings writes remain
+unimplemented. Ask fresh physical readiness for any future diagnostic flash.
+
+
+NOVEMBER20 RESTORATION COMPLETE: user confirms automatic wireless movement/click
+works normally on exact tested v14 after v20. No capture/serial/build running.
+Next software milestone: native USB Feature-report to RF read-only bridge using
+local prototype IDs first; CORE cannot connect to this staging identity. Existing
+CORE native code matches VID/PID and HID usage, NOT interface number, so CDC may
+remain while adding a separate vendor HID collection; no need to remove CDC or
+reorder original mouse interface just to test transport. Reject settings/update
+commands during this read-only stage; app initialization can write profiles.
+No existing user settings changed; four-hour trial remains deferred.
