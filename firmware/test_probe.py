@@ -10,12 +10,14 @@ class ProbeTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('gcc'), 'Native GCC required for probe harness')
     def test_probe_guards_and_timeout(self):
         with tempfile.TemporaryDirectory() as directory:
-            for mode in ('probe', 'receiver', 'dongle'):
+            for mode in ('probe', 'receiver', 'dongle', 'config-read'):
                 with self.subTest(mode=mode):
                     executable = Path(directory) / f'{mode}-test.exe'
                     flags = ['-DWIRELESS_HID=1'] if mode != 'probe' else []
-                    if mode == 'dongle':
+                    if mode in ('dongle', 'config-read'):
                         flags += ['-DNORMAL_DONGLE=1']
+                    if mode == 'config-read':
+                        flags += ['-DRF_CONFIG_READ_DIAGNOSTICS=1']
                     result = subprocess.run(['gcc', '-std=c11', '-Wall', '-Wextra', '-Werror',
                                     *flags, str(Path(__file__).with_suffix('.c')), '-o', str(executable)],
                                             capture_output=True, text=True)

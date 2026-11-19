@@ -5,6 +5,22 @@ Plug-and-play wireless Windows pointer control is user-confirmed on normal v14.
 Long-term reliability and gaming performance remain under development; the default
 build is still the original USB HID demo.
 
+## Glorious CORE compatibility work
+
+CORE integration now takes priority over the pending four-hour reliability trial.
+Wired readback confirms firmware 1.0.0.0, a 1000 Hz setting, profile-1 DPI stages
+400/800/1600/3200 and currently selected 800 DPI. General lighting is disabled in
+CORE's support record for this model; DPI-stage colours use a separate command.
+See [protocol findings](research/CORE_COMPATIBILITY.md).
+
+The opt-in `-App config-read` v20 diagnostic sends one fixed wireless firmware-
+version query, suppresses pointer output and emits its result only after CDC `x`
+then `d`. Native codec/integration checks and UF2 validation pass; it has not been
+flashed or hardware-tested. It does not yet expose CORE-compatible configuration.
+Keep the mouse wired/OFF before flash; restore the exact preserved, tested normal
+v14 image afterward. No settings writes or mouse bootloader commands exist in
+this experiment. Do not use the diagnostic for ordinary mouse operation.
+
 ## Plug-and-play receiver
 
 The new `dongle` build (v14) starts automatically after USB configuration and

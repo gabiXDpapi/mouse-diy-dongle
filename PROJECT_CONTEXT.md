@@ -320,6 +320,69 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+PAUSED AT USER REQUEST - November 19; resume only when user returns.
+No physical intervention requested now. No serial/capture/build/timer/helper is
+running. Normal TESTED v14 remains installed (93eb987a frozen image), unchanged.
+Mouse last confirmed WIRED, Glorious CORE closed. No settings changed.
+
+Latest completed steps: wired READ-only reference succeeded: firmware1.0.0.0,
+1000Hz setting, profile1 stages400/800/1600/3200, active stage2=800DPI.
+Private observation: build-pairing-analysis/core-wired-settings-reference.json.
+Built/UF2-validated v20 READ-only RF diagnostic; native12 checks pass including
+actual ACK/no-HID/x-stop integration, plus capture-parser self-test. It sends
+only one fixed firmware-version query; no pointer output, settings writes,
+CORE-compatible vendor interface or mouse bootloader/updater commands.
+Private frozen: config-read-v20-68f92a56.uf2; SHA256
+68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632.
+Product DIY Mouse Config Read v20;191blocks;0x26000..0x31F00;48828flash/16512RAM.
+NOT FLASHED/HARDWARE-TESTED. Source/config metadata and logs ignored.
+Normal isolation rebuild also PASS, experimental flagOFF; normalcontrol SHA256
+6877579cdeb4bfd5587894f7e238dcf31eb1c6ddcfce0ddf0ecf3704c5ca82c7,
+46188flash/16064RAM. That control is NOT hardware-tested and NOT the rollback.
+
+On resume: read research/CORE_COMPATIBILITY.md and November19 CORE plan. Ask
+popup for v20 flash readiness: Glorious wired/OFF, receiver double-reset into
+NICENANO. Verify board and exact preserved v20 hash before copy; check passive
+USB startup. Then separate mouse-OFF/unplugged readiness and capture-running
+cue for research/capture_config_read.ps1 (one reader, no p, x35s/d frozen summary,
+closes by40s). Mouse should stay STILL; diagnostic has no wireless pointer output.
+Compare radio version reply with wired reference; no speculative config writes.
+Restore EXACT TESTED v14 (93eb987a) after trial or failure, using separate physical
+readiness. Keep CORE CLOSED throughout v20; it does not support CORE detection.
+Do not repeat completed extraction/build/baseline. Working branch:
+feature/glorious-core-compatibility. Four-hour trial remains deferred; user
+prioritizes official CORE compatibility before soak. Separate app fallback.
+Deadline target before November21 is not guaranteed. General lighting disabled
+in installed CORE's model record; DPI indicator colours separate.
+
+CORE diagnostic preparation in progress after successful wired readback.
+Added separate -App config-read (v20), opt-in RF_CONFIG_READ_DIAGNOSTICS flag.
+It suppresses ALL wireless pointer forwarding, sends only a hardcoded 64-byte
+firmware-version READ via eight offset fragments, retries identically until the
+mouse advertises the next command sequence, caps attempts at512, reassembles
+bounded type7 reply records, rejects gaps/malformed/status mismatch, and exposes
+a frozen summary only after x then d. No vendor identity/config interface yet.
+New codec offline tests pass; actual shared ACK/no-HID/x-stop integration passes;
+existing full native12 tests passed before latest mock-only test expansion.
+research/capture_config_read.ps1 parser self-test passes, fixed identity gate,
+one reader, x at35s/d then close by40s; no p/settings commands. Not run live.
+Build v20 currently running (exec session67476) after removing only disposable
+CMakeCache.txt: initial CONFIG_ flag conflicted with Zephyr's reserved Kconfig
+prefix; renamed RF_CONFIG_READ_DIAGNOSTICS. Prior cache line edit left a parse
+error, so cache regenerated. No usable image claimed yet; do NOT flash until
+build/config/UF2 validated. No serial/capture open. Normalv14 still installed.
+Next: finish build, verify normal-mode build isolation, preserve validated v20
+image/hash privately, update docs/commit/push, then popup for receiver bootloader
+readiness. Physical query and restore exact v14 each need separate cues.
+
+November 19 WIRED READBACK PASS (no settings changed): four fixed queries returned
+A1/matching commands. Firmware 1.0.0.0; polling divider1=1000Hz; profile1 stages
+400/800/1600/3200 (X=Y), active stage2=800DPI. Earlier CORE UI saved1600 was not
+current device readback. Raw replies ignored: core-wired-settings-reference.json.
+Glorious is wired/CORE closed by user readiness; receiver remains normalv14.
+Next autonomous work: bounded radio READ-query codec/diagnostic; no settings
+writes or identity impersonation. Four-hour trial remains deferred.
+
 NOVEMBER 19 CORE COMPATIBILITY MILESTONE - overrides older pending steps.
 User explicitly prioritizes Glorious CORE compatibility BEFORE the four-hour
 trial. Scope is genuine DPI/button customization through receiver and 1 kHz;

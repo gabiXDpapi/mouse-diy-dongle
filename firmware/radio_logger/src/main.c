@@ -31,6 +31,28 @@ static uint32_t latency_sof_us(void) { return PROBE_TIMER->CC[4]; }
 #include "latency_metrics.h"
 #include "latency_dump.h"
 #endif
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+#include "config_read.h"
+static struct config_read config_read_state;
+
+/* Uses the existing bounded CDC writer, only after x has stopped RF. */
+static int config_read_dump(const struct device *console)
+{
+    char line[200];
+    int64_t deadline = k_uptime_get() + 2000;
+    snprintk(line, sizeof(line), "CONFIG_READ_V1 started=%u offset=%u attempts=%u bytes=%u complete=%u failed=%u\n",
+             config_read_state.started, config_read_state.offset, config_read_state.attempts,
+             config_read_state.received, config_read_state.complete, config_read_state.failed);
+    int err = latency_write_line(console, line, deadline);
+    if (err) return err;
+    strcpy(line, "CONFIG_REPLY ");
+    for (unsigned int i = 0; i < config_read_state.received; i++) {
+        snprintk(line + 13 + i * 2, sizeof(line) - 13 - i * 2, "%02x", config_read_state.response[i]);
+    }
+    strcat(line, "\nCONFIG_END\n");
+    return latency_write_line(console, line, deadline);
+}
+#endif
 #ifdef WIRELESS_HID
 #include <zephyr/drivers/usb/udc_buf.h>
 #include <zephyr/sys/atomic.h>

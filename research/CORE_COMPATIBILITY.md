@@ -95,3 +95,57 @@ Next physical step: close CORE, connect the mouse by USB in wired mode and leave
 the DIY receiver unchanged. Use a readiness popup before running the helper.
 Then implement an allowlisted wireless read-query experiment as described in
 `docs/plans/2026-11-19-glorious-core-compatibility.md`.
+
+
+November 19 WIRED READBACK PASS (no settings changed): four fixed queries returned
+A1/matching commands. Firmware 1.0.0.0; polling divider1=1000Hz; profile1 stages
+400/800/1600/3200 (X=Y), active stage2=800DPI. Earlier CORE UI saved1600 was not
+current device readback. Raw replies ignored: core-wired-settings-reference.json.
+Glorious is wired/CORE closed by user readiness; receiver remains normalv14.
+Next autonomous work: bounded radio READ-query codec/diagnostic; no settings
+writes or identity impersonation. Four-hour trial remains deferred.
+
+
+## Prepared v20 wireless read-only diagnostic
+
+The separate -App config-read build uses existing quiet normal startup and
+stopped-only CDC writer. RF_CONFIG_READ_DIAGNOSTICS is off for other builds.
+All pointer forwarding is bypassed in this diagnostic; it is not an everyday
+receiver image or a CORE-compatible configuration interface.
+
+It serializes only the fixed version request verified over wired USB, using
+eight type7 records with explicit offsets and eight data bytes each. Repeated
+command-sequence values resend identical fragments; advancement must be exactly
+one modulo63. Fragment attempts cap at512. Independent mouse data-queue ACKs
+are retained. Replies use a fixed64-byte buffer, ignore duplicate queue reports
+and reject gaps, bounds and command mismatches. Link loss/explicit stop marks
+an incomplete query failed. No settings or bootloader commands are supported.
+
+Production config_read.h codec tests cover framing, retransmission, wrap, caps,
+reply assembly and failure. The existing probe harness tests actual shared ACK,
+no-pointer and x-stop integration in a fourth mode. All12 native checks pass.
+The capture parser self-test passes: fixed product check, one reader, x at35s,
+d afterward, close by40s; it never sends p or arbitrary command data.
+
+Validated private image: config-read-v20-68f92a56.uf2, SHA256
+68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632.
+191blocks, 0x26000..0x31F00 exclusive, 48,828flash/16,512RAM; product
+DIY Mouse Config Read v20, 1ms HID interval. Not flashed/hardware-tested.
+Metadata/build log ignored. Two unused-function warnings reflect deliberately
+bypassed pointer-forward and ordinary timing-dump functions.
+
+Build preparation caught a reserved CONFIG_ CMake prefix and obsolete cache
+entry. Renamed the flag and regenerated only the disposable diagnostic cache;
+clean build passes. The exact normal rollback image is untouched.
+
+
+## Break handoff
+
+User requested a break before flashing. Both builds finished successfully;
+no build/reader/capture remains. Normal isolation control has config-read OFF,
+SHA2566877579cdeb4bfd5587894f7e238dcf31eb1c6ddcfce0ddf0ecf3704c5ca82c7,
+46,188flash/16,064RAM; not hardware-tested and not a replacement rollback.
+Normal tested v14 remains installed. V20 is built and preserved, not flashed.
+On resume use separate bootloader and input-readiness popups, then one stationary
+wireless version-query capture and exact93eb987a normal restoration. No CORE
+connection or settings writes until transport validation. See current context.

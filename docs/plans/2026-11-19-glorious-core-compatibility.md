@@ -40,3 +40,13 @@ Validate detection, readback, reversible DPI change/restore and one reversible b
 Restore exact v14 if the diagnostic fails. Record findings and limitations in `research/CORE_COMPATIBILITY.md`, update context/resume after each milestone, commit and push this feature branch. The four-hour trial stays pending until configuration work is resolved.
 
 Completion before November 21 is a target, not a guarantee; RF settings compatibility and fresh sensor 1 kHz are not established by a USB descriptor.
+
+
+## November19 break status
+
+Step1 hardware read-only reference PASS (1000Hz, active800DPI); step2 codec,
+ACK/no-HID/stop integration tests, capture parser and v20 UF2 build PASS.
+Normal-mode isolation build PASS, diagnostic flag OFF. No image flashed.
+User requested pause before bootloader readiness. Resume with v20 flash popup,
+separate stationary mouse-on read-query capture, then restore tested v14.
+CORE vendor transport and setting writes remain unimplemented/unvalidated.

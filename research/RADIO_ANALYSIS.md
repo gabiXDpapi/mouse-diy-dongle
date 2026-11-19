@@ -2871,3 +2871,49 @@ flash, device setting or USB identity change. Normal tested v14 remains installe
 Prepared four-query wired read-only settings helper; offline self-tests pass,
 including busy/error/malformed replies. Next physical pause: CORE closed, mouse
 wired; receiver unchanged. Capture reference privately before wireless bridge.
+
+
+November 19 WIRED READBACK PASS (no settings changed): four fixed queries returned
+A1/matching commands. Firmware 1.0.0.0; polling divider1=1000Hz; profile1 stages
+400/800/1600/3200 (X=Y), active stage2=800DPI. Earlier CORE UI saved1600 was not
+current device readback. Raw replies ignored: core-wired-settings-reference.json.
+Glorious is wired/CORE closed by user readiness; receiver remains normalv14.
+Next autonomous work: bounded radio READ-query codec/diagnostic; no settings
+writes or identity impersonation. Four-hour trial remains deferred.
+
+## November19 requested break before v20 physical test
+
+PAUSED AT USER REQUEST - November 19; resume only when user returns.
+No physical intervention requested now. No serial/capture/build/timer/helper is
+running. Normal TESTED v14 remains installed (93eb987a frozen image), unchanged.
+Mouse last confirmed WIRED, Glorious CORE closed. No settings changed.
+
+Latest completed steps: wired READ-only reference succeeded: firmware1.0.0.0,
+1000Hz setting, profile1 stages400/800/1600/3200, active stage2=800DPI.
+Private observation: build-pairing-analysis/core-wired-settings-reference.json.
+Built/UF2-validated v20 READ-only RF diagnostic; native12 checks pass including
+actual ACK/no-HID/x-stop integration, plus capture-parser self-test. It sends
+only one fixed firmware-version query; no pointer output, settings writes,
+CORE-compatible vendor interface or mouse bootloader/updater commands.
+Private frozen: config-read-v20-68f92a56.uf2; SHA256
+68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632.
+Product DIY Mouse Config Read v20;191blocks;0x26000..0x31F00;48828flash/16512RAM.
+NOT FLASHED/HARDWARE-TESTED. Source/config metadata and logs ignored.
+Normal isolation rebuild also PASS, experimental flagOFF; normalcontrol SHA256
+6877579cdeb4bfd5587894f7e238dcf31eb1c6ddcfce0ddf0ecf3704c5ca82c7,
+46188flash/16064RAM. That control is NOT hardware-tested and NOT the rollback.
+
+On resume: read research/CORE_COMPATIBILITY.md and November19 CORE plan. Ask
+popup for v20 flash readiness: Glorious wired/OFF, receiver double-reset into
+NICENANO. Verify board and exact preserved v20 hash before copy; check passive
+USB startup. Then separate mouse-OFF/unplugged readiness and capture-running
+cue for research/capture_config_read.ps1 (one reader, no p, x35s/d frozen summary,
+closes by40s). Mouse should stay STILL; diagnostic has no wireless pointer output.
+Compare radio version reply with wired reference; no speculative config writes.
+Restore EXACT TESTED v14 (93eb987a) after trial or failure, using separate physical
+readiness. Keep CORE CLOSED throughout v20; it does not support CORE detection.
+Do not repeat completed extraction/build/baseline. Working branch:
+feature/glorious-core-compatibility. Four-hour trial remains deferred; user
+prioritizes official CORE compatibility before soak. Separate app fallback.
+Deadline target before November21 is not guaranteed. General lighting disabled
+in installed CORE's model record; DPI indicator colours separate.

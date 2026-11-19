@@ -20,7 +20,11 @@ static unsigned int ack_count;
 static int64_t probe_arm_deadline;
 static int64_t ack_deadline;
 static uint8_t probe_reply[] __aligned(4) = {3, 0, 0xf4, 1};
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+static uint8_t ack_reply[13] __aligned(4);
+#else
 static uint8_t ack_reply[3] __aligned(4);
+#endif
 
 static bool probe_ack_budget_remaining(void)
 {
@@ -122,6 +126,9 @@ static void receiver_mark_disarmed(void)
 /* Caller disables radio before neutralization; failure must prevent rediscovery. */
 static int receiver_end_link(void)
 {
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+    if (config_read_state.started && !config_read_state.complete) config_read_state.failed = true;
+#endif
     int err = wireless_hid_finish();
     if (err) {
         return err;
@@ -167,7 +174,11 @@ static void poll_probe_arm(void)
 #ifdef LATENCY_DIAGNOSTICS
     if (command == 'd') {
         if (receiver_disarm_handled) {
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+            (void)config_read_dump(console);
+#else
             (void)latency_dump(console, wireless_hid_reports, wireless_hid_retries, wireless_hid_busy);
+#endif
         }
         return;
     }
@@ -323,9 +334,13 @@ static int send_probe(void)
 static bool is_ack_candidate(const uint8_t *p, uint8_t channel, bool pairing_address,
                               uint32_t match)
 {
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+    return !pairing_address && match == 1 && channel == channels[3] && config_read_frame_valid(p);
+#else
     return !pairing_address && match == 1 && channel == channels[3] &&
            (p[0] == 2 || (p[0] == 11 && (p[3] == 0x41 || p[3] == 0x45)) ||
             (p[0] == 20 && p[3] == 0x41 && p[12] == 0x45));
+#endif
 }
 
 static int send_report_ack(const uint8_t *p)
@@ -343,7 +358,12 @@ static int send_report_ack(const uint8_t *p)
 #ifdef LATENCY_DIAGNOSTICS
     latency_observe_rx(probe_timing_rx_end());
 #endif
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+    /* A protocol query experiment must never turn config bytes into pointer input. */
+    int hid_err = 0;
+#else
     int hid_err = wireless_hid_forward(p);
+#endif
     if (hid_err) {
         return hid_err;
     }
@@ -358,6 +378,11 @@ static int send_report_ack(const uint8_t *p)
     ack_reply[1] = (uint8_t)(p[1] + 1);
 #endif
     ack_reply[2] = p[2] & 0x3f;
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+    (void)config_read_ack(&config_read_state, p, ack_reply);
+    config_read_receive(&config_read_state, p);
+    if (config_read_state.failed) ack_reply[0] = 2;
+#endif
     int err = transmit_probe_packet(ack_reply, 0);
     if (err) {
         ack_count = PROBE_ACK_LIMIT;

@@ -1,40 +1,47 @@
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read research/CORE_COMPATIBILITY.md and docs/plans/2026-11-19-glorious-core-compatibility.md.
-Read PROJECT_CONTEXT.md, especially its newest LATEST HANDOFF / NEXT override,
-README.md, research/RADIO_ANALYSIS.md and the wireless HID implementation plan.
+Read PROJECT_CONTEXT.md (newest LATEST HANDOFF / NEXT), README.md,
+research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
+ docs/plans/2026-11-19-glorious-core-compatibility.md.
 
-Resumed November 19. Target before November 21: genuine DPI/lighting/keybind
-customization through the receiver and 1 kHz polling. The app is NO LONGER
-DEFERRED. Latest preference/question: can we reuse Glorious CORE? Investigate
-that route before building a separate UI. CORE recognizes wired Series One PRO;
-DIY v14 lacks compatible vendor configuration transport. Installed CORE app.asar
-contains mouse protocol JS, native hiddevice source and device databases. Inspect
-these existing assets privately; recover USB/RF settings commands rather than
-fake DPI scaling or guessed writes. Lighting hardware support is unverified.
+This message resumes the project after my requested break. Keep context and this
+copy/paste prompt current, commit/push milestones on feature branches, pause
+with question popups for physical intervention. Keep captures, RF addresses,
+proprietary sources and binaries ignored. Leave .vscode/ and INFO_UF2.TXT alone.
 
-Normal tested v14 remains installed and working; no restoration needed. Exact
-rollback: build-pairing-analysis/dongle-v14-93eb987a.uf2, SHA256
-93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-No active capture, serial, build, soak or timer. No new hardware changes made.
-30-minute gameplay user-report passed with all controls. Verified 1 ms USB
-interval and 964.9 host movement events/s are not fresh-sensor/physical latency
-proof. Four-hour/multiday reliability remains unqualified; not started.
 
-Keep context and this prompt current; commit/push tested milestones on feature
-branches. Current branch feature/glorious-core-compatibility. Use popup pauses
-for physical intervention. Keep captures, RF addresses and proprietary binaries
-ignored. Leave unrelated .vscode/ and INFO_UF2.TXT untouched. Do not repeat
-completed extraction, builds, flashing or baselines. Deadline is not a guarantee.
+Saved break state - November 19. This prompt explicitly resumes work.
+No physical intervention requested now. No serial/capture/build/timer/helper is
+running. Normal TESTED v14 remains installed (93eb987a frozen image), unchanged.
+Mouse last confirmed WIRED, Glorious CORE closed. No settings changed.
 
-Latest progress: CORE supports stock Series One PRO dongle detection; LEDSetting
-is false (general lighting disabled in installed app), DPI indicator colours
-separate. Static firmware path for RF commands to USB settings mailbox found;
-wireless sequence/replies still unvalidated. CORE initialization may WRITE
-profiles, so do not expose a partial compatible receiver to it.
-New research/read_mouse_settings.ps1 offline self-tests PASS, no hardware query
-run. NEXT: popup for closing CORE and connecting Glorious by USB in WIRED mode,
-receiver unchanged. Only then execute fixed read queries, saving observation in
-ignored build-pairing-analysis. No speculative writes, bootloader or firmware
-update commands. Four-hour trial explicitly deferred until this work.
+Latest completed steps: wired READ-only reference succeeded: firmware1.0.0.0,
+1000Hz setting, profile1 stages400/800/1600/3200, active stage2=800DPI.
+Private observation: build-pairing-analysis/core-wired-settings-reference.json.
+Built/UF2-validated v20 READ-only RF diagnostic; native12 checks pass including
+actual ACK/no-HID/x-stop integration, plus capture-parser self-test. It sends
+only one fixed firmware-version query; no pointer output, settings writes,
+CORE-compatible vendor interface or mouse bootloader/updater commands.
+Private frozen: config-read-v20-68f92a56.uf2; SHA256
+68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632.
+Product DIY Mouse Config Read v20;191blocks;0x26000..0x31F00;48828flash/16512RAM.
+NOT FLASHED/HARDWARE-TESTED. Source/config metadata and logs ignored.
+Normal isolation rebuild also PASS, experimental flagOFF; normalcontrol SHA256
+6877579cdeb4bfd5587894f7e238dcf31eb1c6ddcfce0ddf0ecf3704c5ca82c7,
+46188flash/16064RAM. That control is NOT hardware-tested and NOT the rollback.
+
+On resume: read research/CORE_COMPATIBILITY.md and November19 CORE plan. Ask
+popup for v20 flash readiness: Glorious wired/OFF, receiver double-reset into
+NICENANO. Verify board and exact preserved v20 hash before copy; check passive
+USB startup. Then separate mouse-OFF/unplugged readiness and capture-running
+cue for research/capture_config_read.ps1 (one reader, no p, x35s/d frozen summary,
+closes by40s). Mouse should stay STILL; diagnostic has no wireless pointer output.
+Compare radio version reply with wired reference; no speculative config writes.
+Restore EXACT TESTED v14 (93eb987a) after trial or failure, using separate physical
+readiness. Keep CORE CLOSED throughout v20; it does not support CORE detection.
+Do not repeat completed extraction/build/baseline. Working branch:
+feature/glorious-core-compatibility. Four-hour trial remains deferred; user
+prioritizes official CORE compatibility before soak. Separate app fallback.
+Deadline target before November21 is not guaranteed. General lighting disabled
+in installed CORE's model record; DPI indicator colours separate.

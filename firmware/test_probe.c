@@ -71,12 +71,19 @@ static bool wireless_hid_new_session(void)
 }
 static int wireless_hid_finish(void) { assert(!radio.TASKS_TXEN); finish_calls++; return finish_result; }
 static void wireless_hid_new_link(void) { new_link_calls++; }
+#ifndef RF_CONFIG_READ_DIAGNOSTICS
 static int wireless_hid_forward(const uint8_t *p)
 {
     (void)p;
     hid_calls++;
     return hid_result;
 }
+#endif
+#endif
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+#include <string.h>
+#include "radio_logger/src/config_read.h"
+static struct config_read config_read_state;
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
@@ -90,6 +97,28 @@ _Static_assert(PROBE_DATA_WINDOW_MS == 2000u, "Non-HID probe window must stay at
 #endif
 int main(void)
 {
+#ifdef RF_CONFIG_READ_DIAGNOSTICS
+    {
+        uint8_t idle[] = {2, 10, 0};
+        assert(receiver_start_session());
+        complete_tx = true;
+        assert(send_probe() == 0);
+        assert(is_ack_candidate(idle, channels[3], false, 1));
+        assert(send_report_ack(idle) == 0 && hid_calls == 0);
+        assert(ack_reply[0] == 12 && ack_reply[3] == 0xcf && ack_reply[4] == 0);
+        idle[2] = 1;
+        assert(send_report_ack(idle) == 0 && ack_reply[4] == 8 && hid_calls == 0);
+        uint8_t reply[] = {11, 11, 2, 0x47, 0,0,0,0,0,0,0,0};
+        assert(is_ack_candidate(reply, channels[3], false, 1));
+        reply[3] = 0x7f;
+        assert(!is_ack_candidate(reply, channels[3], false, 1));
+        command = 'x'; poll_probe_arm();
+        assert(receiver_handle_disarm() == 0 && receiver_disarm_handled);
+        assert(config_read_state.failed && !probe_discovery_allowed());
+        puts("Config diagnostic integration: no HID forwarding, read-only ACKs, x stop passed.");
+        return 0;
+    }
+#endif
 #ifdef NORMAL_DONGLE
     {
     /* Actual normal-mode guards, without a terminal, time or attempt allowance. */
