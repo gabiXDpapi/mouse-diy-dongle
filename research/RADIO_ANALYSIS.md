@@ -2856,3 +2856,18 @@ in-game functionality/reliability for the reported session. It does not establis
 screen latency. The previously observed rare15.279ms host gap remains unexplained.
 Next: a separately started four-hour ordinary wireless-use window if practical,
 recording actual use and interruptions rather than counting earlier mixed trials.
+
+
+## November 19: CORE compatibility takes priority over four-hour trial
+
+User now wants genuine DPI/lighting/keybind control through the receiver plus
+1 kHz, and explicitly prefers reusing CORE before a separate app or long soak.
+See CORE_COMPATIBILITY.md and the November19 implementation plan. Installed
+CORE source/database static inspection found exact model detection, settings
+commands, LEDSetting=false and profile writes during initialization. Existing
+mouse disassembly connects RF type7 command assembly to its settings dispatcher;
+this remains static inference pending round-trip tests. No repeated extraction,
+flash, device setting or USB identity change. Normal tested v14 remains installed.
+Prepared four-query wired read-only settings helper; offline self-tests pass,
+including busy/error/malformed replies. Next physical pause: CORE closed, mouse
+wired; receiver unchanged. Capture reference privately before wireless bridge.

@@ -319,6 +319,50 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+
+NOVEMBER 19 CORE COMPATIBILITY MILESTONE - overrides older pending steps.
+User explicitly prioritizes Glorious CORE compatibility BEFORE the four-hour
+trial. Scope is genuine DPI/button customization through receiver and 1 kHz;
+separate app is fallback. Target before November 21, not guaranteed.
+Branch: feature/glorious-core-compatibility. Normal tested v14 stays installed
+and working. No live serial/capture/build/helper/soak/timer. No new flash or
+mouse settings change. Private selected installed CORE sources are ignored.
+Found CORE's exact Series One PRO device record and settings JS. LEDSetting=false
+means this installed app disables general lighting for the model; DPI indicator
+colours have a separate command. CORE detection can WRITE stored profiles on
+initialization: do not expose a partial compatible receiver to the running app.
+Static mouse firmware path reassembles type7 RF records into the USB settings
+mailbox. Command sequencing/replies still need recovery and hardware testing.
+Prepared research/read_mouse_settings.ps1: four allowlisted READ queries only;
+32-bit PowerShell offline request/parser/malformed-field self-tests PASS. No live
+query yet. Refuses running CORE/ambiguous mouse, bounded busy polling, strict
+A1/echo/bounds checks. Existing HidSharp reused; no new dependencies.
+NEXT PHYSICAL PAUSE: close Glorious CORE; connect Glorious USB in WIRED mode,
+leave DIY receiver unchanged, select Ready in popup. Then run read-only helper,
+save raw observation privately, inspect summarized version/polling/profile1 DPI.
+If helper assumptions fail, stop and revise from evidence; no guessed writes.
+Read research/CORE_COMPATIBILITY.md and docs/plans/2026-11-19-glorious-core-compatibility.md.
+Keep four-hour test pending. No more baseline/build/flash/extraction needed now.
+
+
+CURRENT OVERRIDE - November 19, resumed; supersedes older PAUSED/app-deferred notes.
+User wants completion before November 21: genuine mouse DPI/lighting/keybind
+customization THROUGH the DIY receiver, plus 1 kHz polling. User now asks whether
+we can reuse Glorious CORE instead of building a separate app. Investigate that
+compatibility route first; no promise of completion or unsupported lighting.
+Normal tested v14 remains installed/working. No capture, serial, build, timer or
+four-hour soak is running; no hardware/configuration changes in this review.
+CORE already recognizes the wired mouse, but DIY receiver lacks its vendor
+configuration interface/protocol. Renaming USB identity alone is insufficient.
+Read-only installed app.asar inventory found shipped mouse protocol JavaScript,
+hiddevice native source and device databases. Next: inspect these existing files
+for Series One PRO detection and settings commands, then determine what USB/RF
+bridge is required. Keep proprietary extracts/binaries private and ignored.
+Existing live 1 ms USB interval and 964.9 movement events/s guided trial are
+positive host evidence; fresh 1 kHz sensor cadence/physical latency unverified.
+No further baseline/reflash/firmware dump needed at this point. Pause by popup
+for physical intervention. Deadline is a target, not a guaranteed capability.
+
 PAUSED / ACCOUNT-INDEPENDENT HANDOFF READY - 2026-11-19
 
 The user explicitly paused and wants to resume under a different OpenAI account.

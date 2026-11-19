@@ -1,0 +1,97 @@
+# Glorious CORE compatibility investigation
+
+November 19, 2026. Static evidence and offline tests only so far.
+
+The user chose to investigate official CORE support before the pending four-hour
+trial. Normal tested v14 is unchanged. No mouse settings, USB identities or RF
+configuration commands have been changed by this investigation.
+
+## Evidence sources
+
+The installed `Glorious Core/resources/app.asar` includes its device table,
+`ModelOSeries.js`, `DeviceService.js` and native `hiddevice.cc` source. Selected
+files are retained privately under ignored `build-pairing-analysis/core-static/`.
+No proprietary source or binary is committed. The existing mouse application dump
+and `mouse-disassembly.txt` supply device-side static evidence; no new extraction
+was performed. CORE's database files are line-delimited JSON records, not SQLite.
+
+## Detection and feature support
+
+CORE's Series One PRO record explicitly lists wired `258A:2018` and dongle
+`258A:2031`, routes both through `ModelOSeries`, and requests a configuration
+collection with usage page `FFFF`, usage `0000`. Notifications use `FFFF/0001`,
+`FFA0/0001` and consumer `000C/0001` collections.
+
+The record has `LEDSetting: false`. CORE does not expose general lighting for
+this model. DPI-stage colour is separate, present in `SetDPIColor2Device`.
+This is evidence about the installed application's support, not a new physical
+verification of all LEDs on this particular mouse.
+
+CORE initializes devices using `SetProfileDataFromDB`; detection can trigger
+profile writes. A firmware that merely pretends success could mislead CORE or
+overwrite settings incompletely. Do not connect a partially implemented compatible
+device to CORE until command forwarding and explicit failure responses are ready.
+Do not forward firmware-updater/bootloader commands.
+
+## USB command format
+
+Offsets below include the Windows report-ID byte. SET_FEATURE is 65 bytes, with
+`[0]=0`, target `[3]=2` (mouse), payload size `[4]`, group `[5]`, operation `[6]`,
+payload starting `[7]`. The native CORE binding removes report ID on GET_FEATURE;
+its JavaScript response offsets are therefore one lower than Windows buffers.
+Our helper retains the report ID. Status is `[1]`: `A0` busy, `A1` success,
+`A2` failure, `A3` unsupported, `A4` receiver cannot find mouse (CORE comments).
+
+| Operation | Group / operation | Evidence |
+| --- | --- | --- |
+| Firmware version read | `00 / 81` | CORE `ReadFWVersion` |
+| Polling divider write / read | `01 / 00`, `01 / 80` | CORE write, mouse dispatcher read |
+| DPI stages write / read | `01 / 01`, `01 / 81` | CORE write, mouse dispatcher read |
+| Selected stage write / read | `01 / 02`, `01 / 82` | CORE write, mouse dispatcher read |
+| DPI-stage colours write | `02 / 01` | CORE `SetDPIColor2Device` |
+| Button binding write | `03 / 00` | CORE `SetKeyFunction` |
+
+Polling divider `1/2/4/8` corresponds to `1000/500/250/125` Hz in CORE.
+DPI-stage payload starts with one-based profile and stage count, followed by
+big-endian X/Y 16-bit values per stage. Selected-stage payload uses one-based
+profile and stage. Button writes include profile, button ID, slot and binding
+record; keyboard/consumer output would also need receiver HID forwarding.
+
+Mouse dump `0x151AC` dispatches groups 0..4 to `0x14788`, `0x15290`, `0x156B8`,
+`0x14540`, `0x149E8`. Group-1 read paths at `0x15306`, `0x153FA..0x1547E`,
+`0x15526` return polling divider, DPI-stage list and active stage. These are
+static inferences, not yet hardware-confirmed settings queries.
+
+## Radio transport: promising, not hardware-validated
+
+The existing short ACK has length 2 and carries no command. The stock mouse
+accepts longer ACKs in `0x16044..0x16084`, with an independent lower-six-bit
+command sequence and a queued payload. `0x13334..0x13410` walks payload records,
+decoding low-three-bit type, four-bit length and a high continuation bit.
+Type 7 records reassemble a configuration buffer by byte offset. On final data,
+`0x133E8..0x13408` copies 64 bytes into the same mailbox used by USB and sets its
+pending flag. `0x151AC` dispatches that mailbox. This establishes a static path
+from ACK payload to settings handler, not a complete usable transport yet.
+
+Still to validate: framing and offset bounds, sequence startup/wrap/retry,
+completion/reply fragmentation, notification behavior, disconnected status and
+preserving the motion path during configuration. Never send a speculative write.
+
+## Prepared read-only reference
+
+`research/read_mouse_settings.ps1` reuses the existing 32-bit HidSharp library
+and permits only four fixed queries: version, divider, profile-1 stages and
+profile-1 active stage. It refuses an ambiguous device or running CORE. It has
+bounded busy polling and requires an `A1` reply with matching command fields.
+Raw replies must be saved in the ignored analysis directory, not printed publicly.
+
+Run its offline check with 32-bit PowerShell and process-only execution policy:
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File research/read_mouse_settings.ps1 -SelfTest`.
+The first invocation without process-only policy was blocked by local execution
+policy; no system policy was changed. The offline check passes; no hardware query
+has run yet. Hardware results will determine whether reply assumptions need revision.
+
+Next physical step: close CORE, connect the mouse by USB in wired mode and leave
+the DIY receiver unchanged. Use a readiness popup before running the helper.
+Then implement an allowlisted wireless read-query experiment as described in
+`docs/plans/2026-11-19-glorious-core-compatibility.md`.

@@ -1,48 +1,40 @@
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read PROJECT_CONTEXT.md (especially LATEST HANDOFF / NEXT), README.md,
-research/RADIO_ANALYSIS.md and docs/plans/2026-11-18-gameplay-qualification.md.
-Also read ACCOUNT_HANDOFF.md if resuming through a different account/computer.
+Read research/CORE_COMPATIBILITY.md and docs/plans/2026-11-19-glorious-core-compatibility.md.
+Read PROJECT_CONTEXT.md, especially its newest LATEST HANDOFF / NEXT override,
+README.md, research/RADIO_ANALYSIS.md and the wireless HID implementation plan.
 
-The project is PAUSED at my request after the November19 gameplay check. This
-message explicitly resumes the project, but new physical testing still requires
-fresh readiness. No four-hour trial, recording, serial reader, build, timer service
-or background monitor is running. Do not repeat completed baselines or reflash.
+Resumed November 19. Target before November 21: genuine DPI/lighting/keybind
+customization through the receiver and 1 kHz polling. The app is NO LONGER
+DEFERRED. Latest preference/question: can we reuse Glorious CORE? Investigate
+that route before building a separate UI. CORE recognizes wired Series One PRO;
+DIY v14 lacks compatible vendor configuration transport. Installed CORE app.asar
+contains mouse protocol JS, native hiddevice source and device databases. Inspect
+these existing assets privately; recover USB/RF settings commands rather than
+fake DPI scaling or guessed writes. Lighting hardware support is unverified.
 
-Current branch: feature/timed-host-polling-measurement.
-Latest tested milestone: e79e7de, pushed. The preliminary30-minute gameplay check
-PASSED by user report: smooth throughout, no issues or interruptions; left/right,
-wheel,middle,boththumbbuttons actually used. Game/mode unspecified. No continuous
-monitor/input capture or objective latency measurement ran. Duration is user-
-reported with a completion report received more than30minutes after the start cue.
+Normal tested v14 remains installed and working; no restoration needed. Exact
+rollback: build-pairing-analysis/dongle-v14-93eb987a.uf2, SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+No active capture, serial, build, soak or timer. No new hardware changes made.
+30-minute gameplay user-report passed with all controls. Verified 1 ms USB
+interval and 964.9 host movement events/s are not fresh-sensor/physical latency
+proof. Four-hour/multiday reliability remains unqualified; not started.
 
-Known installed/tested normal image (no restoration needed):
-build-pairing-analysis/dongle-v14-93eb987a.uf2
-SHA256: 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
-USB product: DIY Mouse Dongle v14. Automatic/no serial/arm/time limit.
-Do not substitute softwarecontrolcb8bbb60 or diagnostic images.
+Keep context and this prompt current; commit/push tested milestones on feature
+branches. Current branch feature/glorious-core-compatibility. Use popup pauses
+for physical intervention. Keep captures, RF addresses and proprietary binaries
+ignored. Leave unrelated .vscode/ and INFO_UF2.TXT untouched. Do not repeat
+completed extraction, builds, flashing or baselines. Deadline is not a guarantee.
 
-NEXT: ask readiness/available time for a SEPARATE four-hour ordinary wireless-use
-window on unchanged normal v14. It may mix desktop use, gaming and idle breaks;
-no need to game for four hours continuously. Start a private manual diary only
-after readiness. Record actual duration/active use and all breaks,sleep,charging,
-resets,reconnects or issues. An early/interrupted window is not uninterrupted4h
-qualification. No recording/game automation/continuous monitor is implied.
-
-Prior evidence: liveUSB7e23c76 fullspeedHID2/IN0x83/max16/bInterval1/activepipe match.
-Guided larger wireless run964.9movementevents/s over fixed20s,916-993each second,
-median1ms,user smooth/continuous. Host-delivery evidence, not fresh sensor cadence
-or physical latency. Rare15.279ms host gap and historicalA2two-record discrepancy
-remain unexplained. PhaseABBA0a7c14e found~18usRFstage gain with10us radio checks
-but no reliable overallgaming gain; normal keeps50usCPUwait, separate fromUSB1ms.
-OneS3/5mininactivity,replug/mousepowercycle/allbuttons/wheel passed earlier.
-Long4h/8h/multiday reliability and physical latency remain unverified.
-
-Keep context and this copy/paste handoff current after meaningful steps. Push
-milestones on feature branches. Use question popups and pause for physical
-intervention. Keep private captures, RF addresses and binaries ignored; leave
-unrelated .vscode/ and INFO_UF2.TXT untouched. Companion app/DPI/lighting writes
-remain deferred. SamePC/sameWindowslogin: retain the whole project folder and
-existing toolchain. DifferentPC: Git clone alone omits ignored private data and
-external tooling. No account/auth credential copying is required.
+Latest progress: CORE supports stock Series One PRO dongle detection; LEDSetting
+is false (general lighting disabled in installed app), DPI indicator colours
+separate. Static firmware path for RF commands to USB settings mailbox found;
+wireless sequence/replies still unvalidated. CORE initialization may WRITE
+profiles, so do not expose a partial compatible receiver to it.
+New research/read_mouse_settings.ps1 offline self-tests PASS, no hardware query
+run. NEXT: popup for closing CORE and connecting Glorious by USB in WIRED mode,
+receiver unchanged. Only then execute fixed read queries, saving observation in
+ignored build-pairing-analysis. No speculative writes, bootloader or firmware
+update commands. Four-hour trial explicitly deferred until this work.
