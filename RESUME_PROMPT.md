@@ -1,16 +1,37 @@
+GAMEPLAY START CUE / AWAITING USER PLAY AND REPORT - 2026-11-19 18:35:22 Manila
+
+User confirmed game loaded and30minutes available, GloriousON/USBunplugged with
+normal receiver and otherpointer ready. Unique USB productDIY Mouse Dongle v14
+verified without serial. Known installed tested image remains93eb987a.
+Private manual diary: build-pairing-analysis/gameplay-normal-v14-20261119-183522-482615bf.json
+Start cue recordedUTC 2026-11-19T10:35:22.181590+00:00; planned30min endUTC 2026-11-19T11:05:22.181590+00:00
+(about 19:05:22 Manila). User starts their own30min manual timer.
+This records the cue, not independently observed play. Actual duration/controls/
+issues must come from the user afterplay. No input recording, serial, automated
+gameplay, health monitor, build or timer service is running. Normal mouse operation
+continues indefinitely; diary ending does not stop the receiver.
+
+NEXT: send start/completed-or-stop popup; await actualuserplay. If returned early,
+record actualduration/reason; do not claim30min pass based only on selection.
+Collect game/mode optional, controls actually tried, stalls/disconnects/overshoot/
+stuckbuttons and interruptions. A30min pass is preliminary, not longsoak or physical
+latency qualification. Currentbranchfeature/timed-host-polling-measurement.
+Keepcontext/resume current and push milestone after actualresults. No firmware,
+settings, driver, game automation or companion app work is needed duringplay.
+
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md (especially LATEST HANDOFF / NEXT), README.md,
 research/RADIO_ANALYSIS.md, and docs/plans/2026-11-18-gameplay-qualification.md.
 
-The project was paused at my request on November 18, 2026, 7:37 PM Manila.
-No gameplay trial, timer, recording, build, serial reader or monitor is running.
+The project resumed on November19,2026 after the November18 pause. Gameplay readiness is confirmed; a manual30-minute start cue is now being issued. See the diary state below.
+A manual gameplay trial is awaiting user play/report. No recording, build, serial reader, timer service or continuous monitor is running.
 Normal v14 remains installed and user-confirmed working automatically. Do not
 repeat extraction, builds, flashing, arming or completed baselines.
 
 Current branch: feature/timed-host-polling-measurement.
-Latest tested result commit: e3ffb03 (pushed); pause checkpoint follows.
+Latest tested result e3ffb03 and pause checkpoint da2bcff are pushed.
 Exact installed/tested rollback image (private, ignored):
 build-pairing-analysis/dongle-v14-93eb987a.uf2
 SHA256: 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052

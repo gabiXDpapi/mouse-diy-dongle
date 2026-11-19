@@ -319,6 +319,47 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+GAMEPLAY START CUE / AWAITING USER PLAY AND REPORT - 2026-11-19 18:35:22 Manila
+
+User confirmed game loaded and30minutes available, GloriousON/USBunplugged with
+normal receiver and otherpointer ready. Unique USB productDIY Mouse Dongle v14
+verified without serial. Known installed tested image remains93eb987a.
+Private manual diary: build-pairing-analysis/gameplay-normal-v14-20261119-183522-482615bf.json
+Start cue recordedUTC 2026-11-19T10:35:22.181590+00:00; planned30min endUTC 2026-11-19T11:05:22.181590+00:00
+(about 19:05:22 Manila). User starts their own30min manual timer.
+This records the cue, not independently observed play. Actual duration/controls/
+issues must come from the user afterplay. No input recording, serial, automated
+gameplay, health monitor, build or timer service is running. Normal mouse operation
+continues indefinitely; diary ending does not stop the receiver.
+
+NEXT: send start/completed-or-stop popup; await actualuserplay. If returned early,
+record actualduration/reason; do not claim30min pass based only on selection.
+Collect game/mode optional, controls actually tried, stalls/disconnects/overshoot/
+stuckbuttons and interruptions. A30min pass is preliminary, not longsoak or physical
+latency qualification. Currentbranchfeature/timed-host-polling-measurement.
+Keepcontext/resume current and push milestone after actualresults. No firmware,
+settings, driver, game automation or companion app work is needed duringplay.
+
+RESUMED / GAMEPLAY READINESS NEXT - 2026-11-19 18:07 Manila
+
+The user explicitly resumed after the November18 pause. The preliminary gameplay
+trial has NOT started. Normal v14 exact93eb987a is the last verified installed,
+user-confirmed automatic receiver. No flash/build/serial/capture is planned.
+Physical connection and game readiness must be confirmed after the break.
+
+NEXT: ask fresh readiness for a30-minute familiar practice/offline game check,
+GloriousON/USBunplugged, receiverconnected and otherpointeravailable. The readiness
+answer confirms available time for this bounded trial; do not reuse expired daily
+cutoffs or start before readiness. Then record startUTC and a manual30-minute
+expected end; no raw recording, game automation or continuous health monitor.
+Collect actual duration, controls tried and issues. Early stop is not a fullpass.
+Normaloperation continues after diary ends. Keep settings unchanged.
+
+Saved checkpoint da2bcff and result e3ffb03 are pushed on
+feature/timed-host-polling-measurement. No completed measurements need repeating.
+Maintain this context and RESUME_PROMPT at readiness/start/result changes. Pause
+with question popups for physical steps. Companion app/settingswrites deferred.
+
 PAUSED AT USER REQUEST — 2026-11-18 19:37 Manila
 
 The user selected “Pause here — gameplay check later.” This supersedes the earlier
