@@ -1,122 +1,47 @@
 Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
-Read PROJECT_CONTEXT.md (newest LATEST HANDOFF / NEXT), README.md,
+Read newest LATEST HANDOFF / NEXT in PROJECT_CONTEXT.md, README.md,
 research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
- docs/plans/2026-11-19-glorious-core-compatibility.md.
-
-This message resumes the project after my requested break. Keep context and this
-copy/paste prompt current, commit/push milestones on feature branches, pause
-with question popups for physical intervention. Keep captures, RF addresses,
-proprietary sources and binaries ignored. Leave .vscode/ and INFO_UF2.TXT alone.
-
-
-Saved break state - November 19. This prompt explicitly resumes work.
-No physical intervention requested now. No serial/capture/build/timer/helper is
-running. Normal TESTED v14 remains installed (93eb987a frozen image), unchanged.
-Mouse last confirmed WIRED, Glorious CORE closed. No settings changed.
-
-Latest completed steps: wired READ-only reference succeeded: firmware1.0.0.0,
-1000Hz setting, profile1 stages400/800/1600/3200, active stage2=800DPI.
-Private observation: build-pairing-analysis/core-wired-settings-reference.json.
-Built/UF2-validated v20 READ-only RF diagnostic; native12 checks pass including
-actual ACK/no-HID/x-stop integration, plus capture-parser self-test. It sends
-only one fixed firmware-version query; no pointer output, settings writes,
-CORE-compatible vendor interface or mouse bootloader/updater commands.
-Private frozen: config-read-v20-68f92a56.uf2; SHA256
-68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632.
-Product DIY Mouse Config Read v20;191blocks;0x26000..0x31F00;48828flash/16512RAM.
-NOT FLASHED/HARDWARE-TESTED. Source/config metadata and logs ignored.
-Normal isolation rebuild also PASS, experimental flagOFF; normalcontrol SHA256
-6877579cdeb4bfd5587894f7e238dcf31eb1c6ddcfce0ddf0ecf3704c5ca82c7,
-46188flash/16064RAM. That control is NOT hardware-tested and NOT the rollback.
-
-On resume: read research/CORE_COMPATIBILITY.md and November19 CORE plan. Ask
-popup for v20 flash readiness: Glorious wired/OFF, receiver double-reset into
-NICENANO. Verify board and exact preserved v20 hash before copy; check passive
-USB startup. Then separate mouse-OFF/unplugged readiness and capture-running
-cue for research/capture_config_read.ps1 (one reader, no p, x35s/d frozen summary,
-closes by40s). Mouse should stay STILL; diagnostic has no wireless pointer output.
-Compare radio version reply with wired reference; no speculative config writes.
-Restore EXACT TESTED v14 (93eb987a) after trial or failure, using separate physical
-readiness. Keep CORE CLOSED throughout v20; it does not support CORE detection.
-Do not repeat completed extraction/build/baseline. Working branch:
-feature/glorious-core-compatibility. Four-hour trial remains deferred; user
-prioritizes official CORE compatibility before soak. Separate app fallback.
-Deadline target before November21 is not guaranteed. General lighting disabled
-in installed CORE's model record; DPI indicator colours separate.
+ docs/plans/2026-11-20-usb-config-read.md. This message resumes the project;
+ask a new break time if the November20 5AM cutoff has passed. Current branch:
+feature/glorious-core-compatibility. Keep context/prompt current, commit/push
+milestones, pause by popup for physical work; captures/addresses/binaries ignored.
+Leave unrelated .vscode/ and INFO_UF2.TXT alone. No completed extraction/builds/
+baselines repeated. CORE compatibility precedes four-hour trial; app fallback.
 
 
-RESUMED November 20 by user; supersedes November19 PAUSED status.
-Re-read handoff/CORE findings/plan. Git7899ecf on feature/glorious-core-compatibility;
-only unrelated .vscode/ and INFO_UF2.TXT untracked. Rechecked preserved v20 SHA256
-68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632 and exact
-hardware-tested v14 rollback SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-Both match. No rebuild, flash, settings change or serial session. No background
-capture/build/helper/timer. Last known installed normalv14; current mouse/cable
-state needs fresh readiness. NEXT pending popup: keep CORE closed, mouse wired/OFF,
-double-reset only receiver into NICENANO. After Ready verify board and copy exact
-v20, passive USB check, then separate stationary wireless read-query readiness.
-V20 has NO wireless pointer output and only a fixed firmware-version READ.
-Restore testedv14 after this diagnostic batch. Four-hour trial remains deferred.
+NOVEMBER20 V21 SOFTWARE READY; BREAK BY05:00AM MANILA (no flash at/after04:50).
+Normal exact testedv14 remains installed and user-confirmed; no serial/capture/
+build/helper/timer running. V20 RF version-read PASS saved5bda374, normalrestore
+confirmed817851a. Four-hour trial remains deferred for CORE compatibility.
 
+New -App config-hid v21 is BUILT/UF2-VALIDATED, NOT FLASHED/HARDWARE-TESTED.
+Private frozen config-hid-v21-a7631b8d.uf2; SHA256
+a7631b8dcae26221b13bf1e1d397f0f5f93dcb795c767a553bb67f9beabf22df.
+Product DIY Mouse Config HID v21;194blocks;0x26000..0x32200;49572flash/16768RAM.
+Two HID instances, vendor Feature64bytes usageFFFF/0000 plus CDC, local2FE3:0008
+identity (CORE WILL NOT DETECT IT). No pointer output. EXACT firmware-version
+read only, once/boot. No command sent before host Feature SET. USB callbacks
+queue/snapshot; main processes/provides real RF reply, busyA0/failureA2.
+Arbitrary settings/bootloader requests and repeat SET rejected. v20 automatic
+read path still separate; v21 only host-triggered. No settings writes implemented.
+Native13 tests PASS including real RF-codec through USB callback/mailbox and five
+shared probe build modes (normal/probe/receiver/v20/v21). Host read_receiver_version.ps1
+SelfTest PASS. Source/staged equality, quietflags, bothRFflagsON, fastpollOFF,
+localUSBIDs,1ms interval verified. No normal rebuild needed: conditional off-path
+native checks passed; hardware-tested rollback remains EXACT93eb987a frozenimage.
 
-NOVEMBER20 V20 FLASH/USB STARTUP VERIFIED - overrides installed-v14 notes below.
-User confirmed NICENANO visible, CORE closed, Glorious wired/OFF. Verified unique
-D: NICENANO, Board-ID nRF52840-nicenano, UF2bootloader0.6.0 and exact saved v20
-68f92a56a7297cd20c97b52c2a032b358709f03c757877e223733d1490429632 before copy.
-V20 NOW INSTALLED: DIY Mouse Config Read v20, COM12, healthy USB enumeration.
-Private startup record: build-pairing-analysis/config-read-v20-usb-startup.json.
-No serial opened, no live capture/build/helper, no settings writes, no mouse RF
-trial yet. This diagnostic has NO wireless pointer output. Keep CORE closed.
-NEXT pending physical popup: Glorious OFF/USBunplugged, other pointer available,
-receiver unchanged. After Ready start capture_config_read.ps1, confirm RUNNING
-before cue to turn mouse ON and leave STILL. Fixed read only; x35s/d, close40s.
-After trial or failure ask bootloader readiness and restore EXACT TESTED v14
-93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052, not normal
-software-control6877579c. Four-hour trial remains deferred for CORE work.
-
-
-NOVEMBER20 WIRELESS CONFIG READ PASS - CURRENT INSTALLED V20, STOPPED.
-User confirmed OFF/unplugged readiness, then ON/still after capture-running cue.
-One-reader research/capture_config_read.ps1 completed; x at35s then frozen d.
-Private capture: config-read-v20-20261120-043100-1f1efba5 (.json/.txt).
-Success=true, started1, offset64, attempts8 (eight fragments), reply16bytes,
-complete1, failed0; firmware1.0.0.0 exactly matches wired reference. No movement
-output/settings write/CORE vendor interface. This validates nominal RF config
-read roundtrip only, not general settings writes/retry stress/full CORE support.
-No live serial/capture/build/helper/timer remains. V20 is stopped by x and still
-installed; user last confirmed Glorious ON/unplugged/still. Keep CORE closed.
-NEXT PHYSICAL PAUSE: Glorious wired/OFF, double-reset RECEIVER into NICENANO;
-verify unique board and restore EXACT TESTED normalv14 frozen93eb987a UF2:
-SHA25693eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-Do NOT restore source-built normalcontrol6877579c. Verify USB product normalv14
-without serial; then separate user check that wireless automatic control works.
-After restoration continue CORE vendor transport work from this successful read
-reference. Four-hour trial remains deferred; app compatibility before soak.
-
-
-NOVEMBER20 EXACT NORMAL V14 RESTORED after successful v20 RF read.
-User confirmed NICENANO readiness/mouse wired-OFF. Verified board and exact
-93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052 frozen v14
-before copy; USB product DIY Mouse Dongle v14 verified afterward. No serial
-opened. Private record: core-v20-normal-restoration.json. Physical wireless
-movement/click restoration check PENDING popup; no recording running.
-No build/serial/helper/timer/capture remains. No settings writes occurred.
-V20 hardware read milestone pushed5bda374: firmware1.0.0.0 equals wired,8fragment
-attempts,16replybytes,complete/no failure. V20 is no longer installed.
-After restoration check, continue CORE-compatible vendor transport preparation
-on feature/glorious-core-compatibility; keep four-hour trial deferred. No need
-to repeat version baseline/build/flash. CORE detection/settings writes remain
-unimplemented. Ask fresh physical readiness for any future diagnostic flash.
-
-
-NOVEMBER20 RESTORATION COMPLETE: user confirms automatic wireless movement/click
-works normally on exact tested v14 after v20. No capture/serial/build running.
-Next software milestone: native USB Feature-report to RF read-only bridge using
-local prototype IDs first; CORE cannot connect to this staging identity. Existing
-CORE native code matches VID/PID and HID usage, NOT interface number, so CDC may
-remain while adding a separate vendor HID collection; no need to remove CDC or
-reorder original mouse interface just to test transport. Reject settings/update
-commands during this read-only stage; app initialization can write profiles.
-No existing user settings changed; four-hour trial remains deferred.
+NEXT pending physical readiness popup if BEFORE04:50: COREclosed, GloriousWIRED
+orOFF; double-reset only receiver into NICENANO; verifyboard+v21image thenflash.
+After USBcheck, separate readiness: GloriousON/USBunplugged/STILL nearreceiver,
+otherpointer available. No timed power-on cue needed (host triggersquery).
+Run 32-bit powershell -NoProfile -ExecutionPolicy Bypass -File
+research/read_receiver_version.ps1. It checks exactv21 identity/uniqueFeature,
+GETinitialA3, sends ONE fixed SET, pollsGET up to10s, savesrawreplyprivately.
+No CDC reader/capture window or p/x command needed for that helper. Restore EXACT
+TESTED normalv14 SHA93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+using separate bootloader readiness and brief wirelesscheck afterward.
+If cutoff reached or user pauses, leave normalv14 installed and resumev21later;
+5AM deadline must not be bypassed. Do not repeat extraction, completedbuilds,
+versionbaseline or normalrestoration. See docs/plans/2026-11-20-usb-config-read.md.

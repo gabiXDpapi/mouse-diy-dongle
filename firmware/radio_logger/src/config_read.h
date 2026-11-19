@@ -1,4 +1,5 @@
 /* Diagnostic only: one fixed firmware-version read, never a settings write. */
+static const uint8_t config_read_version_request[64] = {0, 0, 2, 3, 0, 0x81};
 struct config_read {
     uint8_t offset, command_sequence, last_report, received;
     bool started, have_report, complete, failed;
@@ -44,11 +45,10 @@ static unsigned int config_read_ack(struct config_read *s, const uint8_t *p, uin
         return 3;
     }
     s->attempts++;
-    static const uint8_t request[64] = {0, 0, 2, 3, 0, 0x81};
     ack[0] = 12;
     ack[3] = s->offset == 56 ? 0x4f : 0xcf; /* Type7, offset+8 data, continuation. */
     ack[4] = s->offset;
-    memcpy(ack + 5, request + s->offset, 8);
+    memcpy(ack + 5, config_read_version_request + s->offset, 8);
     return 13;
 }
 

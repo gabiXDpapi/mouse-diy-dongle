@@ -60,6 +60,9 @@ static int config_read_dump(const struct device *console)
 #include <zephyr/usb/class/usb_hid.h>
 #include "wireless_hid.h"
 #endif
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+#include "config_hid.h"
+#endif
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
 static uint8_t packet[65] __aligned(4);
@@ -253,6 +256,10 @@ int main(void)
     if (err) {
         return err;
     }
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+    err = init_config_hid();
+    if (err) return err;
+#endif
     err = usb_enable(wireless_hid_status);
 #else
     err = usb_enable(NULL);

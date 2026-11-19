@@ -115,6 +115,9 @@ static bool receiver_start_session(void)
 static void receiver_mark_disarmed(void)
 {
     if (!receiver_disarm_handled) {
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+        if (config_hid_query_active && !config_read_state.complete) config_read_state.failed = true;
+#endif
 #ifdef LATENCY_DIAGNOSTICS
         latency_stop();
 #endif
@@ -219,6 +222,9 @@ static void receiver_poll_commands(void)
     }
     if (now >= receiver_next_command_ms) {
         receiver_next_command_ms = now + 10;
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+        config_hid_poll();
+#endif
         poll_probe_arm();
     }
 }
@@ -379,9 +385,15 @@ static int send_report_ack(const uint8_t *p)
 #endif
     ack_reply[2] = p[2] & 0x3f;
 #ifdef RF_CONFIG_READ_DIAGNOSTICS
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+    if (config_hid_query_active) {
+#endif
     (void)config_read_ack(&config_read_state, p, ack_reply);
     config_read_receive(&config_read_state, p);
     if (config_read_state.failed) ack_reply[0] = 2;
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+    }
+#endif
 #endif
     int err = transmit_probe_packet(ack_reply, 0);
     if (err) {

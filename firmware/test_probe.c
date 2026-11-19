@@ -84,6 +84,10 @@ static int wireless_hid_forward(const uint8_t *p)
 #include <string.h>
 #include "radio_logger/src/config_read.h"
 static struct config_read config_read_state;
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+static bool config_hid_query_active;
+static void config_hid_poll(void) { }
+#endif
 #endif
 #include "radio_logger/src/discovery_probe.h"
 #ifdef WIRELESS_HID
@@ -104,6 +108,10 @@ int main(void)
         complete_tx = true;
         assert(send_probe() == 0);
         assert(is_ack_candidate(idle, channels[3], false, 1));
+#ifdef RF_CONFIG_HID_DIAGNOSTICS
+        assert(send_report_ack(idle) == 0 && ack_reply[0] == 2 && !config_read_state.started);
+        config_hid_query_active = true;
+#endif
         assert(send_report_ack(idle) == 0 && hid_calls == 0);
         assert(ack_reply[0] == 12 && ack_reply[3] == 0xcf && ack_reply[4] == 0);
         idle[2] = 1;
