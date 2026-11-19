@@ -319,6 +319,34 @@ Flash58,680 bytes, RAM15,936 bytes, 230 UF2 blocks, payload0x26000..0x345FF.
 This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
+PAUSED / ACCOUNT-INDEPENDENT HANDOFF READY - 2026-11-19
+
+The user explicitly paused and wants to resume under a different OpenAI account.
+Stop project work; no four-hour reliability window has started. The30-minute
+preliminary gameplay check PASSED by user report: smooth throughout, no issues or
+interruptions, all five buttons and wheel actually used. Milestone e79e7de is
+pushed. Manual diary only; no input/health recording or objective latency monitor.
+
+Known installed firmware is exact tested normal v14 93eb987a, automatic and
+user-confirmed working. No restoration/reflash is needed. No agent capture,
+serial reader, build, timer service or background monitor is running.
+
+ACCOUNT_HANDOFF.md and RESUME_PROMPT.md are ready for a new account/chat.
+Account handoff checkpoint9983beb is pushed on feature/timed-host-polling-measurement.
+On samePC/sameWindowslogin, retain the whole project folder and reopen it after
+signing in with the other account. Start a new chat using RESUME_PROMPT.md rather
+than depending on account/chat migration. Another computer also needs the ignored
+private data and external toolchain; Git alone is insufficient. No auth copying.
+
+NEXT ON EXPLICIT RESUME: read the handoff and ask readiness/available time for a
+SEPARATE four-hour ordinary wireless-use window on unchanged firmware. Start a
+new private manual diary only after readiness; log actual active use/idle breaks,
+sleep, charging, resets/reconnects and issues. An early/interrupted run is not an
+uninterrupted4h pass. Do not repeat extraction/builds/flashing/completed baselines.
+Long4h/8h/multiday reliability and physical latency remain unverified. Companion
+app/DPI/lighting writes deferred. Keep private captures/addresses/binaries ignored,
+unrelated .vscode/ and INFO_UF2.TXT untouched; pause popups for physical steps.
+
 GAMEPLAY30min COMPLETION REPORTED / OBSERVATIONS PENDING - 2026-11-19 19:07 Manila
 
 User selected completed30minutes. Completion report received about11:07UTC,
