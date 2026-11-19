@@ -69,3 +69,5 @@ After an issue-free four-hour user-reported window, consider8hours/multiday use.
 These manual observations establish only what was observed, not hidden absence
 of every reset or a quantified physical latency guarantee. Fresh readiness is
 required for the next physical trial; do not silently start while awaiting it.
+
+User paused before the four-hour window on 2026-11-19 19:14 Manila and requested a different-account handoff. The30-minute check remains user-reported PASS. No longer-use trial has started; fresh readiness is required after explicit resume. See ACCOUNT_HANDOFF.md.
