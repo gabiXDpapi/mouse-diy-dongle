@@ -4,78 +4,41 @@ C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 Read PROJECT_CONTEXT.md newest LATEST HANDOFF / NEXT, README.md,
 research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
  docs/plans/2026-11-20-core-startup-coverage.md.
-Keep context and this prompt current; commit/push milestones on feature branches.
-Continue until I say stop; popup and pause for physical intervention.
+Continue until I say stop. Keep context and this prompt current; commit/push
+milestones on feature/glorious-core-compatibility. Popup/pause for intervention.
 
 
-NOVEMBER 20 — V24 WIRELESS PROFILE-BACKUP CANDIDATE READY; NOT FLASHED.
-Normal exact tested v14 remains installed and working. User reports active mouse
-use; Windows still sees no Glorious wired USB device after reconnection. No wired
-stream or query was opened. Keep CORE closed. Continue until user says stop.
+NOVEMBER 20 — NORMAL V14 RESTORATION USER-CONFIRMED; RECOVERY CONNECTION NEXT.
+User confirmed automatic wireless movement/click after restoring exact normal
+v14 (93eb987a). Private core-v24-normal-restoration.json now records confirmation.
+No live serial/capture/build/helper/timer; no pending settings recovery. Backup
+milestone 06e36c8 is pushed, all 40 configuration reads passed, no settings changed.
 
-V24 expands canonical GET coverage for the 40-query profile backup. The existing
-profile-1 selected-stage setter remains restricted, but this backup operation
-sends GETTERS ONLY and changes no settings. No new write trials while wired
-recovery is unavailable. No pointer output in this diagnostic.
-Build finished successfully: all 13 tests PASS, staged source hashes match,
-RF_CONFIG_READ/HID ON, FAST_POLL OFF; product DIY Mouse Config HID v24.
-197 UF2 blocks, 0x26000..0x32500 exclusive; 50188 flash / 16896 RAM.
-Preserved private image build-pairing-analysis/config-hid-v24-875a85b9.uf2
-SHA256 875a85b941cd15930f13b19e1a1eabacacc00c2133dcb2f8abe0db33de4d1a15.
-Both backup helper self-test modes passed. No flash, settings write, serial,
-capture, helper, build or timer remains running. Hardware getter coverage for
-all profiles is still unqualified. Full automated profile restore is not ready.
+Review confirms current normal firmware forwards mouse input only. Before CORE
+button/key remapping, auxiliary keyboard/consumer/system outputs still need
+implementation and neutral/busy/retry qualification. Do not claim CORE support.
+Also establish a usable independent recovery connection before new profile write
+trials: previous USB cable attempts yielded no present wired Glorious device.
+NEXT physical popup: CORE closed; leave DIY receiver unchanged, switch Glorious
+wireless power OFF, connect it directly using a known USB DATA cable. Check
+whether wired movement works with wireless switched OFF. This distinguishes
+actual wired data from continuing receiver input. Recheck present 258A:2018 and
+65-byte Feature interface before sending any read-only verification. No flashing,
+settings writes, CORE launch or change to Windows/DPI settings for this check.
+If wired data remains unavailable, document the blocker and continue safe
+auxiliary software work; do not assume wired restoration is available.
+User continue until stop. Keep private backup/binaries ignored and context current.
 
-NEXT: fresh popup/pause for CORE closed, Glorious wired or OFF, double-reset ONLY
-receiver into NICENANO. Verify board and exact preserved image before flashing.
-Check passive USB startup, then separate readiness for Glorious ON / USB unplugged
-and STILL near receiver. Use 32-bit SysWOW64 PowerShell to run
-research/backup_mouse_profiles.ps1 -Wireless. Validate all 40 responses; only full
-success updates private current-core-profile-backup.txt. On failure preserve
-partial evidence, do not retry blindly or change settings. After this batch,
-popup/pause to restore EXACT tested normal v14 image dongle-v14-93eb987a.uf2,
-SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052,
-verify USB identity and ask for wireless movement/click check. No pending DPI
-recovery: original 800-DPI selection previously verified restored.
-CORE identity/full settings/key forwarding remain unfinished; four-hour trial
-is deferred. No app launch or stock identity until required coverage qualifies.
+Private complete backup pointer: build-pairing-analysis/current-core-profile-backup.txt
+V24 backup result mouse-profile-backup-20261120-205523-d2d97068.json: all three
+profiles have 400/800/1600/3200 DPI X=Y; selected profile1 stage2 (800), profiles2/3
+stage3 (1600). Preserves colours/debounce/global polling/LOD and24 slot0 bindings.
+No macro bodies or independently qualified full-device restore. Original settings
+unchanged; no DPI recovery pending. Full CORE support not implemented.
 
-Branch: feature/glorious-core-compatibility. Keep private captures, addresses,
-binaries and proprietary source ignored. Leave .vscode/ and INFO_UF2.TXT alone.
-Do not repeat extraction/builds/baselines. V24 is built and frozen, NOT flashed.
-
-
-NOVEMBER 20 — V24 FLASHED; PASSIVE USB STARTUP PASS; BACKUP NOT STARTED.
-Fresh user readiness confirmed CORE closed, Glorious wired/OFF, NICENANO visible.
-Verified board and exact frozen v24 hash875a85b9 before flash. Windows reports
-DIY Mouse Config HID v24, healthy composite/mouse/vendor HID/CDC COM12, no errors.
-Private core-v24-startup.json saved. No serial opened or configuration query sent.
-Installed firmware is now V24, NOT normal v14; wireless pointer output disabled.
-NEXT popup/pause: keep CORE closed, Glorious ON/USB unplugged/STILL near receiver,
-other pointer available; leave receiver connected unchanged. After Ready run
-32-bit SysWOW64 PowerShell research/backup_mouse_profiles.ps1 -Wireless once.
-Validate 40 read-only responses. No settings changes or new write trials. After
-batch restore exact tested normal v14 through fresh NICENANO readiness and user
-wireless check. Continue until user stops; no live build/capture/serial/helper.
-
-
-NOVEMBER 20 — V24 WIRELESS PROFILE BACKUP HARDWARE PASS; RESTORE V14 NEXT.
-Fresh stationary mouse readiness; 32-bit backup_mouse_profiles.ps1 -Wireless
-completed all 40 read-only USB/RF queries successfully. Private result
-mouse-profile-backup-20261120-205523-d2d97068.json; private pointer
-build-pairing-analysis/current-core-profile-backup.txt updated only on success.
-Raw request/reply lengths, getter opcodes, status/header/profile/slot/counts
-checked. All three profiles have four stages: 400/800/1600/3200 X=Y (big endian).
-Selected stages: profile1=2 (800), profiles2/3=3 (1600). All 24 slot0 binding
-records preserved; DPI colours, debounce, global polling/LOD/version included.
-No settings writes occurred. Full-device restoration and macro-body backup are
-NOT qualified. CORE must remain closed; do not enable stock identity yet.
-V24 remains installed with NO pointer forwarding. Mouse last ON/unplugged/still.
-No live serial/capture/build/helper/timer. No pending DPI recovery.
-NEXT PHYSICAL POPUP: Glorious wired or OFF, CORE closed, double-reset ONLY
-receiver into NICENANO. Restore EXACT tested normal v14 image
-build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
-93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
-verify healthy USB product DIY Mouse Dongle v14, then ask wireless movement/click
-check. After restoration continue CORE command coverage/input forwarding work;
-no repeated extraction/build/baseline. Continue until user says stop.
+Exact installed tested normal v14 image: build-pairing-analysis/dongle-v14-93eb987a.uf2
+SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+V24 image preserved config-hid-v24-875a85b9.uf2, NOT installed anymore.
+No need to repeat builds, extraction, baseline or profile backup. Four-hour trial
+is deferred for CORE compatibility. Keep captures/addresses/binaries/proprietary
+source ignored; leave unrelated .vscode/ and INFO_UF2.TXT untouched.

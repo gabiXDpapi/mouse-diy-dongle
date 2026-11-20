@@ -320,6 +320,42 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 20 — NORMAL V14 RESTORATION USER-CONFIRMED; RECOVERY CONNECTION NEXT.
+User confirmed automatic wireless movement/click after restoring exact normal
+v14 (93eb987a). Private core-v24-normal-restoration.json now records confirmation.
+No live serial/capture/build/helper/timer; no pending settings recovery. Backup
+milestone 06e36c8 is pushed, all 40 configuration reads passed, no settings changed.
+
+Review confirms current normal firmware forwards mouse input only. Before CORE
+button/key remapping, auxiliary keyboard/consumer/system outputs still need
+implementation and neutral/busy/retry qualification. Do not claim CORE support.
+Also establish a usable independent recovery connection before new profile write
+trials: previous USB cable attempts yielded no present wired Glorious device.
+NEXT physical popup: CORE closed; leave DIY receiver unchanged, switch Glorious
+wireless power OFF, connect it directly using a known USB DATA cable. Check
+whether wired movement works with wireless switched OFF. This distinguishes
+actual wired data from continuing receiver input. Recheck present 258A:2018 and
+65-byte Feature interface before sending any read-only verification. No flashing,
+settings writes, CORE launch or change to Windows/DPI settings for this check.
+If wired data remains unavailable, document the blocker and continue safe
+auxiliary software work; do not assume wired restoration is available.
+User continue until stop. Keep private backup/binaries ignored and context current.
+
+NOVEMBER 20 — EXACT NORMAL V14 RESTORED AFTER V24 BACKUP.
+Fresh NICENANO readiness, board identity and preserved 93eb987a image hash
+verified before copy. Runtime product DIY Mouse Dongle v14 and healthy Windows
+mouse/CDC USB devices verified. No serial opened. Private evidence:
+build-pairing-analysis/core-v24-normal-restoration.json. User wireless movement/
+click check PENDING next popup. V24 no longer installed; backup passed all40 reads
+and remains private (milestone06e36c8 pushed). No settings changes, no pending
+DPI recovery. Current original profile1 selected stage2 = 800 DPI.
+No live build/capture/serial/helper/timer. Continue until user says stop.
+After user control confirmation, resume CORE compatibility software work:
+qualify bounded startup setters and required keyboard/consumer forwarding before
+stock identity/app launch. Read docs/plans/2026-11-20-core-startup-coverage.md.
+Wired USB still unresolved; do not assume wired recovery is available or start
+new configuration write trials without a qualified restoration path.
+
 NOVEMBER 20 — V24 WIRELESS PROFILE BACKUP HARDWARE PASS; RESTORE V14 NEXT.
 Fresh stationary mouse readiness; 32-bit backup_mouse_profiles.ps1 -Wireless
 completed all 40 read-only USB/RF queries successfully. Private result
