@@ -320,6 +320,25 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+RESUMED NOVEMBER 21 by user: continue where we left off.
+Repository checkpoint aded995 on feature/glorious-core-compatibility; only
+unrelated .vscode/ and INFO_UF2.TXT untracked. Saved pause is revoked by explicit
+resume. No hardware action, serial session, configuration query, build or capture
+started during resume review. Last confirmed installed firmware is exact normal
+v14 with original 400/800/1600/3200 DPI values and selected800 restored; no pending
+settings recovery. V25 real DPI-value edit/restore passed (3e1089e), normal v14
+restoration was user-confirmed. Full CORE app support remains unfinished.
+NEXT physical readiness popup: CORE closed; Glorious wireless switch OFF and
+connected directly by the working USB DATA cable, wired movement verified;
+DIY receiver unchanged. Then run prepared32-bit research/inspect_wired_hid.ps1
+read-only Windows HID layout inspection. No settings requests, flashing, streams
+or input recording. Keep report output private; distinguish library Windows
+views from raw USB capture. If unsupported, preserve partial evidence and report
+limitation before choosing fallback. Use layouts for later auxiliary keyboard,
+media and system report forwarding; do not enable CORE identity yet.
+User preference continues until user says stop; popup/pause for intervention.
+Keep context/resume prompt current, push tested milestones on feature branches.
+
 PAUSED BY USER — NOVEMBER20, AFTER V25 NORMAL RESTORATION.
 User selected "Pause here — keep normal wireless operation" at read-only wired
 HID-layout readiness. STOP project work until user explicitly returns.

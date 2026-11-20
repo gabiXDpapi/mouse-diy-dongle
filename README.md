@@ -658,7 +658,7 @@ recording actual use and interruptions rather than counting earlier mixed trials
 Wireless configuration reads and selected-DPI-stage change/restore passed.
 All40 startup-field records across three profiles were backed up over radio and
 wired USB; both copies match. Normal tested v14 remains the everyday receiver.
-V25 is a built, software-tested prototype for actual DPI-value edit/restore,
-not yet hardware-tested. See docs/plans/2026-11-20-dpi-values.md and newest
+V25 passed a real inactive-stage DPI-value edit (3200 to3250) and verified
+restoration of all original values and the selected800-DPI stage. See docs/plans/2026-11-20-dpi-values.md and newest
 PROJECT_CONTEXT.md handoff. Full CORE detection/configuration and keyboard or
 consumer key forwarding remain unfinished; keep CORE closed during diagnostics.
