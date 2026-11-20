@@ -47,3 +47,10 @@ normalwirelessuse; do not reusequarantinedreceiver. Restore EXACTtestednormalv14
 93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
 afterbatch withfreshbootloaderpopup andusercontrolcheck. Four-hourtrial deferred.
 Usercontinueuntilstop; no currentdeadline. FullCOREsettings stillunimplemented.
+
+
+V23 software milestone397f156 pushed; no live sessions or pending recovery backup.
+Normal testedv14 remainsinstalled/userconfirmed. V23 stillNOTflashed. Nextstep
+is freshNICENANO readiness, then verifiedv23flash and READ-ONLY multi-querytrial;
+temporaryDPIselection mustwaitfor separate readiness afterreadsPASS. EOF-only
+protocol-helper tidy doesnotchange testedlogic. No completedbuild/test repeats.

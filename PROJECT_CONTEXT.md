@@ -320,6 +320,12 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+V23 software milestone397f156 pushed; no live sessions or pending recovery backup.
+Normal testedv14 remainsinstalled/userconfirmed. V23 stillNOTflashed. Nextstep
+is freshNICENANO readiness, then verifiedv23flash and READ-ONLY multi-querytrial;
+temporaryDPIselection mustwaitfor separate readiness afterreadsPASS. EOF-only
+protocol-helper tidy doesnotchange testedlogic. No completedbuild/test repeats.
+
 NOVEMBER20 V23 SOFTWARE READY, NOT FLASHED/HARDWARE-TESTED.
 Normal EXACTtestedv14 remainsinstalled and userconfirmedworking afterv22.
 No livebuild/serial/capture/helper/timer; NO realmouse settingswrites yet.

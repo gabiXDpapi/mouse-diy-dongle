@@ -59,4 +59,3 @@ function Read-SettingsReply([string]$Kind, [byte[]]$Packet, [int]$Stage=0) {
         }
     }
 }
-
