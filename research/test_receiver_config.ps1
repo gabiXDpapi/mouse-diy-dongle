@@ -1,5 +1,6 @@
 param(
     [switch]$ExerciseDpi,
+    [switch]$ExerciseDpiValues,
     [switch]$RestoreWired,
     [string]$BackupFile,
     [string]$HidSharpPath = "$PSScriptRoot\..\build-pairing-analysis\HidSharp.dll",
@@ -10,8 +11,8 @@ $mouseVendorId = if ($RestoreWired) { 0x258A } else { 0x2FE3 }
 $mouseProductId = if ($RestoreWired) { 0x2018 } else { 0x0008 }
 . "$PSScriptRoot\mouse_settings_protocol.ps1"
 
-function Invoke-SettingsTransaction($Stream, [string]$Kind, [int]$Stage=0) {
-    $request = New-SettingsQuery $Kind $Stage
+function Invoke-SettingsTransaction($Stream, [string]$Kind, [int]$Stage=0, [object[]]$Values=@()) {
+    $request = New-SettingsQuery $Kind $Stage $Values
     $response = New-Object byte[] 65
     $script:lastSettingsExchange = [ordered]@{ Kind=$Kind; Stage=$Stage; RequestHex=[BitConverter]::ToString($request); Gets=0 }
     $Stream.SetFeature($request)
@@ -23,19 +24,23 @@ function Invoke-SettingsTransaction($Stream, [string]$Kind, [int]$Stage=0) {
         $script:lastSettingsExchange.ResponseHex = [BitConverter]::ToString($response)
         if ($response[1] -ne 0xA0) { break }
     }
-    $value = Read-SettingsReply $Kind $response $Stage
+    $value = Read-SettingsReply $Kind $response $Stage $Values
     [pscustomobject]@{ Kind=$Kind; Value=$value; RequestHex=[BitConverter]::ToString($request)
         ResponseHex=[BitConverter]::ToString($response); Gets=$script:lastSettingsExchange.Gets }
 }
 
 function Assert-DpiBackup($Backup) {
     $original=[int]$Backup.OriginalStage
-    if ($Backup.Schema -ne 1 -or $Backup.Initial.Version -ne '1.0.0.0' -or
+    if ($Backup.Schema -notin @(1,2) -or $Backup.Initial.Version -ne '1.0.0.0' -or
         $Backup.Initial.Profile -ne 1 -or $Backup.OriginalStage -ne $original -or $Backup.OriginalStage -lt 1 -or
         $Backup.OriginalStage -gt 4 -or $Backup.Initial.ActiveDpi -ne $Backup.OriginalStage -or
         @($Backup.Initial.DpiStages).Count -gt 4 -or
         @($Backup.Initial.DpiStages).Count -lt $Backup.OriginalStage) {
         throw 'Invalid profile-1 selected-DPI backup; no restore command allowed.'
+    }
+    if ($Backup.Schema -eq 2) {
+        New-SettingsQuery WriteDpi 0 @($Backup.Initial.DpiStages) | Out-Null
+        if (@($Backup.Initial.DpiStages).Count -ne 4) { throw 'Invalid value backup.' }
     }
 }
 
@@ -51,6 +56,29 @@ function Invoke-DpiSelectionTrial([scriptblock]$Select, [scriptblock]$Read, [int
     } finally {
         & $Select $Original | Out-Null
         if ((& $Read) -ne $Original) { throw 'Radio restore readback mismatch; use saved wired recovery.' }
+        $Outcome.Restored=$true
+    }
+}
+
+function Assert-DpiValuesEqual($Expected,$Actual) {
+    if (@($Actual).Count -ne @($Expected).Count) { throw 'DPI stage count readback mismatch.' }
+    for ($i=0;$i -lt @($Expected).Count;$i++) {
+        if ($Actual[$i].X -ne $Expected[$i].X -or $Actual[$i].Y -ne $Expected[$i].Y) { throw 'DPI value readback mismatch.' }
+    }
+}
+
+function Invoke-DpiValuesTrial([scriptblock]$Write,[scriptblock]$Read,[scriptblock]$RestoreSelection,$Original,$Alternate,$Outcome) {
+    try {
+        & $Write $Alternate | Out-Null
+        Assert-DpiValuesEqual $Alternate (& $Read)
+        $Outcome.Changed=$true
+    } catch {
+        $Outcome.ChangeError=$_.Exception.Message
+        throw
+    } finally {
+        & $Write $Original | Out-Null
+        Assert-DpiValuesEqual $Original (& $Read)
+        & $RestoreSelection | Out-Null
         $Outcome.Restored=$true
     }
 }
@@ -105,11 +133,41 @@ if ($SelfTest) {
             if ($outcome.Restored -or $script:mockTrial.Stage -ne 3) { throw 'Failed restore must stay pending.' }
         } elseif (!$outcome.Restored -or $script:mockTrial.Stage -ne 2) { throw 'Original selection not restored after change fault.' }
     }
-    'Reusable transaction, selection, backup and failure checks passed; no hardware accessed.'
+    $original=@(400,800,1600,3200 | ForEach-Object {[pscustomobject]@{X=$_;Y=$_}})
+    $alternate=@(400,800,1600,3250 | ForEach-Object {[pscustomobject]@{X=$_;Y=$_}})
+    $valuePacket=New-SettingsQuery WriteDpi 0 $original
+    if ($valuePacket[4] -ne 18 -or $valuePacket[9] -ne 1 -or $valuePacket[10] -ne 144) { throw 'DPI big-endian encoding failed.' }
+    $valuePacket[1]=0xA1; Read-SettingsReply WriteDpi $valuePacket 0 $original | Out-Null
+    $fake.Replies.Enqueue($valuePacket.Clone())
+    if(!(Invoke-SettingsTransaction $fake WriteDpi 0 $original).Value){throw 'Value transaction failed.'}
+    $valuePacket[24]=1; $refused=$false
+    try {Read-SettingsReply WriteDpi $valuePacket 0 $original | Out-Null}catch{$refused=$true}
+    if (!$refused) {throw 'Wrong value acknowledgement accepted.'}
+    foreach ($bad in @(0,51,19050)) {
+        $invalid=@($original | ForEach-Object {[pscustomobject]@{X=$_.X;Y=$_.Y}});$invalid[3].Y=$bad;$refused=$false
+        try {New-SettingsQuery WriteDpi 0 $invalid|Out-Null}catch{$refused=$true}
+        if(!$refused){throw 'Invalid DPI write value accepted.'}
+    }
+    foreach ($fault in @('none','read','set','restore','selection')) {
+        $script:valueMock=[pscustomobject]@{Values=$original;Writes=0;Selections=0;Fault=$fault}
+        $write={param($values)
+            $script:valueMock.Writes++
+            if($script:valueMock.Fault -eq 'restore' -and $script:valueMock.Writes -eq 2){throw 'Restore write failed.'}
+            $script:valueMock.Values=$values
+            if($script:valueMock.Fault -eq 'set' -and $script:valueMock.Writes -eq 1){throw 'Ambiguous change.'}
+        }
+        $read={if($script:valueMock.Fault -eq 'read' -and $script:valueMock.Writes -eq 1){return $original};return $script:valueMock.Values}
+        $selection={$script:valueMock.Selections++;if($script:valueMock.Fault -eq 'selection'){throw 'Selection restore failed.'}}
+        $outcome=[ordered]@{Changed=$false;Restored=$false};$threw=$false
+        try {Invoke-DpiValuesTrial $write $read $selection $original $alternate $outcome}catch{$threw=$true}
+        if($script:valueMock.Writes -ne 2 -or ($fault -eq 'none' -and ($threw -or !$outcome.Changed)) -or ($fault -ne 'none' -and !$threw)){throw 'Value trial fault handling failed.'}
+        if($outcome.Restored -ne ($fault -notin @('restore','selection'))){throw 'Unverified value restoration marked complete.'}
+    }
+    'Reusable transaction, selection/value edits, backup and failure checks passed; no hardware accessed.'
     return
 }
 
-if ($ExerciseDpi -and $RestoreWired) { throw 'Choose a receiver trial OR wired recovery.' }
+if (($ExerciseDpi -and $ExerciseDpiValues) -or (($ExerciseDpi -or $ExerciseDpiValues) -and $RestoreWired)) { throw 'Choose one trial OR wired recovery.' }
 if ([IntPtr]::Size -ne 4) { throw 'Run in 32-bit SysWOW64 PowerShell.' }
 if (Get-Process -Name 'Glorious Core' -ErrorAction SilentlyContinue) { throw 'Close CORE first.' }
 $private = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\build-pairing-analysis'))
@@ -123,7 +181,7 @@ if ($RestoreWired) {
     Assert-DpiBackup $savedBackup
     if (!$savedBackup.NeedsWiredRestore) { throw 'Backup is already restored; no replay allowed.' }
 } else {
-    if ($ExerciseDpi -and (Test-Path -LiteralPath $pointer)) {
+    if (($ExerciseDpi -or $ExerciseDpiValues) -and (Test-Path -LiteralPath $pointer)) {
         $priorPath=[IO.Path]::GetFullPath((Get-Content -LiteralPath $pointer -Raw).Trim())
         if (!$priorPath.StartsWith($private+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid prior backup location.' }
         $prior=Get-Content -LiteralPath $priorPath -Raw | ConvertFrom-Json
@@ -131,18 +189,19 @@ if ($RestoreWired) {
         if ($prior.NeedsWiredRestore) { throw 'Previous selection recovery is pending; resolve it before another write.' }
     }
     $root=@(Get-CimInstance Win32_PnPEntity | Where-Object { $_.PNPDeviceID -match '^USB\\VID_2FE3&PID_0008\\' -and $_.Status -eq 'OK' })
-    if ($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Config HID v23') {
-        throw 'Unique v23 receiver identity not verified; no request sent.'
+    $expectedProduct=if($ExerciseDpiValues){'DIY Mouse Config HID v25'}else{'DIY Mouse Config HID v23'}
+    if ($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne $expectedProduct) {
+        throw 'Unique expected receiver identity not verified; no request sent.'
     }
 }
 Add-Type -Path (Resolve-Path -LiteralPath $HidSharpPath).Path
 $devices=@([HidSharp.DeviceList]::Local.GetHidDevices($mouseVendorId,$mouseProductId) | Where-Object { $_.GetMaxFeatureReportLength() -eq 65 })
 if ($devices.Count -ne 1) { throw 'Expected one matching configuration Feature interface.' }
 $stream=$devices[0].Open()
-$job=Join-Path $private ('config-v23-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
-$result=[ordered]@{Success=$false;WiredRecovery=[bool]$RestoreWired;ExerciseDpi=[bool]$ExerciseDpi;NeedsWiredRestore=[bool]$RestoreWired;Transactions=@()}
-function Invoke-Checked([string]$Kind,[int]$Stage=0) {
-    $r=Invoke-SettingsTransaction $stream $Kind $Stage
+$job=Join-Path $private ('config-trial-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
+$result=[ordered]@{Success=$false;WiredRecovery=[bool]$RestoreWired;ExerciseDpi=[bool]$ExerciseDpi;ExerciseDpiValues=[bool]$ExerciseDpiValues;NeedsWiredRestore=[bool]$RestoreWired;Transactions=@()}
+function Invoke-Checked([string]$Kind,[int]$Stage=0,[object[]]$Values=@()) {
+    $r=Invoke-SettingsTransaction $stream $Kind $Stage $Values
     $result.Transactions+= $r
     return $r.Value
 }
@@ -150,6 +209,11 @@ try {
     $stream.ReadTimeout=2000; $stream.WriteTimeout=2000
     if ($RestoreWired) {
         if ((Invoke-Checked Version) -ne $savedBackup.Initial.Version) { throw 'Wired mouse firmware does not match backup.' }
+        if($savedBackup.Schema -eq 2) {
+            if((Invoke-Checked Profile) -ne 1){throw 'Active profile changed; inspect before value recovery.'}
+            Invoke-Checked WriteDpi 0 @($savedBackup.Initial.DpiStages) | Out-Null
+            Assert-DpiValuesEqual @($savedBackup.Initial.DpiStages) (Invoke-Checked DpiStages)
+        }
         Invoke-Checked SelectDpi ([int]$savedBackup.OriginalStage) | Out-Null
         if ((Invoke-Checked ActiveDpi) -ne $savedBackup.OriginalStage) { throw 'Wired selected-stage restore not verified.' }
         $savedBackup.NeedsWiredRestore=$false
@@ -165,9 +229,10 @@ try {
             @($initial.DpiStages).Count -gt 4 -or $initial.ActiveDpi -gt @($initial.DpiStages).Count) {
             throw 'Unexpected mouse firmware/profile/stages; no selection write allowed.'
         }
-        if ($ExerciseDpi) {
+        if ($ExerciseDpi -or $ExerciseDpiValues) {
             if (@($initial.DpiStages).Count -lt 2) { throw 'Need two existing DPI stages for reversible trial.' }
-            $backup=[ordered]@{Schema=1;OriginalStage=$initial.ActiveDpi;Initial=$initial;NeedsWiredRestore=$true}
+            if($ExerciseDpiValues) {New-SettingsQuery WriteDpi 0 @($initial.DpiStages) | Out-Null}
+            $backup=[ordered]@{Schema=$(if($ExerciseDpiValues){2}else{1});OriginalStage=$initial.ActiveDpi;Initial=$initial;NeedsWiredRestore=$true}
             Assert-DpiBackup ([pscustomobject]$backup)
             $BackupFile="$job.backup.json"
             $backup | ConvertTo-Json -Depth 6 | Set-Content -Encoding UTF8 $BackupFile
@@ -176,8 +241,20 @@ try {
             $alternate=($initial.ActiveDpi % @($initial.DpiStages).Count)+1
             $outcome=[ordered]@{Changed=$false;Restored=$false}
             try {
-                Invoke-DpiSelectionTrial {param($stage) Invoke-Checked SelectDpi $stage} {Invoke-Checked ActiveDpi} ([int]$initial.ActiveDpi) $alternate $outcome
-                $result.ChangedStage=$alternate
+                if($ExerciseDpiValues) {
+                    $changed=@($initial.DpiStages | ForEach-Object {[pscustomobject]@{X=$_.X;Y=$_.Y}})
+                    $index=if($initial.ActiveDpi -eq 4){2}else{3}
+                    $changed[$index].X+=$(if($changed[$index].X -eq 19000){-50}else{50})
+                    $changed[$index].Y+=$(if($changed[$index].Y -eq 19000){-50}else{50})
+                    Invoke-DpiValuesTrial {param($values) Invoke-Checked WriteDpi 0 $values} {Invoke-Checked DpiStages} {
+                        Invoke-Checked SelectDpi ([int]$initial.ActiveDpi) | Out-Null
+                        if((Invoke-Checked ActiveDpi) -ne $initial.ActiveDpi){throw 'Selection restore mismatch.'}
+                    } @($initial.DpiStages) $changed $outcome
+                    $result.ChangedValueStage=$index+1
+                } else {
+                    Invoke-DpiSelectionTrial {param($stage) Invoke-Checked SelectDpi $stage} {Invoke-Checked ActiveDpi} ([int]$initial.ActiveDpi) $alternate $outcome
+                    $result.ChangedStage=$alternate
+                }
             } finally {
                 $result.DpiTrial=$outcome
                 if ($outcome.Restored) {
@@ -190,6 +267,7 @@ try {
         $result.Success=$true
         Write-Output ('CONFIG_READBACK_PASS: profile='+$initial.Profile+' polling='+$initial.Polling+'Hz selected_stage='+$initial.ActiveDpi)
         if ($ExerciseDpi) { Write-Output 'SELECTED_DPI_CHANGE_AND_RESTORE_VERIFIED' }
+        if ($ExerciseDpiValues) { Write-Output 'DPI_VALUES_CHANGE_AND_RESTORE_VERIFIED' }
     }
 } catch {
     $result.Error=$_.Exception.Message

@@ -84,6 +84,32 @@ int main(void)
     uint8_t lod[64]={0,0,2,1,1,0x88};assert(config_request_valid(lod));
     select[6]=2;assert(!config_request_valid(select)); /* No new profile write authority. */
 
+    uint8_t values[64]={0,0,2,18,1,1,1,4};
+    for (unsigned i=0;i<8;i++) { values[8+2*i]=3; values[9+2*i]=0x20; } /* 800 DPI. */
+    assert(config_read_begin(&state,values));
+    values[6]=2;assert(!config_request_valid(values));values[6]=1;
+    values[7]=3;assert(!config_request_valid(values));values[7]=4;
+    values[24]=1;assert(!config_request_valid(values));values[24]=0;
+    values[8]=0;values[9]=49;assert(!config_request_valid(values));
+    values[9]=51;assert(!config_request_valid(values));
+    values[8]=0x4a;values[9]=0x6a;assert(!config_request_valid(values)); /* 19050 */
+    values[8]=0;values[9]=50;assert(config_request_valid(values));
+    values[8]=0x4a;values[9]=0x38;assert(config_request_valid(values)); /* 19000 */
+    values[8]=3;values[9]=0x20;
+    assert(config_read_begin(&state,values));state.offset=64;
+    uint8_t values_response[24];memcpy(values_response,values,24);values_response[0]=0xa1;
+    for(unsigned i=0;i<3;i++) {
+        uint8_t frame[12]={11,(uint8_t)(60+i),0, i==2 ? 0x47 : 0xc7};
+        memcpy(frame+4,values_response+8*i,8);config_read_receive(&state,frame);
+    }
+    assert(state.complete && !state.failed);
+    assert(config_read_begin(&state,values));state.offset=64;values_response[23]^=1;
+    for(unsigned i=0;i<3;i++) {
+        uint8_t frame[12]={11,(uint8_t)(60+i),0, i==2 ? 0x47 : 0xc7};
+        memcpy(frame+4,values_response+8*i,8);config_read_receive(&state,frame);
+    }
+    assert(state.failed && !state.complete); /* Every returned value must match the write. */
+
     memset(&state, 0, sizeof(state));
     idle[2] = 0;
     config_read_ack(&state, idle, ack);

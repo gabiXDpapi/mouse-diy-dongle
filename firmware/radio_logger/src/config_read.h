@@ -27,6 +27,16 @@ static inline bool config_request_valid(const uint8_t *p)
         expected[3] = 10; expected[7] = p[7]; profile_read = true;
         break; /* Slot0 only; remaining padding must be zero. */
     }
+    case 0x0101:
+        /* Qualify profile1 with its existing four stages before enabling CORE writes. */
+        if (p[6] != 1 || p[7] != 4) return false;
+        expected[3] = 18; expected[6] = 1; expected[7] = 4;
+        for (unsigned int at = 8; at < 24; at += 2) {
+            unsigned int dpi = (unsigned int)p[at] * 256u + p[at + 1];
+            if (dpi < 50 || dpi > 19000 || dpi % 50) return false;
+            expected[at] = p[at]; expected[at + 1] = p[at + 1];
+        }
+        break;
     case 0x0102:
         /* shortcut: current profile has four stages; qualify other profiles separately. */
         if (p[7] < 1 || p[7] > 4) return false;
@@ -127,7 +137,9 @@ static void config_read_receive(struct config_read *s, const uint8_t *p)
                 s->response[2] != request[2] || s->response[4] != request[4] ||
                 s->response[5] != request[5] ||
                 (request[4] == 1 && request[5] == 2 &&
-                 (payload != 2 || memcmp(s->response + 6, request + 6, 2)))) s->failed = true;
+                 (payload != 2 || memcmp(s->response + 6, request + 6, 2))) ||
+                (request[4] == 1 && request[5] == 1 &&
+                 (payload != 18 || memcmp(s->response + 6, request + 6, 18)))) s->failed = true;
             else s->complete = true;
             return;
         }

@@ -1,5 +1,5 @@
 # Shared fixed mouse configuration packets; importing this file never accesses hardware.
-function New-SettingsQuery([ValidateSet('Version','Profile','Polling','DpiStages','ActiveDpi','SelectDpi')][string]$Kind, [int]$Stage=0) {
+function New-SettingsQuery([ValidateSet('Version','Profile','Polling','DpiStages','ActiveDpi','SelectDpi','WriteDpi')][string]$Kind, [int]$Stage=0, [object[]]$Values=@()) {
     $packet = New-Object byte[] 65
     $packet[3] = 2
     $packet[4] = 1
@@ -11,6 +11,18 @@ function New-SettingsQuery([ValidateSet('Version','Profile','Polling','DpiStages
         Polling { $packet[6] = 0x80; $packet[7] = 0 }
         DpiStages { $packet[6] = 0x81 }
         ActiveDpi { $packet[6] = 0x82 }
+        WriteDpi {
+            if ($Values.Count -ne 4) { throw 'Exactly four profile-1 stages are required.' }
+            $packet[4]=18; $packet[6]=1; $packet[8]=4
+            for ($i=0;$i -lt 4;$i++) {
+                foreach ($axis in @('X','Y')) {
+                    $value=$Values[$i].$axis
+                    if ($null -eq $value -or $value -ne [int]$value -or $value -lt 50 -or $value -gt 19000 -or $value % 50) { throw 'Invalid DPI value; expected 50..19000 in steps of 50.' }
+                    $at=9+4*$i+$(if($axis -eq 'Y'){2}else{0})
+                    $packet[$at]=[int]$value -shr 8; $packet[$at+1]=[int]$value -band 255
+                }
+            }
+        }
         SelectDpi {
             if ($Stage -lt 1 -or $Stage -gt 4) { throw 'Only the four known profile-1 stages are supported.' }
             $packet[4] = 2; $packet[6] = 2; $packet[8] = $Stage
@@ -19,8 +31,8 @@ function New-SettingsQuery([ValidateSet('Version','Profile','Polling','DpiStages
     return ,$packet
 }
 
-function Read-SettingsReply([string]$Kind, [byte[]]$Packet, [int]$Stage=0) {
-    $request = New-SettingsQuery $Kind $Stage
+function Read-SettingsReply([string]$Kind, [byte[]]$Packet, [int]$Stage=0, [object[]]$Values=@()) {
+    $request = New-SettingsQuery $Kind $Stage $Values
     if ($Packet.Length -ne 65 -or $Packet[0] -ne 0 -or $Packet[1] -ne 0xA1 -or $Packet[3] -ne 2 -or
         $Packet[5] -ne $request[5] -or $Packet[6] -ne $request[6]) {
         throw 'Invalid, busy or mismatched settings reply; no settings accepted.'
@@ -52,6 +64,10 @@ function Read-SettingsReply([string]$Kind, [byte[]]$Packet, [int]$Stage=0) {
         ActiveDpi {
             if ($Packet[7] -ne 1 -or $Packet[8] -lt 1 -or $Packet[8] -gt 6) { throw 'Invalid selected DPI stage.' }
             return [int]$Packet[8]
+        }
+        WriteDpi {
+            if ($Packet[4] -ne 18 -or [BitConverter]::ToString($Packet,7,18) -ne [BitConverter]::ToString($request,7,18)) { throw 'DPI-value acknowledgement mismatch.' }
+            return $true
         }
         SelectDpi {
             if ($Packet[4] -ne 2 -or $Packet[7] -ne 1 -or $Packet[8] -ne $Stage) { throw 'Selected-stage acknowledgement mismatch.' }

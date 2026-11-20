@@ -2,43 +2,52 @@ Continue my DIY mouse receiver project in:
 C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md newest LATEST HANDOFF / NEXT, README.md,
-research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
- docs/plans/2026-11-20-core-startup-coverage.md.
-Continue until I say stop. Keep context and this prompt current; commit/push
-milestones on feature/glorious-core-compatibility. Popup/pause for intervention.
+research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md,
+docs/plans/2026-11-20-dpi-values.md and CORE startup coverage plan.
+Continue until I say stop. Keep context/prompt current; push tested milestones on
+feature/glorious-core-compatibility. Popup/pause for physical intervention.
 
 
-NOVEMBER 20 — NORMAL V14 RESTORATION USER-CONFIRMED; RECOVERY CONNECTION NEXT.
-User confirmed automatic wireless movement/click after restoring exact normal
-v14 (93eb987a). Private core-v24-normal-restoration.json now records confirmation.
-No live serial/capture/build/helper/timer; no pending settings recovery. Backup
-milestone 06e36c8 is pushed, all 40 configuration reads passed, no settings changed.
+NOVEMBER 20 — V25 DPI-VALUE CANDIDATE VALIDATED; NOT FLASHED.
+Normal exact tested v14 remains installed/user-confirmed working. Glorious last
+wired with wireless switch OFF; CORE closed. Wired 258A:2018 healthy, all40 wired
+backup reads passed and match wireless backup exactly. No pending recovery.
+No live build/serial/capture/helper/timer. User continue until stop.
 
-Review confirms current normal firmware forwards mouse input only. Before CORE
-button/key remapping, auxiliary keyboard/consumer/system outputs still need
-implementation and neutral/busy/retry qualification. Do not claim CORE support.
-Also establish a usable independent recovery connection before new profile write
-trials: previous USB cable attempts yielded no present wired Glorious device.
-NEXT physical popup: CORE closed; leave DIY receiver unchanged, switch Glorious
-wireless power OFF, connect it directly using a known USB DATA cable. Check
-whether wired movement works with wireless switched OFF. This distinguishes
-actual wired data from continuing receiver input. Recheck present 258A:2018 and
-65-byte Feature interface before sending any read-only verification. No flashing,
-settings writes, CORE launch or change to Windows/DPI settings for this check.
-If wired data remains unavailable, document the blocker and continue safe
-auxiliary software work; do not assume wired restoration is available.
-User continue until stop. Keep private backup/binaries ignored and context current.
+Prepared v25: same Feature/RF transport, no pointer output, prototype identity.
+Adds only profile1 four-stage DPI-value setter group1/op1,18-byte payload,
+big-endian X/Y50..19000 in50-DPI steps, zero padding. Exact returned setter
+payload must match. Existing selected-stage writer remains restricted1..4.
+Native failing test reproduced old rejection before implementation; all13 native
+tests PASS after change. Shared packet parser and host helper self-tests PASS,
+including ambiguous change/readback/restore/selection failures. No settings writes
+occurred in preparation; hardware setter/restore not qualified yet.
 
-Private complete backup pointer: build-pairing-analysis/current-core-profile-backup.txt
-V24 backup result mouse-profile-backup-20261120-205523-d2d97068.json: all three
-profiles have 400/800/1600/3200 DPI X=Y; selected profile1 stage2 (800), profiles2/3
-stage3 (1600). Preserves colours/debounce/global polling/LOD and24 slot0 bindings.
-No macro bodies or independently qualified full-device restore. Original settings
-unchanged; no DPI recovery pending. Full CORE support not implemented.
+research/test_receiver_config.ps1 -ExerciseDpiValues requires exact v25 USB
+product. Saves schema2 original values/selection with NeedsWiredRestore=true
+BEFORE mutation. Changes one INACTIVE stage by50 DPI, reads all values, then
+finally restores original list, reads it back, restores selection and verifies.
+Only full readback clears pending flag. On failure pause for fresh wired recovery:
+32-bit test_receiver_config.ps1 -RestoreWired -BackupFile saved.backup.json;
+checks saved values, mouse version and active profile1 before value recovery.
+Do not blindly retry an ambiguous RF write. CORE stays closed.
 
-Exact installed tested normal v14 image: build-pairing-analysis/dongle-v14-93eb987a.uf2
-SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-V24 image preserved config-hid-v24-875a85b9.uf2, NOT installed anymore.
-No need to repeat builds, extraction, baseline or profile backup. Four-hour trial
-is deferred for CORE compatibility. Keep captures/addresses/binaries/proprietary
-source ignored; leave unrelated .vscode/ and INFO_UF2.TXT untouched.
+Build log config-hid-v25-build.log; staged code/config hashes match current.
+RF_CONFIG_READ/HID ON, FAST_POLL OFF; product DIY Mouse Config HID v25,2HID,1ms.
+50300 flash /16896 RAM;197 blocks,0x26000..0x32500 exclusive.
+Preserved private image build-pairing-analysis/config-hid-v25-f577b7e0.uf2
+SHA256 f577b7e095a9297da3d2fb34218fe5ba4646d1b36f2c7882041e9461f68b2426.
+NEXT fresh popup CORE closed, Glorious wired/OFF, double-reset ONLY receiver to
+NICENANO; verify board/exact image before flash. Check USB startup, then separate
+stationary wireless mouse readiness that explains temporary inactive-stage edit
+and verified restoration. Run32-bit test_receiver_config.ps1 -ExerciseDpiValues
+ONLY after readiness. On failure preserve private pending backup and pause for
+wired recovery before restoring normal receiver. After batch restore EXACT
+normal v14 via fresh bootloader readiness, verify USB and user movement/click.
+Normal rollback build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+Full CORE identity/keyboard-consumer forwarding/lighting/binding writes remain
+unfinished. Four-hour trial deferred. No new baseline/extraction/build needed.
+
+Keep captures, addresses, binaries and proprietary source private/ignored.
+Leave unrelated .vscode/ and INFO_UF2.TXT untouched.

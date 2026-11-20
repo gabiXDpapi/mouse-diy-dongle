@@ -651,3 +651,14 @@ in-game functionality/reliability for the reported session. It does not establis
 screen latency. The previously observed rare15.279ms host gap remains unexplained.
 Next: a separately started four-hour ordinary wireless-use window if practical,
 recording actual use and interruptions rather than counting earlier mixed trials.
+
+
+### CORE configuration progress (November 20)
+
+Wireless configuration reads and selected-DPI-stage change/restore passed.
+All40 startup-field records across three profiles were backed up over radio and
+wired USB; both copies match. Normal tested v14 remains the everyday receiver.
+V25 is a built, software-tested prototype for actual DPI-value edit/restore,
+not yet hardware-tested. See docs/plans/2026-11-20-dpi-values.md and newest
+PROJECT_CONTEXT.md handoff. Full CORE detection/configuration and keyboard or
+consumer key forwarding remain unfinished; keep CORE closed during diagnostics.
