@@ -280,3 +280,31 @@ Four-hour trial deferred for official CORE compatibility; separate app fallback.
 General lighting disabled in installed CORE model record; DPI colours separate.
 The05:00AM pause is now honored. Ask new available time on a later resumed session;
 old04:50 flash cutoff is not authorization to flash later while project paused.
+
+
+NOVEMBER20 V21 FLASHED; VENDOR USB INTERFACE FAILED - RESTORE V14 NEXT.
+User confirmedNICENANO/COREclosed/mousewired-OFF and continue until toldstop
+(no current time cutoff). Verified unique board/bootloader and exacta7631b8d
+image hash beforecopy. Product DIY Mouse Config HID v21 enumerates; mouseMI_02
+and CDC/COM12 healthy, vendor USB Input Device MI_03 Code10, ProblemStatus
+3221225657 (0xC00000B9). No vendor HID child created. Host version helper NOT RUN;
+no FeatureSET, RF query, serial session or settings write. No live sessions/build.
+Private failure observation: config-hid-v21-usb-startup.json.
+
+Static comparison found v21 vendor descriptor lacks local Usage before Feature;
+known working mouse/stockreceiver descriptor includes Usage00 inside collection:
+06ffff0900a10109001500250175089540b102c0 (20bytes). Omitted field usage is likely
+cause, not yet corrected/hardware-proven. Current test checked descriptor size/
+prefix only and missed it. After normalrestoration, add a failing semantic
+local-usage/report-length regression, correct descriptor (preserve oldv21image),
+use distinctv22product/hash and validate/build before separate physicaltest.
+Microsoft primary HID value-capability docs support per-main-item usages;
+Windows Code10 alone does not prove the exact cause. No driver replacement.
+
+CURRENT INSTALLED v21 has NO wireless pointer output, vendor interface broken.
+NEXT PHYSICAL POPUP: keep Gloriouswired/OFF, COREclosed; double-reset ONLY
+receiver intoNICENANO. Restore EXACT tested normalv14 frozen93eb987a SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052,
+verifyUSB product and fresh userwirelesscheck. Do not reuse sourcecontrol image.
+Do not retry a v21 query against failedHID or repeat extraction/baselines.
+Four-hour trial remainsdeferred, CORE compatibility is thepriority.
