@@ -320,6 +320,40 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+PAUSED BY USER NOVEMBER21 — FUTURE RESUME MAY USE A DIFFERENT OPENAI ACCOUNT.
+User requested stop until a later date. No hardware work after readiness check:
+Windows wired258A:2018 root count0; inspect_wired_hid.ps1 NOT run. No settings
+request, flash, capture, build or live serial/helper/timer. Normal exact tested
+v14 remains last user-confirmed working. V25 original400/800/1600/3200 DPI list
+and selectedstage2=800 restored/readback verified. Private current-config-hid
+backup checked: NeedsWiredRestore=false. No pending recovery.
+Keep project PAUSED until user explicitly resumes. Later account should open the
+SAME local workspace, read RESUME_PROMPT.md and this newest handoff, and continue
+from files rather than assuming access to this account's chat history.
+NEXT fresh physical popup: COREclosed, Glorious wirelessswitchOFF, connected via
+working USB DATA cable with wired movement confirmed; leaveDIYreceiverunchanged.
+Then run32-bit research/inspect_wired_hid.ps1 read-only Windows descriptor view.
+No settings requests/flash/inputrecording. This supports keyboard/media/system
+forwarding for CORE remapping; full CORE app support remains unfinished.
+Retain the WHOLE local folder, including ignored build-pairing-analysis and .git.
+GitHub alone omits private RF parameters, backups, source evidence and rollback
+UF2s needed by this hardware project. Do not publish those ignored files.
+Same Windows user/computer also retains external Zephyr SDK/toolchain under
+C:\Users\Gabriel\zephyrproject. A different computer requires environment and
+private-path verification before any hardware work. Branch remains
+feature/glorious-core-compatibility. All milestones should be committed/pushed,
+context/resume prompt updated for meaningful steps, and physical intervention
+requested with popup/pause. User prefers autonomous progress until intervention
+or an explicit stop. Four-hour reliability trial deferred for CORE compatibility.
+
+NOVEMBER21 RESUME READINESS CHECK: NO WIRED MOUSE PRESENT.
+User said continue. CORE process check clear; present healthy wired258A:2018
+root count0. inspect_wired_hid.ps1 was NOT invoked; no streams, settings requests,
+flash, capture or build. Receiver unchanged; last confirmed normalv14 works.
+NEXT physical popup/pause: COREclosed, Glorious wirelessswitchOFF, connect its
+USB DATA cable directlyPC and confirm wired movement. LeaveDIYreceiver unchanged.
+Then recheck wired presence before the prepared read-only HID-layout inspection.
+
 RESUMED NOVEMBER 21 by user: continue where we left off.
 Repository checkpoint aded995 on feature/glorious-core-compatibility; only
 unrelated .vscode/ and INFO_UF2.TXT untracked. Saved pause is revoked by explicit

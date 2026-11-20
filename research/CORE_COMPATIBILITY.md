@@ -842,3 +842,30 @@ limitation before choosing fallback. Use layouts for later auxiliary keyboard,
 media and system report forwarding; do not enable CORE identity yet.
 User preference continues until user says stop; popup/pause for intervention.
 Keep context/resume prompt current, push tested milestones on feature branches.
+
+
+PAUSED BY USER NOVEMBER21 — FUTURE RESUME MAY USE A DIFFERENT OPENAI ACCOUNT.
+User requested stop until a later date. No hardware work after readiness check:
+Windows wired258A:2018 root count0; inspect_wired_hid.ps1 NOT run. No settings
+request, flash, capture, build or live serial/helper/timer. Normal exact tested
+v14 remains last user-confirmed working. V25 original400/800/1600/3200 DPI list
+and selectedstage2=800 restored/readback verified. Private current-config-hid
+backup checked: NeedsWiredRestore=false. No pending recovery.
+Keep project PAUSED until user explicitly resumes. Later account should open the
+SAME local workspace, read RESUME_PROMPT.md and this newest handoff, and continue
+from files rather than assuming access to this account's chat history.
+NEXT fresh physical popup: COREclosed, Glorious wirelessswitchOFF, connected via
+working USB DATA cable with wired movement confirmed; leaveDIYreceiverunchanged.
+Then run32-bit research/inspect_wired_hid.ps1 read-only Windows descriptor view.
+No settings requests/flash/inputrecording. This supports keyboard/media/system
+forwarding for CORE remapping; full CORE app support remains unfinished.
+Retain the WHOLE local folder, including ignored build-pairing-analysis and .git.
+GitHub alone omits private RF parameters, backups, source evidence and rollback
+UF2s needed by this hardware project. Do not publish those ignored files.
+Same Windows user/computer also retains external Zephyr SDK/toolchain under
+C:\Users\Gabriel\zephyrproject. A different computer requires environment and
+private-path verification before any hardware work. Branch remains
+feature/glorious-core-compatibility. All milestones should be committed/pushed,
+context/resume prompt updated for meaningful steps, and physical intervention
+requested with popup/pause. User prefers autonomous progress until intervention
+or an explicit stop. Four-hour reliability trial deferred for CORE compatibility.
