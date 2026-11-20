@@ -63,3 +63,13 @@ pass. Activeprofile read00/85 was added fromCOREsource so selection writes
 require actualactiveprofile1. Vendor descriptor preserved fromworkingv22.
 Hardware queries/reuse/selection change/recovery remain unqualified. No actual
 settings writes yet; normaltestedv14 remains installed and confirmed working.
+
+
+## V23 hardware PASS
+
+Five read-only transactions passed: version1.0.0.0, profile1,1000Hz,400/800/1600/
+3200 stages, selected800. Afterseparateexplicitreadiness, nine-transaction trial
+changed800->1600 and restored800, bothreadbacks verified. Backup andresult have
+NeedsWiredRestore=false; wiredfallbackwasnotneeded. This validates nominal
+repeatedrequests and selected-stagewrites, notloss/stress/sensorcalibration or
+COREidentity/fullsettings. Restoreexactnormalv14before nextimplementation.

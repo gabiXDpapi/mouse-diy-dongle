@@ -29,8 +29,9 @@ Exact tested normal v14 was restored and ordinary wireless control confirmed.
 
 The current `-App config-hid` staging build is v23. It prepares reusable reads
 of version, active profile, polling and profile-1 DPI settings, plus a narrowly
-allowed selected-stage change. Native/host checks and UF2 validation pass; v23
-has not been flashed or hardware-tested. It retains the working v22 descriptor,
+allowed selected-stage change. Native/host checks, UF2 validation and first hardware trials pass: five read
+queries and a verified 800 -> 1600 -> 800 selected-stage change/restore. The
+recovery backup confirms no pending restore. It retains the working v22 descriptor,
 prototype USB IDs and disabled pointer output. CORE cannot attach yet.
 `research/test_receiver_config.ps1` defaults to read-only; `-ExerciseDpi` requires
 a separate ready cue, saves a recovery backup and verifies original-stage restore.

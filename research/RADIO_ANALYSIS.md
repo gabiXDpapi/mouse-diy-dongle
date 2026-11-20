@@ -3163,3 +3163,23 @@ Hostfreshreads/backup BEFORE write; expectedstage2->3->2 ifunchanged. Onfault,
 checkprivatecurrent-config-hid-backup.txt NeedsWiredRestore and pauseforWIRED
 recovery BEFORE normaluse. Restoreexacttestedv14 93eb987a afterbatch viafresh
 bootloaderpopup thenuserwirelesscheck. No generalDPIvalue/lighting/bindingwrites.
+
+
+NOVEMBER20 FIRST REAL WIRELESS DPI SELECTION WRITE/RESTORE PASS.
+UserexplicitReady for temporaryDPIstagechange, COREclosed/mouseONunpluggedSTILL.
+Prepared -ExerciseDpi helper Success true; freshbaseline profile1/1000Hz/stage2,
+selectedstage3 readbackconfirmed, originalstage2 readbackrestored.800->1600->800.
+Nine successfulUSB/RFtransactions inthistrial; priorfiveREAD-onlysameboot had
+passed. DpiTrialChanged/Restored true; NeedsWiredRestore false in resultANDbackup.
+Private resultconfig-v23-20261120-183851-c34067f2.json, .backup.json; privatepointer
+current-config-hid-backup.txt pointsbackup. CHECKflag oninterruptedresume but
+thistrialhasNO PENDING RECOVERY. DPIstagevalues/lighting/bindings notmodified.
+No serial/livehelper/capture/build/timer. V23 remainsinstalled, pointerdisabled;
+mouse lastON/unplugged/still. Selectedstagewrite isrealmouseconfiguration,
+not receivergain; no sensorDPIcalibration orfullCOREappsupport claim.
+NEXT restore EXACTtestednormalv14 viafreshbootloaderpopup (COREclosed,mousewired/
+OFF,double-resetONLYreceiverNICENANO). Image93eb987a SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052. VerifyUSB,
+thenuserwirelessmovement/clickcheck. Afterrestoration continueCOREcompatibility
+scope; actualDPIvalue writes/fullprofile/bindings/lighting stillnotimplemented.
+Four-hourtrialstilldeferred; usercontinueuntilstop.
