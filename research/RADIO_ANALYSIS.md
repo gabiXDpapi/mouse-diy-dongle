@@ -3073,3 +3073,33 @@ noquery; restorev14 andinvestigate. Restoreexacttestedv14afterbatch via fresh
 physicalpopup: frozen93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
 Do not repeat extraction/completedbuild/baseline or flasholdv21. Four-hourtrial
 stilldeferred for CORE; fullappsettings remainunimplemented.
+
+
+NOVEMBER20 V22 NOW FLASHED; WINDOWS VENDOR STARTUP PASS.
+UserfreshNICENANO/COREclosed/Gloriouswired-OFF readiness; verifiedunique board,
+bootloader0.6.0 and exact9cb33d52image hash beforecopy. USBproduct
+DIY Mouse Config HID v22; BOTH mouse/vendor HIDcollections healthy, CDC/COM12,
+zeroerror devices (v21Code10 gone thisboot). Private config-hid-v22-usb-startup.json.
+No serial opened, no FeatureSET/RF query/settings write. No livebuild/helper.
+Currentinstalledv22 intentionallyNOwirelesspointeroutput. COREmuststayclosed.
+NEXT physicalpopup: GloriousON/USBunplugged/STILL nearreceiver, otherpointer
+available; receiverunchanged. No timedcue needed becauseUSBhost triggersquery.
+Then32-bit read_receiver_version.ps1 exactv22gate; initialGETA3, ONEfixedSET,
+boundedGET polls, compareactual RF version1.0.0.0withwiredreference, saveprivate.
+Afterquery/failure restoreexactTESTEDv14 93eb987a viafreshbootloaderpopup and
+briefwirelesscheck. Four-hourtrialstilldeferred. Continueuntiluser saysstop.
+
+
+NOVEMBER20 V22 HOST USB->RF->USB VERSION READ PASS.
+UserconfirmedGloriousON/USBunplugged/STILL, COREclosed. 32-bit preparedhelper
+finished successfully, one FeatureSET and twoGETs(total includesinitialA3).
+Returned firmware1.0.0.0 exactlymatcheswiredreference; Success=true.
+Private observation config-hid-v22-20261120-175941-a3145cd2.json. No serial,
+no settings write, no livehelper/capture/build/timer. V22 remainsinstalled with
+pointeroutputdisabled; one-shotqueryused. This establishes vendorFeature host
+roundtrip throughreceiver tostockmouse, not fullCOREdetection/configwrites.
+NEXT freshphysicalpopup: Gloriouswired/OFF, COREclosed, double-resetONLYreceiver
+intoNICENANO; restore EXACT TESTED normalv14 frozen93eb987a SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+VerifyUSB thenbriefuserwirelesscheck. Afterrestoration continue multi-command/
+allowlist/CORE compatibility implementation. Four-hourtrialstilldeferred.

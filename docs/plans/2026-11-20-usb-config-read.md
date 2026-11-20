@@ -44,3 +44,13 @@ descriptor, rejects truncation and wrong Feature count. All13 native checks and
 host helper self-test pass. V22 label/strict helper gate distinguish the fix;
 RF transport and immutable version-read command are unchanged. Build and fresh
 hardware verification precede any claim that Windows startup is fixed.
+
+
+## V22 end-to-end hardware PASS
+
+Corrected vendor descriptor starts in Windows: twohealthyHIDcollections andCDC,
+noCode10; 32-bit vendor Feature length65 verified. One host FeatureSET andtwoGETs
+(initialunusedA3, successfulreply) returned stockmouseversion1.0.0.0 matching
+wired reference. No serial reader or settings writes. Restoretestednormalv14
+before next software work. Repeated transactions, settings writes andCOREidentity
+remain unimplemented/unqualified.
