@@ -320,6 +320,83 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 20 — V24 WIRELESS PROFILE-BACKUP CANDIDATE READY; NOT FLASHED.
+Normal exact tested v14 remains installed and working. User reports active mouse
+use; Windows still sees no Glorious wired USB device after reconnection. No wired
+stream or query was opened. Keep CORE closed. Continue until user says stop.
+
+V24 expands canonical GET coverage for the 40-query profile backup. The existing
+profile-1 selected-stage setter remains restricted, but this backup operation
+sends GETTERS ONLY and changes no settings. No new write trials while wired
+recovery is unavailable. No pointer output in this diagnostic.
+Build finished successfully: all 13 tests PASS, staged source hashes match,
+RF_CONFIG_READ/HID ON, FAST_POLL OFF; product DIY Mouse Config HID v24.
+197 UF2 blocks, 0x26000..0x32500 exclusive; 50188 flash / 16896 RAM.
+Preserved private image build-pairing-analysis/config-hid-v24-875a85b9.uf2
+SHA256 875a85b941cd15930f13b19e1a1eabacacc00c2133dcb2f8abe0db33de4d1a15.
+Both backup helper self-test modes passed. No flash, settings write, serial,
+capture, helper, build or timer remains running. Hardware getter coverage for
+all profiles is still unqualified. Full automated profile restore is not ready.
+
+NEXT: fresh popup/pause for CORE closed, Glorious wired or OFF, double-reset ONLY
+receiver into NICENANO. Verify board and exact preserved image before flashing.
+Check passive USB startup, then separate readiness for Glorious ON / USB unplugged
+and STILL near receiver. Use 32-bit SysWOW64 PowerShell to run
+research/backup_mouse_profiles.ps1 -Wireless. Validate all 40 responses; only full
+success updates private current-core-profile-backup.txt. On failure preserve
+partial evidence, do not retry blindly or change settings. After this batch,
+popup/pause to restore EXACT tested normal v14 image dongle-v14-93eb987a.uf2,
+SHA256 93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052,
+verify USB identity and ask for wireless movement/click check. No pending DPI
+recovery: original 800-DPI selection previously verified restored.
+CORE identity/full settings/key forwarding remain unfinished; four-hour trial
+is deferred. No app launch or stock identity until required coverage qualifies.
+
+NOVEMBER20 WIRED DEVICE STILL ABSENT; WIRELESS PROFILE-BACKUP FALLBACK PREPARING.
+UserreconnectedUSB andreportsactivelyusingmouse, but present258A:2018 still0;
+broaderpresentUSBcheck found noGlorious/bootloader/failedUSBdevice. No wired
+HIDstream/query opened; no settingschanged. PointermaystilluseDIYnormalv14.
+COREmuststayclosed. No need furthercablechanges forproposedwirelessbackup.
+
+Extended config_request_valid ONLYgetter coverage: profiles1..3 stages/selected,
+DPIcolors2/81 size19,debounce0/88 size2,globalLOD1/88,bindings3/80size10 known
+8buttonIDs/slot0. Canonicalpadding/profile/button/slotguards; selectedWRITE
+remains restrictedprofile1/stage1..4 (notusedbybackup). Nativegettertests first
+failedoldallowlist, nowPASS; invalidslots/buttons/profiles/no writeexpansion
+covered. backup_mouse_profiles.ps1 -Wireless gates exactv24product/uniqueFeature;
+defaultwiredtargetpreserved. BothselftestmodesPASS; all40packetsgettersonly.
+Productsource nowDIY Mouse Config HID v24; sameworkingdescriptor/prototypeIDs,
+no pointeroutput. Buildstarted(logconfig-hid-v24-build.log); noflashyet.
+Nextfinishbuild/config/hash/UF2 andpreservev24; updateprompt/commit/push thenfresh
+NICENANOreadiness. Afterflash separateGloriousON/USBunplugged/STILL readiness,
+run32-bit backup_mouse_profiles.ps1 -Wireless for40READ-onlyrequests; actual
+fullprofile getter responses stillunqualified. RestoreEXACTnormalv14 afterbatch.
+No settingswrites duringfallback; wiredrecoveryunavailable, do notaddwrite trials.
+Normaltestedv14 remainsinstalled/userusing. PriorDPIbackupNeedsWiredRestorefalse.
+Four-hourtrialstilldeferred forCORE. Usercontinueuntilstop/no cutoff.
+
+NOVEMBER20 WIRED BACKUP ATTEMPT STOPPED BEFORE ANY QUERY: NO WIRED MOUSE PRESENT.
+UserconfirmedCOREclosed/wiredreadiness, but backup_mouse_profiles.ps1 couldnot
+find one wiredconfiguration interface. Present-onlyWindowsPNP showsNO VID258A
+devices;32-bitHidSharptarget258A:2018 count0. No streamopened, no FeatureSET,
+no settingswrite, no backupcreated. Private readinessfailure observation saved
+core-profile-backup-readiness-failure.json. No livehelper/serial/capture/build.
+Normalreceiverv14 remainsunchanged; lastknown800DPIrestored/no pendingrecovery.
+NEXT physicalpopup: reconnectGloriousUSBdatacable atbothends directlyPC, tryknown
+workingdatacable/portifneeded, keepCOREclosed andreceiverunchanged. SelectReady
+oncewiredconnectionestablished; recheckpresentUSBbefore40read-onlybackup.
+Do not alterfirmware orretryquerieswithoutthewireddevice. Usercontinueuntilstop.
+
+RESUMED November20 by user after requestedprofile-backup pause. Git121fb6e,
+feature/glorious-core-compatibility; only unrelated .vscode/ andINFO_UF2.TXT
+untracked. Lastknownnormalv14 working; priorselectedDPIbackup confirms NO pending
+wiredrecovery. No livecapture/serial/build/helper/timer; no hardware/settings
+changes inresumereview. Continueuntiluser saysstop (prior preference persists).
+NEXT freshpopup COREclosed + GloriousUSBconnectedWIRED; receiverunchanged.
+Runprepared40-query READ-ONLY backup_mouse_profiles.ps1 afterReady, validateall
+records andsaveprivatepointer onlyoncomplete. No flash/newbuild/baseline repeat.
+COREidentity/fullsettings/keyforwardingremainunfinished; four-hourtrialdeferred.
+
 PAUSED BY USER November20: selected "Pause here - keep normal wireless operation"
 on wiredprofile-backup readiness popup. Resume ONLYwhenuser returns.
 Normal EXACTtestedv14 (93eb987a) remainsinstalled/userconfirmedworking, original

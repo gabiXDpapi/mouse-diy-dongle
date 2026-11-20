@@ -44,7 +44,8 @@ int main(void)
     uint8_t request[64] = {0,0,2,1,1,0x82,1};
     assert(config_request_valid(request) && config_read_begin(&state,request));
     request[63]=1; assert(!config_request_valid(request)); request[63]=0;
-    request[6]=2; assert(!config_request_valid(request)); request[6]=1;
+    request[6]=2; assert(config_request_valid(request));
+    request[6]=4; assert(!config_request_valid(request)); request[6]=1;
     request[3]=2; request[5]=2; request[7]=4;
     assert(config_request_valid(request));
     request[7]=5; assert(!config_request_valid(request));
@@ -67,6 +68,21 @@ int main(void)
     assert(config_read_begin(&state,select)); state.offset=64;
     selected_reply[11]=2; config_read_receive(&state,selected_reply);
     assert(state.failed && !state.complete); /* An old/other selection is not an acknowledgement. */
+    const uint8_t buttons[]={1,3,2,5,4,0x14,0x10,0x11};
+    for (unsigned profile=1;profile<=3;profile++) {
+        uint8_t fields[][64]={{0,0,2,1,1,0x81},{0,0,2,1,1,0x82},
+                             {0,0,2,19,2,0x81},{0,0,2,2,0,0x88}};
+        for (unsigned i=0;i<4;i++) { fields[i][6]=(uint8_t)profile; assert(config_request_valid(fields[i])); }
+        for (unsigned i=0;i<sizeof(buttons);i++) {
+            uint8_t binding[64]={0,0,2,10,3,0x80};binding[6]=(uint8_t)profile;binding[7]=buttons[i];
+            assert(config_request_valid(binding));
+            binding[8]=1; assert(!config_request_valid(binding)); /* Only the startup-touched slot0. */
+        }
+    }
+    uint8_t bad_binding[64]={0,0,2,10,3,0x80,1,6};
+    assert(!config_request_valid(bad_binding));
+    uint8_t lod[64]={0,0,2,1,1,0x88};assert(config_request_valid(lod));
+    select[6]=2;assert(!config_request_valid(select)); /* No new profile write authority. */
 
     memset(&state, 0, sizeof(state));
     idle[2] = 0;

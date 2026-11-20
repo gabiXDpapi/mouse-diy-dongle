@@ -48,3 +48,18 @@ trace. Macro-body editing is outside the factory startup trace and current scope
 
 User priority remains CORE configuration before the four-hour reliability trial.
 Normal v14 stays installed during this read-only software/backup phase.
+
+## Wireless backup fallback
+
+After two fresh wired readiness/reconnection attempts, Windows reports no258A
+device, bootloader or failedUSB device. No stream/query was opened. Use the
+proven receiver Feature/RF path instead of blocking on the cable.
+
+Extend only getter coverage to profiles1..3, DPI colours, debounce, lift-off and
+the eight known slot0 binding IDs. Keep selected-stage writer restricted as in
+v23; the backup helper sends getters only. Add a distinct v24 product and strict
+`backup_mouse_profiles.ps1 -Wireless` identity gate; preserve wired default.
+Test all40 request shapes, invalid profiles/buttons/slots/padding and no arbitrary
+write expansion. Build/freeze/validate, then fresh receiver-flash readiness and
+stationary wireless mouse readiness. Restore exact normalv14 after the read-only
+backup batch. No new mouse settings write while wired recovery is unavailable.

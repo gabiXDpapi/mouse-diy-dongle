@@ -1,5 +1,7 @@
-param([string]$HidSharpPath="$PSScriptRoot\..\build-pairing-analysis\HidSharp.dll",[switch]$SelfTest)
+param([string]$HidSharpPath="$PSScriptRoot\..\build-pairing-analysis\HidSharp.dll",[switch]$Wireless,[switch]$SelfTest)
 $ErrorActionPreference='Stop'
+$mouseVendorId=if($Wireless){0x2FE3}else{0x258A}
+$mouseProductId=if($Wireless){0x0008}else{0x2018}
 $buttonIds=@(1,3,2,5,4,0x14,0x10,0x11)
 
 function New-ProfileBackupRequests {
@@ -69,12 +71,18 @@ if($SelfTest) {
 }
 if([IntPtr]::Size -ne 4) {throw 'Run in 32-bit SysWOW64 PowerShell.'}
 if(Get-Process -Name 'Glorious Core' -ErrorAction SilentlyContinue) {throw 'Close CORE first.'}
+if($Wireless) {
+    $root=@(Get-CimInstance Win32_PnPEntity|Where-Object {$_.PNPDeviceID -match '^USB\\VID_2FE3&PID_0008\\' -and $_.Status -eq 'OK'})
+    if($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Config HID v24') {
+        throw 'Unique v24 receiver identity not verified; no requests sent.'
+    }
+}
 Add-Type -Path (Resolve-Path -LiteralPath $HidSharpPath).Path
-$devices=@([HidSharp.DeviceList]::Local.GetHidDevices(0x258A,0x2018)|Where-Object {$_.GetMaxFeatureReportLength() -eq 65})
-if($devices.Count -ne 1) {throw 'Expected one wired mouse configuration interface.'}
+$devices=@([HidSharp.DeviceList]::Local.GetHidDevices($mouseVendorId,$mouseProductId)|Where-Object {$_.GetMaxFeatureReportLength() -eq 65})
+if($devices.Count -ne 1) {throw 'Expected one matching configuration interface.'}
 $private=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\build-pairing-analysis'))
 $file=Join-Path $private ('mouse-profile-backup-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)+'.json')
-$result=[ordered]@{Scope='Read-only startup-touched fields; all three profiles, eight slot0 bindings each; no macro bodies';Success=$false;Records=@()}
+$result=[ordered]@{Scope='Read-only startup-touched fields; all three profiles, eight slot0 bindings each; no macro bodies';Wireless=[bool]$Wireless;Success=$false;Records=@()}
 $stream=$devices[0].Open()
 try {
     $stream.ReadTimeout=2000;$stream.WriteTimeout=2000
@@ -94,7 +102,7 @@ try {
     }
     if($result.Records.Count -ne 40) {throw 'Incomplete profile backup.'}
     $result.Success=$true
-    Write-Output 'WIRED_PROFILE_BACKUP_PASS: 40 read-only queries, three profiles, 24 slot0 bindings'
+    Write-Output 'PROFILE_BACKUP_PASS: 40 read-only queries, three profiles, 24 slot0 bindings'
 }catch{$result.Error=$_.Exception.Message;throw}finally{
     $stream.Dispose();$result.FinishedUtc=[DateTime]::UtcNow.ToString('o')
     $result|ConvertTo-Json -Depth 6|Set-Content -Encoding UTF8 $file

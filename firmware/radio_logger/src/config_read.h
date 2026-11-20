@@ -11,18 +11,32 @@ struct config_read {
 static inline bool config_request_valid(const uint8_t *p)
 {
     if (!memcmp(p, config_read_version_request, 64)) return true;
-    uint8_t expected[64] = {0,0,2,1,1,0,0};
-    expected[5] = p[5];
-    switch (p[5]) {
-    case 0x85: expected[4] = 0; break; /* Active profile read. */
-    case 0x80: break; /* Polling divider read. */
-    case 0x81: case 0x82: expected[6] = 1; break; /* Profile1 reads. */
-    case 2:
+    uint8_t expected[64] = {0,0,2,1,0,0,0};
+    expected[4] = p[4]; expected[5] = p[5];
+    bool profile_read = false;
+    switch (((unsigned int)p[4] << 8) | p[5]) {
+    case 0x0085: case 0x0180: case 0x0188: break; /* Global profile/poll/LOD getters. */
+    case 0x0181: case 0x0182: profile_read = true; break;
+    case 0x0281: expected[3] = 19; profile_read = true; break; /* Six DPI colours. */
+    case 0x0088: expected[3] = 2; profile_read = true; break; /* Profile debounce. */
+    case 0x0380: {
+        static const uint8_t buttons[] = {1,3,2,5,4,0x14,0x10,0x11};
+        bool found = false;
+        for (unsigned int i = 0; i < sizeof(buttons); i++) if (p[7] == buttons[i]) found = true;
+        if (!found) return false;
+        expected[3] = 10; expected[7] = p[7]; profile_read = true;
+        break; /* Slot0 only; remaining padding must be zero. */
+    }
+    case 0x0102:
         /* shortcut: current profile has four stages; qualify other profiles separately. */
         if (p[7] < 1 || p[7] > 4) return false;
         expected[3] = 2; expected[6] = 1; expected[7] = p[7];
         break;
     default: return false;
+    }
+    if (profile_read) {
+        if (p[6] < 1 || p[6] > 3) return false;
+        expected[6] = p[6];
     }
     return !memcmp(p, expected, 64);
 }
