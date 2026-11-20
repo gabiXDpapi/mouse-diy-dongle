@@ -320,6 +320,40 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER20 V23 FIVE READ-ONLY CONFIG QUERIES PASS; NO SETTINGS WRITES.
+Initialhelper invocation hit reservedPowerShellPID variable BEFORE AddType/HIDopen
+orquery. Renamed to mouseVendorId/mouseProductId and movedassignments before
+SelfTest so runtime setup ischecked; offlineSelfTestPASS, sameauthorizedREAD-only
+retryPASS withoutnewflash/reboot. Firmwareunchanged ee7f5a7a.
+Private resultconfig-v23-20261120-183450-80b8c5f4.json: Success true, five ordered
+transactions Version/Profile/Polling/DpiStages/ActiveDpi; firmware1.0.0.0,
+activeprofile1,1000Hz, stages400/800/1600/3200 X=Y, selectedstage2=800DPI.
+ExerciseDpi false;NeedsWiredRestore false; no backupneeded/created. No serial,
+no livehelper/capture/build. V23 stillinstalled, pointeroutputdisabled.
+Reusablehosttransactions/replyrelease gate now nominallyhardwarevalidated.
+NEXT separatepopup readiness for TEMPORARY selectedDPIstage change/readback and
+verifiedoriginalrestore via test_receiver_config.ps1 -ExerciseDpi. COREclosed,
+mouseON/unplugged/STILL, otherpointer; receiverunchanged (no resetneeded).
+Hostfreshreads/backup BEFORE write; expectedstage2->3->2 ifunchanged. Onfault,
+checkprivatecurrent-config-hid-backup.txt NeedsWiredRestore and pauseforWIRED
+recovery BEFORE normaluse. Restoreexacttestedv14 93eb987a afterbatch viafresh
+bootloaderpopup thenuserwirelesscheck. No generalDPIvalue/lighting/bindingwrites.
+
+NOVEMBER20 V23 NOW FLASHED; USB STARTUP PASS.
+FreshuserNICENANO/COREclosed/Gloriouswired-OFF readiness. Verifiedunique board/
+bootloader0.6.0 and exactee7f5a7a imagehash beforecopy. ProductDIY Mouse Config
+HID v23; twohealthyHIDcollections andCDC, zeroerrors. Private startuprecord
+config-hid-v23-usb-startup.json. NO FeatureSET/query/DPIwrite/serialopened.
+No livecapture/build/helper. Installedv23 intentionallyNOwirelesspointeroutput.
+NEXT separatephysicalpopup: COREclosed, GloriousON/USBunplugged/STILL nearreceiver,
+otherpointeravailable, receiverunchanged. Run32-bit test_receiver_config.ps1
+WITHOUT -ExerciseDpi for READ-ONLY fivequeries first. OnlyafterPASS askseparate
+readinessfor temporaryselectedDPIchange/readback/originalrestore. No timecue.
+Beforeanywrite persistbackupNeedsWiredRestore; onfailure checkprivatepointer
+current-config-hid-backup.txt and usefreshwiredrecovery. RestoreEXACTtestedv14
+93eb987a afterbatch withseparatebootloaderpopup andwirelesscontrolcheck.
+Usercontinueuntilstop; no currentcutoff. Four-hourtrialstilldeferred.
+
 V23 software milestone397f156 pushed; no live sessions or pending recovery backup.
 Normal testedv14 remainsinstalled/userconfirmed. V23 stillNOTflashed. Nextstep
 is freshNICENANO readiness, then verifiedv23flash and READ-ONLY multi-querytrial;

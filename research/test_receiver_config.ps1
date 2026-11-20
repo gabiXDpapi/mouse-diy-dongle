@@ -6,6 +6,8 @@ param(
     [switch]$SelfTest
 )
 $ErrorActionPreference = 'Stop'
+$mouseVendorId = if ($RestoreWired) { 0x258A } else { 0x2FE3 }
+$mouseProductId = if ($RestoreWired) { 0x2018 } else { 0x0008 }
 . "$PSScriptRoot\mouse_settings_protocol.ps1"
 
 function Invoke-SettingsTransaction($Stream, [string]$Kind, [int]$Stage=0) {
@@ -120,7 +122,6 @@ if ($RestoreWired) {
     $savedBackup=Get-Content -LiteralPath $BackupFile -Raw | ConvertFrom-Json
     Assert-DpiBackup $savedBackup
     if (!$savedBackup.NeedsWiredRestore) { throw 'Backup is already restored; no replay allowed.' }
-    $vid=0x258A; $pid=0x2018
 } else {
     if ($ExerciseDpi -and (Test-Path -LiteralPath $pointer)) {
         $priorPath=[IO.Path]::GetFullPath((Get-Content -LiteralPath $pointer -Raw).Trim())
@@ -133,10 +134,9 @@ if ($RestoreWired) {
     if ($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Config HID v23') {
         throw 'Unique v23 receiver identity not verified; no request sent.'
     }
-    $vid=0x2FE3; $pid=0x0008
 }
 Add-Type -Path (Resolve-Path -LiteralPath $HidSharpPath).Path
-$devices=@([HidSharp.DeviceList]::Local.GetHidDevices($vid,$pid) | Where-Object { $_.GetMaxFeatureReportLength() -eq 65 })
+$devices=@([HidSharp.DeviceList]::Local.GetHidDevices($mouseVendorId,$mouseProductId) | Where-Object { $_.GetMaxFeatureReportLength() -eq 65 })
 if ($devices.Count -ne 1) { throw 'Expected one matching configuration Feature interface.' }
 $stream=$devices[0].Open()
 $job=Join-Path $private ('config-v23-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8))
