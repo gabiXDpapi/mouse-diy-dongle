@@ -22,14 +22,14 @@ Keep the mouse wired/OFF before flash; restore the exact preserved, tested norma
 v14 image afterward. No settings writes or mouse bootloader commands exist in
 this experiment. Do not use the diagnostic for ordinary mouse operation.
 
-The next staging build, `-App config-hid` (v21), adds a vendor HID Feature
-interface under the local prototype USB IDs. A host request triggers one fixed
-wireless version read and receives its real reply over USB. It suppresses pointer
-output and rejects settings writes; CORE cannot attach to this staging identity.
-Native checks, host-helper self-test and build/UF2 validation pass; it is not yet
-flashed or hardware-tested. See [USB staging plan](docs/plans/2026-11-20-usb-config-read.md).
-After separate readiness, `research/read_receiver_version.ps1` runs in 32-bit
-PowerShell without a serial reader. Tested normal v14 remains installed.
+The USB staging v21 vendor interface failed to start in Windows (Code10);
+no Feature query or settings write ran, and exact tested normal v14 was restored.
+The corrected `-App config-hid` candidate is v22. It uses the known working
+vendor descriptor and a stronger semantic regression check. Hardware validation
+is pending. It retains local prototype IDs, suppresses pointer output, and accepts
+only one fixed firmware-version read per boot; CORE cannot attach yet.
+See [USB staging plan](docs/plans/2026-11-20-usb-config-read.md). The host helper
+`research/read_receiver_version.ps1` now requires v22; use 32-bit PowerShell.
 
 ## Plug-and-play receiver
 

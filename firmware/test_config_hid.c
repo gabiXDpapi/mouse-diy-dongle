@@ -24,8 +24,46 @@ static void irq_unlock(unsigned int key) { assert(key == 0 && irq_depth == 1); i
 static const struct device *device_get_binding(const char *name)
 { assert(!strcmp(name,"HID_1")); return available ? &device : NULL; }
 static bool device_is_ready(const struct device *d) { return d && ready; }
+/* Narrow semantic check for our one-collection, ID-less vendor Feature channel. */
+static bool feature_descriptor_valid(const uint8_t *desc, size_t size)
+{
+    uint32_t page = 0, usage = 0, bits = 0, count = 0;
+    unsigned int depth = 0, features = 0;
+    bool have_usage = false;
+    for (size_t at = 0; at < size;) {
+        uint8_t item = desc[at++];
+        unsigned int bytes = item & 3u;
+        if (bytes == 3) bytes = 4;
+        if (item == 0xfe || at + bytes > size) return false;
+        uint32_t value = 0;
+        for (unsigned int i = 0; i < bytes; i++) value |= (uint32_t)desc[at++] << (8 * i);
+        unsigned int type = (item >> 2) & 3u, tag = item >> 4;
+        if (type == 1) {
+            if (tag == 0) page = value;
+            else if (tag == 7) bits = value;
+            else if (tag == 8) return false;
+            else if (tag == 9) count = value;
+        } else if (type == 2 && tag == 0) {
+            usage = value; have_usage = true;
+        } else if (type == 0) {
+            if (tag == 10) {
+                if (depth || !have_usage || page != 0xffff || usage || value != 1) return false;
+                depth++;
+            } else if (tag == 11) {
+                if (depth != 1 || !have_usage || page != 0xffff || usage || bits != 8 || count != 64 || value != 2) return false;
+                features++;
+            } else if (tag == 12) {
+                if (!depth) return false;
+                depth--;
+            } else return false;
+            /* Local usages are consumed by EVERY Main item, including Collection. */
+            have_usage = false;
+        } else return false;
+    }
+    return !depth && features == 1;
+}
 static void usb_hid_register_device(const struct device *d, const uint8_t *desc, size_t size, const struct hid_ops *ops)
-{ assert(d && size == 19 && desc[0] == 6 && desc[1] == 255 && desc[2] == 255); registered = ops; }
+{ assert(d && feature_descriptor_valid(desc,size)); registered = ops; }
 static int usb_hid_init(const struct device *d) { assert(d); return init_result; }
 #include "radio_logger/src/config_read.h"
 static struct config_read config_read_state;
@@ -33,6 +71,14 @@ static struct config_read config_read_state;
 
 int main(void)
 {
+    const uint8_t old_missing_usage[] = {6,255,255,9,0,161,1,21,0,38,255,0,117,8,149,64,177,2,192};
+    assert(!feature_descriptor_valid(old_missing_usage,sizeof(old_missing_usage)));
+    assert(feature_descriptor_valid(config_hid_descriptor,sizeof(config_hid_descriptor)));
+    assert(!feature_descriptor_valid(config_hid_descriptor,sizeof(config_hid_descriptor)-1));
+    uint8_t bad_descriptor[sizeof(config_hid_descriptor)];
+    memcpy(bad_descriptor,config_hid_descriptor,sizeof(bad_descriptor));
+    for (size_t i=0;i+1<sizeof(bad_descriptor);i++) if (bad_descriptor[i]==0x95) bad_descriptor[i+1]=63;
+    assert(!feature_descriptor_valid(bad_descriptor,sizeof(bad_descriptor)));
     available = false; assert(init_config_hid() == -ENODEV); available = true;
     ready = false; assert(init_config_hid() == -ENODEV); ready = true;
     init_result = -EIO; assert(init_config_hid() == -EIO); init_result = 0;

@@ -37,16 +37,16 @@ if (Get-Process -Name 'Glorious Core' -ErrorAction SilentlyContinue) { throw 'Cl
 $root = @(Get-CimInstance Win32_PnPEntity | Where-Object {
     $_.PNPDeviceID -match '^USB\\VID_2FE3&PID_0008\\' -and $_.Status -eq 'OK'
 })
-if ($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Config HID v21') {
-    throw 'Unique v21 diagnostic identity not verified; no request sent.'
+if ($root.Count -ne 1 -or (Get-PnpDeviceProperty -InstanceId $root[0].PNPDeviceID -KeyName DEVPKEY_Device_BusReportedDeviceDesc).Data -ne 'DIY Mouse Config HID v22') {
+    throw 'Unique v22 diagnostic identity not verified; no request sent.'
 }
 Add-Type -Path (Resolve-Path -LiteralPath $HidSharpPath).Path
 $devices = @([HidSharp.DeviceList]::Local.GetHidDevices(0x2FE3,0x0008) |
     Where-Object { $_.GetMaxFeatureReportLength() -eq 65 })
 if ($devices.Count -ne 1) { throw 'Expected one prototype Feature-report interface.' }
 $stream = $devices[0].Open()
-$result = [ordered]@{ Product='DIY Mouse Config HID v21'; Success=$false; SetCount=0; GetCount=0 }
-$job = Join-Path "$PSScriptRoot\..\build-pairing-analysis" ('config-hid-v21-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)+'.json')
+$result = [ordered]@{ Product='DIY Mouse Config HID v22'; Success=$false; SetCount=0; GetCount=0 }
+$job = Join-Path "$PSScriptRoot\..\build-pairing-analysis" ('config-hid-v22-'+(Get-Date -Format yyyyMMdd-HHmmss)+'-'+[guid]::NewGuid().ToString('N').Substring(0,8)+'.json')
 try {
     $stream.ReadTimeout = 2000; $stream.WriteTimeout = 2000
     $response = New-Object byte[] 65; $stream.GetFeature($response); $result.GetCount++

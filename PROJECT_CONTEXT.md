@@ -320,6 +320,54 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER20 V22 CORRECTION BUILT/VALIDATED; NOT FLASHED/HARDWARE-TESTED.
+Normal exacttestedv14 is installed and user-confirmed working. No livebuild,
+serial/capture/helper/timer. No settings writes. Continue until user saysstop.
+Preserved failedv21; descriptorcorrected to known20-byte vendorfeature descriptor.
+Newsemanticregression failedoldbeforefix and now passes; all13nativechecksPASS,
+hosthelper SelfTest and32-bitCIM/Pnp commandavailabilityPASS.
+Private frozen config-hid-v22-9cb33d52.uf2; SHA256
+9cb33d5224c8eb517ab8a3e00f27c007e58c2ddd6c3ffdc4e7c95f6c73991523.
+Product DIY Mouse Config HID v22;194blocks;0x26000..0x32200;49572flash/16768RAM.
+Stagedsource/config/flags verified: twoHIDs, local2FE3:0008,1ms, quiet, read+HID
+flagsON, fastpollOFF. One fixedversionREAD/boot, no pointeroutput, noCOREidentity,
+no settings/updater writes. Build/test doesNOT prove Windowsstartupfix yet.
+NEXT physicalpopup: COREclosed,Gloriouswired/OFF,double-resetONLYreceiver to
+NICENANO. Verifyboard+exactv22hash,flash,thencheck BOTH HIDcollections healthy
+(noCode10) andCDC. Ifhealthy, separate GloriousON/unplugged/STILL readiness,
+then32-bit research/read_receiver_version.ps1 (v22gate), oneSET/boundedGET polls,
+compareversion1.0.0.0wired. No timedpowercue or serialreader. Ifstartupfails,
+noquery; restorev14 andinvestigate. Restoreexacttestedv14afterbatch via fresh
+physicalpopup: frozen93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+Do not repeat extraction/completedbuild/baseline or flasholdv21. Four-hourtrial
+stilldeferred for CORE; fullappsettings remainunimplemented.
+
+NOVEMBER20 v21 rollback USER CONFIRMED; v22 correction BUILD IN PROGRESS.
+Normal exacttestedv14 remains installed, automaticwireless userconfirmed after
+v21rollback. Private restoration record updated. No serial/capture/queryrunning.
+New semantic descriptor test FAILED on oldv21beforefix; it checks collection
+usage, per-Main local Usage consumption,64x8-bit Feature, noReportID, balanced
+collection/truncation and wrongreportcount. Corrected descriptor matches known
+working mouse/stockreceiver20-byte descriptor. All13native checks PASS, host
+helper SelfTest PASS after exactproductgate updatedto DIY Mouse Config HID v22.
+Read-only RF/USB behavior unchanged; onlydescriptor, product label andhelpergate
+changed. No settings writes. Hardware fix unproven until enumeration/trial.
+Buildrunningexec98660/logconfig-hid-v22-build.log in existingconfig-hidSDKstage.
+Preserve failedv21image; afterbuild verifyflags/UF2/hash, save distinctv22image,
+update docs/commit/push, then freshbootloaderpopup. No oldv21reflash/queryretry.
+Currentuser sayscontinueuntilstop; no timecutoff. Restoreexactv14afterv22batch.
+
+NOVEMBER20 NORMAL V14 RESTORED after v21 USB vendor failure.
+Fresh userNICENANO readiness; verified unique bootloader/board and exact frozen
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052 beforecopy.
+USB product DIY Mouse Dongle v14 and normal mouseHID healthy. No serial opened.
+Private record core-v21-normal-restoration.json; physicalwirelesscheck PENDING.
+No capture/build/helper/timer. V21 is no longer installed. No mouse settings
+changed. NEXT popup: unplug GloriousUSB, turnON, try movement/click withoutarm.
+Aftercheck continue descriptorfix/regressionsoftware prep for distinctv22;
+oldv21vendor Code10 likelymissinglocalUsage but correction not yet hardwareproven.
+Current user preference: continue until toldstop. Four-hour trial still deferred.
+
 NOVEMBER20 V21 FLASHED; VENDOR USB INTERFACE FAILED - RESTORE V14 NEXT.
 User confirmedNICENANO/COREclosed/mousewired-OFF and continue until toldstop
 (no current time cutoff). Verified unique board/bootloader and exacta7631b8d

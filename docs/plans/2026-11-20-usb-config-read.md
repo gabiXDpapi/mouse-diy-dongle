@@ -31,3 +31,16 @@ in the probe harness. Host helper self-test passes. V21 image/config/UF2 and
 staged-source hashes verified; frozen a7631b8d image remains private/unflashed.
 Normal v14 restored/user-confirmed. Stop by05:00AM, no new flash at/after04:50.
 Hardware USB Feature framing and end-to-end read remain unverified.
+
+
+## V21 startup failure and v22 correction
+
+V21 product/mouse/CDC started, but vendor MI_03 had Code10; no vendor HID child
+and no FeatureSET/query occurred. Exact normalv14 was restored and user-confirmed.
+Compared with the known working descriptor, the Feature lacked its own local
+Usage after Collection consumed the first Usage. Prior size/prefix test missed
+this. The new narrow semantic test fails on v21 and passes the corrected20-byte
+descriptor, rejects truncation and wrong Feature count. All13 native checks and
+host helper self-test pass. V22 label/strict helper gate distinguish the fix;
+RF transport and immutable version-read command are unchanged. Build and fresh
+hardware verification precede any claim that Windows startup is fixed.
