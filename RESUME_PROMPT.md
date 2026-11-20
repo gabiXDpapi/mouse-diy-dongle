@@ -3,33 +3,41 @@ C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md newest LATEST HANDOFF / NEXT, README.md,
 research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
- docs/plans/2026-11-20-core-startup-coverage.md. Branch feature/glorious-core-compatibility.
-Keep context/prompt current, commit/push milestones, popup/pause for physical
-intervention. Keep captures, RF addresses, proprietary code/binaries ignored.
-Leave .vscode/ and INFO_UF2.TXT untouched. User says continue until toldstop.
+ docs/plans/2026-11-20-core-startup-coverage.md.
+
+This message explicitly resumes the saved pause. Keep context/prompt current,
+commit/push milestones, and popup/pause for physical intervention.
 
 
-NOVEMBER20 OFFLINE CORE STARTUP INVENTORY COMPLETE; WIRED BACKUP NEXT.
-Normal EXACTtestedv14 isinstalled/userconfirmedworking; original800DPI restored,
-no pendingselectedDPIrecovery. No livehelper/serial/build/capture/timer.
-New research/trace_core_startup.js reuses existingprivateModelOSeries source and
-factorySupportDevice record with mockHID/DB, NO realapp/nativeaddon/hardware.
-InlineassertsPASS:42SET/29GET for threeprofile factoryinitialization+receiverFWread.
-Private tracecore-startup-trace-1795172092145.json; counts documented in
- docs/plans/2026-11-20-core-startup-coverage.md. User profiles may differ.
-COREwrites24bindings,3DPIlists,3DPIcolors,3LOD,3poll,3debounce,profile/selectedstage
-onconnect. Need backup/commandcoverage/inputforwarding beforeofficialPID.
-Installedpackage1.1.36, envmissingBuiltType defaults0; traceuses that codepath.
+PAUSED BY USER November20: selected "Pause here - keep normal wireless operation"
+on wiredprofile-backup readiness popup. Resume ONLYwhenuser returns.
+Normal EXACTtestedv14 (93eb987a) remainsinstalled/userconfirmedworking, original
+800DPI restored; NO pending selected-DPI recovery. No serial/capture/build/helper/
+timer running. No wiredprofilebackup executed; no furtherconfiguration changes.
+Latestsoftwaremilestonec630442 pushed: offlineCOREstartup inventory and READ-only
+backuphelper. V23 real800->1600->800 selection/restore PASS milestone4ddc36c.
 
-Prepared research/backup_mouse_profiles.ps1 READ-ONLY wired helper:40queries,
-3profiles,24slot0 bindingrecords plusDPIstages/selection/colors/debounce andglobal
-version/activeprofile/poll/LOD. Getter shapes checked againstexistingmouse dump;
-NO brightnessgetter/address/bootloader/macrobodies. SelfTestPASS with40request
-coverage, getter-onlyopcodes, echoes/profiles/slots/lengths, malformed rejection.
-No firmwarebuild/flash needed. Backup savesprivateopaque rawreplies; onlycomplete
-successupdates current-core-profile-backup.txt. Fullrestoretool notyetimplemented.
-NEXT physicalpopup: closeCORE, connectGloriousUSB inWIREDmode; leaveDIYreceiver
-unchanged. Then32-bit backup_mouse_profiles.ps1, validate40responses andsave
-resultsprivately. No settingswrites; normalreceiverremainsv14. Afterbackupcontinue
-COREallowlist/keyboard-consumer-forwarding implementation; do not launchCOREyet.
-Usercontinueuntilstop; nocutoff. Four-hourtrialstilldeferred.
+NEXT SESSION: read docs/plans/2026-11-20-core-startup-coverage.md and
+research/CORE_COMPATIBILITY.md, asknewphysicalreadiness for COREclosed + Glorious
+USBconnectedinWIREDmode; leaveDIYreceiverunchanged. Run32-bit SysWOW64
+powershell -NoProfile -ExecutionPolicy Bypass -File research/backup_mouse_profiles.ps1.
+40read-onlyqueries coverglobals plus3profilesDPIstagevalues/selection/colors/
+debounce and24slot0bindings. Rawbackupprivate; onlySuccessupdates
+build-pairing-analysis/current-core-profile-backup.txt. No RFaddress/macrobodies/
+settingswrites/flash. Validateall40responses beforeclaimingcompletebackup.
+Fullprofileautomatedrestoretoolnotyetimplemented; don'tenableCOREidentityyet.
+
+Offlineactualvendor-source factorytrace42SET/29GET (mockHID/DB, no realpackets)
+showed CORE initializesall3profiles automatically. Actualsaveduserprofilesmay
+vary. Private tracecore-startup-trace-1795172092145.json. Backuphelpspreserve
+mouseconfiguration beforeallowlistingfullstartup commands/keyboard-consumer
+forwarding/officialidentity. GeneralRGBdisabledinCOREmodel;DPIcoloursseparate.
+Four-hourtrialremainsdeferred for COREappcompatibility. Fullappsettings/realDPI
+valueediting/bindingsstillunfinished. No promisesofcompletionbeforeNov21.
+
+Exact testednormalrollback: build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
+Don'treflash/rebuild/re-extractcompletedmilestones. Preserveignoredcaptures,
+addresses, proprietarysource/binaries; leave .vscode/ and INFO_UF2.TXT untouched.
+Keepcontext/resumeprompt current; pushmilestones onfeaturebranches. Currentbranch
+feature/glorious-core-compatibility. Popup/pause forphysicalintervention.
