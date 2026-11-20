@@ -768,3 +768,39 @@ build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
 verify USB then user wireless movement/click check. Full CORE app/bindings/lighting
 still unfinished. This proves configuration value transport/readback, not physical
 sensor DPI calibration. User continue until stop; four-hour trial deferred.
+
+
+NOVEMBER20 — EXACT NORMAL V14 RESTORED AFTER V25 DPI-VALUE PASS.
+Fresh bootloader readiness; pending DPI backup flag checked false before flash.
+Board/exact93eb987a image hash verified. Runtime product DIY Mouse Dongle v14,
+healthy mouse/CDC devices verified, no serial opened. Private evidence
+core-v25-normal-restoration.json; user wireless check NEXT/PENDING.
+Original profile1 list400/800/1600/3200 and selectedstage2=800 were restored and
+read back before flash; no pending recovery. Hardware DPI edit milestone3e1089e
+pushed. No live helper/build/capture/serial/timer. CORE closed.
+NEXT brief user wireless movement/click confirmation. Then continue CORE startup
+coverage: remaining setters, input forwarding and backup-aware recovery. Current
+normal v14 forwards mouse reports only; full CORE support not claimed. Independent
+wired USB data/Feature connection now works and all40 wired settings match radio
+backup. No need repeat completed builds/flash/extraction/baselines. User untilstop.
+
+
+NOVEMBER20 — V25 NORMAL RESTORATION USER-CONFIRMED; WIRED HID LAYOUT NEXT.
+User confirmed automatic normalv14 wireless movement/click after v25; private
+core-v25-normal-restoration.json updated. Original400/800/1600/3200 stage list
+and selected800 verified restored; NO pending recovery. Exactnormalv14 remains
+installed, no live build/helper/capture/serial/timer. CORE stays closed.
+
+Prepared research/inspect_wired_hid.ps1 read-only Windows/HidSharp descriptor
+inspection for258A:2018. Synthetic descriptor self-test covers reportID/length,
+keyboard usage and field width/count/offset. No streams opened, no FeatureSET,
+settings changes, flashing or input recording. Output private; no unique device
+paths printed. Reports are library Windows descriptor views, not raw USB capture;
+usage lists bounded16 entries with total count, payload offsets exclude reportID.
+NEXT fresh popup: switchGlorious wirelessOFF and connect directly via working
+USBdata cable, COREclosed; leaveDIYreceiverunchanged. AfterReady verify own
+wired collections and run32-bit research/inspect_wired_hid.ps1. Preserve partial
+failure if Windows disallows descriptors; no blind firmware/driver changes.
+Use actual keyboard/consumer/system field layout to prepare auxiliary USB input
+forwarding, including busy retries and neutral release, before CORE keybindings.
+No new configuration write is part of this step. Full CORE remains unfinished.
