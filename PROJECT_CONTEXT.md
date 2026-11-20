@@ -320,6 +320,96 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER20 V23 SOFTWARE READY, NOT FLASHED/HARDWARE-TESTED.
+Normal EXACTtestedv14 remainsinstalled and userconfirmedworking afterv22.
+No livebuild/serial/capture/helper/timer; NO realmouse settingswrites yet.
+Frozen private config-hid-v23-ee7f5a7a.uf2; SHA256
+ee7f5a7a220ba7a6c56c40f7a6bf1bc1db9f7ffac058d37a3777094cec148dbf.
+Product DIY Mouse Config HID v23;196blocks;0x26000..0x32400;50084flash/16896RAM.
+Stagedsources/config/quietflags/twoHIDs/localIDs2FE3:0008/1ms checked; fastpollOFF.
+13nativechecksPASS (reusable SETs, reply-release/GET-consumption gates, dynamic
+reply/selection echo, wrap, timeoutlockout, normal/probe paths). Hostnewhelper
+SelfTestPASS incl busyGETwithoutSETretry, stage/backup bounds and actual trial
+workflow faults: restoreattempt after read/writefailure; failedrestore remains
+pending. Original wiredreader SelfTestPASS after sharedprotocol extraction.
+
+Canonicalallowlist: version, activeProfile00/85, polling, profile1DPIstages and
+selectedstage READs; onlyWRITE profile1 selectedstage1..4. No generalDPIvalues,
+lighting/bindings/updater/address writes. COREcannotattach toprototypeIDs.
+Main ownsRF;4sdeadline; failedtransactionquarantinesSETuntilreboot; completed
+reply mustbe released bymousequeue advance and consumed byhostGET before reuse.
+Vendor descriptor isunchanged from hardware-testedv22. Pointeroutputdisabled.
+New research/test_receiver_config.ps1 defaultREAD-only. -ExerciseDpi backs up
+freshselectedstage BEFORE change, triesalternateexistingstage, readbacks and
+restoresoriginal in finally, verifiesrestore. Saved .backup.json and pointer
+build-pairing-analysis/current-config-hid-backup.txt markNeedsWiredRestore=true
+untilverifiedrestoration; unfinishedrecoveryblocksnewwrites. -RestoreWired uses
+freshwiredreadiness, boundedprivatebackuppath andfixedstagecommand only. On
+interruptedtrial CHECKthispointer/pendingflag BEFORE anyotherconfigurationwork.
+
+NEXT commit/push thenfreshbootloaderpopup: COREclosed,Gloriouswired/OFF,
+double-resetONLYreceiver intoNICENANO. VerifyuniqueBoard+exactv23UF2 thenflash,
+checkUSBproduct/BOTHhealthyHIDs/65byteFeature (noqueryyet). Separate mouseON/
+USBunplugged/STILL readiness; run32-bit test_receiver_config.ps1 WITHOUTswitches
+for FIRST READ-ONLYfivequery hardwarecheck. OnlyifreadsPASS askseparatereadiness
+for TEMPORARYselectedDPIchange+restore using -ExerciseDpi. No timedpowercue or
+serialreader. Ifwrite/restorationfails, pauseforwiredrecovery usingbackup BEFORE
+normalwirelessuse; do not reusequarantinedreceiver. Restore EXACTtestednormalv14
+93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+afterbatch withfreshbootloaderpopup andusercontrolcheck. Four-hourtrial deferred.
+Usercontinueuntilstop; no currentdeadline. FullCOREsettings stillunimplemented.
+
+NOVEMBER20 V23 REUSABLE CONFIG SOFTWARE IN PROGRESS; NORMAL V14 INSTALLED.
+User confirmednormalwirelessrestorationafterv22. No realsettingswrite yet.
+Plan docs/plans/2026-11-20-reusable-config.md; usercontinueuntilstop, nocutoff.
+Changed config_read/config_hid: canonical version, activeprofile(op00/85), polling,
+profile1DPIlist/selected-stage READs; onlyWRITE allowed profile1 selectedstage1..4.
+Full64-byte canonicalpadding validation; real replyheader/paddedlength validation;
+mouse dataqueue mustADVANCE afterfinalreply beforepublishing; hostGET mustconsume
+publishedreply before nextSET. 4sdeadline/failurequarantine untilreboot. Tests
+firstfailedfornewAPI, thenfocusedcodec/mailboxtestsPASS; includeswriteecho,
+sequencewrap, busy/noresend, release/consumption gates andtimeoutlockout.
+Newshared research/mouse_settings_protocol.ps1 extractedfromwiredreader; original
+read_mouse_settings.ps1 remainsREAD-ONLY andSelfTestPASS. New
+research/test_receiver_config.ps1 defaultREAD-only, -ExerciseDpi selectedstage
+change/readback/restore, -RestoreWired savedbackup recovery. HostselfchecksPASS,
+includingoneSETwithbusyGETpolls,failure,selectecho,stagebounds,backupbounds.
+Beforeanywrite helperrecords .backup.json NeedsWiredRestore=true and private
+current-config-hid-backup.txt; clears ONLYafterrestore+readback. Priorpending
+recoveryblocksnewwrites; pathbounded toprivateanalysis. Ifrestorefails, require
+freshwiredreadiness and -RestoreWired; no retries against quarantinedreceiver.
+Check backup pointer/pendingflag onanyresumedinterruptedtrial before otherwork.
+
+Build v23 currentlyrunningexec34288/logconfig-hid-v23-build.log onAppconfig-hid.
+Product DIY Mouse Config HID v23, localprototypeIDs; COREcannotattach; pointer
+output stilldisabled. No serial/capture/hosthelper live. Sourcehasnotbeenflashed.
+NEXT finishbuild/config/UF2/hash checks; update docs/resumeprompt, commit/push;
+thenfreshbootloaderpopup (COREclosed/mousewired-OFF). Firsthardware READ-ONLY
+multi-requestcheck afterseparateON/unplugged/still readiness. OnlyafterreadsPASS
+askreadyforTEMPORARYselectedDPIstagechange andverifiedrestore. Exactnormalv14
+93eb987a rollback remains. Four-hourtrial deferred; COREfullsettings notyetdone.
+
+NOVEMBER20 normalv14 restoration USER CONFIRMED afterv22PASS. No live sessions.
+Preparing reusable config stagingv23 under prototypeID, no pointeroutput:
+canonical version/polling/DPIreads plus bounded profile1 selectedDPIstage1..4.
+Plan docs/plans/2026-11-20-reusable-config.md. Add finalRFreply release barrier,
+hostGET consumption gate,4s deadline andfailurequarantine before repeatedSETs.
+Hosttrial will save originalstage BEFORE anyselected-stage write, markwired
+recovery needed untilradio restore/readbackconfirmed, withwiredfallback after
+freshreadiness. Newhardwaretrial must explicitlymentiontemporaryDPIselection.
+COREstaysdisconnected; no generalsettings/lighting/binding/updater forwarding.
+Workingnormalv14 staysinstalled throughoutsoftwareprep. Usercontinueuntilstop.
+
+NOVEMBER20 EXACT NORMAL V14 RESTORED after successful v22 end-to-end read.
+FreshNICENANO/mousewired-OFF readiness; board+exact93eb987a frozenimage verified
+beforecopy. USBproductDIY Mouse Dongle v14 and normalmousecollection healthy.
+No serialopened. Private recordcore-v22-normal-restoration.json; physicalwireless
+restorationcheck PENDINGpopup. V22 no longerinstalled. No livecapture/build/helper.
+V22successmilestone623acb7 pushed: correctedvendorhealthy,65byteFeature, oneSET/
+twoGETs returnedrealRFfirmware1.0.0.0matchingwired. No settingschanged.
+Afteruserwirelesscheck continue multi-command/readback/COREtransport software;
+four-hourtrialstilldeferred. User sayscontinueuntilstop, no timecutoff.
+
 NOVEMBER20 V22 HOST USB->RF->USB VERSION READ PASS.
 UserconfirmedGloriousON/USBunplugged/STILL, COREclosed. 32-bit preparedhelper
 finished successfully, one FeatureSET and twoGETs(total includesinitialA3).

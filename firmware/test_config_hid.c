@@ -19,6 +19,8 @@ static bool available = true, ready = true;
 static int init_result;
 static const struct hid_ops *registered;
 static unsigned int irq_depth;
+static int64_t fake_ms;
+static int64_t k_uptime_get(void) { return fake_ms; }
 static unsigned int irq_lock(void) { irq_depth++; return 0; }
 static void irq_unlock(unsigned int key) { assert(key == 0 && irq_depth == 1); irq_depth--; }
 static const struct device *device_get_binding(const char *name)
@@ -109,16 +111,33 @@ int main(void)
     assert(config_read_state.complete);
     config_hid_poll();
     data = NULL;
+    assert(registered->get_report(&device,&setup,&length,&data)==0 && data[0]==0xa0);
+    config_read_receive(&config_read_state,rf); config_hid_poll();
+    assert(!config_read_state.reply_released);
+    idle[1]=22; config_read_receive(&config_read_state,idle); config_hid_poll();
     assert(registered->get_report(&device,&setup,&length,&data)==0 && data[0]==0xa1 && data[6]==1);
     uint8_t snapshot[64]; memcpy(snapshot,data,64);
     config_read_state.response[0]=0xa2; config_hid_poll();
     assert(!memcmp(data,snapshot,64)); /* RF publication never mutates an active USB snapshot. */
+    memset(request,0,64); request[2]=2; request[3]=1; request[4]=1; request[5]=0x82; request[6]=1;
     data=request; length=64;
+    assert(registered->set_report(&device,&setup,&length,&data)==0);
     assert(registered->set_report(&device,&setup,&length,&data)==-EBUSY);
-    config_hid_reset(); config_read_state.failed=true; config_hid_query_active=true;
+    config_hid_poll();
+    for (unsigned i=0;i<8;i++) { idle[2]=(uint8_t)(8+i); config_read_ack(&config_read_state,idle,ack); }
+    idle[2]=16; config_read_ack(&config_read_state,idle,ack);
+    uint8_t selected[65]={11,30,16,0x47,0xa1,0,2,2,1,0x82,1,2};
+    config_read_receive(&config_read_state,selected); idle[1]=31;
+    config_read_receive(&config_read_state,idle); config_hid_poll(); data=NULL;
+    assert(registered->get_report(&device,&setup,&length,&data)==0 && data[0]==0xa1 && data[7]==2);
+    config_hid_reset(); fake_ms=0; data=request;
+    assert(registered->set_report(&device,&setup,&length,&data)==0);
+    config_hid_poll(); fake_ms=4000;
     config_hid_poll(); data=NULL;
     assert(registered->get_report(&device,&setup,&length,&data)==0 && data[0]==0xa2);
+    data=request;
+    assert(registered->set_report(&device,&setup,&length,&data)==-EBUSY); /* Quarantine after ambiguity. */
     assert(!irq_depth);
-    puts("Vendor Feature callbacks, real RF roundtrip, immutable allowlist and mailbox checks passed.");
+    puts("Vendor Feature callbacks, real RF roundtrip, allowlist, release/consumption gates and timeout quarantine checks passed.");
     return 0;
 }

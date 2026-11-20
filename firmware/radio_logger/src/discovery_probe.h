@@ -116,7 +116,7 @@ static void receiver_mark_disarmed(void)
 {
     if (!receiver_disarm_handled) {
 #ifdef RF_CONFIG_HID_DIAGNOSTICS
-        if (config_hid_query_active && !config_read_state.complete) config_read_state.failed = true;
+        if (config_hid_query_active && (!config_read_state.complete || !config_read_state.reply_released)) config_read_state.failed = true;
 #endif
 #ifdef LATENCY_DIAGNOSTICS
         latency_stop();
@@ -130,7 +130,7 @@ static void receiver_mark_disarmed(void)
 static int receiver_end_link(void)
 {
 #ifdef RF_CONFIG_READ_DIAGNOSTICS
-    if (config_read_state.started && !config_read_state.complete) config_read_state.failed = true;
+    if (config_read_state.started && (!config_read_state.complete || !config_read_state.reply_released)) config_read_state.failed = true;
 #endif
     int err = wireless_hid_finish();
     if (err) {

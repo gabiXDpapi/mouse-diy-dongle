@@ -33,7 +33,40 @@ int main(void)
     reply[1] = 21; reply[3] = 0x47; memset(reply + 4, 0, 8);
     config_read_receive(&state, reply);
     assert(state.complete && !state.failed && state.received == 16);
+    assert(!state.reply_released);
+    config_read_receive(&state, reply);
+    assert(!state.reply_released); /* Repeated final packet still needs its ACK. */
+    uint8_t released[] = {2, 22, 6};
+    config_read_receive(&state, released);
+    assert(state.reply_released);
     assert(config_read_ack(&state, idle, ack) == 3);
+
+    uint8_t request[64] = {0,0,2,1,1,0x82,1};
+    assert(config_request_valid(request) && config_read_begin(&state,request));
+    request[63]=1; assert(!config_request_valid(request)); request[63]=0;
+    request[6]=2; assert(!config_request_valid(request)); request[6]=1;
+    request[3]=2; request[5]=2; request[7]=4;
+    assert(config_request_valid(request));
+    request[7]=5; assert(!config_request_valid(request));
+    request[3]=1; request[5]=0x80; request[6]=request[7]=0;
+    assert(config_read_begin(&state,request));
+    for (unsigned i=0;i<8;i++) { idle[2]=(uint8_t)i; assert(config_read_ack(&state,idle,ack)==13); }
+    idle[2]=8; config_read_ack(&state,idle,ack);
+    uint8_t poll_reply[65] = {11,255,8,0x47,0xa1,0,2,1,1,0x80,1,0};
+    config_read_receive(&state,poll_reply);
+    assert(state.complete && !state.failed && state.received==8);
+    released[1]=0; config_read_receive(&state,released);
+    assert(state.reply_released); /* Data queue wrap is independent of command sequence. */
+    uint8_t select[64]={0,0,2,2,1,2,1,3};
+    assert(config_read_begin(&state,select));
+    for (unsigned i=0;i<8;i++) { idle[2]=(uint8_t)i; config_read_ack(&state,idle,ack); }
+    idle[2]=8; config_read_ack(&state,idle,ack);
+    uint8_t selected_reply[65]={11,42,8,0x47,0xa1,0,2,2,1,2,1,3};
+    config_read_receive(&state,selected_reply);
+    assert(state.complete && !state.failed && state.response[7]==3);
+    assert(config_read_begin(&state,select)); state.offset=64;
+    selected_reply[11]=2; config_read_receive(&state,selected_reply);
+    assert(state.failed && !state.complete); /* An old/other selection is not an acknowledgement. */
 
     memset(&state, 0, sizeof(state));
     idle[2] = 0;
@@ -60,6 +93,6 @@ int main(void)
     reply[0] = 64; assert(!config_read_frame_valid(reply));
     reply[0] = 11; reply[3] = 0x7f; assert(!config_read_frame_valid(reply));
     reply[3] = 0x42; assert(!config_read_frame_valid(reply));
-    puts("Read-only RF framing, retry, wrap, malformed and failed-response checks passed.");
+    puts("Allowlisted RF framing, retry, wrap, malformed and failed-response checks passed.");
     return 0;
 }

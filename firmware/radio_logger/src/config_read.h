@@ -1,11 +1,40 @@
-/* Diagnostic only: one fixed firmware-version read, never a settings write. */
+/* Prototype configuration allowlist; no address, updater or arbitrary writes. */
 static const uint8_t config_read_version_request[64] = {0, 0, 2, 3, 0, 0x81};
 struct config_read {
     uint8_t offset, command_sequence, last_report, received;
-    bool started, have_report, complete, failed;
+    bool started, have_report, complete, failed, reply_released, configured;
     unsigned int attempts;
     uint8_t response[64];
+    uint8_t request[64];
 };
+
+static inline bool config_request_valid(const uint8_t *p)
+{
+    if (!memcmp(p, config_read_version_request, 64)) return true;
+    uint8_t expected[64] = {0,0,2,1,1,0,0};
+    expected[5] = p[5];
+    switch (p[5]) {
+    case 0x85: expected[4] = 0; break; /* Active profile read. */
+    case 0x80: break; /* Polling divider read. */
+    case 0x81: case 0x82: expected[6] = 1; break; /* Profile1 reads. */
+    case 2:
+        /* shortcut: current profile has four stages; qualify other profiles separately. */
+        if (p[7] < 1 || p[7] > 4) return false;
+        expected[3] = 2; expected[6] = 1; expected[7] = p[7];
+        break;
+    default: return false;
+    }
+    return !memcmp(p, expected, 64);
+}
+
+static inline bool config_read_begin(struct config_read *s, const uint8_t *request)
+{
+    if (!config_request_valid(request)) return false;
+    memset(s, 0, sizeof(*s));
+    memcpy(s->request, request, 64);
+    s->configured = true;
+    return true;
+}
 
 static bool config_read_frame_valid(const uint8_t *p)
 {
@@ -48,14 +77,22 @@ static unsigned int config_read_ack(struct config_read *s, const uint8_t *p, uin
     ack[0] = 12;
     ack[3] = s->offset == 56 ? 0x4f : 0xcf; /* Type7, offset+8 data, continuation. */
     ack[4] = s->offset;
-    memcpy(ack + 5, config_read_version_request + s->offset, 8);
+    const uint8_t *request = s->configured ? s->request : config_read_version_request;
+    memcpy(ack + 5, request + s->offset, 8);
     return 13;
 }
 
 static void config_read_receive(struct config_read *s, const uint8_t *p)
 {
-    if (s->failed || s->complete || p[0] == 2) return;
+    if (s->failed) return;
     if (!config_read_frame_valid(p)) { s->failed = true; return; }
+    if (s->complete) {
+        if (s->reply_released) return;
+        if (p[1] == (uint8_t)(s->last_report + 1)) s->reply_released = true;
+        else if (p[1] != s->last_report) s->failed = true;
+        return;
+    }
+    if (p[0] == 2) return;
     if (s->have_report) {
         if (p[1] == s->last_report) return;
         if (p[1] != (uint8_t)(s->last_report + 1)) { s->failed = true; return; }
@@ -69,8 +106,14 @@ static void config_read_receive(struct config_read *s, const uint8_t *p)
         memcpy(s->response + s->received, p + at + 1, 8);
         s->received += 8;
         if (!(header & 128u)) {
-            if (s->received < 10 || s->response[0] != 0xa1 || s->response[2] != 2 ||
-                s->response[4] != 0 || s->response[5] != 0x81) s->failed = true;
+            const uint8_t *request = s->configured ? s->request : config_read_version_request;
+            unsigned int payload = s->response[3];
+            unsigned int padded = (6u + payload + 7u) & ~7u;
+            if (payload > 58 || s->received != padded || s->response[0] != 0xa1 ||
+                s->response[2] != request[2] || s->response[4] != request[4] ||
+                s->response[5] != request[5] ||
+                (request[4] == 1 && request[5] == 2 &&
+                 (payload != 2 || memcmp(s->response + 6, request + 6, 2)))) s->failed = true;
             else s->complete = true;
             return;
         }

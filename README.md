@@ -22,14 +22,20 @@ Keep the mouse wired/OFF before flash; restore the exact preserved, tested norma
 v14 image afterward. No settings writes or mouse bootloader commands exist in
 this experiment. Do not use the diagnostic for ordinary mouse operation.
 
-The USB staging v21 vendor interface failed to start in Windows (Code10);
-no Feature query or settings write ran, and exact tested normal v14 was restored.
-The corrected `-App config-hid` candidate is v22. It uses the known working
-vendor descriptor and a stronger semantic regression check. Windows startup and the first USB-to-radio read now pass: one host SET returned
-mouse firmware 1.0.0.0, matching the wired reference. It retains local prototype IDs, suppresses pointer output, and accepts
-only one fixed firmware-version read per boot; CORE cannot attach yet.
-See [USB staging plan](docs/plans/2026-11-20-usb-config-read.md). The host helper
-`research/read_receiver_version.ps1` now requires v22; use 32-bit PowerShell.
+V21's vendor interface failed to start in Windows (Code10); no settings write
+occurred. V22 corrected the vendor descriptor, started both HID collections and
+completed a USB-to-radio firmware-version read matching the wired reference.
+Exact tested normal v14 was restored and ordinary wireless control confirmed.
+
+The current `-App config-hid` staging build is v23. It prepares reusable reads
+of version, active profile, polling and profile-1 DPI settings, plus a narrowly
+allowed selected-stage change. Native/host checks and UF2 validation pass; v23
+has not been flashed or hardware-tested. It retains the working v22 descriptor,
+prototype USB IDs and disabled pointer output. CORE cannot attach yet.
+`research/test_receiver_config.ps1` defaults to read-only; `-ExerciseDpi` requires
+a separate ready cue, saves a recovery backup and verifies original-stage restore.
+A failed restoration requires the saved wired recovery before further use.
+See [reusable configuration plan](docs/plans/2026-11-20-reusable-config.md).
 
 ## Plug-and-play receiver
 

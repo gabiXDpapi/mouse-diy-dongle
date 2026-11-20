@@ -3,60 +3,47 @@ C:\Users\Gabriel\OneDrive\Documents\MOUSE DIY DONGLE
 
 Read PROJECT_CONTEXT.md newest LATEST HANDOFF / NEXT, README.md,
 research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and
- docs/plans/2026-11-20-usb-config-read.md. Branch feature/glorious-core-compatibility.
-Keep context/prompt current and push tested milestones. Popup/pause for physical
-intervention. Keep captures, addresses, proprietary source/binaries ignored;
-leave .vscode/ and INFO_UF2.TXT untouched. User says continue until toldstop.
+ docs/plans/2026-11-20-reusable-config.md. Branch feature/glorious-core-compatibility.
+Keep context/prompt current and commit/push milestones; popup/pause for physical
+intervention. Keep captures, addresses, proprietary code and binaries ignored.
+Leave .vscode/ and INFO_UF2.TXT untouched. User says continue until toldstop.
 
 
-NOVEMBER20 V22 CORRECTION BUILT/VALIDATED; NOT FLASHED/HARDWARE-TESTED.
-Normal exacttestedv14 is installed and user-confirmed working. No livebuild,
-serial/capture/helper/timer. No settings writes. Continue until user saysstop.
-Preserved failedv21; descriptorcorrected to known20-byte vendorfeature descriptor.
-Newsemanticregression failedoldbeforefix and now passes; all13nativechecksPASS,
-hosthelper SelfTest and32-bitCIM/Pnp commandavailabilityPASS.
-Private frozen config-hid-v22-9cb33d52.uf2; SHA256
-9cb33d5224c8eb517ab8a3e00f27c007e58c2ddd6c3ffdc4e7c95f6c73991523.
-Product DIY Mouse Config HID v22;194blocks;0x26000..0x32200;49572flash/16768RAM.
-Stagedsource/config/flags verified: twoHIDs, local2FE3:0008,1ms, quiet, read+HID
-flagsON, fastpollOFF. One fixedversionREAD/boot, no pointeroutput, noCOREidentity,
-no settings/updater writes. Build/test doesNOT prove Windowsstartupfix yet.
-NEXT physicalpopup: COREclosed,Gloriouswired/OFF,double-resetONLYreceiver to
-NICENANO. Verifyboard+exactv22hash,flash,thencheck BOTH HIDcollections healthy
-(noCode10) andCDC. Ifhealthy, separate GloriousON/unplugged/STILL readiness,
-then32-bit research/read_receiver_version.ps1 (v22gate), oneSET/boundedGET polls,
-compareversion1.0.0.0wired. No timedpowercue or serialreader. Ifstartupfails,
-noquery; restorev14 andinvestigate. Restoreexacttestedv14afterbatch via fresh
-physicalpopup: frozen93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-Do not repeat extraction/completedbuild/baseline or flasholdv21. Four-hourtrial
-stilldeferred for CORE; fullappsettings remainunimplemented.
+NOVEMBER20 V23 SOFTWARE READY, NOT FLASHED/HARDWARE-TESTED.
+Normal EXACTtestedv14 remainsinstalled and userconfirmedworking afterv22.
+No livebuild/serial/capture/helper/timer; NO realmouse settingswrites yet.
+Frozen private config-hid-v23-ee7f5a7a.uf2; SHA256
+ee7f5a7a220ba7a6c56c40f7a6bf1bc1db9f7ffac058d37a3777094cec148dbf.
+Product DIY Mouse Config HID v23;196blocks;0x26000..0x32400;50084flash/16896RAM.
+Stagedsources/config/quietflags/twoHIDs/localIDs2FE3:0008/1ms checked; fastpollOFF.
+13nativechecksPASS (reusable SETs, reply-release/GET-consumption gates, dynamic
+reply/selection echo, wrap, timeoutlockout, normal/probe paths). Hostnewhelper
+SelfTestPASS incl busyGETwithoutSETretry, stage/backup bounds and actual trial
+workflow faults: restoreattempt after read/writefailure; failedrestore remains
+pending. Original wiredreader SelfTestPASS after sharedprotocol extraction.
 
+Canonicalallowlist: version, activeProfile00/85, polling, profile1DPIstages and
+selectedstage READs; onlyWRITE profile1 selectedstage1..4. No generalDPIvalues,
+lighting/bindings/updater/address writes. COREcannotattach toprototypeIDs.
+Main ownsRF;4sdeadline; failedtransactionquarantinesSETuntilreboot; completed
+reply mustbe released bymousequeue advance and consumed byhostGET before reuse.
+Vendor descriptor isunchanged from hardware-testedv22. Pointeroutputdisabled.
+New research/test_receiver_config.ps1 defaultREAD-only. -ExerciseDpi backs up
+freshselectedstage BEFORE change, triesalternateexistingstage, readbacks and
+restoresoriginal in finally, verifiesrestore. Saved .backup.json and pointer
+build-pairing-analysis/current-config-hid-backup.txt markNeedsWiredRestore=true
+untilverifiedrestoration; unfinishedrecoveryblocksnewwrites. -RestoreWired uses
+freshwiredreadiness, boundedprivatebackuppath andfixedstagecommand only. On
+interruptedtrial CHECKthispointer/pendingflag BEFORE anyotherconfigurationwork.
 
-NOVEMBER20 V22 NOW FLASHED; WINDOWS VENDOR STARTUP PASS.
-UserfreshNICENANO/COREclosed/Gloriouswired-OFF readiness; verifiedunique board,
-bootloader0.6.0 and exact9cb33d52image hash beforecopy. USBproduct
-DIY Mouse Config HID v22; BOTH mouse/vendor HIDcollections healthy, CDC/COM12,
-zeroerror devices (v21Code10 gone thisboot). Private config-hid-v22-usb-startup.json.
-No serial opened, no FeatureSET/RF query/settings write. No livebuild/helper.
-Currentinstalledv22 intentionallyNOwirelesspointeroutput. COREmuststayclosed.
-NEXT physicalpopup: GloriousON/USBunplugged/STILL nearreceiver, otherpointer
-available; receiverunchanged. No timedcue needed becauseUSBhost triggersquery.
-Then32-bit read_receiver_version.ps1 exactv22gate; initialGETA3, ONEfixedSET,
-boundedGET polls, compareactual RF version1.0.0.0withwiredreference, saveprivate.
-Afterquery/failure restoreexactTESTEDv14 93eb987a viafreshbootloaderpopup and
-briefwirelesscheck. Four-hourtrialstilldeferred. Continueuntiluser saysstop.
-
-
-NOVEMBER20 V22 HOST USB->RF->USB VERSION READ PASS.
-UserconfirmedGloriousON/USBunplugged/STILL, COREclosed. 32-bit preparedhelper
-finished successfully, one FeatureSET and twoGETs(total includesinitialA3).
-Returned firmware1.0.0.0 exactlymatcheswiredreference; Success=true.
-Private observation config-hid-v22-20261120-175941-a3145cd2.json. No serial,
-no settings write, no livehelper/capture/build/timer. V22 remainsinstalled with
-pointeroutputdisabled; one-shotqueryused. This establishes vendorFeature host
-roundtrip throughreceiver tostockmouse, not fullCOREdetection/configwrites.
-NEXT freshphysicalpopup: Gloriouswired/OFF, COREclosed, double-resetONLYreceiver
-intoNICENANO; restore EXACT TESTED normalv14 frozen93eb987a SHA256
-93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052.
-VerifyUSB thenbriefuserwirelesscheck. Afterrestoration continue multi-command/
-allowlist/CORE compatibility implementation. Four-hourtrialstilldeferred.
+NEXT commit/push thenfreshbootloaderpopup: COREclosed,Gloriouswired/OFF,
+double-resetONLYreceiver intoNICENANO. VerifyuniqueBoard+exactv23UF2 thenflash,
+checkUSBproduct/BOTHhealthyHIDs/65byteFeature (noqueryyet). Separate mouseON/
+USBunplugged/STILL readiness; run32-bit test_receiver_config.ps1 WITHOUTswitches
+for FIRST READ-ONLYfivequery hardwarecheck. OnlyifreadsPASS askseparatereadiness
+for TEMPORARYselectedDPIchange+restore using -ExerciseDpi. No timedpowercue or
+serialreader. Ifwrite/restorationfails, pauseforwiredrecovery usingbackup BEFORE
+normalwirelessuse; do not reusequarantinedreceiver. Restore EXACTtestednormalv14
+93eb987a hash93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052
+afterbatch withfreshbootloaderpopup andusercontrolcheck. Four-hourtrial deferred.
+Usercontinueuntilstop; no currentdeadline. FullCOREsettings stillunimplemented.
