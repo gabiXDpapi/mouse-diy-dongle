@@ -320,6 +320,50 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER20 OFFLINE CORE STARTUP INVENTORY COMPLETE; WIRED BACKUP NEXT.
+Normal EXACTtestedv14 isinstalled/userconfirmedworking; original800DPI restored,
+no pendingselectedDPIrecovery. No livehelper/serial/build/capture/timer.
+New research/trace_core_startup.js reuses existingprivateModelOSeries source and
+factorySupportDevice record with mockHID/DB, NO realapp/nativeaddon/hardware.
+InlineassertsPASS:42SET/29GET for threeprofile factoryinitialization+receiverFWread.
+Private tracecore-startup-trace-1795172092145.json; counts documented in
+ docs/plans/2026-11-20-core-startup-coverage.md. User profiles may differ.
+COREwrites24bindings,3DPIlists,3DPIcolors,3LOD,3poll,3debounce,profile/selectedstage
+onconnect. Need backup/commandcoverage/inputforwarding beforeofficialPID.
+Installedpackage1.1.36, envmissingBuiltType defaults0; traceuses that codepath.
+
+Prepared research/backup_mouse_profiles.ps1 READ-ONLY wired helper:40queries,
+3profiles,24slot0 bindingrecords plusDPIstages/selection/colors/debounce andglobal
+version/activeprofile/poll/LOD. Getter shapes checked againstexistingmouse dump;
+NO brightnessgetter/address/bootloader/macrobodies. SelfTestPASS with40request
+coverage, getter-onlyopcodes, echoes/profiles/slots/lengths, malformed rejection.
+No firmwarebuild/flash needed. Backup savesprivateopaque rawreplies; onlycomplete
+successupdates current-core-profile-backup.txt. Fullrestoretool notyetimplemented.
+NEXT physicalpopup: closeCORE, connectGloriousUSB inWIREDmode; leaveDIYreceiver
+unchanged. Then32-bit backup_mouse_profiles.ps1, validate40responses andsave
+resultsprivately. No settingswrites; normalreceiverremainsv14. Afterbackupcontinue
+COREallowlist/keyboard-consumer-forwarding implementation; do not launchCOREyet.
+Usercontinueuntilstop; nocutoff. Four-hourtrialstilldeferred.
+
+NOVEMBER20 normalv14 USER CONFIRMED after v23;800DPI restored/no pendingrecovery.
+No livecapture/serial/build/helper. Next autonomousstep: offline CORE startup
+command inventory using existingprivateModelOSeries.js anddefaultdevice record,
+mockHID only (no app launch/no realpackets/no DBwrites). Need exact startup
+profile/setting commandset before enablingofficialappidentity. Currentprototype
+transport only5reads+selectedstagewrite; COREdetection/fullDPIvalues/bindings not
+implemented. Four-hourtrialremainsdeferred. Usercontinueuntilstop/nocutoff.
+
+NOVEMBER20 EXACT NORMAL V14 RESTORED after v23 DPI-stage trial.
+FreshNICENANO/mousewired-OFF readiness; unique board/exact93eb987a hashverified
+beforecopy. USBproductDIY Mouse Dongle v14 and onehealthymousecollection verified.
+No serialopened. Private core-v23-normal-restoration.json; wirelessusercheck
+PENDINGpopup. V23 nolongerinstalled; currentmouseoriginal800DPI restored byradio
+readback beforeflash. Private DPIbackupNeedsWiredRestore=false; NO RECOVERYneeded.
+No livecapture/build/helper/timer. Hardwaremilestone4ddc36c pushed: real800->1600
+->800 selectedstagewrite/restore PASS. FullCOREidentity/settingsUI notyetdone.
+Afterbriefwirelesscheck continueCOREtransport scope, no repeatedbaseline/extraction.
+Four-hourtrialstilldeferred; usercontinueuntilstop/no cutoff.
+
 NOVEMBER20 FIRST REAL WIRELESS DPI SELECTION WRITE/RESTORE PASS.
 UserexplicitReady for temporaryDPIstagechange, COREclosed/mouseONunpluggedSTILL.
 Prepared -ExerciseDpi helper Success true; freshbaseline profile1/1000Hz/stage2,
