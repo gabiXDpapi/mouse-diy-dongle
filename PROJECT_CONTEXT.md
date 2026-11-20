@@ -320,6 +320,43 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER20 — V25 REAL DPI-VALUE EDIT AND RESTORE HARDWARE PASS.
+Fresh user temporary-write readiness; 32-bit test_receiver_config.ps1
+-ExerciseDpiValues completed successfully. Profile1 inactive stage4 changed
+3200->3250 X=Y, complete four-stage list read back, then restored400/800/1600/3200
+X=Y with full readback and original selectedstage2=800 restored/read back.
+Private config-trial-20261120-211429-90d63770.json and its .backup.json:
+Success/Changed/Restored true; NeedsWiredRestore false IN BOTH. Schema2 backup
+pointer current-config-hid-backup.txt saved before mutation. Exact write echo
+payloads checked; no pending mouse recovery. Independent wired recovery code
+self-tested and data connection verified, but this trial did not need it.
+V25 remains installed, pointer disabled; mouse last ON/unplugged/STILL. COREclosed.
+No live serial/capture/build/helper/timer. NEXT fresh physical popup: Glorious
+wired or OFF, double-reset ONLY receiver to NICENANO. Restore exact normalv14
+build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
+93eb987ae2ba123404a241677b66e3374cfdf545f2a7f64a470f5f0f6ffd1052;
+verify USB then user wireless movement/click check. Full CORE app/bindings/lighting
+still unfinished. This proves configuration value transport/readback, not physical
+sensor DPI calibration. User continue until stop; four-hour trial deferred.
+
+NOVEMBER 20 — V25 FLASHED; PASSIVE USB STARTUP PASS; NO DPI EDIT YET.
+Fresh user NICENANO readiness, CORE closed/Glorious wired-OFF. Board and exact
+f577b7e0 image verified; Windows product DIY Mouse Config HID v25 healthy, mouse
+and vendor Feature collections present. Private core-v25-startup.json. No serial
+opened, no query or settings write during flash/startup. No live build/helper.
+NEXT separate physical readiness: CORE closed, Glorious ON/USB unplugged/STILL
+near unchanged receiver, other pointer available. Explain test temporarily edits
+one inactive profile1 stage by50 DPI, saves originals first, then restores full
+stage list and original selected800-DPI stage with readback. Pointer disabled.
+After Ready run32-bit research/test_receiver_config.ps1 -ExerciseDpiValues once.
+Check result and backup NeedsWiredRestore flag. If pending, stop and popup for
+wired recovery (mouse wired with switchOFF, receiver unchanged), then run32-bit
+helper -RestoreWired with exact pending backup. Do not flash normal before pending
+mouse settings recovery is resolved. After successful edit/restore, fresh NICENANO
+popup to restore exact normalv14/93eb987a, then USB and user movement/click check.
+Normalv14 is currently NOT installed. All40 configuration records previously
+matched wireless and wired backups; CORE full support still unfinished.
+
 NOVEMBER 20 — V25 DPI-VALUE CANDIDATE VALIDATED; NOT FLASHED.
 Normal exact tested v14 remains installed/user-confirmed working. Glorious last
 wired with wireless switch OFF; CORE closed. Wired 258A:2018 healthy, all40 wired
