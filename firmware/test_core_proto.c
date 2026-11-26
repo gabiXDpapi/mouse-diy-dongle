@@ -116,13 +116,17 @@ int main(void)
     assert(config_request_valid(active_prof));
     active_prof[6] = 4; assert(!config_request_valid(active_prof));
 
-    uint8_t debounce[64] = {0, 0, 2, 2, 0, 8, 3, 16};
+    uint8_t debounce[64] = {0, 0, 2, 2, 0, 8, 3, 32};
     assert(config_request_valid(debounce));
-    debounce[7] = 17; assert(!config_request_valid(debounce));
+    debounce[7] = 33; assert(!config_request_valid(debounce));
 
     uint8_t poll[64] = {0, 0, 2, 1, 1, 0, 4};
     assert(config_request_valid(poll));
     poll[6] = 3; assert(!config_request_valid(poll));
+
+    uint8_t lod_om[64] = {0, 0, 2, 1, 1, 7, 1};
+    assert(config_request_valid(lod_om));
+    lod_om[6] = 2; assert(!config_request_valid(lod_om));
 
     uint8_t lod[64] = {0, 0, 2, 1, 1, 8, 2};
     assert(config_request_valid(lod));
@@ -184,9 +188,16 @@ int main(void)
     config_hid_poll_link(true);
     assert(config_hid_published && !config_hid_query_active);
 
-    /* Consecutive fire-and-forget SET_REPORT accepted without calling GET_REPORT. */
+    /* Consecutive back-to-back SET_REPORT calls queue cleanly while in flight (OpenMouse setDpi). */
     ptr = batt; len = 64;
     assert(cfg_ops->set_report(&cfg_dev, &setup, &len, &ptr) == 0);
+    ptr = sel; len = 64;
+    assert(cfg_ops->set_report(&cfg_dev, &setup, &len, &ptr) == 0); /* Queued, NOT -EBUSY! */
+    assert(config_hid_q_count == 1);
+    config_hid_poll_link(false); /* First completes offline A4 and promotes queued sel. */
+    assert(config_hid_q_count == 0 && config_hid_pending && !config_hid_published);
+    config_hid_poll_link(false); /* Second completes offline A4. */
+    assert(config_hid_published);
     assert(wireless_hid_finish() == 0);
     assert(!irq_depth);
 

@@ -320,6 +320,22 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V30 OPENMOUSE BACK-TO-BACK QUEUE + LOD/DEBOUNCE READY; NOT FLASHED.
+Confirmed from OpenMouse-Project/mouse-protocol (`classic-hid.ts` & `glorious-classic/index.ts`)
+that OpenMouse's `glorious-classic` driver is write-only for DPI/polling/LOD (only battery is
+read back on all Glorious Classic mice) and sends `SetDPIStages` + `SetActiveStage` back-to-back
+with 0 ms delay, which hit `-EBUSY` on v28/v29's single-slot mailbox.
+V30 adds a 4-slot FIFO queue in `config_hid.h` (under `CORE_PROTO_FULL`), `01/07` LOD (`0/1`),
+and `0..32 ms` debounce while keeping updater/bootloader/address/pairing/reset strictly blocked.
+All 15 native tests pass; UF2 validated: 207 blocks (`0x26000..0x32F00`), 52,976 B flash /
+17,344 B RAM. Frozen private image: `build-pairing-analysis/core-id-v30-ee8a268b.uf2`,
+SHA256 `ee8a268b26547d2933138b2ba295c5a9b1863ac3d9f1195cc25a361ee6a67267`.
+Live Raw Input polling check on v28 (`258A:2031`) also verified true 1,000 Hz delivery
+(median 1.010 ms, 912 Hz peak, 9,627 foreground events, 0 errors).
+
+NEXT: popup for fresh NICENANO flash readiness, flash v30, verify 7 HID collections,
+then test OpenMouse DPI/polling/LOD/debounce editing wirelessly!
+
 NOVEMBER 26 — V28 GLORIOUS CORE WIRELESS COMPATIBILITY HARDWARE PASS!
 Flashed frozen `core-id-v28-e24377f1.uf2` (SHA256
 `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`, opt-in

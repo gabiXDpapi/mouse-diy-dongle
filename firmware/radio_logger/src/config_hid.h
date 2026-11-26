@@ -10,12 +10,20 @@ static bool config_hid_query_active;
 static bool config_hid_consumed, config_hid_locked_out;
 static int64_t config_hid_deadline;
 static uint8_t config_hid_request[64];
+#ifdef CORE_PROTO_FULL
+#define CONFIG_HID_QUEUE_CAP 4u
+static uint8_t config_hid_queue[CONFIG_HID_QUEUE_CAP][64];
+static uint8_t config_hid_q_head, config_hid_q_count;
+#endif
 
 static void config_hid_reset(void)
 {
     config_hid_pending = config_hid_claimed = config_hid_published = false;
     config_hid_query_active = false;
     config_hid_consumed = config_hid_locked_out = false;
+#ifdef CORE_PROTO_FULL
+    config_hid_q_head = config_hid_q_count = 0;
+#endif
     memset(config_hid_response, 0, sizeof(config_hid_response));
     config_hid_response[0] = 0xa3;
 }
@@ -29,8 +37,8 @@ static int config_hid_set(const struct device *dev, struct usb_setup_packet *set
     if (!config_request_valid(*data)) return -ENOTSUP;
     unsigned int key = irq_lock();
 #ifdef CORE_PROTO_FULL
-    if (config_hid_pending && !config_hid_published) { irq_unlock(key); return -EBUSY; }
     if ((*data)[2] == 0 && (*data)[4] == 0 && (*data)[5] == 0x81) {
+        if (config_hid_pending && !config_hid_published) { irq_unlock(key); return -EBUSY; }
         memset(config_hid_response, 0, sizeof(config_hid_response));
         config_hid_response[0] = 0xa1;
         config_hid_response[3] = 3;
@@ -38,6 +46,15 @@ static int config_hid_set(const struct device *dev, struct usb_setup_packet *set
         config_hid_response[6] = 1; /* Receiver-local firmware version 1.0.0.0 */
         config_hid_pending = config_hid_claimed = config_hid_published = true;
         config_hid_query_active = config_hid_consumed = false;
+        irq_unlock(key);
+        return 0;
+    }
+    /* Queue back-to-back SET_REPORT calls (e.g. OpenMouse setDpi = stages + activeStage). */
+    if (config_hid_pending && !config_hid_published) {
+        if (config_hid_q_count >= CONFIG_HID_QUEUE_CAP) { irq_unlock(key); return -EBUSY; }
+        uint8_t tail = (uint8_t)((config_hid_q_head + config_hid_q_count) % CONFIG_HID_QUEUE_CAP);
+        memcpy(config_hid_queue[tail], *data, 64);
+        config_hid_q_count++;
         irq_unlock(key);
         return 0;
     }
@@ -79,13 +96,16 @@ static void config_hid_poll_link(bool mouse_linked)
             config_hid_response[0] = 0xa4; /* Receiver did not find mouse. */
             config_hid_claimed = config_hid_published = true;
             config_hid_query_active = false;
-            irq_unlock(key);
-            return;
+        } else {
+            if (!config_read_begin(&config_read_state, config_hid_request)) config_read_state.failed = true;
+            config_hid_claimed = config_hid_query_active = true;
+            config_hid_deadline = k_uptime_get() + 4000;
         }
-#endif
+#else
         if (!config_read_begin(&config_read_state, config_hid_request)) config_read_state.failed = true;
         config_hid_claimed = config_hid_query_active = true;
         config_hid_deadline = k_uptime_get() + 4000;
+#endif
     }
     if (config_hid_query_active && !config_hid_published) {
         if (!(config_read_state.complete && config_read_state.reply_released) &&
@@ -106,6 +126,18 @@ static void config_hid_poll_link(bool mouse_linked)
 #endif
         }
     }
+#ifdef CORE_PROTO_FULL
+    /* Drain queued back-to-back SET_REPORT requests as soon as the active RF slot finishes. */
+    if (config_hid_published && !config_hid_query_active && config_hid_q_count > 0) {
+        memcpy(config_hid_request, config_hid_queue[config_hid_q_head], 64);
+        memcpy(config_hid_response, config_hid_request, 64);
+        config_hid_response[0] = 0xa0;
+        config_hid_q_head = (uint8_t)((config_hid_q_head + 1u) % CONFIG_HID_QUEUE_CAP);
+        config_hid_q_count--;
+        config_hid_claimed = config_hid_published = config_hid_consumed = false;
+        config_hid_pending = true;
+    }
+#endif
     irq_unlock(key);
 }
 

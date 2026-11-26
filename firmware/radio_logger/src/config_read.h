@@ -39,15 +39,19 @@ static inline bool config_request_valid(const uint8_t *p)
         if (p[6] < 1 || p[6] > 3) return false;
         expected[3] = 1; expected[6] = p[6];
         break;
-    case 0x0008: /* Profile debounce setter (profile 1..3, 0..16 ms). */
-        if (p[6] < 1 || p[6] > 3 || p[7] > 16) return false;
+    case 0x0008: /* Profile debounce setter (profile 1..3, 0..32 ms). */
+        if (p[6] < 1 || p[6] > 3 || p[7] > 32) return false;
         expected[3] = 2; expected[6] = p[6]; expected[7] = p[7];
         break;
     case 0x0100: /* Polling divider setter (1/2/4/8 = 1000/500/250/125 Hz). */
         if (p[6] != 1 && p[6] != 2 && p[6] != 4 && p[6] != 8) return false;
         expected[3] = 1; expected[6] = p[6];
         break;
-    case 0x0108: /* Lift-off distance setter (1 or 2 mm). */
+    case 0x0107: /* OpenMouse / classic lift-off distance setter (0=1mm, 1=2mm). */
+        if (p[6] > 1) return false;
+        expected[3] = 1; expected[6] = p[6];
+        break;
+    case 0x0108: /* CORE lift-off distance setter (1 or 2 mm). */
         if (p[6] != 1 && p[6] != 2) return false;
         expected[3] = 1; expected[6] = p[6];
         break;

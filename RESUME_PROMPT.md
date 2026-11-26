@@ -8,22 +8,20 @@ research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and the CORE startup
 and DPI-value plans in docs/plans/. Inspect git status before edits.
 
 Current state:
-- Merged into `main` (from `feature/glorious-core-compatibility`).
-- V28 (`-App core-id`, `258A:2031`, `Series One PRO Wireless`, frozen
-  `build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
-  `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`) is currently
-  installed and HARDWARE-VERIFIED:
-  - 12/12 PnP devices OK, zero Code 10 errors; all 7 HID collections match wired layout.
-  - User confirmed smooth automatic wireless control, live Glorious CORE wireless
-    detection of `SERIES ONE PRO WIRELESS` (battery %, firmware version, settings),
-    and OpenMouse (WebHID) wireless detection (Connected, 100%, 1,000 Hz).
-  - User also reported prior real gaming use felt as expected.
-  - Updater/bootloader/address/pairing/reset commands remain strictly blocked.
-- Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`) and
-  prototype v27 (`core-proto-v27-cc5f4b87.uf2`), plus 40-record wired & wireless backups.
+- Branch `main`.
+- V30 (`-App core-id`, `258A:2031`, `Series One PRO Wireless`, frozen
+  `build-pairing-analysis/core-id-v30-ee8a268b.uf2`, SHA256
+  `ee8a268b26547d2933138b2ba295c5a9b1863ac3d9f1195cc25a361ee6a67267`) is BUILT,
+  natively tested (15/15 PASS), and UF2-validated: adds 4-slot FIFO config queue
+  for OpenMouse back-to-back `setDpi` writes + `01/07` LOD + `0..32 ms` debounce
+  + flexible read-only getters (updater/bootloader/address/pairing/reset remain blocked).
+- Live Raw Input polling on v28 (`258A:2031`) confirmed true 1,000 Hz (median 1.010 ms,
+  912 Hz peak, 9,627 foreground events, 0 errors).
+- Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`), v28
+  (`core-id-v28-e24377f1.uf2`), and 40-record wired & wireless backups.
 
-NEXT: optional CORE/OpenMouse keybinding remap test (live keyboard/media auxiliary
-HID verification) or longer endurance/sleep-resume soak on v28. Do not repeat
+NEXT: flash v30 via fresh NICENANO readiness, verify 7 HID collections on `258A:2031`,
+and verify OpenMouse DPI/polling/LOD/debounce editing wirelessly. Do not repeat
 completed extraction, builds, flashes, or baseline tests.
 
 Working preferences:
