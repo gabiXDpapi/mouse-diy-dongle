@@ -9,21 +9,21 @@ and DPI-value plans in docs/plans/. Inspect git status before edits.
 
 Current state:
 - Branch feature/glorious-core-compatibility.
-- V27 (`DIY Mouse CORE Proto v27`, `core-proto-v27-cc5f4b87.uf2`, local `2FE3:0008`,
-  3 HID interfaces / 7 collections) is currently installed and HARDWARE-VERIFIED.
-- V28 (`-App core-id`, `258A:2031`, `Series One PRO Wireless`, reusing exact v27
-  C source) is BUILT, all 15 native unit tests PASS, and UF2-validated/frozen at
-  `build-pairing-analysis/core-id-v28-e24377f1.uf2` (SHA256
-  `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`), NOT YET FLASHED.
-- Exact tested normal v14 (`93eb987a`) stays preserved as rollback; 40-record wired
-  and wireless backups match; no pending settings recovery.
+- V28 (`-App core-id`, `258A:2031`, `Series One PRO Wireless`, frozen
+  `build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
+  `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`) is currently
+  installed and HARDWARE-VERIFIED:
+  - 12/12 PnP devices OK, zero Code 10 errors; all 7 HID collections match wired layout.
+  - User confirmed smooth automatic wireless control AND live Glorious CORE wireless
+    detection of `SERIES ONE PRO WIRELESS` with battery %, firmware version, and
+    settings working! Updater/bootloader/address/pairing/reset commands remain blocked.
+- Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`) and
+  prototype v27 (`core-proto-v27-cc5f4b87.uf2`), plus 40-record wired & wireless backups.
 
-NEXT: popup and pause for CORE closed, Glorious wired or wireless OFF, replug and
-double-reset ONLY the DIY receiver into NICENANO. Verify board ID + exact v28 hash,
-flash v28, verify `258A:2031` enumerates all 7 HID collections with zero Code 10
-errors, then switch mouse ON (unplugged) and launch Glorious CORE for first live
-app detection, battery readout, and settings testing. Do not repeat completed
-extraction, builds, flashes, or baseline tests. Four-hour trial remains deferred.
+NEXT: optional CORE keybinding/media remap verification (testing live keyboard/consumer
+auxiliary HID forwarding), or the deferred 4-hour ordinary wireless use / gaming
+endurance trial on v28, or merging `feature/glorious-core-compatibility` once ready.
+Do not repeat completed extraction, builds, flashes, or baseline tests.
 
 Working preferences:
 - Continue autonomously until physical intervention or an explicit pause/stop.

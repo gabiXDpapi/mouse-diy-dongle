@@ -320,6 +320,30 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V28 GLORIOUS CORE WIRELESS COMPATIBILITY HARDWARE PASS!
+Flashed frozen `core-id-v28-e24377f1.uf2` (SHA256
+`e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`, opt-in
+`-App core-id`, `258A:2031` / `Series One PRO Wireless`, reusing the exact
+hardware-qualified v27 C source).
+- Windows USB enumeration: 12/12 PnP devices OK, ZERO Code 10 errors; all 7 HidSharp
+  collections present (`00010002` Mouse, `FFFF0000` 65B Feature, `00010006` Keyboard
+  + LED Out, `FFA00001`, `FFFF0001`, `00010080` System Control, `000C0001` Consumer).
+  Private evidence: `build-pairing-analysis/core-id-v28-usb-startup.json`.
+- Live Glorious CORE wireless test: user confirmed mouse unplugged + wireless switch
+  ON, smooth automatic wireless control, AND Glorious CORE detected
+  `SERIES ONE PRO WIRELESS` wirelessly over the DIY receiver with battery %,
+  firmware version, and settings working! Updater, bootloader, RF address, pairing,
+  and factory-reset commands remain strictly blocked in firmware.
+- Currently installed on DIY receiver: v28 (`core-id-v28-e24377f1.uf2`).
+- Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`) and
+  prototype v27 (`core-proto-v27-cc5f4b87.uf2`), plus matching 40-record wired and
+  wireless configuration backups.
+
+NEXT: ask user whether to (1) test CORE keybinding remapping (e.g. keyboard/media
+shortcut on a mouse button via v28's auxiliary HID interface), (2) begin the
+deferred 4-hour ordinary wireless use / gaming endurance trial on v28, or (3) stop
+and celebrate / pause here with v28 installed and working!
+
 NOVEMBER 26 — V28 CORE-IDENTITY BUILD READY (258A:2031); NOT FLASHED.
 Added opt-in `-App core-id` (`firmware/radio_logger/core-id.conf`) reusing the exact
 hardware-qualified v27 C source with receiver USB identity `258A:2031`

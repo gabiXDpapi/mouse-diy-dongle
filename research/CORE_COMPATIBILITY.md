@@ -990,3 +990,20 @@ RAM, 207 blocks (`0x26000..0x32F00` exclusive). Frozen private image:
 `build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
 `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`. Not yet
 flashed; v27 remains installed and exact normal v14 (`93eb987a`) stays preserved.
+
+
+## V28 Glorious CORE wireless compatibility pass (November 26)
+
+Flashed frozen `core-id-v28-e24377f1.uf2` (`258A:2031`, `Series One PRO Wireless`)
+after fresh `NICENANO` verification. Windows enumerated 12/12 healthy PnP devices
+(zero Code 10 errors) and all 7 HidSharp collections (`00010002` Mouse, `FFFF0000`
+65 B Feature, `00010006` Keyboard + LED Out, `FFA00001`, `FFFF0001`, `00010080`
+System Control, `000C0001` Consumer). Private record:
+`build-pairing-analysis/core-id-v28-usb-startup.json`.
+
+With the mouse unplugged and wireless switch ON, the user confirmed smooth
+automatic wireless control and live **Glorious CORE** wireless detection of
+`SERIES ONE PRO WIRELESS` with battery %, firmware version, and settings working.
+Firmware updater, bootloader, RF address, pairing, and reset commands remain
+strictly rejected. Exact normal v14 (`93eb987a`), prototype v27 (`cc5f4b87`), and
+40-record wired/wireless backups remain preserved.

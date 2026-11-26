@@ -549,7 +549,7 @@ faster polling. The phase controller requires complete timing, input and phase
 footers; native output is cross-checked with the host analyzer. See the phase
 implementation plan and latest PROJECT_CONTEXT handoff for exact image/state.
 
-V18’s first hardware trial passed SOF calibration, complete phase accounting and exact device/host input totals (21,818 reports). The user confirmed smooth controls and clean stop. Callback latency was strongly associated with USB frame phase in this run; this does not prove an optimization gain. See the research table for counts, stage timings and limits.
+V18Â’s first hardware trial passed SOF calibration, complete phase accounting and exact device/host input totals (21,818 reports). The user confirmed smooth controls and clean stop. Callback latency was strongly associated with USB frame phase in this run; this does not prove an optimization gain. See the research table for counts, stage timings and limits.
 
 
 ### Phase-aware fast-poll comparison v19 (software ready)
@@ -567,7 +567,7 @@ Comparison plan: `docs/plans/2026-11-18-phase-poll-comparison.md`. No optimizati
 promotion is assumed. Coarse100us phase buckets and manual workload limit any
 causal interpretation of a small difference; compare independent runs explicitly.
 
-V19’s first phase-aware hardware run passed input accounting and user control checks. Faster polling reduced measured RF reaction, while total callback timing remained sensitive to USB phase mix; the small phase-weighted difference does not establish a reliable overall gain. Normal v14 remains the everyday baseline; repeatability is pending.
+V19Â’s first phase-aware hardware run passed input accounting and user control checks. Faster polling reduced measured RF reaction, while total callback timing remained sensitive to USB phase mix; the small phase-weighted difference does not establish a reliable overall gain. Normal v14 remains the everyday baseline; repeatability is pending.
 
 The completed phase-aware four-run comparison shows a repeatable~18us RF-to-submit reduction with10us software radio checking. It does not establish a reliable whole-system gaming-latency gain, so exact tested normal v14 (50us software wait, configured1ms USB interval) is restored and user-confirmed. Next: live USB endpoint/polling verification and sustained reliability checks.
 
@@ -629,9 +629,9 @@ WM_INPUT movement-delivery statistics, not measured physical USB tokens, fresh
 sensor sampling, RF loss or end-to-end gaming latency. Queueing/coalescing and
 actual hand motion remain confounders. Live1ms descriptor evidence is separate.
 
-The first guided normal-wireless trial completed, but an initial event gap conflicts with the user’s report of smooth continuous motion. A matching wired capture is next to check the host/capture path. No sustained1kHz claim is made; the live1ms USB configuration is separately verified.
+The first guided normal-wireless trial completed, but an initial event gap conflicts with the userÂ’s report of smooth continuous motion. A matching wired capture is next to check the host/capture path. No sustained1kHz claim is made; the live1ms USB configuration is separately verified.
 
-A guided larger-motion run on normal v14 now supports near1,000Hz foreground host delivery:964.9movement events/s over the entire predefined20seconds,916–993each second, median1ms; the user confirmed smooth continuous motion. This is not physical bus/sensor latency certification, and occasional host gaps remain. Normal v14 stays installed; real gameplay and longer reliability checks are next.
+A guided larger-motion run on normal v14 now supports near1,000Hz foreground host delivery:964.9movement events/s over the entire predefined20seconds,916Â–993each second, median1ms; the user confirmed smooth continuous motion. This is not physical bus/sensor latency certification, and occasional host gaps remain. Normal v14 stays installed; real gameplay and longer reliability checks are next.
 
 
 ### Preliminary30-minute gameplay check passed (November19)
@@ -662,3 +662,20 @@ V25 passed a real inactive-stage DPI-value edit (3200 to3250) and verified
 restoration of all original values and the selected800-DPI stage. See docs/plans/2026-11-20-dpi-values.md and newest
 PROJECT_CONTEXT.md handoff. Full CORE detection/configuration and keyboard or
 consumer key forwarding remain unfinished; keep CORE closed during diagnostics.
+
+
+### Glorious CORE wireless compatibility verified (November 26, v28)
+
+- **Wired HID layout inspection** confirmed all 7 collections and RF types 1..7 mapping.
+- **v26 (`-App aux-hid`)** added auxiliary USB HID forwarding (Consumer, System Control,
+  Keyboard + LED Output, Vendor `FFA0:0001` & `FFFF:0001`) with compound-packet busy-retry
+  deduplication and bounded neutral release; hardware enumeration and wireless control passed.
+- **v27 (`-App core-proto`)** combined all 3 HID interfaces (7 collections) on prototype
+  `2FE3:0008` with receiver-local version (`00/00/81`), immediate offline `0xA4`, live
+  wireless battery (`00/83`), and the full CORE startup allowlist (while blocking updater,
+  bootloader, RF address, pairing, and reset commands). All 15 native unit tests and live
+  hardware verification passed.
+- **v28 (`-App core-id`)** reused the exact verified v27 C source with receiver USB ID
+  `258A:2031` (`Series One PRO Wireless`). Windows enumerated all 7 HID collections with
+  zero errors, and the user confirmed live **Glorious CORE** wireless detection with
+  battery %, firmware version, and settings working alongside smooth wireless control.
