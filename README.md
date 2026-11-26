@@ -677,5 +677,6 @@ consumer key forwarding remain unfinished; keep CORE closed during diagnostics.
   hardware verification passed.
 - **v28 (`-App core-id`)** reused the exact verified v27 C source with receiver USB ID
   `258A:2031` (`Series One PRO Wireless`). Windows enumerated all 7 HID collections with
-  zero errors, and the user confirmed live **Glorious CORE** wireless detection with
-  battery %, firmware version, and settings working alongside smooth wireless control.
+  zero errors, and the user confirmed live **Glorious CORE** wireless detection (battery %,
+  firmware version, settings) and **OpenMouse (WebHID)** wireless detection (`Connected`,
+  `100%`, `1,000 Hz`) alongside smooth wireless control.

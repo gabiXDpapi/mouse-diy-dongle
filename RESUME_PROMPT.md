@@ -8,22 +8,23 @@ research/CORE_COMPATIBILITY.md, research/RADIO_ANALYSIS.md and the CORE startup
 and DPI-value plans in docs/plans/. Inspect git status before edits.
 
 Current state:
-- Branch feature/glorious-core-compatibility.
+- Merged into `main` (from `feature/glorious-core-compatibility`).
 - V28 (`-App core-id`, `258A:2031`, `Series One PRO Wireless`, frozen
   `build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
   `e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`) is currently
   installed and HARDWARE-VERIFIED:
   - 12/12 PnP devices OK, zero Code 10 errors; all 7 HID collections match wired layout.
-  - User confirmed smooth automatic wireless control AND live Glorious CORE wireless
-    detection of `SERIES ONE PRO WIRELESS` with battery %, firmware version, and
-    settings working! Updater/bootloader/address/pairing/reset commands remain blocked.
+  - User confirmed smooth automatic wireless control, live Glorious CORE wireless
+    detection of `SERIES ONE PRO WIRELESS` (battery %, firmware version, settings),
+    and OpenMouse (WebHID) wireless detection (Connected, 100%, 1,000 Hz).
+  - User also reported prior real gaming use felt as expected.
+  - Updater/bootloader/address/pairing/reset commands remain strictly blocked.
 - Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`) and
   prototype v27 (`core-proto-v27-cc5f4b87.uf2`), plus 40-record wired & wireless backups.
 
-NEXT: optional CORE keybinding/media remap verification (testing live keyboard/consumer
-auxiliary HID forwarding), or the deferred 4-hour ordinary wireless use / gaming
-endurance trial on v28, or merging `feature/glorious-core-compatibility` once ready.
-Do not repeat completed extraction, builds, flashes, or baseline tests.
+NEXT: optional CORE/OpenMouse keybinding remap test (live keyboard/media auxiliary
+HID verification) or longer endurance/sleep-resume soak on v28. Do not repeat
+completed extraction, builds, flashes, or baseline tests.
 
 Working preferences:
 - Continue autonomously until physical intervention or an explicit pause/stop.

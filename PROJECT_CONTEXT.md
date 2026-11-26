@@ -334,6 +334,10 @@ hardware-qualified v27 C source).
   `SERIES ONE PRO WIRELESS` wirelessly over the DIY receiver with battery %,
   firmware version, and settings working! Updater, bootloader, RF address, pairing,
   and factory-reset commands remain strictly blocked in firmware.
+- OpenMouse (WebHID) compatibility: user screenshot confirmed `Series One PRO Wireless`
+  appearing as Connected (Wireless, 100% battery, 1,000 Hz) in OpenMouse as well.
+- Real gaming feedback: user reported using the DIY wireless receiver for gaming
+  the previous day with everything feeling as expected.
 - Currently installed on DIY receiver: v28 (`core-id-v28-e24377f1.uf2`).
 - Preserved rollbacks: exact tested normal v14 (`dongle-v14-93eb987a.uf2`) and
   prototype v27 (`core-proto-v27-cc5f4b87.uf2`), plus matching 40-record wired and
