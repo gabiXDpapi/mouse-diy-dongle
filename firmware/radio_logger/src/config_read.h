@@ -15,7 +15,18 @@ static inline bool config_request_valid(const uint8_t *p)
 {
     if (!memcmp(p, config_read_version_request, 64)) return true;
 #ifdef CORE_PROTO_FULL
-    if (!memcmp(p, config_dongle_version_request, 64)) return true;
+    /* Receiver-local firmware version (target 0, group 0, op 0x81, any payload size <= 58). */
+    if (p[0] == 0 && p[1] == 0 && p[2] == 0 && p[3] <= 58 && p[4] == 0 && p[5] == 0x81) {
+        for (unsigned int i = 6; i < 64; i++) if (p[i] != 0) return false;
+        return true;
+    }
+    /* Safe read-only getters (op >= 0x80) in groups 0..3 (excluding 00/82 RF address).
+     * Allows flexible request size byte p[3] used by third-party WebHID tools like OpenMouse.
+     */
+    if (p[0] == 0 && p[1] == 0 && p[2] == 2 && p[3] <= 58 && p[4] <= 3 && (p[5] & 0x80u)) {
+        if (p[4] == 0 && p[5] == 0x82) return false; /* Never expose RF address read. */
+        return true;
+    }
 #endif
     uint8_t expected[64] = {0,0,2,1,0,0,0};
     expected[4] = p[4]; expected[5] = p[5];
@@ -199,6 +210,17 @@ static void config_read_receive(struct config_read *s, const uint8_t *p)
             const uint8_t *request = s->configured ? s->request : config_read_version_request;
             unsigned int payload = s->response[3];
             unsigned int padded = (6u + payload + 7u) & ~7u;
+#ifdef CORE_PROTO_FULL
+            bool ok_status = (s->response[0] == 0xa1 || s->response[0] == 0xa3);
+            if (payload > 58 || s->received != padded || !ok_status ||
+                s->response[2] != request[2] || s->response[4] != request[4] ||
+                s->response[5] != request[5] ||
+                (s->response[0] == 0xa1 && request[4] == 1 && request[5] == 2 &&
+                 (payload != 2 || memcmp(s->response + 6, request + 6, 2))) ||
+                (s->response[0] == 0xa1 && request[4] == 1 && request[5] == 1 &&
+                 (payload != request[3] || memcmp(s->response + 6, request + 6, request[3])))) s->failed = true;
+            else s->complete = true;
+#else
             if (payload > 58 || s->received != padded || s->response[0] != 0xa1 ||
                 s->response[2] != request[2] || s->response[4] != request[4] ||
                 s->response[5] != request[5] ||
@@ -207,6 +229,7 @@ static void config_read_receive(struct config_read *s, const uint8_t *p)
                 (request[4] == 1 && request[5] == 1 &&
                  (payload != request[3] || memcmp(s->response + 6, request + 6, request[3])))) s->failed = true;
             else s->complete = true;
+#endif
             return;
         }
     }

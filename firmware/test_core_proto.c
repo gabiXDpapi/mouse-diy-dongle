@@ -137,11 +137,21 @@ int main(void)
     bind[8] = 1; assert(!config_request_valid(bind)); /* Non-zero slot rejected. */
     bind[8] = 0; bind[7] = 0x99; assert(!config_request_valid(bind)); /* Unknown button rejected. */
 
-    /* Reject updater/bootloader/address/reset commands. */
+    /* Reject updater/bootloader/address/reset commands, including RF address getter 00/82. */
     uint8_t boot[64] = {0, 0, 2, 1, 0, 0x01};
     assert(!config_request_valid(boot));
     uint8_t addr[64] = {0, 0, 2, 4, 0, 0x02};
     assert(!config_request_valid(addr));
+    uint8_t addr_read[64] = {0, 0, 2, 4, 0, 0x82};
+    assert(!config_request_valid(addr_read));
+
+    /* Flexible read-only getters (e.g. OpenMouse p[3]=0 or p[3]=18) are accepted. */
+    uint8_t om_dpi_read[64] = {0, 0, 2, 0, 1, 0x81, 1};
+    assert(config_request_valid(om_dpi_read));
+    uint8_t om_poll_read[64] = {0, 0, 2, 0, 1, 0x80};
+    assert(config_request_valid(om_poll_read));
+    uint8_t om_ver_read[64] = {0, 0, 0, 0, 0, 0x81};
+    assert(config_request_valid(om_ver_read));
 
     /* 4. Simultaneous Mouse + Aux + Config Reply on the same RF stream,
      * plus consecutive SET_REPORT without intermediate GET_REPORT once published.

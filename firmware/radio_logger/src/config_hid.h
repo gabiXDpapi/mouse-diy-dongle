@@ -30,7 +30,7 @@ static int config_hid_set(const struct device *dev, struct usb_setup_packet *set
     unsigned int key = irq_lock();
 #ifdef CORE_PROTO_FULL
     if (config_hid_pending && !config_hid_published) { irq_unlock(key); return -EBUSY; }
-    if (!memcmp(*data, config_dongle_version_request, 64)) {
+    if ((*data)[2] == 0 && (*data)[4] == 0 && (*data)[5] == 0x81) {
         memset(config_hid_response, 0, sizeof(config_hid_response));
         config_hid_response[0] = 0xa1;
         config_hid_response[3] = 3;
