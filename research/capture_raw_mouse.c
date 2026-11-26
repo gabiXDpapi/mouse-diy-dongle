@@ -47,7 +47,7 @@ static int has_id(const char *name, const char *id)
 static const char *classify_name(const char *name)
 {
     if (has_id(name, "VID_258A&PID_2018")) return "wired";
-    if (has_id(name, "VID_2FE3&PID_0008")) return "receiver";
+    if (has_id(name, "VID_2FE3&PID_0008") || has_id(name, "VID_258A&PID_2031")) return "receiver";
     return NULL;
 }
 
