@@ -320,6 +320,29 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V26 AUXILIARY HID HARDWARE ENUMERATION & WIRELESS CONTROL PASS.
+Flashed frozen `aux-hid-v26-e9f3c1cc.uf2` (SHA256
+`e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`) after fresh
+NICENANO verification. Windows enumerated `DIY Mouse Aux HID v26` (`2FE3:0008`)
+with 10/10 healthy PnP devices (zero Code 10 errors) and all 6 HidSharp collections:
+Mouse (`00010002`, 7B), Consumer (`000C0001`, 3B), System Control (`00010080`, 2B),
+Keyboard (`00010006`, 9B in / 2B out), Vendor `FFA00001` (9B), Vendor `FFFF0001` (9B).
+Private evidence: `build-pairing-analysis/aux-hid-v26-usb-startup.json`.
+User confirmed smooth automatic wireless pointer movement, all buttons, and scroll
+wheel on v26. Read-only Win32 `GENERIC_READ` on `FFA00001` opened cleanly with
+zero errors; a 20s power-cycle capture recorded 0 events (likely C# `Add-Type`
+startup delay vs switch timing; live aux report delivery remains to be captured
+with a pre-started listener). Exact tested normal v14 (`93eb987a`) remains preserved
+as rollback; no mouse settings were changed.
+
+NEXT autonomous software milestone: prepare v27 combined staging firmware
+(`config-hid` + `aux-hid` on 3 HID instances, local prototype `2FE3:0008`) with
+full CORE startup command allowlist (all 3 profiles DPI stages/selection/colours/
+debounce/slot-0 bindings, global polling/LOD/active profile, battery read, and
+truthful receiver-local firmware version `00/00/81`) while keeping updater/address/
+pairing/reset commands rejected. Qualify with native C unit tests and UF2 build
+before physical testing. Full CORE identity remains disabled until v27 qualifies.
+
 NOVEMBER 26 — V26 AUXILIARY HID FORWARDING SOFTWARE READY; NOT FLASHED.
 Normal exact tested v14 (93eb987a) remains installed and user-confirmed working.
 No pending settings recovery; no live serial/capture/build/helper/timer.

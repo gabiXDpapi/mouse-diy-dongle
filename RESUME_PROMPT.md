@@ -9,27 +9,27 @@ and DPI-value plans in docs/plans/. Inspect git status before edits.
 
 Current state:
 - Branch feature/glorious-core-compatibility.
-- Exact tested normal v14 installed and user-confirmed automatic wireless control.
+- V26 (`DIY Mouse Aux HID v26`, `aux-hid-v26-e9f3c1cc.uf2`, local `2FE3:0008`)
+  is currently installed and hardware-verified for clean Windows enumeration
+  (10/10 PnP OK, zero Code 10, all 6 HID collections: Mouse + Consumer + System
+  + Keyboard + Vendor FFA0 + Vendor FFFF) and smooth automatic wireless movement,
+  clicks, and scroll wheel. Exact tested normal v14 (`93eb987a`) remains preserved
+  as rollback.
 - V25 real DPI-value edit 3200->3250->3200 passed; original 400/800/1600/3200 list
   and selected stage 2=800 restored. No pending recovery or live process/session.
 - Wireless and wired 40-record configuration backups match. Full-device restore
   and macro bodies are not qualified. Full CORE app compatibility is unfinished.
 - Wired HID layout inspection PASSED (7 collections; private
   wired-hid-layout-20261126-183213-b93b7b4b.json).
-- V26 auxiliary USB HID forwarding (`-App aux-hid`, `DIY Mouse Aux HID v26`,
-  local `2FE3:0008`, 2 HID instances) is BUILT, all 14 native unit tests PASS,
-  and UF2-validated/frozen privately at
-  `build-pairing-analysis/aux-hid-v26-e9f3c1cc.uf2`
-  (SHA256 `e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`),
-  NOT YET FLASHED.
 
-NEXT: popup and pause for CORE closed, Glorious wired or wireless OFF, double-reset
-ONLY the DIY receiver into NICENANO. Verify board ID and exact frozen v26 hash,
-flash v26, verify Windows enumeration (Mouse + 5 Auxiliary HID collections healthy,
-zero Code 10), then verify automatic wireless pointer/click control on v26. Restore
-exact tested normal v14 (`93eb987a`) via fresh bootloader readiness after testing
-if needed. Do not repeat completed extraction, builds, flashes, wired layout
-inspection, or baseline tests. Four-hour use trial remains deferred for CORE.
+NEXT: build v27 combined staging firmware (`config-hid` + `aux-hid`, 3 HID
+instances, local prototype `2FE3:0008`) adding the remaining CORE startup command
+allowlist (profiles 1..3 DPI stages/selection/colours/debounce/slot-0 bindings,
+global polling/LOD/active profile, battery read, and receiver-local firmware
+version `00/00/81`) while rejecting updater/address/pairing/reset commands.
+Validate with native C tests and UF2 check before physical testing. Do not repeat
+completed extraction, builds, flashes, wired layout inspection, or baseline tests.
+Four-hour use trial remains deferred for CORE.
 
 Working preferences:
 - Continue autonomously until physical intervention or an explicit pause/stop.

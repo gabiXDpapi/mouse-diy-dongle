@@ -916,3 +916,23 @@ UF2 bounds checks pass: 47,388 B flash / 16,256 B RAM, 186 blocks
 `build-pairing-analysis/aux-hid-v26-e9f3c1cc.uf2`, SHA256
 `e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`. Not yet flashed;
 exact tested normal v14 (`93eb987a`) remains installed.
+
+
+## V26 hardware enumeration & wireless control pass (November 26)
+
+Flashed frozen `aux-hid-v26-e9f3c1cc.uf2` after fresh `NICENANO` verification.
+Windows enumerated `DIY Mouse Aux HID v26` (`2FE3:0008`) with 10/10 healthy PnP
+devices (zero Code 10 errors) and all 6 HidSharp collections matching expected
+report lengths: Mouse (`00010002`, 7 B), Consumer (`000C0001`, 3 B), System
+Control (`00010080`, 2 B), Keyboard (`00010006`, 9 B in / 2 B out), Vendor
+`FFA00001` (9 B), and Vendor `FFFF0001` (9 B). Private startup record:
+`build-pairing-analysis/aux-hid-v26-usb-startup.json`.
+
+User confirmed smooth automatic wireless pointer movement, all buttons, and
+scroll wheel on v26. Read-only Win32 `GENERIC_READ` opened `FFA00001` cleanly;
+a 20 s power-cycle capture recorded 0 events (likely C# `Add-Type` startup delay
+vs switch timing; live aux report delivery remains to be verified with a
+pre-started listener). Exact tested normal v14 (`93eb987a`) stays preserved as
+rollback. Next: combined v27 staging firmware (`config-hid` + `aux-hid` + full
+CORE startup command allowlist + receiver-local version `00/00/81`) on prototype
+IDs `2FE3:0008`.
