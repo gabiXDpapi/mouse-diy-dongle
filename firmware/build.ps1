@@ -1,4 +1,4 @@
-param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')][string]$App = 'hid')
+param([ValidateSet('hid', 'radio', 'probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid', 'aux-hid')][string]$App = 'hid')
 
 $ErrorActionPreference = 'Stop'
 $workspace = Join-Path $env:USERPROFILE 'zephyrproject'
@@ -24,8 +24,8 @@ if ($App -ne 'hid') {
     Copy-Item -LiteralPath "$source\src\probe_timing.h" -Destination "$stage\src"
     Copy-Item -LiteralPath "$source\src\wireless_hid.h" -Destination "$stage\src"
     Copy-Item -LiteralPath "$source\src\latency_metrics.h", "$source\src\latency_dump.h", "$source\src\input_totals.h", "$source\src\timing_device.h" -Destination "$stage\src"
-    Copy-Item -LiteralPath "$source\config-read.conf", "$source\config-hid.conf" -Destination $stage
-    Copy-Item -LiteralPath "$source\src\config_read.h", "$source\src\config_hid.h" -Destination "$stage\src"
+    Copy-Item -LiteralPath "$source\config-read.conf", "$source\config-hid.conf", "$source\aux-hid.conf" -Destination $stage
+    Copy-Item -LiteralPath "$source\src\config_read.h", "$source\src\config_hid.h", "$source\src\aux_hid.h" -Destination "$stage\src"
     Copy-Item -LiteralPath "$source\receiver.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\dongle.conf" -Destination $stage
     Copy-Item -LiteralPath "$source\latency.conf" -Destination $stage
@@ -39,14 +39,14 @@ try {
     if ($App -eq 'hid') {
         west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage
     } else {
-        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'ON' } else { 'OFF' }
-        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'ON' } else { 'OFF' }
-        $normal = if ($App -in @('dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'ON' } else { 'OFF' }
+        $probe = if ($App -in @('probe', 'receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid', 'aux-hid')) { 'ON' } else { 'OFF' }
+        $wirelessHid = if ($App -in @('receiver', 'dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid', 'aux-hid')) { 'ON' } else { 'OFF' }
+        $normal = if ($App -in @('dongle', 'latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid', 'aux-hid')) { 'ON' } else { 'OFF' }
         $timing = if ($App -in @('latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'ON' } else { 'OFF' }
         $conservation = if ($App -in @('input', 'phase', 'phase-fast')) { 'ON' } else { 'OFF' }
         $phase = if ($App -in @('phase', 'phase-fast')) { 'ON' } else { 'OFF' }
         $fast = if ($App -in @('latency-fast', 'phase-fast')) { 'ON' } else { 'OFF' }
-        $extraConf = if ($App -in @('latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -eq 'dongle') { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
+        $extraConf = if ($App -in @('latency', 'latency-fast', 'input', 'phase', 'phase-fast', 'config-read', 'config-hid')) { 'receiver.conf;dongle.conf;latency.conf' } elseif ($App -in @('dongle', 'aux-hid')) { 'receiver.conf;dongle.conf' } elseif ($App -eq 'receiver') { 'receiver.conf' } else { '' }
         if ($App -eq 'latency-fast') { $extraConf += ';latency-fast.conf' }
         if ($App -in @('input', 'phase', 'phase-fast')) { $extraConf += ';input.conf' }
         if ($App -in @('phase', 'phase-fast')) { $extraConf += ';phase.conf' }
@@ -55,7 +55,9 @@ try {
         if ($App -in @('config-read', 'config-hid')) { $extraConf += ';config-read.conf' }
         $configHid = if ($App -eq 'config-hid') { 'ON' } else { 'OFF' }
         if ($App -eq 'config-hid') { $extraConf += ';config-hid.conf' }
-        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DNORMAL_DONGLE=$normal" "-DLATENCY_DIAGNOSTICS=$timing" "-DFAST_POLL_DIAGNOSTICS=$fast" "-DINPUT_CONSERVATION=$conservation" "-DUSB_PHASE_DIAGNOSTICS=$phase" "-DRF_CONFIG_READ_DIAGNOSTICS=$configRead" "-DRF_CONFIG_HID_DIAGNOSTICS=$configHid" "-DEXTRA_CONF_FILE=$extraConf"
+        $auxHid = if ($App -eq 'aux-hid') { 'ON' } else { 'OFF' }
+        if ($App -eq 'aux-hid') { $extraConf += ';aux-hid.conf' }
+        west build -p auto -b promicro_nrf52840/nrf52840/uf2 -d $build $stage -- "-DDISCOVERY_PROBE=$probe" "-DWIRELESS_HID=$wirelessHid" "-DNORMAL_DONGLE=$normal" "-DLATENCY_DIAGNOSTICS=$timing" "-DFAST_POLL_DIAGNOSTICS=$fast" "-DINPUT_CONSERVATION=$conservation" "-DUSB_PHASE_DIAGNOSTICS=$phase" "-DRF_CONFIG_READ_DIAGNOSTICS=$configRead" "-DRF_CONFIG_HID_DIAGNOSTICS=$configHid" "-DAUX_HID_FORWARDING=$auxHid" "-DEXTRA_CONF_FILE=$extraConf"
     }
     if ($LASTEXITCODE -ne 0) { throw 'Firmware build failed; do not flash an old UF2.' }
     python "$PSScriptRoot\check_uf2.py" "$build\zephyr\zephyr.uf2"

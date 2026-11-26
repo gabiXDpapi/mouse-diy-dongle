@@ -898,3 +898,21 @@ implement and natively test auxiliary HID forwarding (including compound-packet
 busy retry without duplicate forwarding and neutral release on link loss/stop) in
 a prototype staging candidate before enabling CORE keybinding writes or official
 USB identity.
+
+
+## V26 auxiliary HID forwarding software ready (November 26)
+
+Implemented opt-in `-App aux-hid` (`AUX_HID_FORWARDING`) in
+`firmware/radio_logger/src/aux_hid.h` with `aux-hid.conf` (`DIY Mouse Aux HID v26`,
+`CONFIG_USB_HID_DEVICE_COUNT=2`, local prototype `2FE3:0008`). Forwards RF types
+1..6 across `HID_0` (Mouse) and `HID_1` (Consumer ID 1, System Control ID 2,
+Keyboard ID 3 + LED `SET_REPORT`, Vendor `FFA0:0001` ID 4, Vendor `FFFF:0001` ID 5),
+with per-sequence bitmask deduplication for compound-packet USB-busy retries and
+bounded neutral release on link loss or stop.
+
+All 14 native unit tests pass (`firmware/test_aux_hid.c` + existing 13). Build and
+UF2 bounds checks pass: 47,388 B flash / 16,256 B RAM, 186 blocks
+(`0x26000..0x31A00` exclusive). Frozen private image:
+`build-pairing-analysis/aux-hid-v26-e9f3c1cc.uf2`, SHA256
+`e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`. Not yet flashed;
+exact tested normal v14 (`93eb987a`) remains installed.

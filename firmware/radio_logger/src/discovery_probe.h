@@ -342,6 +342,8 @@ static bool is_ack_candidate(const uint8_t *p, uint8_t channel, bool pairing_add
 {
 #ifdef RF_CONFIG_READ_DIAGNOSTICS
     return !pairing_address && match == 1 && channel == channels[3] && config_read_frame_valid(p);
+#elif defined(AUX_HID_FORWARDING)
+    return !pairing_address && match == 1 && channel == channels[3] && aux_hid_frame_valid(p);
 #else
     return !pairing_address && match == 1 && channel == channels[3] &&
            (p[0] == 2 || (p[0] == 11 && (p[3] == 0x41 || p[3] == 0x45)) ||

@@ -320,6 +320,39 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V26 AUXILIARY HID FORWARDING SOFTWARE READY; NOT FLASHED.
+Normal exact tested v14 (93eb987a) remains installed and user-confirmed working.
+No pending settings recovery; no live serial/capture/build/helper/timer.
+CORE remains closed.
+
+Implemented opt-in `-App aux-hid` (`AUX_HID_FORWARDING`) in `firmware/radio_logger/src/aux_hid.h`
+and `wireless_hid.h` / `discovery_probe.h` / `main.c` / `CMakeLists.txt` / `build.ps1`
+(`aux-hid.conf`, local prototype `2FE3:0008`, `DIY Mouse Aux HID v26`, 2 HID instances,
+1 ms interval, normal automatic dongle startup). Forwards RF types 1..6:
+- Type 1 (Mouse) -> `HID_0` (6-byte report, unchanged)
+- Type 2 (Keyboard) -> `HID_1` Report ID 3 (9B in, accepts LED `SET_REPORT` `0x0203`)
+- Type 3 (Consumer) -> `HID_1` Report ID 1 (3B in, 16-bit usage)
+- Type 4 (System Control) -> `HID_1` Report ID 2 (2B in, 3-bit mask)
+- Type 5 (`FFA0:0001` Vendor Notify) -> `HID_1` Report ID 4 (9B in)
+- Type 6 (`FFFF:0001` Vendor Notify) -> `HID_1` Report ID 5 (9B in)
+Per-sequence `wireless_hid_seq_mask` prevents duplicating already-forwarded records
+if a later record in a compound packet hits USB busy (`-EAGAIN`); `aux_hid_finish()`
+sends bounded neutral release for active Keyboard/Consumer/System state on link gap
+or explicit stop. All 14 native unit tests pass (`test_aux_hid.c` + existing 13).
+Build & UF2 validation passed: 47,388 B flash / 16,256 B RAM, 186 blocks,
+`0x26000..0x31A00` exclusive. Frozen private image:
+`build-pairing-analysis/aux-hid-v26-e9f3c1cc.uf2`, SHA256
+`e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`.
+Plan: `docs/plans/2026-11-26-aux-hid-forwarding.md`.
+
+NEXT physical readiness popup: CORE closed, Glorious mouse wired or wireless OFF,
+double-reset ONLY the DIY receiver into NICENANO. Verify board ID and exact frozen
+v26 hash before copying. Then verify Windows enumeration of `DIY Mouse Aux HID v26`
+(healthy Mouse `HID_0` + 5 healthy Auxiliary collections on `HID_1` with zero Code 10
+errors) and wireless pointer/click operation; restore exact tested normal v14
+(`93eb987a`) afterward or keep only after full hardware verification. Full CORE
+identity and startup setters remain disabled until qualified.
+
 NOVEMBER 26 — WIRED HID LAYOUT INSPECTION PASSED; AUXILIARY HID FORWARDING NEXT.
 Resumed on feature/glorious-core-compatibility. User confirmed CORE closed,
 Glorious wireless switch OFF, direct USB DATA cable connected with wired movement

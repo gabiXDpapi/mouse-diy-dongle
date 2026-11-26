@@ -15,9 +15,15 @@ static K_SEM_DEFINE(wireless_hid_slot, 1, 1);
 static atomic_t wireless_hid_online, wireless_hid_failed, wireless_hid_restart;
 static bool wireless_hid_has_sequence;
 static uint8_t wireless_hid_last_sequence, wireless_hid_last_buttons;
+#ifdef AUX_HID_FORWARDING
+static uint8_t wireless_hid_seq_mask;
+#endif
 static unsigned int wireless_hid_reports, wireless_hid_retries, wireless_hid_busy;
 UDC_STATIC_BUF_DEFINE(wireless_hid_report, WIRELESS_HID_REPORT_SIZE);
 BUILD_ASSERT(sizeof(wireless_hid_report) >= WIRELESS_HID_REPORT_SIZE);
+#ifdef AUX_HID_FORWARDING
+#include "aux_hid.h"
+#endif
 
 static void wireless_hid_ready(const struct device *dev)
 {
@@ -96,6 +102,9 @@ static int wireless_hid_write(const uint8_t report[WIRELESS_HID_REPORT_SIZE], in
 static void wireless_hid_new_link(void)
 {
     wireless_hid_has_sequence = false;
+#ifdef AUX_HID_FORWARDING
+    wireless_hid_seq_mask = 0;
+#endif
 }
 
 static bool wireless_hid_new_session(void)
@@ -109,6 +118,9 @@ static bool wireless_hid_new_session(void)
 #endif
     wireless_hid_new_link();
     wireless_hid_reports = wireless_hid_retries = wireless_hid_busy = 0;
+#ifdef AUX_HID_FORWARDING
+    aux_hid_reports = aux_hid_busy = 0;
+#endif
     return true;
 }
 
@@ -120,6 +132,56 @@ static int wireless_hid_forward(const uint8_t *p)
     if (p[0] == 2) {
         return 0; /* Idle does not advance the transport sequence. */
     }
+#ifdef AUX_HID_FORWARDING
+    if (!aux_hid_frame_valid(p)) {
+        return -EINVAL;
+    }
+    if (!wireless_hid_has_sequence || wireless_hid_last_sequence != p[1]) {
+        wireless_hid_last_sequence = p[1];
+        wireless_hid_has_sequence = true;
+        wireless_hid_seq_mask = 0;
+    }
+    bool any_pending = false;
+    unsigned int at = 3, idx = 0;
+    while (at <= p[0]) {
+        uint8_t header = p[at++];
+        uint8_t len = (uint8_t)((header >> 3) & 15u);
+        uint8_t type = (uint8_t)(header & 7u);
+        const uint8_t *payload = p + at;
+        at += len;
+        if (wireless_hid_seq_mask & (1u << idx)) {
+            idx++;
+            continue;
+        }
+        any_pending = true;
+        int err;
+        if (type == 1) {
+            uint8_t report[6] = {payload[0] & 0x1f, payload[2], payload[3],
+                                 payload[4], payload[5], payload[1]};
+            err = wireless_hid_write(report, 0);
+            if (err == -EAGAIN) {
+                wireless_hid_busy++;
+            }
+            if (!err) {
+#ifdef INPUT_CONSERVATION
+                input_totals_record(report);
+#endif
+                wireless_hid_reports++;
+            }
+        } else {
+            err = aux_hid_forward_record(type, payload, len);
+        }
+        if (err) {
+            return err;
+        }
+        wireless_hid_seq_mask |= (uint8_t)(1u << idx);
+        idx++;
+    }
+    if (!any_pending) {
+        wireless_hid_retries++;
+    }
+    return 0;
+#else
     if (p[0] == 11 && p[3] == 0x45) {
         /* Status advancing transport prevents a later wrapped report looking like a retry. */
         if (wireless_hid_has_sequence && wireless_hid_last_sequence != p[1]) {
@@ -148,24 +210,28 @@ static int wireless_hid_forward(const uint8_t *p)
         wireless_hid_has_sequence = true;
     }
     return err;
+#endif
 }
 
 static int wireless_hid_finish(void)
 {
-    if (!wireless_hid_last_buttons) {
-        return 0;
-    }
-    const uint8_t released[6] = {0};
-    int err = wireless_hid_write(released, 1000);
-    if (err) {
-        return err;
-    }
+    if (wireless_hid_last_buttons) {
+        const uint8_t released[6] = {0};
+        int err = wireless_hid_write(released, 1000);
+        if (err) {
+            return err;
+        }
 #ifdef INPUT_CONSERVATION
-    input_totals_neutral();
+        input_totals_neutral();
 #endif
-    if (k_sem_take(&wireless_hid_slot, K_MSEC(1000)) != 0) {
-        return -ETIMEDOUT;
+        if (k_sem_take(&wireless_hid_slot, K_MSEC(1000)) != 0) {
+            return -ETIMEDOUT;
+        }
+        k_sem_give(&wireless_hid_slot);
     }
-    k_sem_give(&wireless_hid_slot);
+#ifdef AUX_HID_FORWARDING
+    return aux_hid_finish();
+#else
     return 0;
+#endif
 }

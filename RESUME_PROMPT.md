@@ -15,16 +15,21 @@ Current state:
 - Wireless and wired 40-record configuration backups match. Full-device restore
   and macro bodies are not qualified. Full CORE app compatibility is unfinished.
 - Wired HID layout inspection PASSED (7 collections; private
-  wired-hid-layout-20261126-183213-b93b7b4b.json). Complete RF types 1..7 to USB
-  HID Report IDs 1..5 / Mouse / Vendor Feature mapping confirmed.
+  wired-hid-layout-20261126-183213-b93b7b4b.json).
+- V26 auxiliary USB HID forwarding (`-App aux-hid`, `DIY Mouse Aux HID v26`,
+  local `2FE3:0008`, 2 HID instances) is BUILT, all 14 native unit tests PASS,
+  and UF2-validated/frozen privately at
+  `build-pairing-analysis/aux-hid-v26-e9f3c1cc.uf2`
+  (SHA256 `e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`),
+  NOT YET FLASHED.
 
-NEXT: implement auxiliary USB HID forwarding (Consumer ID 1, System Control ID 2,
-Keyboard ID 3, Vendor FFA0 ID 4, Vendor FFFF ID 5) in a separate prototype staging
-candidate (v26, local prototype USB IDs), with native C tests for multi-record RF
-packets, HID-busy retry without duplicate forwarding, and neutral release on link
-loss/stop. Keep normal v14 unchanged until v26 is built and UF2-validated. Do not
-repeat completed extraction, builds, flashes, wired layout inspection, or baseline
-tests. Four-hour use trial remains deferred for CORE.
+NEXT: popup and pause for CORE closed, Glorious wired or wireless OFF, double-reset
+ONLY the DIY receiver into NICENANO. Verify board ID and exact frozen v26 hash,
+flash v26, verify Windows enumeration (Mouse + 5 Auxiliary HID collections healthy,
+zero Code 10), then verify automatic wireless pointer/click control on v26. Restore
+exact tested normal v14 (`93eb987a`) via fresh bootloader readiness after testing
+if needed. Do not repeat completed extraction, builds, flashes, wired layout
+inspection, or baseline tests. Four-hour use trial remains deferred for CORE.
 
 Working preferences:
 - Continue autonomously until physical intervention or an explicit pause/stop.

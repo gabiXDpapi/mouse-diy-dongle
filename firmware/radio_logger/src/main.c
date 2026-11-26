@@ -260,6 +260,10 @@ int main(void)
     err = init_config_hid();
     if (err) return err;
 #endif
+#ifdef AUX_HID_FORWARDING
+    err = init_aux_hid();
+    if (err) return err;
+#endif
     err = usb_enable(wireless_hid_status);
 #else
     err = usb_enable(NULL);
