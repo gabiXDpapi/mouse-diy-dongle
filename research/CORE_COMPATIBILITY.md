@@ -955,3 +955,25 @@ Build & UF2 validation pass: 52,752 B flash / 17,088 B RAM, 207 blocks
 `cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`. Not yet
 flashed; v26 remains installed and exact normal v14 (`93eb987a`) stays preserved
 as rollback.
+
+
+## V27 hardware pass: 7 HID collections + live battery/config + pointer (November 26)
+
+Flashed frozen `core-proto-v27-cc5f4b87.uf2` after fresh `NICENANO` verification.
+Windows enumerated `DIY Mouse CORE Proto v27` (`2FE3:0008`) with 12/12 healthy PnP
+devices (zero Code 10 errors) and all 7 HidSharp collections matching the wired
+mouse layout (`FFFF0000` 65 B Feature, `00010002` Mouse, `000C0001` Consumer,
+`00010080` System Control, `00010006` Keyboard + LED Out, `FFA00001`, `FFFF0001`).
+
+- Offline checks (mouse OFF): receiver-local version `00/00/81` returned `A1`
+  (`1.0.0.0`) without RF; mouse battery `02/00/83` returned immediate `A4` without
+  lockout. Private evidence: `build-pairing-analysis/core-proto-v27-usb-startup.json`.
+- Online checks (mouse ON, unplugged, CORE closed): user confirmed smooth automatic
+  wireless pointer/clicks simultaneously with 6/6 read-only Feature queries passing:
+  DongleVersion `1.0.0.0`, MouseVersion `1.0.0.0`, MouseBattery `100%` (not charging),
+  ActiveProfile `1`, PollingDivider `1` (`1000 Hz`), SelectedDpiStage `2` (`800 DPI`).
+  Private evidence: `build-pairing-analysis/core-proto-v27-online-reads.json`.
+
+Exact tested normal v14 (`93eb987a`) remains preserved as rollback. Next: opt-in
+v28 (`-App core-id`, local receiver USB ID `258A:2031` reusing the exact v27 C
+source) for first live Glorious CORE app detection and UI testing.

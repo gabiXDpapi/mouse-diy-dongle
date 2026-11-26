@@ -320,6 +320,31 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V27 COMBINED CORE PROTO HARDWARE PASS (7 HID COLLECTIONS + LIVE BATTERY/CONFIG + POINTER).
+Flashed frozen `core-proto-v27-cc5f4b87.uf2` (SHA256
+`cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`) after fresh
+NICENANO verification.
+- Windows USB enumeration: 12/12 PnP devices OK, ZERO Code 10 errors; all 7 HidSharp
+  collections present (`FFFF0000` 65B Feature, `00010002` Mouse, `000C0001` Consumer,
+  `00010080` System Control, `00010006` Keyboard + LED Out, `FFA00001`, `FFFF0001`).
+- Offline check (mouse OFF): receiver-local version `00/00/81` returned `A1 ... 01 00 00 00`
+  (1.0.0.0); mouse battery `02/00/83` returned immediate `A4` without lockout.
+  Private evidence: `build-pairing-analysis/core-proto-v27-usb-startup.json`.
+- Online check (mouse ON, unplugged, CORE closed): user confirmed smooth automatic
+  wireless pointer movement and clicks simultaneously with 6/6 live read-only Feature
+  queries passing: DongleVersion `1.0.0.0`, MouseVersion `1.0.0.0`, MouseBattery
+  `00 64` (not charging, 100%), ActiveProfile `1`, PollingDivider `1` (1000 Hz),
+  SelectedDpiStage `2` (800 DPI). No settings were modified.
+  Private evidence: `build-pairing-analysis/core-proto-v27-online-reads.json`.
+- Currently installed: v27 (`DIY Mouse CORE Proto v27`, working wireless control);
+  exact tested normal v14 (`93eb987a`) remains preserved as rollback.
+
+NEXT: ask user whether to proceed to opt-in v28 (`-App core-id`, local build with
+receiver USB ID `258A:2031` using the exact hardware-qualified v27 C source) for
+first live Glorious CORE app detection and UI testing (with 40-record backup and
+exact normal v14 rollback preserved, and updater/bootloader/address/pairing commands
+strictly rejected), or pause here.
+
 NOVEMBER 26 — V27 COMBINED CORE PROTO SOFTWARE READY; NOT FLASHED.
 Currently installed on DIY receiver: v26 (`DIY Mouse Aux HID v26`, working wireless
 control); exact tested normal v14 (`93eb987a`) remains preserved as rollback.
