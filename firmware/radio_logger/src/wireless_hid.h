@@ -153,6 +153,13 @@ static int wireless_hid_forward(const uint8_t *p)
             idx++;
             continue;
         }
+#ifdef CORE_PROTO_FULL
+        if (type == 7) {
+            wireless_hid_seq_mask |= (uint8_t)(1u << idx);
+            idx++;
+            continue;
+        }
+#endif
         any_pending = true;
         int err;
         if (type == 1) {

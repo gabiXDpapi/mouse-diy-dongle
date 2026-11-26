@@ -320,6 +320,39 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V27 COMBINED CORE PROTO SOFTWARE READY; NOT FLASHED.
+Currently installed on DIY receiver: v26 (`DIY Mouse Aux HID v26`, working wireless
+control); exact tested normal v14 (`93eb987a`) remains preserved as rollback.
+No pending settings recovery; CORE remains closed.
+
+Implemented opt-in `-App core-proto` (`CORE_PROTO_FULL`, `core-proto.conf`,
+`DIY Mouse CORE Proto v27`, local prototype `2FE3:0008`, `CONFIG_USB_HID_DEVICE_COUNT=3`):
+- `HID_0`: Mouse (`0001:0002`, live automatic wireless pointer control enabled)
+- `HID_1`: Vendor Config Feature (`FFFF:0000`, 64 B Feature) with:
+  - Receiver-local firmware version (`00/00/81` -> `1.0.0.0`, no RF needed)
+  - Immediate `0xA4` when mouse is unlinked (`!probe_sent`), no lockout
+  - Complete CORE startup allowlist (all getters + battery `00/83` + setters for
+    profiles 1..3 DPI stages/selection/colours/debounce/slot-0 bindings + global
+    polling/LOD/active profile; updater/bootloader/address/pairing/reset rejected)
+  - Consecutive fire-and-forget `SET_REPORT` accepted once previous reply published
+- `HID_2`: Auxiliary HID (Consumer ID 1, System ID 2, Keyboard ID 3 + LED Output,
+  Vendor `FFA0:0001` ID 4, Vendor `FFFF:0001` ID 5)
+- Shared RF frame walking handles mixed types 1..7 on the same RF stream.
+All 15 native unit tests pass (`firmware/test_core_proto.c` + existing 14).
+Build & UF2 validation passed: 52,752 B flash / 17,088 B RAM, 207 blocks,
+`0x26000..0x32F00` exclusive. Frozen private image:
+`build-pairing-analysis/core-proto-v27-cc5f4b87.uf2`, SHA256
+`cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`.
+Plan: `docs/plans/2026-11-26-core-proto-v27.md`.
+
+NEXT physical readiness popup: CORE closed, Glorious mouse wired or wireless OFF,
+unplug/replug + double-reset ONLY the DIY receiver into NICENANO. Verify board ID
+and exact frozen v27 hash, flash v27, verify Windows enumerates all 7 HID collections
+(Mouse + Vendor Feature + 5 Auxiliary collections) with zero Code 10 errors, then
+verify read-only receiver-local version (`00/00/81`), offline `0xA4` (mouse OFF),
+live wireless battery (`00/83`) + version (`00/81`) + simultaneous wireless mouse
+control (mouse ON)! Exact normal v14 (`93eb987a`) remains preserved as rollback.
+
 NOVEMBER 26 — V26 AUXILIARY HID HARDWARE ENUMERATION & WIRELESS CONTROL PASS.
 Flashed frozen `aux-hid-v26-e9f3c1cc.uf2` (SHA256
 `e9f3c1cc1beca9aaed1e26ad42b243ced04ab4c4758eef8e41a62ad646d7b4f7`) after fresh

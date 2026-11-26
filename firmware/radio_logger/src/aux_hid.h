@@ -96,12 +96,16 @@ static bool aux_hid_frame_valid(const uint8_t *p)
         unsigned int len = (header >> 3) & 15u;
         unsigned int type = header & 7u;
         bool cont = (header & 0x80u) != 0;
-        if (cont || at + len > (unsigned int)p[0] + 1) {
+        if (at + len > (unsigned int)p[0] + 1) {
             return false;
         }
-        bool ok = (type == 1 && len == 8) || (type == 2 && len == 8) ||
-                  (type == 3 && len == 2) || (type == 4 && len == 1) ||
-                  (type == 5 && len == 8) || (type == 6 && len == 8);
+        bool ok = (!cont && ((type == 1 && len == 8) || (type == 2 && len == 8) ||
+                             (type == 3 && len == 2) || (type == 4 && len == 1) ||
+                             (type == 5 && len == 8) || (type == 6 && len == 8)))
+#ifdef CORE_PROTO_FULL
+                  || (type == 7 && len == 8)
+#endif
+                  ;
         if (!ok) {
             return false;
         }

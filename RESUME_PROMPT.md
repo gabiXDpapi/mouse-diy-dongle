@@ -11,23 +11,25 @@ Current state:
 - Branch feature/glorious-core-compatibility.
 - V26 (`DIY Mouse Aux HID v26`, `aux-hid-v26-e9f3c1cc.uf2`, local `2FE3:0008`)
   is currently installed and hardware-verified for clean Windows enumeration
-  (10/10 PnP OK, zero Code 10, all 6 HID collections: Mouse + Consumer + System
-  + Keyboard + Vendor FFA0 + Vendor FFFF) and smooth automatic wireless movement,
-  clicks, and scroll wheel. Exact tested normal v14 (`93eb987a`) remains preserved
-  as rollback.
+  (10/10 PnP OK, zero Code 10, all 6 HID collections) and smooth automatic
+  wireless control. Exact tested normal v14 (`93eb987a`) stays preserved as rollback.
+- V27 combined CORE proto (`-App core-proto`, `DIY Mouse CORE Proto v27`,
+  local `2FE3:0008`, 3 HID instances: Mouse + Vendor Config Feature + 5 Auxiliary
+  collections, full CORE startup allowlist + battery + local version `00/00/81` +
+  offline `0xA4`) is BUILT, all 15 native unit tests PASS, and UF2-validated/frozen
+  at `build-pairing-analysis/core-proto-v27-cc5f4b87.uf2` (SHA256
+  `cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`), NOT YET FLASHED.
 - V25 real DPI-value edit 3200->3250->3200 passed; original 400/800/1600/3200 list
   and selected stage 2=800 restored. No pending recovery or live process/session.
-- Wireless and wired 40-record configuration backups match. Full-device restore
-  and macro bodies are not qualified. Full CORE app compatibility is unfinished.
-- Wired HID layout inspection PASSED (7 collections; private
-  wired-hid-layout-20261126-183213-b93b7b4b.json).
+- Wireless and wired 40-record configuration backups match. Wired HID layout
+  inspection PASSED (7 collections). Full CORE app compatibility still pending
+  v27 hardware qualification before enabling stock USB ID `258A:2031`.
 
-NEXT: build v27 combined staging firmware (`config-hid` + `aux-hid`, 3 HID
-instances, local prototype `2FE3:0008`) adding the remaining CORE startup command
-allowlist (profiles 1..3 DPI stages/selection/colours/debounce/slot-0 bindings,
-global polling/LOD/active profile, battery read, and receiver-local firmware
-version `00/00/81`) while rejecting updater/address/pairing/reset commands.
-Validate with native C tests and UF2 check before physical testing. Do not repeat
+NEXT: popup and pause for CORE closed, Glorious wired or wireless OFF, double-reset
+ONLY the DIY receiver into NICENANO. Verify board ID and exact frozen v27 hash,
+flash v27, verify Windows enumerates all 7 HID collections with zero Code 10 errors,
+then run read-only hardware checks (local version `00/00/81`, offline `0xA4`,
+wireless battery `00/83` + version `00/81` + live pointer control). Do not repeat
 completed extraction, builds, flashes, wired layout inspection, or baseline tests.
 Four-hour use trial remains deferred for CORE.
 

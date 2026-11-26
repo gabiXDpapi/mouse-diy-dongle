@@ -936,3 +936,22 @@ pre-started listener). Exact tested normal v14 (`93eb987a`) stays preserved as
 rollback. Next: combined v27 staging firmware (`config-hid` + `aux-hid` + full
 CORE startup command allowlist + receiver-local version `00/00/81`) on prototype
 IDs `2FE3:0008`.
+
+
+## V27 combined CORE proto software ready (November 26)
+
+Implemented opt-in `-App core-proto` (`CORE_PROTO_FULL`, `core-proto.conf`,
+`DIY Mouse CORE Proto v27`, local prototype `2FE3:0008`, 3 HID instances: Mouse
+`HID_0`, Vendor Config Feature `HID_1`, and 5-collection Auxiliary `HID_2`).
+Adds receiver-local firmware version (`00/00/81` -> `1.0.0.0`), immediate `0xA4`
+when the mouse is unlinked, complete CORE startup setter/getter allowlist +
+battery read (`00/83`), fire-and-forget consecutive `SET_REPORT` acceptance, and
+shared mixed RF types 1..7 frame walking with simultaneous live mouse + aux HID.
+
+All 15 native unit tests pass (`firmware/test_core_proto.c` + existing 14).
+Build & UF2 validation pass: 52,752 B flash / 17,088 B RAM, 207 blocks
+(`0x26000..0x32F00` exclusive). Frozen private image:
+`build-pairing-analysis/core-proto-v27-cc5f4b87.uf2`, SHA256
+`cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`. Not yet
+flashed; v26 remains installed and exact normal v14 (`93eb987a`) stays preserved
+as rollback.

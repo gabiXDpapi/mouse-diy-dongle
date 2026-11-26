@@ -223,7 +223,11 @@ static void receiver_poll_commands(void)
     if (now >= receiver_next_command_ms) {
         receiver_next_command_ms = now + 10;
 #ifdef RF_CONFIG_HID_DIAGNOSTICS
+#ifdef CORE_PROTO_FULL
+        config_hid_poll_link(probe_sent);
+#else
         config_hid_poll();
+#endif
 #endif
         poll_probe_arm();
     }
@@ -366,7 +370,7 @@ static int send_report_ack(const uint8_t *p)
 #ifdef LATENCY_DIAGNOSTICS
     latency_observe_rx(probe_timing_rx_end());
 #endif
-#ifdef RF_CONFIG_READ_DIAGNOSTICS
+#if defined(RF_CONFIG_READ_DIAGNOSTICS) && !defined(CORE_PROTO_FULL)
     /* A protocol query experiment must never turn config bytes into pointer input. */
     int hid_err = 0;
 #else
