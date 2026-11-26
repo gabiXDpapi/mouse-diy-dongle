@@ -977,3 +977,16 @@ mouse layout (`FFFF0000` 65 B Feature, `00010002` Mouse, `000C0001` Consumer,
 Exact tested normal v14 (`93eb987a`) remains preserved as rollback. Next: opt-in
 v28 (`-App core-id`, local receiver USB ID `258A:2031` reusing the exact v27 C
 source) for first live Glorious CORE app detection and UI testing.
+
+
+## V28 opt-in CORE identity build ready (November 26)
+
+Added opt-in `-App core-id` (`firmware/radio_logger/core-id.conf`) reusing the
+exact hardware-qualified v27 C source with receiver USB ID `258A:2031`
+(`Glorious` / `Series One PRO Wireless`, 3 HID instances, 1 ms interval).
+Updater, bootloader, RF address, pairing, and reset commands remain strictly
+rejected. All 15 native tests and UF2 validation pass: 52,752 B flash / 17,088 B
+RAM, 207 blocks (`0x26000..0x32F00` exclusive). Frozen private image:
+`build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
+`e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`. Not yet
+flashed; v27 remains installed and exact normal v14 (`93eb987a`) stays preserved.

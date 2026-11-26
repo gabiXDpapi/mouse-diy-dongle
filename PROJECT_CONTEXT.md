@@ -320,6 +320,25 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
+NOVEMBER 26 — V28 CORE-IDENTITY BUILD READY (258A:2031); NOT FLASHED.
+Added opt-in `-App core-id` (`firmware/radio_logger/core-id.conf`) reusing the exact
+hardware-qualified v27 C source with receiver USB identity `258A:2031`
+(`Glorious` / `Series One PRO Wireless`, 3 HID instances, 1 ms interval). Updater,
+bootloader, RF address, pairing, and reset commands remain strictly rejected.
+All 15 native unit tests pass; UF2 validation passed: 52,752 B flash / 17,088 B RAM,
+207 blocks (`0x26000..0x32F00` exclusive). Frozen private image:
+`build-pairing-analysis/core-id-v28-e24377f1.uf2`, SHA256
+`e24377f1a7f56113da977d65bf668790a52a5828a7920409c771845ce0ade18f`.
+Currently installed: v27 (`DIY Mouse CORE Proto v27`). Exact tested normal v14
+(`93eb987a`) and complete 40-record wired/wireless backups remain preserved.
+
+NEXT physical readiness popup: CORE closed, Glorious mouse wired or wireless OFF,
+unplug/replug + double-reset ONLY the DIY receiver into NICENANO. Verify board ID
+and exact v28 hash, flash v28, verify Windows enumerates `258A:2031` with all 7 HID
+collections and zero Code 10 errors, then unplug/switch ON mouse and launch Glorious
+CORE to verify live wireless detection, battery display, DPI/polling settings, and
+controls!
+
 NOVEMBER 26 — V27 COMBINED CORE PROTO HARDWARE PASS (7 HID COLLECTIONS + LIVE BATTERY/CONFIG + POINTER).
 Flashed frozen `core-proto-v27-cc5f4b87.uf2` (SHA256
 `cc5f4b8751a450eb858e5b5f5e12a0d2a21c4b5d06a7527ee9dc0e7c4159c765`) after fresh
