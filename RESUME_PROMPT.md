@@ -10,20 +10,21 @@ and DPI-value plans in docs/plans/. Inspect git status before edits.
 Current state:
 - Branch feature/glorious-core-compatibility.
 - Exact tested normal v14 installed and user-confirmed automatic wireless control.
-- V25 real DPI-value edit3200->3250->3200 passed; original400/800/1600/3200 list
-  and selectedstage2=800 restored. No pending recovery or live process/session.
-- Wireless and wired40-record configuration backups match. Full-device restore
+- V25 real DPI-value edit 3200->3250->3200 passed; original 400/800/1600/3200 list
+  and selected stage 2=800 restored. No pending recovery or live process/session.
+- Wireless and wired 40-record configuration backups match. Full-device restore
   and macro bodies are not qualified. Full CORE app compatibility is unfinished.
-- Last wired readiness check found no258A:2018; HID layout inspection NOT started.
+- Wired HID layout inspection PASSED (7 collections; private
+  wired-hid-layout-20261126-183213-b93b7b4b.json). Complete RF types 1..7 to USB
+  HID Report IDs 1..5 / Mouse / Vendor Feature mapping confirmed.
 
-NEXT: popup and pause for COREclosed, Glorious wirelessswitchOFF, direct working
-USB DATA connection with wired movement verified, receiver unchanged. AfterReady
-verify device presence and run32-bit SysWOW64 PowerShell -NoProfile
--ExecutionPolicy Bypass -File research/inspect_wired_hid.ps1. This reads Windows
-HID report layouts only: no Feature/settings requests, flash or input recording.
-Use actual layouts for later keyboard/media/system forwarding and CORE remapping.
-Keep normal v14 unchanged during this step. Do not repeat completed extraction,
-builds, flashes or baseline tests. Four-hour use trial remains deferred for CORE.
+NEXT: implement auxiliary USB HID forwarding (Consumer ID 1, System Control ID 2,
+Keyboard ID 3, Vendor FFA0 ID 4, Vendor FFFF ID 5) in a separate prototype staging
+candidate (v26, local prototype USB IDs), with native C tests for multi-record RF
+packets, HID-busy retry without duplicate forwarding, and neutral release on link
+loss/stop. Keep normal v14 unchanged until v26 is built and UF2-validated. Do not
+repeat completed extraction, builds, flashes, wired layout inspection, or baseline
+tests. Four-hour use trial remains deferred for CORE.
 
 Working preferences:
 - Continue autonomously until physical intervention or an explicit pause/stop.

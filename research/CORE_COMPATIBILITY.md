@@ -869,3 +869,32 @@ feature/glorious-core-compatibility. All milestones should be committed/pushed,
 context/resume prompt updated for meaningful steps, and physical intervention
 requested with popup/pause. User prefers autonomous progress until intervention
 or an explicit stop. Four-hour reliability trial deferred for CORE compatibility.
+
+
+## Wired HID layout inspection pass (November 26)
+
+Read-only 32-bit `research/inspect_wired_hid.ps1` passed against `258A:2018`
+with CORE closed, wireless switch OFF, wired movement verified, and normal v14
+unchanged (`WIRED_HID_LAYOUT_PASS: 7 collections; no settings requests sent`).
+Private evidence: `build-pairing-analysis/wired-hid-layout-20261126-183213-b93b7b4b.json`.
+
+Cross-checking the Windows HidSharp layout against the already-extracted local
+mouse dump (`0x1a7b8`, `0x14bb6..0x150b2`) and local CORE static `ModelOSeries.js`
+(no new extraction) confirms the complete RF-to-USB mapping:
+
+| RF Type | RF Header | RF Payload | USB Report ID | USB Length | Usage / Collection |
+| --- | --- | ---: | --- | ---: | --- |
+| 1 | `0x41` | 8 B | ID-less (mouse) | 8 B wired / 6 B DIY | `0001:0002` Mouse |
+| 2 | `0x42` | 8 B | `0x03` | 9 B in / 2 B out | `0001:0006` Keyboard (1 B mod, 1 B pad, 6 B keys) |
+| 3 | `0x13` | 2 B | `0x01` | 3 B in | `000C:0001` Consumer (16-bit usage `0x0000..0x023C`) |
+| 4 | `0x0C` | 1 B | `0x02` | 2 B in | `0001:0080` System Control (3 bits: `0x81..0x83`) |
+| 5 | `0x45` | 8 B | `0x04` | 9 B in | `FFA0:0001` Vendor notification (e.g. `04 06 01` wireless-on) |
+| 6 | `0x46` | 8 B | `0x05` | 9 B in | `FFFF:0001` Vendor notification |
+| 7 | `0x47`/`0xC7` | 8 B | ID-less Feature | 65 B (64 B payload) | `FFFF:0000` Vendor configuration Feature |
+
+Windows HidSharp views report array items (keyboard keycodes and 16-bit consumer
+usage) as `Constant`; the local dump confirms standard array fields. Next:
+implement and natively test auxiliary HID forwarding (including compound-packet
+busy retry without duplicate forwarding and neutral release on link loss/stop) in
+a prototype staging candidate before enabling CORE keybinding writes or official
+USB identity.

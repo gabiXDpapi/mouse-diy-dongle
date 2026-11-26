@@ -1,4 +1,4 @@
-# Glorious Series One PRO Centauri — Custom Wireless Receiver Project
+# Glorious Series One PRO Centauri â€” Custom Wireless Receiver Project
 
 ## Project Goal
 
@@ -23,7 +23,7 @@ The intended final result is a reliable gaming mouse receiver with approximately
 **Development board**
 
 - Type: nice!nano V2-compatible nRF52840 clone
-- Purchased from Shopee for approximately ₱200
+- Purchased from Shopee for approximately â‚±200
 - USB-C interface
 - Board received and physically inspected
 - No pin headers soldered
@@ -66,35 +66,35 @@ This verifies a working nice!nano-compatible UF2 bootloader. The exact physical 
 
 ## Development Plan
 
-### Milestone 1 — Development Environment
+### Milestone 1 â€” Development Environment
 
 Set up a C/C++ firmware development environment suitable for the nice!nano-compatible nRF52840.
 
 Prefer a workflow that preserves the existing UF2 bootloader and supports firmware flashing over USB.
 
-### Milestone 2 — USB HID Prototype
+### Milestone 2 â€” USB HID Prototype
 
 Create firmware that enumerates as a USB HID mouse.
 
 Initially generate simulated mouse reports to verify USB communication.
 
-### Milestone 3 — Radio Initialization
+### Milestone 3 â€” Radio Initialization
 
 Configure the nRF52840's proprietary 2.4 GHz radio and establish controlled radio experiments.
 
-### Milestone 4 — Protocol Investigation
+### Milestone 4 â€” Protocol Investigation
 
 Investigate Glorious' proprietary wireless protocol using publicly available firmware, Glorious pairing software, USB/HID captures, and RF observations where appropriate.
 
 Determine the packet format, RF address, channel selection, bitrate, acknowledgements, pairing information, and any authentication.
 
-### Milestone 5 — Receiver Implementation
+### Milestone 5 â€” Receiver Implementation
 
 Implement the recovered radio and pairing behavior on the nice!nano.
 
 Translate the mouse's movement, clicks, and scrolling into standard USB HID reports.
 
-### Milestone 6 — Gaming Performance
+### Milestone 6 â€” Gaming Performance
 
 Measure polling consistency, latency, packet loss, and reliability.
 
@@ -320,7 +320,39 @@ This supersedes the V3 artifact hash above. V4 subsequently flashed; see below.
 
 LATEST HANDOFF / NEXT:
 
-PAUSED BY USER NOVEMBER21 — FUTURE RESUME MAY USE A DIFFERENT OPENAI ACCOUNT.
+NOVEMBER 26 — WIRED HID LAYOUT INSPECTION PASSED; AUXILIARY HID FORWARDING NEXT.
+Resumed on feature/glorious-core-compatibility. User confirmed CORE closed,
+Glorious wireless switch OFF, direct USB DATA cable connected with wired movement
+verified, and DIY receiver unchanged (exact tested normal v14 remains installed).
+32-bit SysWOW64 research/inspect_wired_hid.ps1 passed read-only (no Feature or
+settings requests, no streams, no flash, no input recording):
+WIRED_HID_LAYOUT_PASS: 7 collections. Private result:
+build-pairing-analysis/wired-hid-layout-20261126-183213-b93b7b4b.json.
+
+Verified wired HID collections (HidSharp Windows view cross-checked with already-
+extracted local mouse dump 0x1a7b8 and disassembly 0x14bb6..0x150b2 + CORE static
+ModelOSeries.js; no new extraction performed):
+- Mouse (0001:0002, ID-less, 8B payload) <- RF type 1 (0x41, 8B)
+- Consumer (000C:0001, Report ID 1, 2B payload, 3B total) <- RF type 3 (0x13, 2B)
+- System Control (0001:0080, Report ID 2, 1B payload, 2B total, usages 81..83) <- RF type 4 (0x0C, 1B)
+- Keyboard (0001:0006, Report ID 3, 8B input + 1B LED output, 9B/2B total) <- RF type 2 (0x42, 8B)
+- Vendor Notify (FFA0:0001, Report ID 4, 8B payload, 9B total) <- RF type 5 (0x45, 8B; matches CORE 04 06 01 wireless-on notify)
+- Vendor Notify (FFFF:0001, Report ID 5, 8B payload, 9B total) <- RF type 6 (0x46, 8B)
+- Vendor Config Feature (FFFF:0000, ID-less, 64B Feature) <- RF type 7 (0x47/0xC7, 8B chunks)
+Note: HidSharp Windows view masks array fields (keyboard keycodes, 16-bit consumer
+usage) as Constant; local dump confirms standard 6KRO keyboard (1B mod, 1B pad,
+6B keycodes 0x00..0x65) and 16-bit consumer usage array (0x0000..0x023C).
+
+NEXT autonomous software milestone: implement auxiliary HID forwarding (Consumer,
+System Control, Keyboard, and Vendor FFA0/FFFF notifications) on a separate
+prototype staging candidate (v26, local prototype USB IDs, normal v14 untouched)
+with full native C tests for multi-record RF parsing, HID-busy withholding without
+duplicating already-forwarded records in compound packets, and neutral release of
+active keyboard/consumer/system state on link loss or stop. Build and validate UF2
+before requesting physical readiness. Full CORE identity remains disabled until
+auxiliary forwarding and startup setters qualify.
+
+PAUSED BY USER NOVEMBER21 â€” FUTURE RESUME MAY USE A DIFFERENT OPENAI ACCOUNT.
 User requested stop until a later date. No hardware work after readiness check:
 Windows wired258A:2018 root count0; inspect_wired_hid.ps1 NOT run. No settings
 request, flash, capture, build or live serial/helper/timer. Normal exact tested
@@ -373,8 +405,8 @@ media and system report forwarding; do not enable CORE identity yet.
 User preference continues until user says stop; popup/pause for intervention.
 Keep context/resume prompt current, push tested milestones on feature branches.
 
-PAUSED BY USER — NOVEMBER20, AFTER V25 NORMAL RESTORATION.
-User selected "Pause here — keep normal wireless operation" at read-only wired
+PAUSED BY USER â€” NOVEMBER20, AFTER V25 NORMAL RESTORATION.
+User selected "Pause here â€” keep normal wireless operation" at read-only wired
 HID-layout readiness. STOP project work until user explicitly returns.
 Exact tested normalv14 remains installed and user-confirmed working. Original
 400/800/1600/3200 DPI values and selectedstage2=800 restored/readback verified;
@@ -390,7 +422,7 @@ key remapping. Full CORE app compatibility remains unfinished; four-hour trial
 deferred. Preserve private backups/captures/addresses/binaries ignored. Keep
 context and resume prompt current; push milestones on feature branches.
 
-NOVEMBER20 — V25 NORMAL RESTORATION USER-CONFIRMED; WIRED HID LAYOUT NEXT.
+NOVEMBER20 â€” V25 NORMAL RESTORATION USER-CONFIRMED; WIRED HID LAYOUT NEXT.
 User confirmed automatic normalv14 wireless movement/click after v25; private
 core-v25-normal-restoration.json updated. Original400/800/1600/3200 stage list
 and selected800 verified restored; NO pending recovery. Exactnormalv14 remains
@@ -410,7 +442,7 @@ Use actual keyboard/consumer/system field layout to prepare auxiliary USB input
 forwarding, including busy retries and neutral release, before CORE keybindings.
 No new configuration write is part of this step. Full CORE remains unfinished.
 
-NOVEMBER20 — EXACT NORMAL V14 RESTORED AFTER V25 DPI-VALUE PASS.
+NOVEMBER20 â€” EXACT NORMAL V14 RESTORED AFTER V25 DPI-VALUE PASS.
 Fresh bootloader readiness; pending DPI backup flag checked false before flash.
 Board/exact93eb987a image hash verified. Runtime product DIY Mouse Dongle v14,
 healthy mouse/CDC devices verified, no serial opened. Private evidence
@@ -424,7 +456,7 @@ normal v14 forwards mouse reports only; full CORE support not claimed. Independe
 wired USB data/Feature connection now works and all40 wired settings match radio
 backup. No need repeat completed builds/flash/extraction/baselines. User untilstop.
 
-NOVEMBER20 — V25 REAL DPI-VALUE EDIT AND RESTORE HARDWARE PASS.
+NOVEMBER20 â€” V25 REAL DPI-VALUE EDIT AND RESTORE HARDWARE PASS.
 Fresh user temporary-write readiness; 32-bit test_receiver_config.ps1
 -ExerciseDpiValues completed successfully. Profile1 inactive stage4 changed
 3200->3250 X=Y, complete four-stage list read back, then restored400/800/1600/3200
@@ -443,7 +475,7 @@ verify USB then user wireless movement/click check. Full CORE app/bindings/light
 still unfinished. This proves configuration value transport/readback, not physical
 sensor DPI calibration. User continue until stop; four-hour trial deferred.
 
-NOVEMBER 20 — V25 FLASHED; PASSIVE USB STARTUP PASS; NO DPI EDIT YET.
+NOVEMBER 20 â€” V25 FLASHED; PASSIVE USB STARTUP PASS; NO DPI EDIT YET.
 Fresh user NICENANO readiness, CORE closed/Glorious wired-OFF. Board and exact
 f577b7e0 image verified; Windows product DIY Mouse Config HID v25 healthy, mouse
 and vendor Feature collections present. Private core-v25-startup.json. No serial
@@ -461,7 +493,7 @@ popup to restore exact normalv14/93eb987a, then USB and user movement/click chec
 Normalv14 is currently NOT installed. All40 configuration records previously
 matched wireless and wired backups; CORE full support still unfinished.
 
-NOVEMBER 20 — V25 DPI-VALUE CANDIDATE VALIDATED; NOT FLASHED.
+NOVEMBER 20 â€” V25 DPI-VALUE CANDIDATE VALIDATED; NOT FLASHED.
 Normal exact tested v14 remains installed/user-confirmed working. Glorious last
 wired with wireless switch OFF; CORE closed. Wired 258A:2018 healthy, all40 wired
 backup reads passed and match wireless backup exactly. No pending recovery.
@@ -502,7 +534,7 @@ Normal rollback build-pairing-analysis/dongle-v14-93eb987a.uf2 SHA256
 Full CORE identity/keyboard-consumer forwarding/lighting/binding writes remain
 unfinished. Four-hour trial deferred. No new baseline/extraction/build needed.
 
-NOVEMBER 20 — WIRED RECOVERY CONNECTION RESTORED AND READ-VERIFIED.
+NOVEMBER 20 â€” WIRED RECOVERY CONNECTION RESTORED AND READ-VERIFIED.
 User confirms wired movement with wireless switch OFF. Windows sees one healthy
 258A:2018 mouse with mouse/keyboard/consumer/system/vendor collections. CORE
 closed; normal receiver v14 untouched. 32-bit wired backup helper completed40
@@ -516,7 +548,7 @@ value edit/restore, with backup before any mutation and separate physical flash
 and temporary-write readiness. CORE remains closed; no full app identity yet.
 User continue until stop. Normal v14 installed and user-confirmed working.
 
-NOVEMBER 20 — NORMAL V14 RESTORATION USER-CONFIRMED; RECOVERY CONNECTION NEXT.
+NOVEMBER 20 â€” NORMAL V14 RESTORATION USER-CONFIRMED; RECOVERY CONNECTION NEXT.
 User confirmed automatic wireless movement/click after restoring exact normal
 v14 (93eb987a). Private core-v24-normal-restoration.json now records confirmation.
 No live serial/capture/build/helper/timer; no pending settings recovery. Backup
@@ -537,7 +569,7 @@ If wired data remains unavailable, document the blocker and continue safe
 auxiliary software work; do not assume wired restoration is available.
 User continue until stop. Keep private backup/binaries ignored and context current.
 
-NOVEMBER 20 — EXACT NORMAL V14 RESTORED AFTER V24 BACKUP.
+NOVEMBER 20 â€” EXACT NORMAL V14 RESTORED AFTER V24 BACKUP.
 Fresh NICENANO readiness, board identity and preserved 93eb987a image hash
 verified before copy. Runtime product DIY Mouse Dongle v14 and healthy Windows
 mouse/CDC USB devices verified. No serial opened. Private evidence:
@@ -552,7 +584,7 @@ stock identity/app launch. Read docs/plans/2026-11-20-core-startup-coverage.md.
 Wired USB still unresolved; do not assume wired recovery is available or start
 new configuration write trials without a qualified restoration path.
 
-NOVEMBER 20 — V24 WIRELESS PROFILE BACKUP HARDWARE PASS; RESTORE V14 NEXT.
+NOVEMBER 20 â€” V24 WIRELESS PROFILE BACKUP HARDWARE PASS; RESTORE V14 NEXT.
 Fresh stationary mouse readiness; 32-bit backup_mouse_profiles.ps1 -Wireless
 completed all 40 read-only USB/RF queries successfully. Private result
 mouse-profile-backup-20261120-205523-d2d97068.json; private pointer
@@ -573,7 +605,7 @@ verify healthy USB product DIY Mouse Dongle v14, then ask wireless movement/clic
 check. After restoration continue CORE command coverage/input forwarding work;
 no repeated extraction/build/baseline. Continue until user says stop.
 
-NOVEMBER 20 — V24 FLASHED; PASSIVE USB STARTUP PASS; BACKUP NOT STARTED.
+NOVEMBER 20 â€” V24 FLASHED; PASSIVE USB STARTUP PASS; BACKUP NOT STARTED.
 Fresh user readiness confirmed CORE closed, Glorious wired/OFF, NICENANO visible.
 Verified board and exact frozen v24 hash875a85b9 before flash. Windows reports
 DIY Mouse Config HID v24, healthy composite/mouse/vendor HID/CDC COM12, no errors.
@@ -586,7 +618,7 @@ Validate 40 read-only responses. No settings changes or new write trials. After
 batch restore exact tested normal v14 through fresh NICENANO readiness and user
 wireless check. Continue until user stops; no live build/capture/serial/helper.
 
-NOVEMBER 20 — V24 WIRELESS PROFILE-BACKUP CANDIDATE READY; NOT FLASHED.
+NOVEMBER 20 â€” V24 WIRELESS PROFILE-BACKUP CANDIDATE READY; NOT FLASHED.
 Normal exact tested v14 remains installed and working. User reports active mouse
 use; Windows still sees no Glorious wired USB device after reconnection. No wired
 stream or query was opened. Keep CORE closed. Continue until user says stop.
@@ -1352,9 +1384,9 @@ feature/timed-host-polling-measurement. No completed measurements need repeating
 Maintain this context and RESUME_PROMPT at readiness/start/result changes. Pause
 with question popups for physical steps. Companion app/settingswrites deferred.
 
-PAUSED AT USER REQUEST � 2026-11-18 19:37 Manila
+PAUSED AT USER REQUEST — 2026-11-18 19:37 Manila
 
-The user selected �Pause here � gameplay check later.� This supersedes the earlier
+The user selected “Pause here — gameplay check later.” This supersedes the earlier
 open-ended work window. Stop project work after saving this handoff; resume only
 when the user asks. No gameplay trial, timer, capture or soak has started.
 
@@ -1365,7 +1397,7 @@ The receiver may continue ordinary use; no restoration or reflash is needed.
 
 Latest tested milestone e3ffb03 is pushed on feature/timed-host-polling-measurement:
 normal-wireless larger-motion delivery averaged 964.9 movement events/s across the
-entire predefined 20 seconds, 916�993 each second, median gap 1.000ms. User confirmed
+entire predefined 20 seconds, 916–993 each second, median gap 1.000ms. User confirmed
 continuous, smooth motion with no lifts/issues. Live full-speed HID interval 1ms
 and active-pipe matching were independently verified. These support near-1kHz HOST
 movement delivery in this test, not sensor freshness, physical bus cadence or
@@ -1415,7 +1447,7 @@ WIRED LARGER-MOTION GUIDED CAPTURE RUNNING - 2026-11-18 19:21 Manila:
 Userwired/roomforlargercircles/samesetupready. Session59703 base
 build-pairing-analysis/wired-timed-motion-20261118-192030-00e9c914. Samevalidated
 binary06f74472 andcontroller-Sourcewired. Windowready180shardlimit,popupactivate
-withGloriousitself/5scountdown/comfortable3�5cmcontinuouscirclesMOVE30s/STOP sent.
+withGloriousitself/5scountdown/comfortable3–5cmcontinuouscirclesMOVE30s/STOP sent.
 No firmware/settings/serialchanges; normalv14receiverunchanged. NEXTpoll59703,
 closedcompletefixedcentral20sanalysis, collectcontinuity/smoothness/surfacecontact
 observation; thenmatchedwirelessmotionifuseful. Useruntilsaystop. No1kclaimyet.
@@ -1427,7 +1459,7 @@ UserwiredcontinuousSMOOTH, mostlySMALL/CONTROLLEDcircles. Privatewired-timed-mot
 rowswiredonly, noerrors/focusloss. Firstwireless553.9Hz/3initialzeroseconds with
 usercontinuoussmoothreport stillunexplained. Lowmeanmovementeventsalsoonwired;
 notRFfaultproof. NEXT scopedlargersteadycircle WIREDtrial (alreadywired): target
-activateswindowitself,keepmouseinhand, comfortable~3�5cmcirclesifroom/sensoronpad,
+activateswindowitself,keepmouseinhand, comfortable~3–5cmcirclesifroom/sensoronpad,
 no pauses/lifts/clicks/wheel,DPIunchanged. Same5/30/5window/fixed20sanalyzer. Then
 matchmotionwirelessly tocheckwhetheroriginalgap/ratepersists. No firmwareflash/
 settingschange/newcode/build. Normalv14receiverunchanged, no livecapture/serial.
@@ -2928,7 +2960,7 @@ pop-up now;do not arm based on yesterday's readiness. Save controls/feel separat
 from host statistics;foreground(code0) only for rates/gaps;manual motion gaps are
 not proof of RF loss. Finish/save/push by02:00. Existing v13 pass remains baseline.
 
-V13 FIFTEEN-MINUTE TRIAL PASS / READY FOR BREAK � 2026-11-16 17:50 Manila:
+V13 FIFTEEN-MINUTE TRIAL PASS / READY FOR BREAK — 2026-11-16 17:50 Manila:
 User confirms all controls worked smoothly after BOTH mouse-only OFF3s/ON cycles,
 receiver untouched, and clean original15min stop. Full935s serial AND Raw Input
 completed exit0;92400 receiver-only records/read_errors0/failed0 (all background).
@@ -2962,7 +2994,7 @@ LIVE UPDATE ~17:40 Manila: session55451 still running; six minutes captured, two
 
 LIVE UPDATE ~17:45 Manila: eleven minutes captured; three link starts/two neutral stops/no ERROR after second planned mouse-only cycle. Session55451 continues; no extra p/x. User controls and final deadline observations pending.
 
-V13 LIVE TRIAL IN PROGRESS � 2026-11-16 17:33 Manila:
+V13 LIVE TRIAL IN PROGRESS — 2026-11-16 17:33 Manila:
 User confirmed normal receiver reboot, Glorious OFF/USB unplugged and harmless
 scrollable doc/other pointer. Controller started one serial reader/DTR,drained
 fresh v13 banner,started935s raw capture and sent exactly one p. Actual arming
@@ -2977,7 +3009,7 @@ opening device; collect user results after capture. If context is lost,inspect
 process/artifacts before acting;never blindly restart controller. Trial NOT passed
 yet. Previous flashed/passive milestone5e1ca7e pushed; this live state local only.
 
-V13 FLASHED / PASSIVE STARTUP PASS � 2026-11-16 17:27 Manila:
+V13 FLASHED / PASSIVE STARTUP PASS — 2026-11-16 17:27 Manila:
 Verified unique NICENANO board nRF52840-nicenano/S1406.1.1 and exact preserved
 v13 UF2 SHA256396d7dd820c39456e4c87e62e99a7e5ec2a71dc40f8c121aab971ef307ea4bfc
 before copying. Fresh v13 banner on COM12;8s passive capture PASS, no ERROR,
@@ -2993,7 +3025,7 @@ Full935s serial/raw; one p, confirm before mouse ON. Controls and mouse-only
 OFF3s/ON around5 and10min; observe original15min stop. Stop-request=x once.
 No arm at/after17:42;save/push and pause by18:00. Full v13 trial still UNTESTED.
 
-V13 SOFTWARE CHECKPOINT / FLASH READINESS NEXT � 2026-11-16:
+V13 SOFTWARE CHECKPOINT / FLASH READINESS NEXT — 2026-11-16:
 User authorizes work until18:00 Manila; do not arm15min trial at/after17:42.
 Branch feature/receiver-fifteen-minute-session. V13 restores v11 bridge/main/HID
 harness (e106a79), removes ineffective v12 startup-neutral experiment and changes
@@ -3503,7 +3535,7 @@ before arming. V9 exact image hash reverified ecc725eb...;NOT flashed. NICENANO
 not currently visible;physical readiness popup is next. Board last known v8
 expired/passive59958 ACKs,COM12 closed,no live sessions. No build repeated.
 
-EXPLICIT USER PAUSE 2026-11-16: user selected "Pause here � resume flashing
+EXPLICIT USER PAUSE 2026-11-16: user selected "Pause here — resume flashing
 later" after v9 software milestone2f86867. Stop project work until user resumes.
 V9 built/tested/pushed,NOT FLASHED;board remains v8 expired/passive59958 ACKs.
 COM12 closed,no live serial/raw/build. Next after resume is physical NICENANO
